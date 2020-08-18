@@ -1,24 +1,17 @@
+/*
+ * @Author: REFUSE_C
+ * @Date: 2020-08-18 17:57:51
+ * @LastEditors: refuse_c
+ * @LastEditTime: 2020-08-18 19:24:15
+ * @Description: 
+ */
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      Emusic
     </div>
   );
 }
