@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 17:57:51
  * @LastEditors: refuse_c
- * @LastEditTime: 2020-08-24 07:56:47
+ * @LastEditTime: 2020-08-24 12:42:10
  * @Description: 
  */
 import React from 'react';
@@ -10,7 +10,7 @@ import Header from '@components/header/Header';
 import Footer from '@components/footer/Footer';
 import './App.scss';
 import routes from '@/router/router';
-import { HashRouter as Router, Route, Redirect } from 'react-router-dom';
+import { HashRouter as Router, Route } from 'react-router-dom';
 import debounce from '@/common/utils/debounce';// 防抖
 global.debounce = debounce;
 function App() {
@@ -42,11 +42,6 @@ function App() {
             );
           }
         })}
-        <Redirect to="/home/find" />
-        {/* <Redirect to="/home/singerdetail30285885/" /> */}
-        {/* <Redirect to="/home/find/rankingList" /> */}
-        {/* <Redirect to="/home/albumdetail4546" /> */}
-        {/* <Redirect to="/player" /> */}
       </Router>
       <Footer />
     </div>
