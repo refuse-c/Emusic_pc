@@ -1,0 +1,13 @@
+.home {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 100px);
+  .left {
+    width: 200px;
+    height: 100%;
+  }
+  .right {
+    width: calc(100% - 200px);
+    height: 100%;
+  }
+}

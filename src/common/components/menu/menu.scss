@@ -1,7 +1,8 @@
 .menu {
   width: 200px;
-  height: calc(100% - 100px);
+  height: 100%;
   font-size: 14px;
+  border-right: 1px solid #e5e6ea;
   .menu-list {
     width: 100%;
     a {
@@ -10,23 +11,23 @@
         line-height: 40px;
         padding-left: 20px;
         position: relative;
-        &:hover {
-          background-color: rgba(230, 231, 234, 1);
-          &::after {
-            position: absolute;
-            top: 0;
-            left: 0;
-            content: "";
-            width: 4px;
-            height: 100%;
-            background-color: #c62f2f;
-          }
-        }
+        //   &:hover {
+        //     background-color: rgba(230, 231, 234, 1);
+        //     &::after {
+        //       position: absolute;
+        //       top: 0;
+        //       left: 0;
+        //       content: "";
+        //       width: 4px;
+        //       height: 100%;
+        //       background-color: #c62f2f;
+        //     }
+        //   }
       }
-      h3 {
-        padding-left: 10px;
-        line-height: 50px;
-      }
+    }
+    h3 {
+      padding-left: 10px;
+      line-height: 50px;
     }
   }
   .menu-list-active {
