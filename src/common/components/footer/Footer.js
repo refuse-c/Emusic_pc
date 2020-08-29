@@ -2,11 +2,11 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: refuse_c
- * @LastEditTime: 2020-08-26 14:44:35
+ * @LastEditTime: 2020-08-28 19:05:14
  * @Description:底部control
  */
 import React, { Component } from 'react';
-import './css/index.scss';
+import './index.scss';
 class Footer extends Component {
   constructor(props) {
     super(props);

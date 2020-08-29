@@ -1,25 +1,24 @@
 /*
  * @Author: REFUSE_C
  * @Date: 2020-08-18 17:57:51
- * @LastEditors: refuse_c
- * @LastEditTime: 2020-08-26 20:35:14
+ * @LastEditors: REFUSE_C
+ * @LastEditTime: 2020-08-29 12:32:50
  * @Description: 
  */
 import React from 'react';
 import Header from '@components/header/Header';
 import Footer from '@components/footer/Footer';
+import 'antd/dist/antd.css';
 import './App.scss';
 import routers from '@/router/router';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import debounce from '@/common/utils/debounce';// 防抖
 global.debounce = debounce;
 function App() {
   return (
     <div className="App">
       <Header />
-
       <Router>
-
         {routers.map((route, key) => {
           if (route.exact) {
             return (
@@ -44,6 +43,7 @@ function App() {
             );
           }
         })}
+        {<Redirect to="/player" />}
       </Router>
       <Footer />
     </div >

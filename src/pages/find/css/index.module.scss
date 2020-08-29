@@ -1,0 +1,71 @@
+.find {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  // .find_scroll {
+  // padding: 0 30px;
+  // }
+  //导航样式
+  .nav {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    margin: 0 30px;
+    height: 50px;
+    border-bottom: 1px solid #e5e6ea;
+    a {
+      position: relative;
+      display: block;
+      margin: 4px 10px;
+      padding: 4px 10px;
+      white-space: nowrap;
+      font-weight: 500;
+      &:hover {
+        color: #D03535;
+      }
+    }
+    .menu_list_active {
+      color: #D03535;
+
+      &:after {
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        margin-left: -25px;
+        content: "";
+        width: 50px;
+        height: 1px;
+        background-color: #D03535;
+      }
+    }
+  }
+
+  //个性推荐样式
+  .find_box {
+    max-width: 1200px;
+    min-width: 300px;
+    margin: 0 auto;
+    padding: 0 30px;
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      margin: 0 auto;
+      li {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: calc(20% - 20px);
+        padding: calc(20% - 20px) 0 0;
+        background-color: pink;
+        margin-top: 20px;
+        height: 0;
+        border-radius: 4px;
+        &:not(:nth-child(5n + 1)) {
+          margin-left: 25px;
+        }
+      }
+    }
+  }
+}
