@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:41:50
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-08-29 12:28:21
+ * @LastEditTime: 2020-08-30 11:01:43
  * @Description: 个性推荐
  */
 import React, { Component } from 'react';
@@ -15,16 +15,9 @@ class Recommend extends Component {
     super(props);
     this.state = {}
   }
-  pause = () => {
-    console.log(global.audio.paused)
-    // const {audio} = this;
-    if (global.audio.paused) return;
-    global.audio.pause();
-    // spectrum(audio, canvas);
-  }
 
   render() {
-    return (<div onClick={this.pause} className={styles.find_box}>
+    return (<div className={styles.find_box}>
       <Banner />
 
       <FindTitle history={this.props.history} title={`推荐歌单`} type={`0`} />

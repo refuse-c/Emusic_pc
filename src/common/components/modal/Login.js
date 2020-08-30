@@ -1,14 +1,16 @@
 /*
  * @Author: REFUSE_C
  * @Date: 2020-08-28 21:48:58
- * @LastEditors: refuse_c
- * @LastEditTime: 2020-08-28 22:27:08
+ * @LastEditors: REFUSE_C
+ * @LastEditTime: 2020-08-30 17:06:21
  * @Description 登录弹窗
  */
 import React, { Component } from 'react'
-import { Modal, Button } from 'antd';
-import { Tabs } from 'antd';
-const { TabPane } = Tabs;
+import { Modal, Form, Input } from 'antd'
+
+let T1;
+const FormItem = Form.Item
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -19,53 +21,68 @@ class Login extends Component {
   }
 
   handleOk = () => {
+    clearTimeout(T1)
     this.setState({ loading: true });
-    setTimeout(() => {
+    T1 = setTimeout(() => {
       this.setState({ loading: false });
       this.props.hideModal(false)
     }, 3000);
   };
 
   handleCancel = () => {
-    this.props.hideModal(false)
+    clearTimeout(T1)
+    this.props.hideModal(false);
+    this.setState({ loading: false });
   };
 
   callback = key => {
     console.log(key);
   }
+  onFinish = async () => {
+    const values = await this.props.form.validateFields();
+    //values
+    console.log("values", values);
+  };
+
 
   render() {
     const { showModal } = this.props;
     const { loading } = this.state;
     return (
-      <>
+      <div>
         <Modal
           visible={showModal}
           title="小主,请选择登录的方式"
-          onOk={this.handleOk}
+          okText="登录"
+          cancelText="取消"
+          width={400}
+          maskClosable={false}
+          confirmLoading={loading}
+          onOk={this.onFinish}
           onCancel={this.handleCancel}
-          footer={[
-            <Button key="back" onClick={this.handleCancel}>
-              Return
-            </Button>,
-            <Button key="submit" type="primary" loading={loading} onClick={this.handleOk}>
-              Submit
-            </Button>,
-          ]}
         >
-          <Tabs defaultActiveKey="1" onChange={this.callback}>
-            <TabPane tab="验证码登录" key="1">
-              Content of Tab Pane 1
-            </TabPane>
-            <TabPane tab="密码登录" key="2">
-              Content of Tab Pane 2
-            </TabPane>
-            <TabPane tab="邮箱登录" key="3">
-              Content of Tab Pane 3
-            </TabPane>
-          </Tabs>
-        </Modal>
-      </>
+          <Form>
+            <FormItem label="账号">
+              {/* {getFieldDecorator('phone', {
+                initialValue: '13272946536',
+                rules: [{ required: true, message: '请输入手机号码' }],
+              })( */}
+              <Input placeholder="请输入手机号码" />
+              {/* )} */}
+            </FormItem>
+            <FormItem label="密码">
+              {/* {getFieldDecorator('password', {
+                initialValue: '123456',
+                rules: [{
+                  required: true, message: '请输入登录密码'
+                }],
+              })( */}
+              <Input placeholder="请输入登录密码" />
+              {/* )} */}
+            </FormItem>
+          </Form>
+        </Modal >
+      </div >
     );
   }
 }

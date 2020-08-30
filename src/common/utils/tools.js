@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:17
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-08-29 12:33:28
+ * @LastEditTime: 2020-08-30 08:27:45
  * @Description:基础工具
  */
 
@@ -44,47 +44,26 @@ export const spectrum = (audio, canvas, volume = 1) => {
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
     for (let i = 0, x = 0; i < bufferLength; i++) {
       barHeight = dataArray[i] * 3;
-      // let r = 0;
-      // let g = 255;
-      // let b = 255;
-
-      // if (volume > 0.6) {
-      //   r = 255;
-      //   g = 200;
-      //   b = 0;
-      // } else if (volume > 0.3) {
-      //   r = 0;
-      //   g = 255;
-      //   b = 255;
-      // } else {
-      //   r = 0;
-      //   g = 255;
-      //   b = 0;
-      // }
       const r = barHeight + 250 * (i / bufferLength) * volume;
       const g = 25 * (i / bufferLength) * volume;
       const b = 10 * (i / bufferLength) * volume;
       ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
-
-      // var gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-      // gradient.addColorstop(0, '#fff');
-      // gradient.addcolorstop(1, '#e00');
-      // let grd = ctx.createRadialGradient(x, HEIGHT - barHeight, 0, -barWidth, barHeight, barHeight * 2);
-      // grd.addColorStop(0, "#fff");
-      // grd.addColorStop(0.2, "#142414");
-      // grd.addColorStop(0.4, "#a532");
-      // grd.addColorStop(0.6, "red");
-      // grd.addColorStop(0.8, "#d75");
-      // grd.addColorStop(1, "#a45774");
-
-      // ctx.fillStyle = grd;
-
       ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
       x += barWidth + 2;
     }
   }
   renderFrame();
 }
+
+
+
+
+
+
+
+
+
+
 /**
  * @name: 缓存
  * @param {string} 

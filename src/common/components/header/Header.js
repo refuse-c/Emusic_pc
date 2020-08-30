@@ -1,8 +1,8 @@
 /*
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
- * @LastEditors: refuse_c
- * @LastEditTime: 2020-08-28 22:09:38
+ * @LastEditors: REFUSE_C
+ * @LastEditTime: 2020-08-30 11:55:28
  * @Description: 头部 
  */
 import React, { Component } from 'react';
@@ -13,7 +13,7 @@ class Header extends Component {
     super(props);
     this.state = {
       isLogin: false,
-      showModal: false,
+      showModal: true,
     }
   }
   //显示登录框

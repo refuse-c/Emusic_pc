@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 17:57:51
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-08-29 12:32:50
+ * @LastEditTime: 2020-08-30 08:10:11
  * @Description: 
  */
 import React from 'react';
@@ -43,7 +43,7 @@ function App() {
             );
           }
         })}
-        {<Redirect to="/player" />}
+        <Redirect exact from="/" to="/find" />
       </Router>
       <Footer />
     </div >

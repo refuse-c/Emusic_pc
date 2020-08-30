@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 21:47:50
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-08-29 09:00:33
+ * @LastEditTime: 2020-08-29 18:04:50
  * @Description:
  */
 import React, { Component } from "react";
@@ -14,7 +14,6 @@ class Player extends Component {
     this.state = {};
   }
   render() {
-    console.log(global.audioDom);
     return (
       <div className="player">
         <Audio />

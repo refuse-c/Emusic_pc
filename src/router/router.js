@@ -1,8 +1,8 @@
 /*
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
- * @LastEditors: refuse_c
- * @LastEditTime: 2020-08-27 22:29:14
+ * @LastEditors: REFUSE_C
+ * @LastEditTime: 2020-08-30 08:09:34
  * @Description: 
  */
 import Find from '@pages/find';
@@ -64,7 +64,7 @@ const routers = [
   },
   {
     path: '/player',
-    exact: true,
+    // exact: true,
     component: Player,
   },
 
