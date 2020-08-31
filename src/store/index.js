@@ -2,13 +2,13 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:45:06
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-08-30 09:11:07
- * @Description: 
+ * @LastEditTime: 2020-08-31 16:56:48
+ * @Description:
  */
-import { createStore, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
-import reducers from './reducers'
+import { createStore } from 'redux';
+import reducer from './reducers';
 
-const store = createStore(reducers, applyMiddleware(thunk))
+const store = createStore(reducer);
 
-export default store
+
+export default store;

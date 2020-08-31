@@ -2,12 +2,14 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-08-30 11:55:28
+ * @LastEditTime: 2020-08-31 14:29:31
  * @Description: 头部 
  */
 import React, { Component } from 'react';
-import Login from '../modal/Login';
+import Login from '../modal/LoginModal';
 import './index.scss';
+
+import { connect } from 'react-redux';
 class Header extends Component {
   constructor(props) {
     super(props);
