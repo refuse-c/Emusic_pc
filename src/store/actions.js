@@ -2,12 +2,16 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:45:41
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-08-30 09:22:30
+ * @LastEditTime: 2020-09-01 16:11:05
  * @Description: 
  */
-export const QUERY_USER_INFO = 'QUERY_USER_INFO';
 
+import * as ACTIONTYPS from './actionTypes';
 
-export function query(data) {
-  return { type: SET_PAGE_TITLE, data: data }
+export const queryUserInfo = (data) => {
+  return { type: ACTIONTYPS.QUERY_USER_INFO, data: data }
+}
+
+export const modalPower = (data) => {
+  return data
 }
