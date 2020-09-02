@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:17
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-02 13:03:54
+ * @LastEditTime: 2020-09-02 23:28:55
  * @Description:基础工具
  */
 
@@ -33,8 +33,8 @@ export const spectrum = (audio, canvas, volume = 1) => {
   const ctx = canvas.getContext("2d");
   let WIDTH = canvas.width;
   let HEIGHT = canvas.height;
-  // let barWidth = WIDTH / bufferLength * 1.5;
-  let barWidth = 1;
+  // let barWidth = WIDTH / bufferLength * 1.2;
+  let barWidth = 2;
 
   let barHeight;
   function renderFrame() {
@@ -43,12 +43,12 @@ export const spectrum = (audio, canvas, volume = 1) => {
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
     for (let i = 0, x = 0; i < bufferLength; i++) {
       barHeight = dataArray[i] * 3;
-      const r = barHeight + 250 * (i / bufferLength) * volume;
-      const g = 25 * (i / bufferLength) * volume;
+      const r = barHeight + 0 * (i / bufferLength) * volume;
+      const g = 2500 * (i / bufferLength) * volume;
       const b = 10 * (i / bufferLength) * volume;
       ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
       ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
-      x += barWidth + 2;
+      x += barWidth + 4;
     }
   }
   renderFrame();
