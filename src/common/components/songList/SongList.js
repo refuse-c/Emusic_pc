@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-02 17:37:19
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-02 20:08:25
+ * @LastEditTime: 2020-09-02 22:44:14
  * @Description: 歌单组件
  */
 import React, { Component } from 'react';
@@ -37,7 +37,7 @@ class SongList extends Component {
                   <img src={formatImgSize(item.picUrl, 200, 200)} alt="" />
                 </div>
               </div>
-              <div className='name'>{item.name}</div>
+              <div className='name overflows'>{item.name}</div>
             </li >
         )
       })

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-02 19:47:31
+ * @LastEditTime: 2020-09-02 22:55:47
  * @Description: 头部 
  */
 import React, { Component } from 'react';
@@ -28,7 +28,6 @@ class Header extends Component {
    */
 
   go = setp => {
-    console.log(this.props)
     this.props.history.go(setp)
   }
 
