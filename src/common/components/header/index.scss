@@ -5,14 +5,42 @@
   width: 100%;
   height: 50px;
   padding: 0 16px;
-  background-color: #fafafa;
+  color: #fff;
+  font-size: 13px;
+  background-color: #c62f2f;
   box-shadow: 0 0 1px #000;
-  .logo {
-    width: 200px;
-    height: 50px;
-    background: url("../../images/logo_b.png") center left -30px / contain no-repeat;
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    .logo {
+      width: 186px;
+      height: 50px;
+      background: url("~@images/logo_w.png") center left -30px / contain no-repeat;
+    }
+    .arrow {
+      width: 24px;
+      height: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      &:hover {
+        border: 1px solid #fff;
+      }
+      &.arrow-left {
+        cursor: pointer;
+        border-radius: 4px 0 0 4px;
+        background: url("~@images/arrow_left_w.png") center center / 14px
+          no-repeat;
+      }
+      &.arrow-right {
+        cursor: pointer;
+        border-radius: 0 4px 4px 0;
+        margin-left: -1px;
+        background: url("~@images/arrow_right_w.png") center center / 14px
+          no-repeat;
+      }
+    }
   }
-  .tools {
+  .header-right {
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -22,14 +50,28 @@
       align-items: center;
       white-space: nowrap;
       &:nth-child(1) {
-        i {
-          display: inline-block;
-          width: 30px;
-          height: 30px;
-          background: url("https://p3.music.126.net/PMUlB_oPaBTSohet77NdQQ==/109951164344922304.jpg")
-            center center / 30px no-repeat;
+        .avatar {
+          width: 24px;
+          height: 24px;
+          background-color: #ccc;
+          background-size: contain;
+          background-position: center center;
+          background-repeat: no-repeat;
           border-radius: 50%;
           margin-right: 5px;
+        }
+        .nickname {
+          display: flex;
+          align-items: center;
+          .vip {
+            display: inline-block;
+            width: 28px;
+            height: 14px;
+            margin-left: 2px;
+            border-radius: 4px;
+            background: url("~@images/icon_vip.png") center right / contain
+              no-repeat;
+          }
         }
       }
       &:not(:nth-child(1)) {

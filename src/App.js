@@ -2,13 +2,13 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 17:57:51
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-08-30 08:10:11
+ * @LastEditTime: 2020-09-02 16:03:29
  * @Description: 
  */
 import React from 'react';
 import Header from '@components/header/Header';
 import Footer from '@components/footer/Footer';
-import 'antd/dist/antd.css';
+
 import './App.scss';
 import routers from '@/router/router';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
@@ -17,8 +17,8 @@ global.debounce = debounce;
 function App() {
   return (
     <div className="App">
-      <Header />
       <Router>
+        <Header />
         {routers.map((route, key) => {
           if (route.exact) {
             return (
@@ -44,10 +44,10 @@ function App() {
           }
         })}
         <Redirect exact from="/" to="/find" />
+        <Footer />
       </Router>
-      <Footer />
     </div >
   );
 }
 
-export default App;
+export default (App);

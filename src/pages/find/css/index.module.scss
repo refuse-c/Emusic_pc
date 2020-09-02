@@ -47,25 +47,6 @@
     min-width: 300px;
     margin: 0 auto;
     padding: 0 30px;
-    ul {
-      display: flex;
-      flex-wrap: wrap;
-      width: 100%;
-      margin: 0 auto;
-      li {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: calc(20% - 20px);
-        padding: calc(20% - 20px) 0 0;
-        background-color: pink;
-        margin-top: 20px;
-        height: 0;
-        border-radius: 4px;
-        &:not(:nth-child(5n + 1)) {
-          margin-left: 25px;
-        }
-      }
-    }
+   
   }
 }

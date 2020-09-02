@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:17
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-08-30 08:27:45
+ * @LastEditTime: 2020-09-02 13:03:54
  * @Description:基础工具
  */
 
@@ -10,7 +10,6 @@
 /**
  * @name: 音乐频谱
  * @param {audio,canvas,volume} 
- * @return {} 
  */
 let source;
 let MEDIA_ELEMENT_NODES = new WeakMap();
@@ -66,8 +65,7 @@ export const spectrum = (audio, canvas, volume = 1) => {
 
 /**
  * @name: 缓存
- * @param {string} 
- * @return {string}
+ * @param {any} 
  */
 export const setLocal = (name, data) => {
   window.localStorage.setItem(name, JSON.stringify(data));

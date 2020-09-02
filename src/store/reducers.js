@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:20:09
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-01 16:13:29
+ * @LastEditTime: 2020-09-02 11:45:05
  * @Description:
  */
 
@@ -21,7 +21,6 @@ const userInfo = (state = initState.userInfo, action) => {
 
 
 const modalPower = (state = initState.modalPower, action) => {
-  console.log(action)
   switch (action.type) {
     case ACTIONTYPE.IS_SHOW_SKIN:
       return Object.assign({}, state, {

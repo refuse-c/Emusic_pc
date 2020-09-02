@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-01 16:14:47
+ * @LastEditTime: 2020-09-02 19:47:31
  * @Description: 头部 
  */
 import React, { Component } from 'react';
@@ -13,6 +13,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modalPower } from '@/store/actions';
 import { IS_SHOW_LOGIN, IS_SHOW_SKIN } from '@/store/actionTypes';
+import { getLocal } from '@/common/utils/tools';
+import { withRouter } from 'react-router-dom';
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -20,30 +22,46 @@ class Header extends Component {
       isLogin: false,
     }
   }
+  /**
+   * @name: 路由控制上一页 下一页
+   * @param {number}  
+   */
+
+  go = setp => {
+    console.log(this.props)
+    this.props.history.go(setp)
+  }
 
 
   render() {
-    const { isLogin } = this.state;
     const { loginStatue } = this.props.modalPower;
-    console.log(loginStatue)
+    const userInfo = getLocal('userInfo') || {};
     return (<div className="header">
       <Login showModal={loginStatue} hideModal={this.hideModal} />
-      <div className="logo"></div>
-      <ul className="tools">
-        {isLogin ?
+      <div className="header-left">
+        <div className="logo"></div>
+        <div className='arrow arrow-left' onClick={() => this.go(-1)}></div>
+        <div className='arrow arrow-right' onClick={() => this.go(1)}></div>
+      </div>
+      <ul className="header-right">
+        {userInfo.profile ?
           <li>
-            <i></i>
-            REFUSE_C
-            </li>
+            <p className="avatar" style={{ backgroundImage: `url(${userInfo.profile && userInfo.profile.avatarUrl})` }}></p>
+            <p className='nickname'>
+              {userInfo.profile && userInfo.profile.nickname}
+              <span className="vip"></span>
+              <span className="arrow"></span>
+            </p>
+          </li>
           :
-          <li onClick={() => this.props.handelModalPower({ type: IS_SHOW_LOGIN, data: true })}>
+          <li onClick={() => this.props.handleModalPower({ type: IS_SHOW_LOGIN, data: true })}>
             登录
-          </li>}
-        <li>isvip</li>
-        <li onClick={() => this.props.handelModalPower({ type: IS_SHOW_SKIN, data: true })}>换肤</li>
-        < li > 私信</li>
+          </li>
+        }
+        <li onClick={() => this.props.handleModalPower({ type: IS_SHOW_SKIN, data: true })}>换肤</li>
+        <li> 私信</li>
         <li>设置</li>
-      </ul >
+      </ul>
     </div >);
   }
 }
@@ -51,7 +69,7 @@ class Header extends Component {
 
 
 const mapStateToprops = state => {
-  console.log(state)
+  // console.log(state)
   return {
     userInfo: state.userInfo,
     modalPower: state.modalPower,
@@ -59,8 +77,8 @@ const mapStateToprops = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    handelModalPower: bindActionCreators(modalPower, dispatch)
+    handleModalPower: bindActionCreators(modalPower, dispatch)
   }
 }
 
-export default connect(mapStateToprops, mapDispatchToProps)(Header);
+export default withRouter(connect(mapStateToprops, mapDispatchToProps)(Header));
