@@ -1,0 +1,186 @@
+// 推荐歌单
+.song_list {
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 0 auto;
+    li {
+      position: relative;
+      width: calc(20% - 20px);
+      margin: 0 0 20px 0;
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+      &:not(:nth-child(5n + 1)) {
+        margin-left: 25px;
+      }
+      .positioning {
+        position: relative;
+        width: 100%;
+        padding: 100% 0 0 0;
+        background-color: #fff;
+        border: 1px solid #e5e6ea;
+        overflow: hidden;
+        .box {
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          justify-content: center;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          .week {
+            color: #353741;
+          }
+          .day {
+            color: #c62f2f;
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-top: 10%;
+          }
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 独家放送
+.privatecontent {
+  ul {
+    display: flex;
+    li {
+      width: calc(33.333333333% - 20px);
+      overflow: hidden;
+      &:not(:last-child) {
+        margin-right: 30px;
+      }
+      .img_box {
+        position: relative;
+        width: 100%;
+        padding: 56% 0 0 0;
+        .count {
+          position: absolute;
+          top: 0;
+          right: 0;
+          font-size: 12px;
+          color: #fff;
+          border-radius: 2px 0 0 2px;
+          padding: 2px 5px 2px 60px;
+          background: url("~@images/local_layer.png") center center / 100%
+            no-repeat;
+          &::before {
+            position: absolute;
+            top: 0;
+            left: 30px;
+            content: "";
+            width: 20px;
+            height: 16px;
+            background: url("~@images/video.png") center center / 14px no-repeat;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 最新音乐
+.new_music {
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    border: 1px solid #e5e6ea;
+    li {
+      display: flex;
+      align-items: center;
+      width: 50%;
+      height: 60px;
+      font-size: 13px;
+      cursor: default;
+      &:nth-child(4n + 4),
+      &:nth-child(4n + 3) {
+        background-color: rgba($color: #000000, $alpha: 0.02);
+      }
+      &:nth-child(even) {
+        border-left: 1px solid #e5e6ea;
+      }
+      &:hover {
+        background-color: rgba($color: #000000, $alpha: 0.05);
+      }
+      .su {
+        width: 40px;
+        text-align: center;
+      }
+      .minfo {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        width: calc(100% - 40px);
+        height: 100%;
+        padding-left: 50px;
+        &::before {
+          position: absolute;
+          top: 10px;
+          left: -1px;
+          content: "";
+          width: 42px;
+          height: 42px;
+          border-radius: 1px;
+          border: 1px solid #e5e6ea;
+        }
+        .singer {
+          color: rgba($color: #000000, $alpha: 0.25);
+          font-size: 12px;
+          margin-top: 4px;
+        }
+      }
+    }
+  }
+}
+
+// 推荐nv
+.personalized_mv {
+  ul {
+    display: flex;
+    li {
+      width: calc(25% - 23px);
+      overflow: hidden;
+      &:not(:last-child) {
+        margin-right: 30px;
+      }
+      .img_box {
+        position: relative;
+        width: 100%;
+        padding: 56% 0 0 0;
+        .count {
+          position: absolute;
+          top: 0;
+          right: 0;
+          font-size: 12px;
+          color: #fff;
+          border-radius: 2px 0 0 2px;
+          padding: 2px 5px 2px 60px;
+          background: url("~@images/local_layer.png") center center / 100%
+            no-repeat;
+          &::before {
+            position: absolute;
+            top: 0;
+            left: 30px;
+            content: "";
+            width: 20px;
+            height: 16px;
+            background: url("~@images/video.png") center center / 14px no-repeat;
+          }
+        }
+      }
+    }
+  }
+}

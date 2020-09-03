@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:06
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-02 18:24:44
+ * @LastEditTime: 2020-09-03 10:12:24
  * @Description:
  */
 
@@ -25,27 +25,28 @@ export const formatTel = val => {
  * @name: 去空格
  * @param {string} 
  */
-export const Trim = str => {
-  str = str.replace(/\s*/g, '');
-  return str;
+export const Trim = val => {
+  if (!val) return;
+  val = val.replace(/\s*/g, '');
+  return val;
 }
 
 /**
  * @name: 图片压缩
  * @param {img src}}
  */
-export const formatImgSize = (src, x = 100, y = 100) => {
-  if (!src) return false;
-  return `${src}?param=${x}y${y}`;
+export const formatImgSize = (url, x = 100, y = 100) => {
+  if (!url) return;
+  return `${url}?param=${x}y${y}`;
 }
 
 /**
  * @name: 星期转汉字
  * @param {type}
  */
-export const formatWeek = v => {
-  if (!v) return;
-  switch (v) {
+export const formatWeek = val => {
+  if (!val) return;
+  switch (val) {
     case 1: return `星期一`;
     case 2: return `星期二`;
     case 3: return `星期三`;
@@ -54,4 +55,13 @@ export const formatWeek = v => {
     case 6: return `星期六`;
     default: return `星期天`;
   }
+}
+
+/**
+ * @name: 格式化序号
+ * @param {number}
+ */
+export const formatSerialNumber = val => {
+  if (!val) return;
+  return val < 10 ? '0' + val : val;
 }

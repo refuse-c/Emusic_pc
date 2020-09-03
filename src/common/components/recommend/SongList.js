@@ -2,12 +2,12 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-02 17:37:19
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-02 22:44:14
- * @Description: 歌单组件
+ * @LastEditTime: 2020-09-03 09:47:36
+ * @Description: 个性推荐-歌单组件
  */
 import React, { Component } from 'react';
 import './index.scss';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import { formatImgSize } from '@/common/utils/format';
 class SongList extends Component {
   constructor(props) {
@@ -55,6 +55,6 @@ class SongList extends Component {
   }
 }
 SongList.propTypes = {
-  list: PropTypes.array
+  list: propTypes.array
 }
 export default SongList;

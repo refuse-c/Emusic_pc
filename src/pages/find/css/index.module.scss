@@ -22,11 +22,11 @@
       white-space: nowrap;
       font-weight: 500;
       &:hover {
-        color: #D03535;
+        color: #d03535;
       }
     }
     .menu_list_active {
-      color: #D03535;
+      color: #d03535;
 
       &:after {
         position: absolute;
@@ -36,7 +36,7 @@
         content: "";
         width: 50px;
         height: 1px;
-        background-color: #D03535;
+        background-color: #d03535;
       }
     }
   }
@@ -44,9 +44,8 @@
   //个性推荐样式
   .find_box {
     max-width: 1200px;
-    min-width: 300px;
+    min-width: 760px;
     margin: 0 auto;
     padding: 0 30px;
-   
   }
 }

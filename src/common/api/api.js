@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-02 19:52:48
+ * @LastEditTime: 2020-09-03 17:36:19
  * @Description: 
  */
 import { getRequest } from './request';
@@ -14,6 +14,15 @@ import { getRequest } from './request';
 export const login = (params) => {
   console.log(params)
   return getRequest('/login/cellphone', params)
+}
+// 个性推荐
+
+/**
+ * @name:banner 
+ * @param {type} 
+ */
+export const banner = params => {
+  return getRequest('/banner', params)
 }
 
 /**
@@ -31,4 +40,19 @@ export const recommendList = params => {
 export const privatecontent = params => {
   return getRequest('/personalized/privatecontent', params)
 }
+/**
+ * @name:最新音乐
+ * @param {}
+ */
 
+export const newMusic = params => {
+  return getRequest('top/song', params)
+}
+
+/**
+ * @name: 推荐mv
+ * @param {} 
+ */
+export const personalizedMv = params => {
+  return getRequest('personalized/mv', params)
+}
