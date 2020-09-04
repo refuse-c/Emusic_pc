@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 17:57:51
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-02 16:03:29
+ * @LastEditTime: 2020-09-04 17:26:05
  * @Description: 
  */
 import React from 'react';
@@ -43,7 +43,7 @@ function App() {
             );
           }
         })}
-        <Redirect exact from="/" to="/find" />
+        <Redirect exact from="/" to="/find/songlist" />
         <Footer />
       </Router>
     </div >

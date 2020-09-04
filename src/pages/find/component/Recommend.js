@@ -2,13 +2,13 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:41:50
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-03 17:39:55
+ * @LastEditTime: 2020-09-04 16:20:53
  * @Description: 个性推荐
  */
 import React, { Component } from 'react';
 import styles from '../css/index.module.scss';
 
-import Banner from '@common/components/banner/Banner';
+import Banner2 from '@common/components/banner/Banner';
 import FindTitle from '@common/components/findTitle/FindTitle';
 import SongList from '@common/components/recommend/SongList';
 import NewMusic from '@common/components/recommend/NewMusic';
@@ -86,7 +86,7 @@ class Recommend extends Component {
   render() {
     const { bannerList, personalizedList, privatecontentList, newMusicList, personalizedMvList } = this.state;
     return (<div className={styles.find_box}>
-      <Banner list={bannerList} />
+      <Banner2 list={bannerList} />
 
       <FindTitle history={this.props.history} title={`推荐歌单`} type={`0`} />
       <SongList list={personalizedList} />
@@ -101,7 +101,7 @@ class Recommend extends Component {
       <PersonalizedMv list={personalizedMvList} />
 
       <FindTitle history={this.props.history} title={`主播电台`} type={`4`} />
-      
+
       <FindTitle history={this.props.history} title={`看看`} type={`5`} />
 
     </div >);

@@ -13,6 +13,7 @@ import 'antd/dist/antd.css';
 import 'reset.css';
 import App from './App';
 import '@common/utils/rem';
+
 ReactDOM.render(
   <Provider store={store}>
     <App />
