@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-03 10:16:17
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-03 17:45:35
+ * @LastEditTime: 2020-09-04 22:33:14
  * @Description:个性推荐-独家放送
  */
 
@@ -25,10 +25,9 @@ class Privatecontent extends Component {
             <div
               className="img_box"
               style={{
-                background: `url(${formatImgSize(item.picUrl, 250, 140)})  center left / 100% 100% no-repeat`
+                background: `url(${formatImgSize(item.picUrl, 360, 200)})  center left / 100% 100% no-repeat`
               }}
             >
-              <p className='count'>{item.playCount}</p>
             </div>
             <div className="name">{item.name}</div>
           </li>

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 19:05:56
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-04 16:34:29
+ * @LastEditTime: 2020-09-04 22:29:41
  * @Description: 轮播图
  */
 import React, { Component } from 'react';
@@ -78,7 +78,7 @@ class Banner extends Component {
 
   renderBanner = () => {
     const { bannerList: list } = this.state;
-    console.log(list)
+    // console.log(list)
     return (
       list && list.map((item, index) => {
         const cls = index === 0 ? 'start' : index === 1 ? 'middle' : index === 2 ? 'end' : 'other'

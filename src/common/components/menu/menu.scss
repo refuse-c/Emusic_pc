@@ -1,7 +1,8 @@
+@import "~@common/css/_variables.scss";
 .menu {
   width: 200px;
   height: 100%;
-  font-size: 14px;
+  font-size: $fz14;
   border-right: 1px solid #e5e6ea;
   .menu-list {
     width: 100%;

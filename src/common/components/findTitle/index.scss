@@ -1,3 +1,4 @@
+@import "~@common/css/_variables.scss";
 .find_title {
   display: flex;
   align-items: center;
@@ -6,12 +7,12 @@
   margin-bottom: 10px;
   border-bottom: 1px solid #e5e6ea;
   h2 {
-    font-size: 18px;
+    font-size: $fz18;
     font-weight: 500;
   }
   span {
     cursor: pointer;
-    font-size: 14px;
+    font-size: $fz14;
     color: #636570;
     padding: 0 12px 0;
     background: url("~@images/arrow_right_b.png") right center / 14px no-repeat;

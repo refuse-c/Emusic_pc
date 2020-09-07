@@ -55,10 +55,11 @@
     padding: 20px 30px;
     .all_list_text {
       display: table;
-      padding: 5px 10px;
+      padding: 6px 10px;
       border: 1px solid #e5e6ea;
       border-radius: 4px;
       font-size: $fz12;
+      cursor: pointer;
     }
   }
 }
