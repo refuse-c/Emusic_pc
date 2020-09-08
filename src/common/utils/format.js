@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:06
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-03 10:12:24
+ * @LastEditTime: 2020-09-08 22:55:35
  * @Description:
  */
 
@@ -65,3 +65,23 @@ export const formatSerialNumber = val => {
   if (!val) return;
   return val < 10 ? '0' + val : val;
 }
+
+/**
+ * @name: 
+ * @param {筛选出对应风格的tag}
+ * @return {list} 
+ */
+
+export const formatTag = (tagList, tagObj) => {
+  let newList = [];
+  for (const key in tagObj) {
+    const arr = tagList.filter((item) => item.category === Number(key));
+    if (arr.length > 0) {
+      newList.push({
+        title: tagObj[key],
+        list: arr,
+      });
+    }
+  }
+  return newList;
+};
