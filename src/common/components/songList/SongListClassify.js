@@ -1,0 +1,37 @@
+/*
+ * @Author: REFUSE_C
+ * @Date: 2020-09-08 11:19:14
+ * @LastEditors: REFUSE_C
+ * @LastEditTime: 2020-09-08 17:34:58
+ * @Description: 发现-歌单-歌单分类
+ */
+import React, { Component } from 'react'
+import styles from './index.module.scss';
+import ScrollView from 'react-custom-scrollbars';
+import propTypes from 'prop-types';
+class SongListClassify extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {}
+  }
+  render() {
+    console.log(this.props.list)
+    return (
+      <div className={[styles.songListClassify, styles.arrow].join(' ')}>
+        <div className={styles.title}>添加标签</div>
+        <div className={styles.scroll_box}>
+          <ScrollView>
+            <div className={styles.content}>
+              <div className={styles.tag}>全部歌单</div>
+            </div>
+          </ScrollView>
+        </div>
+      </div >
+    );
+  }
+}
+SongListClassify.propTypes = {
+  list: propTypes.object
+}
+
+export default SongListClassify;

@@ -2,21 +2,23 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:45:31
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-04 22:23:50
+ * @LastEditTime: 2020-09-08 17:29:18
  * @Description: 歌单
  */
 import React, { Component } from 'react';
 import styles from '../css/index.module.scss';
 import { catlist, hotList } from '@/common/api/api';
 
+import SongListClassify from '@components/songList/SongListClassify';
+
 
 class SongList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      catList: {},
+      tagList: {},
       hotPlayList: [],
-      allListText: '全部歌单'
+      tags: '全部歌单'
     }
   }
 
@@ -28,8 +30,8 @@ class SongList extends Component {
   // 获取歌单分类
   queryCatList = async () => {
     const result = await catlist();
-    const catList = result || {};
-    this.setState({ catList })
+    const tagList = result || {};
+    this.setState({ tagList })
   }
 
   // 获取热门歌单分类
@@ -42,10 +44,11 @@ class SongList extends Component {
 
 
   render() {
-    const { allListText } = this.state;
+    const { tags, tagList } = this.state;
     return (
       <div className={styles.song_list}>
-        < div className={styles.all_list_text}>{allListText}</div >
+        < div className={styles.all_list_text}>{tags}</div >
+        <SongListClassify list={tagList} />
       </div >
     );
   }
