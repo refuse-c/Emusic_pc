@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-04 17:26:59
+ * @LastEditTime: 2020-09-09 14:09:28
  * @Description: 
  */
 import { getRequest } from './request';
@@ -62,7 +62,7 @@ export const personalizedMv = params => {
  * @name: 歌单分类
  * @param {} 
  */
-export const catlist = params => {
+export const taglist = params => {
   return getRequest('playlist/catlist', params)
 }
 
@@ -70,6 +70,6 @@ export const catlist = params => {
  * @name: 热门歌单分类
  * @param {} 
  */
-export const hotList = params => {
+export const hotTag = params => {
   return getRequest('/playlist/hot', params)
 }

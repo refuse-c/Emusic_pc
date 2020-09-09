@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-08 11:19:14
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-08 23:15:50
+ * @LastEditTime: 2020-09-09 12:58:55
  * @Description: 发现-歌单-歌单分类
  */
 import React, { Component } from 'react'
@@ -24,24 +24,29 @@ class SongListClassify extends Component {
           <ScrollView>
             <div className={styles.content}>
               <div
-                style={{ marginBottom: 20 }}
                 className={[tag === '全部歌单' ? styles.tagActive : '', styles.tag].join(' ')}
+                onClick={() => this.props.fun('全部歌单')}
+
               >
                 全部歌单
                 </div>
               {
-                list.length > 0 && list.map((item, index) => {
+                list.map((item, index) => {
                   return (
-                    <div key={'item' + index}>
+                    <div
+                      key={'item' + index}
+                      className={styles.tag_box}
+                    >
                       <h3>{item.title}</h3>
                       <ul>
                         {item.list.map((item, index) => {
-                          const active = item.name === tag ? styles.tagActive : '';
-                          console.log(active)
+                          const cls1 = item.name === tag ? styles.tagActive : '';// 是否选中
+                          const cls2 = item.hot ? styles.hotActive : '';// 是否热门
                           return (
                             <li
-                              className={[active, styles.tag].join(' ')}
                               key={'item' + index}
+                              className={[cls1, cls2, styles.tag].join(' ')}
+                              onClick={() => this.props.fun(item.name)}
                             >
                               {item.name}
                             </li>
