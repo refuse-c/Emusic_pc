@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-02 17:37:19
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-03 09:47:36
+ * @LastEditTime: 2020-09-09 23:05:45
  * @Description: 个性推荐-歌单组件
  */
 import React, { Component } from 'react';
@@ -38,7 +38,7 @@ class SongList extends Component {
                 </div>
               </div>
               <div className='name overflows'>{item.name}</div>
-            </li >
+            </li>
         )
       })
     )

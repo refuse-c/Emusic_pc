@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-09 14:09:28
+ * @LastEditTime: 2020-09-09 22:27:07
  * @Description: 
  */
 import { getRequest } from './request';
@@ -72,4 +72,12 @@ export const taglist = params => {
  */
 export const hotTag = params => {
   return getRequest('/playlist/hot', params)
+}
+
+/**
+ * @name:获取歌单
+ * @param {}
+ */
+export const playList = params => {
+  return getRequest('/top/playlist', params)
 }

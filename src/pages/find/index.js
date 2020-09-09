@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-25 15:04:12
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-08 17:48:46
+ * @LastEditTime: 2020-09-10 00:50:05
  * @Description: 发现
  */
 import React, { Component } from 'react';
@@ -20,10 +20,19 @@ class Find extends Component {
       loading: false
     }
   }
+  // 滚动到顶部
+  scrollToTop = e => {
+    this.sc.scrollToTop();
+  }
+
+  componentDidMount = () => { }
   render() {
     return (
       <div className={styles.find}>
-        <ScrollView className={styles.find_scroll}>
+        <ScrollView
+          ref={sc => this.sc = sc}
+          className={styles.find_scroll}
+        >
           <Nav />
           <Spin tip="Loading..." spinning={false}>
             {
@@ -35,7 +44,7 @@ class Find extends Component {
                       exact
                       path={route.path}
                       render={(props) => (
-                        <route.component {...props} routers={route.routers} />
+                        <route.component {...props} routers={route.routers} fun={this.scrollToTop} />
                       )}
                     />
                   );
@@ -45,7 +54,7 @@ class Find extends Component {
                       key={key}
                       path={route.path}
                       render={(props) => (
-                        <route.component {...props} routers={route.routers} />
+                        <route.component {...props} routers={route.routers} fun={this.scrollToTop} />
                       )}
                     />
                   );
