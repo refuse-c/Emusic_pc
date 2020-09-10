@@ -8,27 +8,83 @@
   .item_box {
     width: calc(33.3% - 20px);
     overflow: hidden;
+    margin-top: 10px;
     border: 1px solid #e5e6ea;
     &:not(:nth-child(3n)) {
       margin-right: 30px;
     }
+    &:nth-child(n + 4) {
+      margin-top: 20px;
+    }
     .bg {
+      position: relative;
       width: 100%;
       height: 90px;
-      line-height: 122px;
-      padding-left: 75px;
       color: $cfff;
-      &:nth-child(1) {
-        background: url();
+
+      padding: 54px 0 0 75px;
+      .btn {
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
       }
+    }
+    &:nth-child(1) .bg {
+      background: url(~@images/text0.png) center left 20px / 120px no-repeat,
+        url(~@images/0.png) center center / 100% 100% no-repeat;
+    }
+    &:nth-child(2) .bg {
+      background: url(~@images/text1.png) center left 20px / 120px no-repeat,
+        url(~@images/1.png) center center / 100% 100% no-repeat;
+    }
+    &:nth-child(3) .bg {
+      background: url(~@images/text2.png) center left 20px / 120px no-repeat,
+        url(~@images/2.png) center center / 100% 100% no-repeat;
+    }
+    &:nth-child(4) .bg {
+      background: url(~@images/text3.png) center left 20px / 120px no-repeat,
+        url(~@images/3.png) center center / 100% 100% no-repeat;
+    }
+    &:nth-child(5) .bg {
+      background: url(~@images/text4.png) center left 20px / 120px no-repeat,
+        url(~@images/4.png) center center / 100% 100% no-repeat;
     }
     ul {
       width: 100%;
       li {
+        display: flex;
+        align-items: center;
         width: 100%;
         height: 30px;
         padding: 0 16px;
         line-height: 30px;
+        cursor: default;
+        &:nth-child(odd) {
+          background-color: #f5f5f7;
+        }
+        &:nth-child(even) {
+          background-color: #fafafa;
+        }
+        &:hover {
+          background-color: #ebeced;
+        }
+        p {
+          &:first-child {
+            width: 70%;
+            font-size: $fz13;
+          }
+          &:last-child {
+            width: 30%;
+            color: $c666;
+            font-size: $fz12;
+            text-align: right;
+          }
+          span {
+            color: $c666;
+            font-size: $fz12;
+          }
+        }
       }
     }
     .view_all {

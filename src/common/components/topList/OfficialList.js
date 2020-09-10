@@ -2,38 +2,37 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-10 12:22:21
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-10 18:07:15
+ * @LastEditTime: 2020-09-10 20:30:05
  * @Description: 发现-排行榜-官方榜
  */
 import React, { Component } from 'react'
 import styles from './index.module.scss';
-
+import propTypes from 'prop-types';
+import PlayAll from '@common/components/playAll/PlayAll';
 import { formatDate } from '@/common/utils/format';
 
-class officialList extends Component {
+class OfficialList extends Component {
   constructor(props) {
     super(props);
     this.state = {}
   }
   render() {
     const { list } = this.props;
-    console.log(list)
+    // console.log(list)
     return (
       <div className={styles.official_list}>
         {
-          list.map((item, index) => {
+          list.map(item => {
             return (
               <div
                 key={item.ToplistType}
                 className={styles.item_box}
               >
-                <div
-                  className={styles.bg}
-                  style={{
-                    background: `url(${require('@images/text' + index + '.png')}) center left 20px / 120px no-repeat,url(${require('@images/' + index + '.png')}) center center / 100% 100% no-repeat`
-                  }}
-                >
+                <div className={styles.bg}>
                   {formatDate(item.updateTime, '0').substr(5) + '更新'}
+                  <div className={styles.btn}>
+                    {item.ToplistType !== 'A' ? <PlayAll cls={`play_all_1`} /> : null}
+                  </div>
                 </div>
                 {
                   item.tracks ?
@@ -45,7 +44,8 @@ class officialList extends Component {
                             <li
                               key={item.id}
                             >
-                              {item.name}
+                              <p className='overflow'>{item.name} <span>{item.alia ? item.alia : ''}</span></p>
+                              <p className='overflow'>{item.ar.map(item => item.name).join('/ ')}</p>
                             </li>
                           )
                         })
@@ -77,4 +77,7 @@ class officialList extends Component {
   }
 }
 
-export default officialList;
+OfficialList.propTypes = {
+  list: propTypes.array
+}
+export default OfficialList;

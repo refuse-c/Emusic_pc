@@ -43,7 +43,7 @@
   // 个性推荐样式
   .find_box {
     max-width: 1200px;
-    min-width: 760px;
+    min-width: 850px;
     margin: 0 auto;
     padding: 0 30px;
   }
@@ -52,7 +52,7 @@
   .song_list {
     position: relative;
     max-width: 1200px;
-    min-width: 760px;
+    min-width: 850px;
     margin: 0 auto;
     padding: 20px 30px;
     .all_list_text {
@@ -67,6 +67,7 @@
     }
     .hot_tag {
       display: flex;
+      white-space: nowrap;
       margin: 10px 0 20px;
       ul {
         display: flex;

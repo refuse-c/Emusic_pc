@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-10 09:55:11
+ * @LastEditTime: 2020-09-11 00:29:27
  * @Description: 
  */
 import Find from '@pages/find';
@@ -19,6 +19,7 @@ import Search from '@pages/search';
 import Friend from '@pages/friend';
 
 import Home from '@pages/home';
+import Single from '@pages/single';
 import Player from '@pages/player';
 
 
@@ -59,6 +60,10 @@ const routers = [
       }, {
         path: '/video',
         component: Video,
+      },
+      , {
+        path: '/single:id',
+        component: Single,
       }
     ]
   },

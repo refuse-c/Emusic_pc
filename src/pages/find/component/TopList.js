@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:48:25
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-10 17:08:53
+ * @LastEditTime: 2020-09-11 00:10:17
  * @Description: 排行榜
  */
 import React, { Component } from 'react'
@@ -52,7 +52,6 @@ class TopList extends Component {
     const promises = list.map(item => item.ToplistType === 'A' ? this.queryArtistTop() : this.queryTopListDetails(item.id));
     Promise.all(promises)
       .then(officialList => {
-        console.log(officialList)
         this.setState({ officialList })
       })
   }
@@ -67,12 +66,13 @@ class TopList extends Component {
   }
 
   render() {
+    const { history } = this.props;
     const { officialList, globalList } = this.state;
     return (<div className={styles.find_box}>
       <FindTitle title={`官方榜`} />
-      <OfficialList list={officialList} />
+      <OfficialList history={history} list={officialList} />
       <FindTitle title={`全球榜`} />
-      <GlobalList list={globalList} />
+      <GlobalList history={history} list={globalList} />
     </div >);
   }
 }

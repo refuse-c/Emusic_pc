@@ -1,0 +1,8 @@
+@import "~@common/css/_variables.scss";
+
+.play_all_1 {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  background: url("~@images/icon_play.png") center center / 40px no-repeat;
+}
