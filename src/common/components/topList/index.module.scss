@@ -1,0 +1,86 @@
+@import "~@common/css/_variables.scss";
+
+// 官方榜
+.official_list {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  .item_box {
+    width: calc(33.3% - 20px);
+    overflow: hidden;
+    border: 1px solid #e5e6ea;
+    &:not(:nth-child(3n)) {
+      margin-right: 30px;
+    }
+    .bg {
+      width: 100%;
+      height: 90px;
+      line-height: 122px;
+      padding-left: 75px;
+      color: $cfff;
+      &:nth-child(1) {
+        background: url();
+      }
+    }
+    ul {
+      width: 100%;
+      li {
+        width: 100%;
+        height: 30px;
+        padding: 0 16px;
+        line-height: 30px;
+      }
+    }
+    .view_all {
+      width: 100%;
+      height: 40px;
+      line-height: 40px;
+      text-align: right;
+      padding: 0 16px;
+      color: $c666;
+      font-size: $fz14;
+      cursor: pointer;
+      background-color: #f5f5f7;
+    }
+  }
+}
+
+// 全球榜
+.global_list {
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 0 auto;
+    li {
+      position: relative;
+      width: calc(20% - 20px);
+      margin: 0 0 20px 0;
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+      &:not(:nth-child(5n + 1)) {
+        margin-left: 25px;
+      }
+      .positioning {
+        position: relative;
+        width: 100%;
+        padding: 100% 0 0 0;
+        background-color: #fff;
+        border: 1px solid #e5e6ea;
+        overflow: hidden;
+        .box {
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          justify-content: center;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}

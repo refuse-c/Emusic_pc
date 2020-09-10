@@ -2,14 +2,14 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-08-30 08:09:34
+ * @LastEditTime: 2020-09-10 09:55:11
  * @Description: 
  */
 import Find from '@pages/find';
 import Recommend from '@pages/find/component/Recommend';
 import SongList from '@pages/find/component/SongList';
 import RadioStation from '@pages/find/component/RadioStation';
-import Leaderboard from '@pages/find/component/Leaderboard';
+import TopList from '@pages/find/component/TopList';
 import Singers from '@pages/find/component/Singers';
 import Newest from '@pages/find/component/Newest';
 
@@ -41,8 +41,8 @@ const routers = [
           path: '/find/radioStation',
           component: RadioStation,// 主播电台
         }, {
-          path: '/find/leaderboard',
-          component: Leaderboard,// 排行榜
+          path: '/find/topList',
+          component: TopList,// 排行榜
         }, {
           path: '/find/singers',
           component: Singers,// 歌手

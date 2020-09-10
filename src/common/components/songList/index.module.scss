@@ -61,8 +61,8 @@
       .tagActive {
         z-index: 3;
         border: 1px solid #c62f2f;
-        background: url("~@images/choose_right.png") bottom -8px right -16px /
-          48px no-repeat;
+        background: url("~@images/choose_right.png") bottom right / 17px
+          no-repeat;
       }
       .hotActive {
         &::before {

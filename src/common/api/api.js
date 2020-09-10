@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-09 22:27:07
+ * @LastEditTime: 2020-09-10 09:49:31
  * @Description: 
  */
 import { getRequest } from './request';
@@ -80,4 +80,29 @@ export const hotTag = params => {
  */
 export const playList = params => {
   return getRequest('/top/playlist', params)
+}
+
+//排行榜
+/**
+ * @name:所有榜单
+ * @param {}
+ */
+export const topList = params => {
+  return getRequest('/toplist', params)
+}
+
+/**
+ * @name: 歌手榜单
+ * @param {}
+ */
+export const artistTop = params => {
+  return getRequest('/toplist/artist', params)
+}
+
+/**
+ * @name: 歌单详情 
+ * @param {} 
+ */
+export const playlistDetail = params => {
+  return getRequest('playlist/detail', params)
 }

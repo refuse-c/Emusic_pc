@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:45:31
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-10 01:18:58
+ * @LastEditTime: 2020-09-10 10:27:56
  * @Description: 歌单
  */
 import React, { Component } from 'react';
@@ -29,16 +29,10 @@ class SongList extends Component {
     }
   }
 
-  componentDidMount = () => {
-    this.queryTaglist();
-    this.queryHotTagList();
-    this.queryPlayList();
-  }
-
   // 获取歌单分类
   queryTaglist = async () => {
     const res = await taglist();
-    console.log(res)
+    // console.log(res)
     if (res.code !== 200) return;
     const a = res.sub;
     const b = res.categories;
@@ -88,6 +82,16 @@ class SongList extends Component {
   // 点击分页组件
   onChange = offset => {
     this.setState({ offset }, () => this.queryPlayList());
+  }
+
+  componentDidMount = () => {
+    this.queryTaglist();
+    this.queryHotTagList();
+    this.queryPlayList();
+  }
+
+  componentWillUnmount() {
+    this.setState = () => false;
   }
 
   render() {

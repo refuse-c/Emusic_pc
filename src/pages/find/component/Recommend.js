@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:41:50
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-04 16:20:53
+ * @LastEditTime: 2020-09-10 11:29:46
  * @Description: 个性推荐
  */
 import React, { Component } from 'react';
@@ -29,13 +29,6 @@ class Recommend extends Component {
     }
   }
 
-  componentDidMount = () => {
-    this.queryBanner();
-    this.queryRecommendList();
-    this.queryPrivatecontentList();
-    this.queryNewMusic();
-    this.queryPersonalizedMv();
-  }
 
   // 轮播图
   queryBanner = async () => {
@@ -83,26 +76,39 @@ class Recommend extends Component {
     this.setState({ personalizedMvList });
   }
 
+  componentDidMount = () => {
+    this.queryBanner();
+    this.queryRecommendList();
+    this.queryPrivatecontentList();
+    this.queryNewMusic();
+    this.queryPersonalizedMv();
+  }
+
+  componentWillUnmount() {
+    this.setState = () => false;
+  }
+
   render() {
+    const { history } = this.props;
     const { bannerList, personalizedList, privatecontentList, newMusicList, personalizedMvList } = this.state;
     return (<div className={styles.find_box}>
       <Banner2 list={bannerList} />
 
-      <FindTitle history={this.props.history} title={`推荐歌单`} type={`0`} />
+      <FindTitle history={history} title={`推荐歌单`} type={`0`} />
       <SongList list={personalizedList} />
 
-      <FindTitle history={this.props.history} title={`独家放送`} type={`1`} />
+      <FindTitle history={history} title={`独家放送`} type={`1`} />
       <Privatecontent list={privatecontentList} />
 
-      <FindTitle history={this.props.history} title={`最新音乐`} type={`2`} />
+      <FindTitle history={history} title={`最新音乐`} type={`2`} />
       <NewMusic list={newMusicList} />
 
-      <FindTitle history={this.props.history} title={`推荐MV`} type={`3`} />
+      <FindTitle history={history} title={`推荐MV`} type={`3`} />
       <PersonalizedMv list={personalizedMvList} />
 
-      <FindTitle history={this.props.history} title={`主播电台`} type={`4`} />
+      <FindTitle history={history} title={`主播电台`} type={`4`} />
 
-      <FindTitle history={this.props.history} title={`看看`} type={`5`} />
+      <FindTitle history={history} title={`看看`} type={`5`} />
 
     </div >);
   }

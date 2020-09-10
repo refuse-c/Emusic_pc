@@ -1,8 +1,8 @@
 /*
  * @Author: REFUSE_C
  * @Date: 2020-08-28 07:39:42
- * @LastEditors: refuse_c
- * @LastEditTime: 2020-08-28 08:38:49
+ * @LastEditors: REFUSE_C
+ * @LastEditTime: 2020-09-10 09:56:45
  * @Description: 发现页面顶部导航
  */
 import React, { Component } from 'react';
@@ -15,8 +15,8 @@ class Nav extends Component {
       navList: [
         { name: '个性推荐', path: `/find` },
         { name: '歌单', path: `/find/songlist` },
-        { name: '排行榜', path: `/find/radioStation` },
-        { name: '主播电台', path: `/find/leaderboard` },
+        { name: '主播电台', path: `/find/radioStation` },
+        { name: '排行榜', path: `/find/topList` },
         { name: '歌手', path: `/find/singers` },
         { name: '最新音乐', path: `/find/newest` }
       ]
