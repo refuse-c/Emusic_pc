@@ -2,11 +2,11 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-02 17:37:19
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-09 23:05:45
+ * @LastEditTime: 2020-09-11 11:08:55
  * @Description: 个性推荐-歌单组件
  */
 import React, { Component } from 'react';
-import './index.scss';
+import styles from '../css/index.module.scss';
 import propTypes from 'prop-types';
 import { formatImgSize } from '@/common/utils/format';
 class SongList extends Component {
@@ -22,23 +22,23 @@ class SongList extends Component {
         return (
           item.type === 'recommended' ?
             < li key={item.id} >
-              <div className='positioning'>
-                <div className='box'>
-                  <p className='week'>{item.week}</p>
-                  <p className='day'>{item.day}</p>
+              <div className={styles.positioning}>
+                <div className={styles.box}>
+                  <p className={styles.week}>{item.week}</p>
+                  <p className={styles.day}>{item.day}</p>
                 </div>
-              </div>
+              </div >
               <div className='name'>{item.name}</div>
             </li >
             :
             < li key={item.id} >
-              <div className="positioning">
-                <div className='box'>
+              <div className={styles.positioning}>
+                <div className={styles.box}>
                   <img src={formatImgSize(item.picUrl, 200, 200)} alt="" />
                 </div>
-              </div>
+              </div >
               <div className='name overflows'>{item.name}</div>
-            </li>
+            </li >
         )
       })
     )
@@ -46,7 +46,7 @@ class SongList extends Component {
 
   render() {
     return (
-      <div className="song_list">
+      <div className={styles.song_list}>
         <ul>
           {this.renderList()}
         </ul>

@@ -2,11 +2,11 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-10 12:22:21
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-10 20:30:05
+ * @LastEditTime: 2020-09-11 10:38:40
  * @Description: 发现-排行榜-官方榜
  */
 import React, { Component } from 'react'
-import styles from './index.module.scss';
+import styles from '../css/index.module.scss';
 import propTypes from 'prop-types';
 import PlayAll from '@common/components/playAll/PlayAll';
 import { formatDate } from '@/common/utils/format';
@@ -66,7 +66,6 @@ class OfficialList extends Component {
                       }
                     </ul>
                 }
-
                 <div className={styles.view_all}>查看全部</div>
               </div>
             )

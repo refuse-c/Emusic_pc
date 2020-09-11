@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-10 09:49:31
+ * @LastEditTime: 2020-09-11 16:11:33
  * @Description: 
  */
 import { getRequest } from './request';
@@ -105,4 +105,38 @@ export const artistTop = params => {
  */
 export const playlistDetail = params => {
   return getRequest('playlist/detail', params)
+}
+
+// 歌手
+/**
+ * @name: 歌手分类列表
+ * @param {} 
+ */
+export const artistList = params => {
+  return getRequest('/artist/list', params)
+}
+
+// 最新音乐
+/**
+ * @name: 新歌速递
+ * @param {}
+ */
+export const topSong = (params) => {
+  return getRequest('/top/song', params)
+}
+
+/**
+ * @name: 新碟上架
+ * @param {}
+ */
+export const topAlbum = (params) => {
+  return getRequest('/top/album', params)
+}
+
+/**
+ * @name: 全部新碟
+ * @param {}
+ */
+export const allTopAlbum = (params) => {
+  return getRequest('/album/new', params)
 }

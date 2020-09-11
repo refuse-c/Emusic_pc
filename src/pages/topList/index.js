@@ -2,15 +2,15 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:48:25
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-11 00:10:17
- * @Description: 排行榜
+ * @LastEditTime: 2020-09-11 10:37:36
+ * @Description: 发现-排行榜
  */
 import React, { Component } from 'react'
 import { artistTop, playlistDetail, topList } from '@/common/api/api';
-import styles from '../css/index.module.scss';
+import styles from './css/index.module.scss';
 import FindTitle from '@common/components/findTitle/FindTitle';
-import OfficialList from '@common/components/topList/OfficialList';
-import GlobalList from '@common/components/topList/GlobalList';
+import OfficialList from './component/OfficialList';
+import GlobalList from './component/GlobalList';
 
 class TopList extends Component {
   constructor(props) {

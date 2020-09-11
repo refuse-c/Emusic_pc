@@ -1,12 +1,12 @@
 /*
  * @Author: REFUSE_C
  * @Date: 2020-08-26 18:50:54
- * @LastEditors: refuse_c
- * @LastEditTime: 2020-08-27 22:19:39
+ * @LastEditors: REFUSE_C
+ * @LastEditTime: 2020-09-11 11:16:07
  * @Description 布局
  */
 import React, { Component } from 'react';
-import './index.scss';
+import styles from './index.module.scss';
 import Menu from '@components/menu/Menu';
 import { Route } from 'react-router-dom';
 class Home extends Component {
@@ -16,11 +16,11 @@ class Home extends Component {
   }
   render() {
     return (
-      < div className="home" >
-        <div className="left">
+      < div className={styles.home} >
+        <div className={styles.left}>
           <Menu />
         </div>
-        <div className="right">
+        <div className={styles.right}>
           {this.props.routers.map((route, key) => {
             if (route.exact) {
               return (

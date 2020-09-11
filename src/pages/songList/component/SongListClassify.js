@@ -2,11 +2,11 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-08 11:19:14
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-10 01:18:03
+ * @LastEditTime: 2020-09-11 10:33:54
  * @Description: 发现-歌单-歌单分类
  */
 import React, { Component } from 'react'
-import styles from './index.module.scss';
+import styles from '../css/index.module.scss';
 import ScrollView from 'react-custom-scrollbars';
 import propTypes from 'prop-types';
 class SongListClassify extends Component {

@@ -2,8 +2,8 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 07:39:42
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-10 09:56:45
- * @Description: 发现页面顶部导航
+ * @LastEditTime: 2020-09-11 10:47:15
+ * @Description: 发现-顶部导航
  */
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
@@ -17,7 +17,7 @@ class Nav extends Component {
         { name: '歌单', path: `/find/songlist` },
         { name: '主播电台', path: `/find/radioStation` },
         { name: '排行榜', path: `/find/topList` },
-        { name: '歌手', path: `/find/singers` },
+        { name: '歌手', path: `/find/singer` },
         { name: '最新音乐', path: `/find/newest` }
       ]
     }

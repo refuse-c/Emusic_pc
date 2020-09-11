@@ -1,0 +1,61 @@
+@import "~@common/css/_variables.scss";
+
+.newest {
+  // 类型选择
+  .type {
+    margin: 10px auto 0;
+    display: table;
+
+    ul {
+      display: flex;
+      border-radius: 4px;
+      overflow: hidden;
+      font-size: $fz12;
+      border: 1px solid #e5e6ea;
+      background-color: #fff;
+
+      li {
+        width: 110px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        cursor: pointer;
+        color: $c666;
+
+        &.active {
+          color: $cfff;
+          background-color: #7c7d85;
+        }
+      }
+    }
+  }
+
+  // 二级菜单栏
+  .newest_menu {
+    margin-top: 20px;
+    ul {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #e5e6ea;
+      li {
+        position: relative;
+        line-height: 30px;
+        cursor: pointer;
+        &:not(:first-child) {
+          margin-left: 30px;
+        }
+        &.active {
+          &::before {
+            position: absolute;
+            content: "";
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: red;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,31 +1,28 @@
 /*
  * @Author: REFUSE_C
- * @Date: 2020-09-10 12:22:21
+ * @Date: 2020-09-09 22:57:20
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-11 00:29:20
- * @Description: 发现-排行榜-官方榜
+ * @LastEditTime: 2020-09-11 12:57:58
+ * @Description: 发现-歌单-歌单列表
  */
-import { formatImgSize } from '@/common/utils/format';
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import propTypes from 'prop-types';
-import styles from './index.module.scss';
-class GlobalList extends Component {
+import styles from '../css/index.module.scss';
+import { formatImgSize } from '@/common/utils/format';
+class PlayList extends Component {
   constructor(props) {
     super(props);
     this.state = {}
   }
   render() {
-    const { list, history } = this.props;
+    const { list } = this.props;
     return (
-      <div className={styles.global_list}>
+      <div className={styles.play_list}>
         <ul>
           {list.map(item => {
             return (
               <li key={item.id} >
-                <div
-                  className={styles.positioning}
-                  onClick={() => history.push({ pathname: `/single?id=${item.id}` })}
-                >
+                <div className={styles.positioning}>
                   <div
                     className={styles.box}
                     style={{
@@ -39,12 +36,12 @@ class GlobalList extends Component {
             )
           })}
         </ul>
-      </div >
+      </div>
     );
   }
 }
 
-GlobalList.propTypes = {
+PlayList.propTypes = {
   list: propTypes.array
 }
-export default GlobalList;
+export default PlayList;

@@ -2,14 +2,14 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:45:31
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-10 10:27:56
+ * @LastEditTime: 2020-09-11 10:32:38
  * @Description: 歌单
  */
 import React, { Component } from 'react';
-import styles from '../css/index.module.scss';
+import styles from './css/index.module.scss';
 import { taglist, hotTag, playList } from '@/common/api/api';
-import SongListClassify from '@components/songList/SongListClassify';
-import PlayList from '@components/songList/PlayList';
+import SongListClassify from './component/SongListClassify';
+import PlayList from './component/PlayList';
 import { formatTag } from '@/common/utils/format';
 import { Pagination } from 'antd';
 

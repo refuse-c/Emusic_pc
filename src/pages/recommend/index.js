@@ -2,18 +2,16 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:41:50
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-10 11:29:46
- * @Description: 个性推荐
+ * @LastEditTime: 2020-09-11 10:47:56
+ * @Description: 发现-个性推荐
  */
 import React, { Component } from 'react';
-import styles from '../css/index.module.scss';
-
-import Banner2 from '@common/components/banner/Banner';
+import Banner from '@common/components/banner/Banner';
 import FindTitle from '@common/components/findTitle/FindTitle';
-import SongList from '@common/components/recommend/SongList';
-import NewMusic from '@common/components/recommend/NewMusic';
-import Privatecontent from '@common/components/recommend/Privatecontent';
-import PersonalizedMv from '@common/components/recommend/PersonalizedMv';
+import SongList from './component/SongList';
+import NewMusic from './component/NewMusic';
+import Privatecontent from './component/Privatecontent';
+import PersonalizedMv from './component/PersonalizedMv';
 
 import { banner, newMusic, personalizedMv, privatecontent, recommendList } from '@/common/api/api';
 import { formatWeek } from '@/common/utils/format';
@@ -91,8 +89,8 @@ class Recommend extends Component {
   render() {
     const { history } = this.props;
     const { bannerList, personalizedList, privatecontentList, newMusicList, personalizedMvList } = this.state;
-    return (<div className={styles.find_box}>
-      <Banner2 list={bannerList} />
+    return (<div>
+      <Banner list={bannerList} />
 
       <FindTitle history={history} title={`推荐歌单`} type={`0`} />
       <SongList list={personalizedList} />

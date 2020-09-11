@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 17:57:51
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-11 00:26:31
+ * @LastEditTime: 2020-09-11 15:04:53
  * @Description: 
  */
 import React from 'react';
@@ -43,7 +43,7 @@ function App() {
             );
           }
         })}
-        {/* <Redirect exact from="/" to="/find/topList" /> */}
+        <Redirect exact from="/" to="/find/newest" />
         <Footer />
       </Router>
     </div >
