@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:06
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-10 17:26:01
+ * @LastEditTime: 2020-09-13 00:14:46
  * @Description:
  */
 
@@ -103,3 +103,18 @@ export const formatDate = (v, type) => {
       return year + '-' + month + '-' + day;
   }
 };
+
+/**
+ * @name:格式化歌曲时间
+ * @param {type}
+ */
+
+export const formatSongTime = v => {
+  if (!v) return;
+  const time = Math.floor(v / 1000);
+  let m = Math.floor(time / 60);
+  let s = Math.floor(time % 60);
+  m = m < 10 ? '0' + m : m;
+  s = s < 10 ? '0' + s : s;
+  return `${m}:${s}`
+}

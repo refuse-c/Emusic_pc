@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-11 16:11:33
+ * @LastEditTime: 2020-09-13 23:46:43
  * @Description: 
  */
 import { getRequest } from './request';
@@ -12,7 +12,6 @@ import { getRequest } from './request';
  */
 
 export const login = (params) => {
-  console.log(params)
   return getRequest('/login/cellphone', params)
 }
 
@@ -140,3 +139,37 @@ export const topAlbum = (params) => {
 export const allTopAlbum = (params) => {
   return getRequest('/album/new', params)
 }
+
+// 视频
+/**
+ * @name: 热门视频标签
+ * @param {} 
+ */
+export const hotVideoTag = (params) => {
+  return getRequest('/video/category/list', params)
+}
+
+/**
+ * @name: 视频标签
+ * @param {} 
+ */
+export const allVideoTag = (params) => {
+  return getRequest('/video/group/list', params)
+}
+
+/**
+ * @name: 获取全部视频
+ * @param {} 
+ */
+export const allVideo = (params) => {
+  return getRequest('/video/timeline/all', params)
+}
+
+/**
+ * @name:获取tag下的vidoe
+ * @param {}
+ */
+export const videoGroup = (params) => {
+  return getRequest('/video/group', params)
+}
+

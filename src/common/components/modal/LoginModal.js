@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 21:48:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-02 14:25:48
+ * @LastEditTime: 2020-09-13 03:34:20
  * @Description 登录弹窗
  */
 import React, { Component } from 'react'
@@ -111,7 +111,6 @@ class LoginModal extends Component {
 
 
 const mapStateToProps = state => {
-  // console.log(state)
   return {
     modalPower: state.modalPower,
   }

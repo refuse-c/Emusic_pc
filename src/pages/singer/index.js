@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:49:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-11 14:56:36
+ * @LastEditTime: 2020-09-13 01:51:17
  * @Description:  发现-歌手
  */
 import React, { Component } from 'react'
@@ -72,7 +72,6 @@ class Singer extends Component {
 
   // handle item 
   chooseItem = (item, type) => {
-    console.log(item, type)
     type === '1' ?
       this.setState({ area: item.key }, () => {
         this.setState({ list: [], offset: 1 }, () => this.queryArtistList());

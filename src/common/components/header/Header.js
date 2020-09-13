@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-02 22:55:47
+ * @LastEditTime: 2020-09-13 03:06:09
  * @Description: 头部 
  */
 import React, { Component } from 'react';
@@ -44,7 +44,7 @@ class Header extends Component {
       </div>
       <ul className="header-right">
         {userInfo.profile ?
-          <li>
+          <li onClick={() => this.props.handleModalPower({ type: IS_SHOW_LOGIN, data: true })}>
             <p className="avatar" style={{ backgroundImage: `url(${userInfo.profile && userInfo.profile.avatarUrl})` }}></p>
             <p className='nickname'>
               {userInfo.profile && userInfo.profile.nickname}
@@ -68,7 +68,6 @@ class Header extends Component {
 
 
 const mapStateToprops = state => {
-  // console.log(state)
   return {
     userInfo: state.userInfo,
     modalPower: state.modalPower,

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-19 09:28:56
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-02 19:49:20
+ * @LastEditTime: 2020-09-14 01:48:07
  * @Description: 基础网络请求
  */
 import { message } from 'antd';
@@ -11,11 +11,11 @@ import axios from 'axios';
 const Axios = axios.create({
   baseURL: 'http://139.9.230.159:3000/',
   timeout: '15000',
+  withCredentials: true,
   headers: {
-    'Content-Type': 'application/json'
-  },
-  withCredentials: true, //网易云api针对axios的跨域处理
-  xhrFields: { withCredentials: true }
+    // 'Content-Type': 'application/json'
+    'content-type': 'application/x-www-form-urlencoded'
+  }
 })
 
 Axios.interceptors.request.use(

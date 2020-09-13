@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:45:31
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-11 10:32:38
+ * @LastEditTime: 2020-09-13 02:44:34
  * @Description: 歌单
  */
 import React, { Component } from 'react';
@@ -32,7 +32,6 @@ class SongList extends Component {
   // 获取歌单分类
   queryTaglist = async () => {
     const res = await taglist();
-    // console.log(res)
     if (res.code !== 200) return;
     const a = res.sub;
     const b = res.categories;
@@ -98,7 +97,7 @@ class SongList extends Component {
     const { tag, showModal, tagList, hotTagList, playlist, limit, offset, total } = this.state;
     return (
       <div className={styles.song_list}>
-        < div
+        <div
           className={styles.all_list_text}
           onClick={() => this.setState({ showModal: true })}
         >

@@ -2,13 +2,13 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-25 15:04:12
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-11 13:58:52
+ * @LastEditTime: 2020-09-13 02:26:18
  * @Description: 发现
  */
 import React, { Component } from 'react';
 import styles from './css/index.module.scss';
 import { Route } from 'react-router-dom';
-import Nav from './component/Nav';
+import Nav from '@components/nav/Nav';
 import ScrollView from 'react-custom-scrollbars';
 import { Spin } from 'antd';
 
@@ -18,7 +18,15 @@ class Find extends Component {
     super(props);
     this.state = {
       loading: false,
-      onLoad: false
+      onLoad: false,
+      navList: [
+        { name: '个性推荐', path: `/find` },
+        { name: '歌单', path: `/find/songlist` },
+        // { name: '主播电台', path: `/find/radioStation` },
+        { name: '排行榜', path: `/find/topList` },
+        { name: '歌手', path: `/find/singer` },
+        { name: '最新音乐', path: `/find/newest` }
+      ]
     }
   }
   // 滚动到顶部
@@ -34,7 +42,7 @@ class Find extends Component {
 
   componentDidMount = () => { }
   render() {
-    const { onLoad } = this.state;
+    const { onLoad, navList } = this.state;
     return (
       <div className={styles.find}>
         <ScrollView
@@ -42,8 +50,8 @@ class Find extends Component {
           className={styles.find_scroll}
           onScroll={this.handleScroll}
         >
-          <Nav />
-          <div className={styles.find_box}>
+          <Nav list={navList} />
+          < div className={styles.find_box}>
             <Spin tip="Loading..." spinning={false}>
               {
                 this.props.routers.map((route, key) => {

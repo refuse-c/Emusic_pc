@@ -104,9 +104,9 @@ class Recommend extends Component {
       <FindTitle history={history} title={`推荐MV`} type={`3`} />
       <PersonalizedMv list={personalizedMvList} />
 
-      <FindTitle history={history} title={`主播电台`} type={`4`} />
+      {/* <FindTitle history={history} title={`主播电台`} type={`4`} /> */}
 
-      <FindTitle history={history} title={`看看`} type={`5`} />
+      {/* <FindTitle history={history} title={`看看`} type={`5`} /> */}
 
     </div >);
   }

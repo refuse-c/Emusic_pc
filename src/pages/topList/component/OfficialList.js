@@ -18,7 +18,6 @@ class OfficialList extends Component {
   }
   render() {
     const { list } = this.props;
-    // console.log(list)
     return (
       <div className={styles.official_list}>
         {

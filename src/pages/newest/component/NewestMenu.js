@@ -23,10 +23,11 @@ class NewestMenu extends Component {
 
   chooseItem = (item, index) => {
     this.setState({ num: index })
-    this.props.fun(item)
+    this.props.fun1(item)
   }
 
   render() {
+    const { type } = this.props;
     const { menu, num } = this.state;
     return (
       <div className={styles.newest_menu}>
@@ -38,6 +39,15 @@ class NewestMenu extends Component {
             )
           })
         }</ul>
+        {
+          type ?
+            <div>
+              <span onClick={() => this.props.fun2(0)}>推荐</span>
+              <span onClick={() => this.props.fun2(1)}>全部</span>
+            </div>
+            : null
+        }
+
       </div>
     );
   }
@@ -45,6 +55,8 @@ class NewestMenu extends Component {
 
 
 NewestMenu.propTypes = {
-  fun: propTypes.func
+  fun1: propTypes.func,
+  fun2: propTypes.func,
+  type: propTypes.number
 }
 export default NewestMenu;

@@ -2,9 +2,11 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-11 14:16:58
+ * @LastEditTime: 2020-09-13 02:41:51
  * @Description: 
  */
+
+// 发现
 import Find from '@pages/find';
 import Recommend from '@pages/recommend';
 import SongList from '@pages/songList';
@@ -13,8 +15,15 @@ import TopList from '@pages/topList';
 import Singer from '@pages/singer';
 import Newest from '@pages/newest';
 
+// 视频
+import Videos from '@pages/video';
+import Video from '@pages/video/component/Video';
+import Mv from '@pages/video/component/Mv';
 
-import Video from '@pages/video';
+
+
+
+
 import Search from '@pages/search';
 import Friend from '@pages/friend';
 
@@ -59,7 +68,15 @@ const routers = [
       component: Friend
     }, {
       path: '/video',
-      component: Video
+      component: Videos,
+      routers: [{
+        path: '/video',
+        exact: true,
+        component: Video  // 视频
+      }, {
+        path: '/video/mv',
+        component: Mv  // Mv
+      }]
     },
       , {
       path: '/single:id',

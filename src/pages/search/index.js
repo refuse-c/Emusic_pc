@@ -1,10 +1,11 @@
 /*
  * @Author: REFUSE_C
  * @Date: 2020-08-25 15:04:12
- * @LastEditors: refuse_c
- * @LastEditTime: 2020-08-25 15:05:48
+ * @LastEditors: REFUSE_C
+ * @LastEditTime: 2020-09-13 02:06:06
  * @Description: 搜索
  */
+import { Input } from 'antd';
 import React, { Component } from 'react';
 import './css/index.scss';
 class Search extends Component {
@@ -13,7 +14,13 @@ class Search extends Component {
     this.state = {}
   }
   render() {
-    return (<div className="search">search</div>);
+    return (
+      <div className="search">
+        <Input
+          type='search'
+        />
+      </div>
+    );
   }
 }
 
