@@ -2,8 +2,8 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-14 17:01:18
- * @Description: 
+ * @LastEditTime: 2020-09-14 22:04:18
+ * @Description: 路由
  */
 
 // 发现
@@ -20,10 +20,11 @@ import Videos from '@pages/video';
 import Video from '@pages/video/component/Video';
 import Mv from '@pages/video/component/Mv';
 
-//全部MV
+// 全部MV
 import AllMv from '@pages/mv';
 
-
+// MV排行榜
+import TopMv from '@pages/topMv';
 
 
 import Search from '@pages/search';
@@ -87,6 +88,10 @@ const routers = [
     {
       path: '/allmv',
       component: AllMv
+    },
+    {
+      path: '/topmv',
+      component: TopMv
     }
     ]
   },

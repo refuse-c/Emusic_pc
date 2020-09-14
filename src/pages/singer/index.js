@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:49:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-14 17:28:35
+ * @LastEditTime: 2020-09-14 21:59:52
  * @Description:  发现-歌手
  */
 import React, { Component } from 'react'
@@ -125,7 +125,7 @@ class Singer extends Component {
         <Tag title={`热门`} tag={initial} list={initialList} type={`3`} fun={this.chooseItem} />
         <SingerList list={list} />
         {
-          more ? <div className={styles.loading}><Spin style={{ color: '#666' }} tip="Loading..."></Spin></div> : ''
+          more ? <div className='loading'><Spin style={{ color: '#666' }} tip="Loading..."></Spin></div> : ''
         }
       </div >
     );

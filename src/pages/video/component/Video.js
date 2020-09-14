@@ -148,7 +148,7 @@ class Video extends Component {
         <VideoList list={videoDataList} />
         {
           loading ?
-            <div className={styles.loading}>
+            <div className='loading'>
               <Spin style={{ color: '#666' }} tip="Loading..."></Spin>
             </div>
             : ''

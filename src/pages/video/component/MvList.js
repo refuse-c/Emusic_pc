@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-03 11:54:25
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-14 15:19:06
+ * @LastEditTime: 2020-09-14 20:27:16
  * @Description: 个性推荐-推荐mv
  */
 
@@ -23,9 +23,9 @@ class MvList extends Component {
       <div className={styles.video_list}>
         <ul>
           {
-            list.map(item => {
+            list.map((item, index) => {
               return (
-                <li key={item.id}>
+                <li key={'item' + index}>
                   <div
                     className={styles.img_box}
                     style={{

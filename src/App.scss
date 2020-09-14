@@ -48,3 +48,10 @@ img {
   line-height: 1.2;
   font-size: $fz12;
 }
+
+// loading
+.loading {
+  display: table;
+  margin: 0 auto;
+  height: 80px;
+}

@@ -2,8 +2,8 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:49:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-14 18:02:13
- * @Description:  tag
+ * @LastEditTime: 2020-09-14 21:59:29
+ * @Description:  全部mv
  */
 import React, { Component } from 'react'
 import styles from './css/index.module.scss';
@@ -19,11 +19,12 @@ class Mv extends Component {
     super(props);
     this.state = {
       offset: 1, // 偏移数量
-      limit: 50,// 返回数量, 默认为 30
+      limit: 20,// 返回数量, 默认为 30
       area: '全部',// 地区
       type: '全部', // 类型
       order: '上升最快', // 排序
       onLoad: false,
+      loading: true,
       areaList: [
         {
           ti: '全部', key: '全部'
@@ -61,24 +62,23 @@ class Mv extends Component {
           ti: '最新', key: '最新'
         }
       ],
-      mvList: [], // 歌手列表
+      mvList: [], // mv列表
       hasMore: true  // 是否可以继续加载
     }
   }
 
   // handle item 
   chooseItem = (item, type) => {
-    console.log(item, type)
     type === '1' ?
       this.setState({ area: item.key }, () => {
-        this.setState({ list: [], offset: 1 }, () => this.queryAllMv());
+        this.setState({ mvList: [], offset: 1 }, () => this.queryAllMv());
       })
       : type === '2' ?
         this.setState({ type: item.key }, () => {
-          this.setState({ list: [], offset: 1 }, () => this.queryAllMv());
+          this.setState({ mvList: [], offset: 1 }, () => this.queryAllMv());
         })
-        : this.setState({ initial: item.key }, () => {
-          this.setState({ list: [], offset: 1 }, () => this.queryAllMv());
+        : this.setState({ order: item.key }, () => {
+          this.setState({ mvList: [], offset: 1 }, () => this.queryAllMv());
         })
   }
 
@@ -88,6 +88,7 @@ class Mv extends Component {
     const params = {
       limit, offset: (offset - 1) * limit, type, area, order
     }
+    this.setState({ loading: true })
     const res = await allMv({
       ...params
     })
@@ -97,7 +98,7 @@ class Mv extends Component {
     const nowList = res.data;
     const oldList = this.state.mvList;
     const newList = oldList.concat(nowList)
-    this.setState({ hasMore, mvList: newList, offset: offset + 1 })
+    this.setState({ hasMore, mvList: newList, offset: offset + 1, loading: false })
   }
 
   componentDidMount = () => {
@@ -106,7 +107,6 @@ class Mv extends Component {
 
   componentDidUpdate = () => {
     const { hasMore, onLoad } = this.state;
-    console.log(onLoad, hasMore)
     if (!hasMore || !onLoad) return;
     this.queryAllMv();
   }
@@ -120,7 +120,7 @@ class Mv extends Component {
 
   render() {
     const { history } = this.props;
-    const { type, area, order, typeList, areaList, orderList, mvList, hasMore } = this.state;
+    const { type, area, order, typeList, areaList, orderList, mvList, loading } = this.state;
     return (
       <div className={styles.all_mv} >
         <ScrollView
@@ -137,7 +137,7 @@ class Mv extends Component {
               <MvList list={mvList} />
             </div>
             {
-              hasMore ? <div className={styles.loading}><Spin style={{ color: '#666' }} tip="Loading..."></Spin></div> : ''
+              loading ? <div className='loading'><Spin style={{ color: '#666' }} tip="Loading..."></Spin></div> : ''
             }
           </div>
         </ScrollView>

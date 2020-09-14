@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 17:57:51
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-14 17:02:40
+ * @LastEditTime: 2020-09-14 22:04:04
  * @Description: 
  */
 import React from 'react';
@@ -43,7 +43,7 @@ function App() {
             );
           }
         })}
-        <Redirect exact from="/" to="/allmv" />
+        <Redirect exact from="/" to="/topmv" />
         <Footer />
       </Router>
     </div >

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-13 02:34:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-14 16:25:35
+ * @LastEditTime: 2020-09-14 22:42:12
  * @Description: 视频-视频
  */
 import React, { Component } from 'react';
@@ -76,19 +76,20 @@ class Mv extends Component {
     })
   }
   render() {
+    const { history } = this.props;
     const { tag1, tag2, menuList, firstMvList, hotMvList, wycpMvList, topMvList } = this.state;
     return (
       <div className="mv">
-        <FindTitle type={5} tag={tag1} fun={this.obtainChildItem} title={`最新MV`} list={menuList} />
+        <FindTitle history={history} type={5} tag={tag1} fun={this.obtainChildItem} title={`最新MV`} list={menuList} />
         <MvList list={firstMvList} />
 
-        <FindTitle type={6} title={`热播MV`} />
+        <FindTitle history={history} type={6} title={`热播MV`} />
         <MvList list={hotMvList} />
 
-        <FindTitle type={7} title={`网易出品`} />
+        <FindTitle history={history} type={7} title={`网易出品`} />
         <MvList list={wycpMvList} />
 
-        <FindTitle type={8} tag={tag2} fun={this.obtainChildItem} title={`MV排行榜`} list={menuList} />
+        <FindTitle history={history} type={8} tag={tag2} fun={this.obtainChildItem} title={`MV排行榜`} list={menuList} />
         <TopMvList list={topMvList} />
       </div>
     );
