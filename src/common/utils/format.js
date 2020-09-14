@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:06
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-13 00:14:46
+ * @LastEditTime: 2020-09-14 16:24:40
  * @Description:
  */
 
@@ -58,15 +58,6 @@ export const formatWeek = val => {
 }
 
 /**
- * @name: 格式化序号
- * @param {number}
- */
-export const formatSerialNumber = val => {
-  if (!val) return;
-  return val < 10 ? '0' + val : val;
-}
-
-/**
  * @name: 筛选出对应风格的tag
  * @param {}
  */
@@ -108,7 +99,6 @@ export const formatDate = (v, type) => {
  * @name:格式化歌曲时间
  * @param {type}
  */
-
 export const formatSongTime = v => {
   if (!v) return;
   const time = Math.floor(v / 1000);
@@ -117,4 +107,13 @@ export const formatSongTime = v => {
   m = m < 10 ? '0' + m : m;
   s = s < 10 ? '0' + s : s;
   return `${m}:${s}`
+}
+
+/**
+ * @name:序号格式化
+ * @param {}
+ */
+export const formatSerialNo = v => {
+  if (!v) return;
+  return v < 10 ? '0' + v : v > 100000 ? (v / 10000).toFixed(1) + '万' : v;
 }

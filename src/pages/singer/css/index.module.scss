@@ -1,36 +1,6 @@
 @import "~@common/css/_variables.scss";
 
 .singer {
-  // 分类类型
-  .tag {
-    display: flex;
-    // user-select: none;
-    align-items: flex-start;
-
-    h3 {
-      white-space: nowrap;
-      padding: 2px 0;
-      margin: 5px 0;
-    }
-    ul {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      li {
-        position: relative;
-        padding: 2px 5px;
-        margin: 5px 10px;
-        border-radius: 2px;
-        color: $c666;
-        cursor: pointer;
-        &.active {
-          color: $cfff;
-          background-color: #8f9096;
-        }
-      }
-    }
-  }
-
   // 歌手列表
   .singer_list {
     margin-top: 10px;

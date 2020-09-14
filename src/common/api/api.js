@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-13 23:46:43
+ * @LastEditTime: 2020-09-14 17:41:46
  * @Description: 
  */
 import { getRequest } from './request';
@@ -173,3 +173,43 @@ export const videoGroup = (params) => {
   return getRequest('/video/group', params)
 }
 
+// MV
+
+/**
+ * @name:最新MV
+ * @param {}
+ */
+export const firstMv = (params) => {
+  return getRequest('/mv/first', params)
+}
+
+/**
+ * @name:热播MV
+ * @param {}
+ */
+export const hotMv = (params) => {
+  return getRequest('/personalized/mv', params)
+}
+
+/**
+ * @name:网易出品
+ * @param {}
+ */
+export const wycpMv = (params) => {
+  return getRequest('/mv/exclusive/rcmd', params)
+}
+
+/**
+ * @name:mv排行榜
+ * @param {}
+ */
+export const topMv = (params) => {
+  return getRequest('/top/mv', params)
+}
+/**
+ * @name:全部mv
+ * @param {}
+ */
+export const allMv = (params) => {
+  return getRequest('/mv/all', params)
+}

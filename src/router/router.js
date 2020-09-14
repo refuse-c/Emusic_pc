@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-13 02:41:51
+ * @LastEditTime: 2020-09-14 17:01:18
  * @Description: 
  */
 
@@ -20,6 +20,8 @@ import Videos from '@pages/video';
 import Video from '@pages/video/component/Video';
 import Mv from '@pages/video/component/Mv';
 
+//全部MV
+import AllMv from '@pages/mv';
 
 
 
@@ -81,6 +83,10 @@ const routers = [
       , {
       path: '/single:id',
       component: Single
+    },
+    {
+      path: '/allmv',
+      component: AllMv
     }
     ]
   },

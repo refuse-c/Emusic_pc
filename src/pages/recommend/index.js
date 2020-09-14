@@ -2,12 +2,12 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:41:50
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-11 10:47:56
+ * @LastEditTime: 2020-09-14 17:48:58
  * @Description: 发现-个性推荐
  */
 import React, { Component } from 'react';
 import Banner from '@common/components/banner/Banner';
-import FindTitle from '@common/components/findTitle/FindTitle';
+import FindTitle from '@common/components/findTitle';
 import SongList from './component/SongList';
 import NewMusic from './component/NewMusic';
 import Privatecontent from './component/Privatecontent';
@@ -92,21 +92,21 @@ class Recommend extends Component {
     return (<div>
       <Banner list={bannerList} />
 
-      <FindTitle history={history} title={`推荐歌单`} type={`0`} />
+      <FindTitle history={history} title={`推荐歌单`} type={0} />
       <SongList list={personalizedList} />
 
-      <FindTitle history={history} title={`独家放送`} type={`1`} />
+      <FindTitle history={history} title={`独家放送`} type={1} />
       <Privatecontent list={privatecontentList} />
 
-      <FindTitle history={history} title={`最新音乐`} type={`2`} />
+      <FindTitle history={history} title={`最新音乐`} type={2} />
       <NewMusic list={newMusicList} />
 
-      <FindTitle history={history} title={`推荐MV`} type={`3`} />
+      <FindTitle history={history} title={`推荐MV`} type={3} />
       <PersonalizedMv list={personalizedMvList} />
 
-      {/* <FindTitle history={history} title={`主播电台`} type={`4`} /> */}
+      {/* <FindTitle history={history} title={`主播电台`} type={4} /> */}
 
-      {/* <FindTitle history={history} title={`看看`} type={`5`} /> */}
+      {/* <FindTitle history={history} title={`看看`} type={5} /> */}
 
     </div >);
   }

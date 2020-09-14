@@ -8,7 +8,7 @@
 import React, { Component } from 'react'
 import styles from '../css/index.module.scss';
 import propTypes from 'prop-types';
-import { formatImgSize, formatSerialNumber } from '@/common/utils/format';
+import { formatImgSize, formatSerialNo } from '@/common/utils/format';
 class NewMusic extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +25,7 @@ class NewMusic extends Component {
               if (index > 9) return false;
               return (
                 <li key={item.id}>
-                  <div className={styles.su}>{formatSerialNumber(index + 1)}</div>
+                  <div className={styles.su}>{formatSerialNo(index + 1)}</div>
                   <div
                     className={styles.minfo}
                     style={{

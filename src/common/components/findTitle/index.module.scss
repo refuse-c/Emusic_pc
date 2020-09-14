@@ -1,0 +1,46 @@
+@import "~@common/css/_variables.scss";
+
+.find_title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  line-height: 40px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #e5e6ea;
+  div {
+    display: flex;
+    h2 {
+      font-size: $fz16;
+      font-weight: 500;
+    }
+    ul {
+      display: flex;
+      margin-left: 10px;
+
+      li {
+        position: relative;
+         padding: 0 10px;
+        &:not(:last-child)::before {
+          position: absolute;
+          content: "";
+          top: 50%;
+          right: 0;
+          width: 1px;
+          height: 10px;
+          margin-top: -5px;
+          background-color: #e5e6ea;
+        }
+        &.active {
+          color: $cc62f2f;
+        }
+      }
+    }
+  }
+  span {
+    cursor: pointer;
+    font-size: $fz14;
+    color: $c666;
+    padding: 0 12px 0;
+    background: url("~@images/arrow_right_b.png") right center / 14px no-repeat;
+  }
+}

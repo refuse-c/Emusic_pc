@@ -2,12 +2,12 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:49:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-13 01:51:17
+ * @LastEditTime: 2020-09-14 17:28:35
  * @Description:  发现-歌手
  */
 import React, { Component } from 'react'
 import styles from './css/index.module.scss';
-import Tag from './component/Tag';
+import Tag from '@components/tag';
 import SingerList from './component/SingerList';
 
 import { artistList } from '@/common/api/api';

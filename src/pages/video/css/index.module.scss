@@ -214,3 +214,60 @@
   margin: 0 auto;
   height: 80px;
 }
+
+// mv排行榜
+.top_mv_list {
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    li {
+      display: flex;
+      align-items: center;
+
+      width: 50%;
+      padding: 20px 0;
+      border-bottom: 1px solid #e5e6ea;
+      &:nth-last-child(-n + 2) {
+        border-bottom: none;
+      }
+      &:not(:nth-child(2n)) {
+        border-right: 1px solid #e5e6ea;
+      }
+      .num {
+        width: 50px;
+        text-align: center;
+        font-size: $fz24;
+        color: $c888;
+        font-family: "fangsong";
+        font-style: italic;
+        font-weight: 500;
+      }
+      .cover {
+        width: 160px;
+        height: 90px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      div {
+        width: calc(100% - 210px);
+        height: 100%;
+        padding: 0 5px;
+        p {
+          width: 100%;
+          margin-top: 10px;
+          &:nth-child(1) {
+            font-size: $fz14;
+          }
+
+          &:nth-child(2) {
+            height: auto;
+            color: $c888;
+            font-size: $fz12;
+          }
+        }
+      }
+    }
+  }
+}

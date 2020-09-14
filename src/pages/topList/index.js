@@ -8,7 +8,7 @@
 import React, { Component } from 'react'
 import { artistTop, playlistDetail, topList } from '@/common/api/api';
 import styles from './css/index.module.scss';
-import FindTitle from '@common/components/findTitle/FindTitle';
+import FindTitle from '@common/components/findTitle';
 import OfficialList from './component/OfficialList';
 import GlobalList from './component/GlobalList';
 
