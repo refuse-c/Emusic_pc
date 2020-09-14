@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-13 02:34:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-14 01:58:20
+ * @LastEditTime: 2020-09-14 08:02:02
  * @Description: 视频-视频
  */
 import React, { Component } from 'react';
@@ -113,6 +113,8 @@ class Video extends Component {
     this.setState({ loading: true }, () => tag === '全部视频' ? this.queryAllVideo() : this.queryVideoGroup())
 
   }
+
+
   componentWillUnmount() {
     this.setState = () => false;
   }

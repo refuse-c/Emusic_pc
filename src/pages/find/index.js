@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-25 15:04:12
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-13 02:26:18
+ * @LastEditTime: 2020-09-14 08:02:12
  * @Description: 发现
  */
 import React, { Component } from 'react';
@@ -41,6 +41,12 @@ class Find extends Component {
   }
 
   componentDidMount = () => { }
+
+  componentWillUnmount() {
+    this.setState = () => false;
+  }
+
+
   render() {
     const { onLoad, navList } = this.state;
     return (

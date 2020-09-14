@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-03 11:54:25
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-14 01:21:26
+ * @LastEditTime: 2020-09-14 08:01:25
  * @Description: 个性推荐-推荐mv
  */
 
@@ -23,10 +23,10 @@ class VideoList extends Component {
       <div className={styles.video_list}>
         <ul>
           {
-            list.map(item => {
+            list.map((item, index) => {
               const data = item.data;
               return (
-                <li key={data.coverUrl}>
+                <li key={'list' + index}>
                   <div
                     className={styles.img_box}
                     style={{
