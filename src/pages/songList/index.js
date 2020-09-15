@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:45:31
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-13 02:44:34
+ * @LastEditTime: 2020-09-15 15:51:12
  * @Description: 歌单
  */
 import React, { Component } from 'react';
@@ -11,7 +11,7 @@ import { taglist, hotTag, playList } from '@/common/api/api';
 import SongListClassify from './component/SongListClassify';
 import PlayList from './component/PlayList';
 import { formatTag } from '@/common/utils/format';
-import { Pagination } from 'antd';
+import { Spin, Pagination } from 'antd';
 
 
 class SongList extends Component {
@@ -23,9 +23,10 @@ class SongList extends Component {
       playlist: [], // 歌单列表
       tag: '全部歌单',
       showModal: false,
-      limit: 100,
+      limit: 40,
       offset: 1,
-      total: 0
+      total: 0,
+      loading: true
     }
   }
 
@@ -70,17 +71,17 @@ class SongList extends Component {
     } else {
       playlist = playlists;
     }
-    this.setState({ total, playlist }, () => this.props.fun()) // 滚动到顶部
+    this.setState({ total, playlist, loading: false }, () => this.props.fun()) // 滚动到顶部
   }
 
   //点击tag
   chooseTag = tag => {
-    this.setState({ tag, showModal: false, offset: 1 }, () => this.queryPlayList());
+    this.setState({ tag, showModal: false, offset: 1, playlist: [], total: 0, loading: true }, () => this.queryPlayList());
   }
 
   // 点击分页组件
   onChange = offset => {
-    this.setState({ offset }, () => this.queryPlayList());
+    this.setState({ offset, total: 0, playlist: [], loading: true }, () => this.queryPlayList());
   }
 
   componentDidMount = () => {
@@ -94,7 +95,8 @@ class SongList extends Component {
   }
 
   render() {
-    const { tag, showModal, tagList, hotTagList, playlist, limit, offset, total } = this.state;
+    const { history } = this.props;
+    const { tag, loading, showModal, tagList, hotTagList, playlist, limit, offset, total } = this.state;
     return (
       <div className={styles.song_list}>
         <div
@@ -118,7 +120,7 @@ class SongList extends Component {
             })}
           </ul>
         </div>
-        {<PlayList list={playlist} />}
+        {<PlayList list={playlist} history={history} />}
         <div className={styles.pages}>
           <Pagination
             total={total}
@@ -129,6 +131,9 @@ class SongList extends Component {
             showSizeChanger={false}
           />
         </div>
+        {
+          loading ? <div className='loading'><Spin style={{ color: '#666' }} tip="Loading..."></Spin></div> : ''
+        }
         {
           showModal ?
             <div className={styles.modal}>

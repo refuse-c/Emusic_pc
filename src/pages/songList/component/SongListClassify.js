@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-08 11:19:14
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-11 10:33:54
+ * @LastEditTime: 2020-09-15 15:24:27
  * @Description: 发现-歌单-歌单分类
  */
 import React, { Component } from 'react'
@@ -25,7 +25,6 @@ class SongListClassify extends Component {
               <div
                 className={[tag === '全部歌单' ? styles.tagActive : '', styles.tag].join(' ')}
                 onClick={() => this.props.fun('全部歌单')}
-
               >
                 全部歌单
                 </div>

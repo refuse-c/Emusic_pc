@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-11 09:51:05
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-13 02:19:11
+ * @LastEditTime: 2020-09-15 14:05:48
  * @Description: 发现-最新音乐
  */
 import React, { Component } from 'react';
@@ -10,6 +10,7 @@ import styles from './css/index.module.scss';
 import NewestMenu from './component/NewestMenu';
 import TopSong from './component/TopSong';
 import TopAlbum from './component/TopAlbum';
+import { Spin } from 'antd';
 import { allTopAlbum, topAlbum, topSong } from '@/common/api/api';
 class Newest extends Component {
   constructor(props) {
@@ -30,26 +31,23 @@ class Newest extends Component {
       weekData: [],
       // 全部
       topAlbumData: [],
-
+      loading: true
     }
   }
 
   // 点击菜单
   handleMenu = menuIndex => {
-    if (menuIndex) {
-      this.setState({ offset: 1 }, () => {
-        this.queryTopAlbum();
-      })
-    } else {
-      this.queryTopSong();
-    }
-    this.setState({ menuIndex })
+    this.setState({ offset: 1, loading: true, menuIndex }, () => {
+      menuIndex ? this.queryTopAlbum() : this.queryTopSong();
+    })
   }
 
   // 子组件获取值
   chooseItem = item => {
     const { menuIndex } = this.state;
-    this.setState({ type: item.type, area: item.area, offset: 1 }, () => {
+    this.setState({
+      type: item.type, area: item.area, offset: 1, monthData: [], weekData: [], loading: true
+    }, () => {
       if (menuIndex) {
         this.queryTopAlbum();
       } else {
@@ -71,7 +69,7 @@ class Newest extends Component {
     const params = { type }
     const res = await topSong({ ...params });
     if (res.code !== 200) return;
-    this.setState({ topSongData: res.data })
+    this.setState({ topSongData: res.data, loading: false })
   }
 
   //新碟上架 
@@ -90,6 +88,7 @@ class Newest extends Component {
     const res = await topAlbum({ ...params })
     if (res.code !== 200) return;
     this.setState({
+      loading: false,
       monthData: res.monthData || [],
       weekData: res.weekData || []
     })
@@ -107,7 +106,7 @@ class Newest extends Component {
     const total = res.total;
     const topAlbumData = res.albums;
     this.setState({
-      total, topAlbumData
+      total, topAlbumData, loading: false
     })
   }
 
@@ -118,7 +117,7 @@ class Newest extends Component {
     this.queryAllTopAlbum();
   }
   render() {
-    const { area, menu, menuIndex, topAlbumData, topSongData, weekData, monthData, albumType } = this.state;
+    const { area, loading, menu, menuIndex, topAlbumData, topSongData, weekData, monthData, albumType } = this.state;
     return (
       <div className={styles.newest}>
         <div className={styles.type}>
@@ -134,6 +133,9 @@ class Newest extends Component {
           </ul>
         </div>
         <NewestMenu type={menuIndex} fun1={this.chooseItem} fun2={this.chooseAlbumTtype} />
+        {
+          loading ? <div className='loading'><Spin style={{ color: '#666' }} tip="Loading..."></Spin></div> : ''
+        }
         {
           menuIndex ?
             albumType ?

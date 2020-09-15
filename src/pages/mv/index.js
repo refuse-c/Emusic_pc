@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:49:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-14 21:59:29
+ * @LastEditTime: 2020-09-15 09:36:18
  * @Description:  全部mv
  */
 import React, { Component } from 'react'
@@ -11,6 +11,7 @@ import Tag from '@components/tag';
 import FindTitle from '@components/findTitle';
 import ScrollView from 'react-custom-scrollbars';
 import MvList from '@pages/video/component/MvList';
+import queryString from 'query-string';
 
 import { allMv } from '@/common/api/api';
 import { Spin } from 'antd';
@@ -102,8 +103,24 @@ class Mv extends Component {
   }
 
   componentDidMount = () => {
-    this.queryAllMv();
+    const data = queryString.parse(this.props.history.location.search)
+    if (data) {
+      const area = data.area ? data.area : '全部';
+      const type = data.type ? data.type : '全部';
+      const order = data.order ? data.order : '上升最快';
+      this.setState({ area, type, order }, () => this.queryAllMv());
+    }
   }
+
+
+  // ocation:
+  //   hash: ""
+  // key: "prcogs"
+  // pathname: "/allmv"
+  // search: "?area=%E5%86%85%E5%9C%B0"
+
+
+
 
   componentDidUpdate = () => {
     const { hasMore, onLoad } = this.state;

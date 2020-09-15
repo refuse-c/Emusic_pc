@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:49:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-14 22:39:02
+ * @LastEditTime: 2020-09-15 09:39:30
  * @Description:  全部mv
  */
 import React, { Component } from 'react'
@@ -10,13 +10,14 @@ import styles from './css/index.module.scss';
 import FindTitle from '@components/findTitle';
 import ScrollView from 'react-custom-scrollbars';
 import TopMvList from '@pages/video/component/TopMvList';
+import queryString from 'query-string';
 import { topMv } from '@/common/api/api';
 import { Spin } from 'antd';
 class TopMv extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tag: '内地',// 地区
+      area: '内地',// 地区
       loading: true,
       updateTime: 0, // 更新时间
       areaList: [
@@ -39,25 +40,29 @@ class TopMv extends Component {
 
   // handle item 
   chooseItem = item => {
-    this.setState({ tag: item, topMvList: [], loading: true }, () => this.queryTopMv())
+    this.setState({ area: item, topMvList: [], loading: true }, () => this.queryTopMv())
   }
 
   //MV排行榜
   queryTopMv = async () => {
-    const { tag } = this.state;
-    const res = await topMv({ area: tag, limit: 50 });
+    const { area } = this.state;
+    const res = await topMv({ area: area, limit: 50 });
     if (res.code !== 200) return;
     this.setState({ topMvList: res.data, updateTime: res.updateTime, loading: false })
   }
 
 
   componentDidMount = () => {
-    this.queryTopMv();
+    const data = queryString.parse(this.props.history.location.search)
+    if (data) {
+      const area = data.area ? data.area : '内地';
+      this.setState({ area }, () => this.queryTopMv());
+    }
   }
 
 
   render() {
-    const { tag, areaList, topMvList, loading, updateTime } = this.state;
+    const { area, areaList, topMvList, loading, updateTime } = this.state;
     return (
       <div className={styles.all_mv} >
         <ScrollView
@@ -66,7 +71,7 @@ class TopMv extends Component {
           onScroll={this.handleScroll}
         >
           <div className={styles.mv_box}>
-            <FindTitle tag={tag} fun={this.chooseItem} title={`MV排行榜`} list={areaList} date={updateTime} />
+            <FindTitle tag={area} fun={this.chooseItem} title={`MV排行榜`} list={areaList} date={updateTime} />
             <div className={styles.mv_list_box}>
               <TopMvList list={topMvList} />
             </div>

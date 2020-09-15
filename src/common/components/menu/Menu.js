@@ -1,14 +1,14 @@
 /*
  * @Author: REFUSE_C
  * @Date: 2020-08-25 10:14:46
- * @LastEditors: refuse_c
- * @LastEditTime: 2020-08-26 20:40:22
+ * @LastEditors: REFUSE_C
+ * @LastEditTime: 2020-09-15 14:27:25
  * @Description: 左侧菜单栏
  */
 import React, { Component } from 'react';
-import './menu.scss';
 import ScrollView from 'react-custom-scrollbars';
 import { NavLink } from 'react-router-dom';
+import styles from './index.module.scss';
 class Menu extends Component {
   constructor(props) {
     super(props);
@@ -30,13 +30,13 @@ class Menu extends Component {
 
 
   render() {
-    return (<div className="menu">
+    return (<div className={styles.menu}>
       <ScrollView>
-        <ul className="menu-list">
+        <ul className={styles.menu_list}>
           {this.state.menuList.map((item, index) => {
             return (
               item.path ?
-                <NavLink activeClassName="menu-list-active" key={index} to={item.path}>
+                <NavLink activeClassName={styles.menu_list_active} key={index} to={item.path}>
                   <li> {item.name}</li>
                 </NavLink>
                 :

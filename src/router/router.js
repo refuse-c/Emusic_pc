@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-14 22:04:18
+ * @LastEditTime: 2020-09-15 15:48:39
  * @Description: 路由
  */
 
@@ -31,6 +31,8 @@ import Search from '@pages/search';
 import Friend from '@pages/friend';
 
 import Home from '@pages/home';
+
+//歌单列表(详情)
 import Single from '@pages/single';
 import Player from '@pages/player';
 
@@ -82,7 +84,7 @@ const routers = [
       }]
     },
       , {
-      path: '/single:id',
+      path: '/single',
       component: Single
     },
     {

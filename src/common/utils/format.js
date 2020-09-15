@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:06
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-14 20:49:55
+ * @LastEditTime: 2020-09-15 17:32:04
  * @Description:工具
  */
 
@@ -69,6 +69,7 @@ export const formatTag = (tagList, tagObj) => {
       newList.push({
         title: tagObj[key],
         list: arr,
+        icon: 'icon_' + key
       });
     }
   }
@@ -116,4 +117,30 @@ export const formatSongTime = v => {
 export const formatSerialNo = v => {
   if (!v) return;
   return v < 10 ? '0' + v : v > 100000 ? (v / 10000).toFixed(1) + '万' : v;
+}
+
+/**
+ * @name: 格式化歌单列表数据
+ * @param {}
+ */
+export const formatSingleList = v => {
+  console.log(v)
+  if (!v || !v.length) return [];
+}
+
+/**
+ * @name:是否是数组 
+ * @param {string}
+ */
+export const isArray = (v) => {
+  return toString(v) === '[object Array]';
+};
+
+/**
+ * @name: 非空校验
+ * @param { Boolean }
+ */
+export const isEmpty = v => {
+  console.log(Object.keys(v).length)
+  return v === '' || v === null || v === undefined || (isArray(v) && !v.length) || !Object.keys(v).length;
 }

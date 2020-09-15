@@ -2,12 +2,13 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 20:23:12
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-14 22:40:59
+ * @LastEditTime: 2020-09-15 09:56:05
  * @Description: FindTitle
  */
 import { message } from 'antd';
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
+import queryString from 'query-string';
 import styles from './index.module.scss';
 import { formatDate } from '@/common/utils/format';
 class FindTitle extends Component {
@@ -17,16 +18,52 @@ class FindTitle extends Component {
   }
 
   jump = () => {
-    const type = this.props.type;
+    const { type, tag } = this.props;
+    let params = {};
     switch (type) {
-      case 0: this.props.history.push({ pathname: `/find/songlist` }); break;
-      case 1: message.warning('客官请稍等, <独家放送>页面程序汪还在开发ing'); break;
-      case 2: this.props.history.push({ pathname: `/find/newest` }); break;
-      case 3: message.warning('客官请稍等,<推荐mv>页面程序汪还在开发ing'); break;
-      case 4: this.props.history.push({ pathname: `/find/radioStation` }); break;
-      case 8: this.props.history.push({ pathname: `/topmv` }); break;
+      case 0:
+        params = { pathname: `/find/songlist` };
+        break;
+      case 1:
+        message.warning('客官请稍等, <独家放送>页面程序汪还在开发ing');
+        break;
+      case 2:
+        params = { pathname: `/find/newest` };
+        break;
+      case 3:
+        params = { pathname: `/video/mv` };
+        break;
+      case 4:
+        params = {
+          pathname: `/find/radioStation`
+        };
+        break;
+      case 5:
+        params = {
+          pathname: `/allmv`,
+          search: queryString.stringify({ area: tag })
+        };
+        break;
+      case 6:
+        params = {
+          pathname: `/allmv`,
+          search: queryString.stringify({ order: '最热' })
+        };
+        break;
+      case 7:
+        params = {
+          pathname: `/allmv`,
+          search: queryString.stringify({ type: '网易出品', order: '最新' })
+        };
+        break;
+      case 8:
+        params = {
+          pathname: `/topmv`, search: queryString.stringify({ area: tag })
+        };
+        break;
       default: message.warning(`客官请稍等,<看看>页面程序汪还在开发ing`)
     }
+    this.props.history.push({ ...params })
   }
   render() {
     const { tag, type, list, fun, title, date } = this.props;
