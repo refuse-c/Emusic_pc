@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:45:31
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-15 15:51:12
+ * @LastEditTime: 2020-09-15 23:18:37
  * @Description: 歌单
  */
 import React, { Component } from 'react';
@@ -66,11 +66,7 @@ class SongList extends Component {
     }]
     const res = await playList(params);
     const { total, playlists } = res;
-    if (offset === 1) {
-      playlist = defaultList.concat(playlists);
-    } else {
-      playlist = playlists;
-    }
+    offset === 1 ? playlist = defaultList.concat(playlists) : playlist = playlists;
     this.setState({ total, playlist, loading: false }, () => this.props.fun()) // 滚动到顶部
   }
 

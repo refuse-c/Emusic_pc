@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-03 11:54:25
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-14 08:01:25
+ * @LastEditTime: 2020-09-15 23:14:10
  * @Description: 个性推荐-推荐mv
  */
 
@@ -38,20 +38,15 @@ class VideoList extends Component {
                   <div className={styles.creator}>
                     <p className='overflow'>{data.title || data.name}</p>
                     {
-                      data.creator ?
-                        <p className='overflow'>by {data.creator.nickname}</p>
-                        :
-                        <p className='overflow'>{data.artists.map(item => item.name).join('/ ')}</p>
+                      data.creator ? <p className='overflow'>by {data.creator.nickname}</p> : null
                     }
-
-
                   </div>
                 </li>
               )
             })
           }
         </ul>
-      </div>
+      </div >
     );
   }
 }
