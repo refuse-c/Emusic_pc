@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-16 00:11:20
+ * @LastEditTime: 2020-09-16 00:15:07
  * @Description: 歌单详情-头部
  */
 import { formatSerialNo, formatSongTime } from '@/common/utils/format';
@@ -67,8 +67,8 @@ class List extends Component {
     return (
       <div className={styles.list}>
         <Table
+          bordered
           rowKey={"id"}
-          border={true}
           size={"small"}
           columns={this.columns}
           dataSource={list}
