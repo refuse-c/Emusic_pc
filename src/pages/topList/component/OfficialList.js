@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-10 12:22:21
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-11 10:38:40
+ * @LastEditTime: 2020-09-16 11:11:14
  * @Description: 发现-排行榜-官方榜
  */
 import React, { Component } from 'react'
@@ -17,7 +17,7 @@ class OfficialList extends Component {
     this.state = {}
   }
   render() {
-    const { list } = this.props;
+    const { list, fun } = this.props;
     return (
       <div className={styles.official_list}>
         {
@@ -27,7 +27,10 @@ class OfficialList extends Component {
                 key={item.ToplistType}
                 className={styles.item_box}
               >
-                <div className={styles.bg}>
+                <div
+                  className={styles.bg}
+                  onClick={() => fun(item)}
+                >
                   {formatDate(item.updateTime, '0').substr(5) + '更新'}
                   <div className={styles.btn}>
                     {item.ToplistType !== 'A' ? <PlayAll cls={`play_all_1`} /> : null}

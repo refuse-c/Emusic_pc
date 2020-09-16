@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-10 12:22:21
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-11 10:38:33
+ * @LastEditTime: 2020-09-16 11:10:35
  * @Description: 发现-排行榜-官方榜
  */
 import { formatImgSize } from '@/common/utils/format';
@@ -15,7 +15,7 @@ class GlobalList extends Component {
     this.state = {}
   }
   render() {
-    const { list, history } = this.props;
+    const { list, fun } = this.props;
     return (
       <div className={styles.global_list}>
         <ul>
@@ -24,7 +24,7 @@ class GlobalList extends Component {
               <li key={item.id} >
                 <div
                   className={styles.positioning}
-                  onClick={() => history.push({ pathname: `/single?id=${item.id}` })}
+                  onClick={() => fun(item)}
                 >
                   <div
                     className={styles.box}

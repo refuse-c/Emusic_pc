@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:06
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-15 17:32:04
+ * @LastEditTime: 2020-09-16 14:17:00
  * @Description:工具
  */
 
@@ -116,7 +116,8 @@ export const formatSongTime = v => {
  */
 export const formatSerialNo = v => {
   if (!v) return;
-  return v < 10 ? '0' + v : v > 100000 ? (v / 10000).toFixed(1) + '万' : v;
+  return v < 10 ? '0' + v : v > 100000000
+    ? (v / 100000000).toFixed(1) + '亿' : v > 100000 ? (v / 10000).toFixed(1) + '万' : v;
 }
 
 /**
@@ -124,7 +125,6 @@ export const formatSerialNo = v => {
  * @param {}
  */
 export const formatSingleList = v => {
-  console.log(v)
   if (!v || !v.length) return [];
 }
 
@@ -141,6 +141,5 @@ export const isArray = (v) => {
  * @param { Boolean }
  */
 export const isEmpty = v => {
-  console.log(Object.keys(v).length)
   return v === '' || v === null || v === undefined || (isArray(v) && !v.length) || !Object.keys(v).length;
 }

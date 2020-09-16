@@ -2,13 +2,12 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-09 22:57:20
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-15 15:53:20
+ * @LastEditTime: 2020-09-16 16:49:49
  * @Description: 发现-歌单-歌单列表
  */
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import styles from '../css/index.module.scss';
-import queryString from 'query-string';
 import { formatImgSize } from '@/common/utils/format';
 class PlayList extends Component {
   constructor(props) {
@@ -18,20 +17,17 @@ class PlayList extends Component {
     }
   }
 
+  // 跳转歌单详情页
   jump = item => {
-    console.log(item)
     this.props.history.push({
-      pathname: '/single',
-      search: queryString.stringify({
-        id: item.id
-      })
+      pathname: `/single${item.id}`
     })
   }
 
   render() {
     const { list } = this.props;
     return (
-      <div className={styles.play_list}>
+      <div className={styles.play_list} >
         <ul>
           {list.map((item, index) => {
             return (

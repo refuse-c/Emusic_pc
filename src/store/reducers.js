@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:20:09
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-02 11:45:05
+ * @LastEditTime: 2020-09-16 16:07:14
  * @Description:
  */
 
@@ -34,9 +34,18 @@ const modalPower = (state = initState.modalPower, action) => {
   }
 }
 
+const userPlayList = (state = initState.userPlayList, action) => {
+  switch (action.type) {
+    case ACTIONTYPE.USRT_PLAYLIST: return action.data;
+    default: return state;
+  }
+}
+
+
 
 
 export default combineReducers({
   userInfo,
-  modalPower
+  modalPower,
+  userPlayList
 })

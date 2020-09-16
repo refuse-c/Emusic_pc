@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-30 08:48:51
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-02 13:46:39
+ * @LastEditTime: 2020-09-16 14:27:15
  * @Description: 声明默认值
  */
 let initState = {
@@ -18,6 +18,7 @@ let initState = {
   playing: {}, // 当前播放的音乐
   playList: [],// 当前的播放列表
   musicList: [],// 当前显示列表
+  userPlayList: [],//用户歌单
 }
 
 export default initState;

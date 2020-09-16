@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-02 17:37:19
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-11 11:08:55
+ * @LastEditTime: 2020-09-16 18:03:13
  * @Description: 个性推荐-歌单组件
  */
 import React, { Component } from 'react';
@@ -15,40 +15,42 @@ class SongList extends Component {
     this.state = {}
   }
 
-  renderList = () => {
-    const { list } = this.props;
-    return (
-      list && list.map((item) => {
-        return (
-          item.type === 'recommended' ?
-            < li key={item.id} >
-              <div className={styles.positioning}>
-                <div className={styles.box}>
-                  <p className={styles.week}>{item.week}</p>
-                  <p className={styles.day}>{item.day}</p>
-                </div>
-              </div >
-              <div className='name'>{item.name}</div>
-            </li >
-            :
-            < li key={item.id} >
-              <div className={styles.positioning}>
-                <div className={styles.box}>
-                  <img src={formatImgSize(item.picUrl, 200, 200)} alt="" />
-                </div>
-              </div >
-              <div className='name overflows'>{item.name}</div>
-            </li >
-        )
-      })
-    )
+  // 跳转歌单详情页
+  jump = item => {
+    this.props.history.push({
+      pathname: `/single${item.id}`
+    })
   }
-
   render() {
+    const { list } = this.props;
     return (
       <div className={styles.song_list}>
         <ul>
-          {this.renderList()}
+          {
+            list && list.map((item) => {
+              return (
+                item.type === 'recommended' ?
+                  < li key={item.id}>
+                    <div className={styles.positioning}>
+                      <div className={styles.box}>
+                        <p className={styles.week}>{item.week}</p>
+                        <p className={styles.day}>{item.day}</p>
+                      </div>
+                    </div >
+                    <div className='name'>{item.name}</div>
+                  </li >
+                  :
+                  <li key={item.id} onClick={() => this.jump(item)}>
+                    <div className={styles.positioning}>
+                      <div className={styles.box}>
+                        <img src={formatImgSize(item.picUrl, 200, 200)} alt="" />
+                      </div>
+                    </div >
+                    <div className='name overflows'>{item.name}</div>
+                  </li>
+              )
+            })
+          }
         </ul>
       </div>
     );

@@ -1,3 +1,5 @@
+@import "~@common/css/_variables.scss";
+
 .single {
   width: 100%;
   height: 100%;
@@ -10,9 +12,117 @@
   }
 }
 .head {
-  background-color: pink;
+  padding: 30px;
+  display: flex;
+  .cover_img {
+    width: 200px !important;
+    height: 200px !important;
+  }
+  .single_info {
+    width: 100%;
+    padding-left: 30px;
+    .info {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 6px;
+
+      .name {
+        display: flex;
+        align-items: center;
+        span {
+          &:nth-child(1) {
+            color: $cc62f2f;
+            border-radius: 2px;
+            padding: 2px 6px;
+            font-size: $fz13;
+            border: 1px solid #c62f2f;
+          }
+          &:nth-child(2) {
+            font-size: $fz20;
+            padding-left: 5px;
+            font-weight: 500;
+          }
+        }
+      }
+      .count {
+        display: flex;
+        white-space: nowrap;
+        color: $c999;
+        p {
+          display: flex;
+          flex-direction: column;
+          padding: 0 10px;
+          &:not(:last-child) {
+            border-right: 1px solid #e5e6ea;
+          }
+          span {
+            text-align: right;
+            &:last-child {
+              margin-top: 4px;
+            }
+          }
+        }
+      }
+    }
+    .creator {
+      padding-top: 16px;
+      display: flex;
+      align-items: center;
+      img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+      span {
+        &:nth-child(2) {
+          color: $c666;
+          padding-left: 8px;
+          cursor: pointer;
+        }
+        &:nth-child(3) {
+          color: $c888;
+          font-size: $fz12;
+          padding-left: 10px;
+        }
+      }
+    }
+    .btn_group {
+      padding-top: 16px;
+      display: flex;
+      align-items: center;
+      button {
+        cursor: pointer;
+        font-size: $fz12;
+        padding: 6px 16px;
+        border: 1px solid #e5e6ea;
+        background-color: #fff;
+        border-radius: 4px;
+        margin-left: 10px;
+        outline: none;
+        &:first-child {
+          margin-left: 0;
+          color: $cfff;
+          border: 1px solid #c62f2f;
+          background-color: #c62f2f;
+        }
+      }
+    }
+    .tags {
+      padding-top: 20px;
+      span {
+        padding: 0 5px;
+        cursor: pointer;
+        font-size: $fz12;
+      }
+    }
+    .desc {
+      padding-top: 10px;
+      overflow: hidden;
+    }
+  }
 }
 
 .list {
-  background-color: pink;
+  margin-left: -1px;
 }

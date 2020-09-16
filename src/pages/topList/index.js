@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:48:25
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-11 10:37:36
+ * @LastEditTime: 2020-09-16 17:53:13
  * @Description: 发现-排行榜
  */
 import React, { Component } from 'react'
@@ -19,6 +19,13 @@ class TopList extends Component {
       officialList: [], // 官方榜
       globalList: [], // 全球榜
     }
+  }
+
+  // 跳转歌单详情页
+  jump = item => {
+    this.props.history.push({
+      pathname: `/single${item.id}`
+    })
   }
 
   // 所有榜单
@@ -70,9 +77,9 @@ class TopList extends Component {
     const { officialList, globalList } = this.state;
     return (<div className={styles.find_box}>
       <FindTitle title={`官方榜`} />
-      <OfficialList history={history} list={officialList} />
+      <OfficialList history={history} list={officialList} fun={this.jump} />
       <FindTitle title={`全球榜`} />
-      <GlobalList history={history} list={globalList} />
+      <GlobalList history={history} list={globalList} fun={this.jump} />
     </div >);
   }
 }

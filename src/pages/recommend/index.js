@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:41:50
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-14 17:48:58
+ * @LastEditTime: 2020-09-16 11:03:27
  * @Description: 发现-个性推荐
  */
 import React, { Component } from 'react';
@@ -93,7 +93,7 @@ class Recommend extends Component {
       <Banner list={bannerList} />
 
       <FindTitle history={history} title={`推荐歌单`} type={0} />
-      <SongList list={personalizedList} />
+      <SongList history={history} list={personalizedList} />
 
       <FindTitle history={history} title={`独家放送`} type={1} />
       <Privatecontent list={privatecontentList} />

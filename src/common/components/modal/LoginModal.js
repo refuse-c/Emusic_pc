@@ -2,29 +2,45 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 21:48:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-13 03:34:20
+ * @LastEditTime: 2020-09-16 16:36:45
  * @Description 登录弹窗
  */
 import React, { Component } from 'react'
 import { Modal, Form, Input } from 'antd'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { modalPower, queryUserInfo } from '@/store/actions';
+import { modalPower, queryUserInfo, userPlayList } from '@/store/actions';
 import { IS_SHOW_LOGIN } from '@/store/actionTypes';
 import { login } from '@/common/api/api';
 import { setLocal } from '@/common/utils/tools';
+import { userPlaylist } from '@/common/api/user';
 const FormItem = Form.Item;
 class LoginModal extends Component {
   constructor(props) {
     super(props);
     this.state = {}
   }
-
   // 登录
   handelLogin = async params => {
-    const userInfo = await login(params);
-    setLocal('userInfo', userInfo);
-    this.props.handleQueryUserInf(userInfo);
+    const res = await login(params);
+    if (res.code !== 200) return;
+    setLocal('userInfo', res);
+    this.props.handleQueryUserInf(res);
+    const uid = res.profile.userId;
+    this.queryUserPlaylist(uid);
+  }
+
+  // 获取用户歌单
+  queryUserPlaylist = async uid => {
+    const res = await userPlaylist({ uid })
+    if (res.code !== 200) return;
+    const allList = res.playlist;
+    let createList = allList.filter(item => item.privacy !== 10 && item.userId === uid);
+    let collectList = allList.filter(item => item.privacy !== 10 && item.userId !== uid);
+    createList.unshift({ name: '创建的歌单' })
+    collectList.unshift({ name: '收藏的歌单' })
+    const list = createList.concat(collectList);
+    this.props.handeUserPlayList(list);
   }
 
   // 表单验证
@@ -118,7 +134,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     handelModalPower: bindActionCreators(modalPower, dispatch),
-    handleQueryUserInf: bindActionCreators(queryUserInfo, dispatch)
+    handleQueryUserInf: bindActionCreators(queryUserInfo, dispatch),
+    handeUserPlayList: bindActionCreators(userPlayList, dispatch)
   }
 }
 

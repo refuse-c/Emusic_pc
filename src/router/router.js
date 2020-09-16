@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-15 15:48:39
+ * @LastEditTime: 2020-09-16 16:50:04
  * @Description: 路由
  */
 
@@ -84,7 +84,7 @@ const routers = [
       }]
     },
       , {
-      path: '/single',
+      path: '/single:id',
       component: Single
     },
     {
