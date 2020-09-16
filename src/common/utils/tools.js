@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:17
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-03 10:55:22
+ * @LastEditTime: 2020-09-16 22:16:51
  * @Description:基础工具
  */
 
@@ -73,9 +73,15 @@ export const setLocal = (name, data) => {
 export const getLocal = (name) => {
   return JSON.parse(window.localStorage.getItem(name));
 };
+export const reLocal = (name) => {
+  window.localStorage.removeItem(name)
+};
 export const setSession = (name, data) => {
   window.sessionStorage.setItem(name, JSON.stringify(data));
 };
 export const getSession = (name) => {
   return JSON.parse(window.sessionStorage.getItem(name));
+};
+export const reSession = (name) => {
+  window.sessionStorage.removeItem(name)
 };

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 15:39:35
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-16 18:01:46
+ * @LastEditTime: 2020-09-16 22:23:37
  * @Description: 歌单详情
  */
 import React, { Component } from 'react'
@@ -40,7 +40,6 @@ class Single extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log(prevState)
     if (this.state.id !== prevState.id) {
       this.queryListDetail();
       this.setState({ loading: true })

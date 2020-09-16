@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-25 10:14:46
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-16 17:28:12
+ * @LastEditTime: 2020-09-16 22:24:02
  * @Description: 左侧菜单栏
  */
 import React, { Component } from 'react';
@@ -32,7 +32,6 @@ class Menu extends Component {
 
   render() {
     const { userPlayList } = this.props;
-    console.log(userPlayList)
     return (<div className={styles.menu}>
       <ScrollView>
         <ul className={styles.menu_list}>

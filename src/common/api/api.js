@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-14 17:41:46
+ * @LastEditTime: 2020-09-16 22:10:29
  * @Description: 
  */
 import { getRequest } from './request';
@@ -10,9 +10,16 @@ import { getRequest } from './request';
  * @name:登录 
  * @param {phone,password} 
  */
-
 export const login = (params) => {
   return getRequest('/login/cellphone', params)
+}
+
+/**
+ * @name: 检测登录状态
+ * @param {} 
+ */
+export const loginStatus = (params) => {
+  return getRequest('/login/status', params)
 }
 
 // 个性推荐

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 21:48:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-16 16:36:45
+ * @LastEditTime: 2020-09-16 22:17:10
  * @Description 登录弹窗
  */
 import React, { Component } from 'react'
@@ -11,8 +11,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modalPower, queryUserInfo, userPlayList } from '@/store/actions';
 import { IS_SHOW_LOGIN } from '@/store/actionTypes';
-import { login } from '@/common/api/api';
-import { setLocal } from '@/common/utils/tools';
+import { login, loginStatus } from '@/common/api/api';
+import { reLocal, setLocal } from '@/common/utils/tools';
 import { userPlaylist } from '@/common/api/user';
 const FormItem = Form.Item;
 class LoginModal extends Component {
@@ -28,6 +28,17 @@ class LoginModal extends Component {
     this.props.handleQueryUserInf(res);
     const uid = res.profile.userId;
     this.queryUserPlaylist(uid);
+  }
+
+  queryLoginStatus = async params => {
+    const res = await loginStatus(params);
+    if (res.code === 200) {
+      const uid = res.profile.userId;
+      this.queryUserPlaylist(uid);
+    } else {
+      reLocal('userInfo');
+      this.props.handleQueryUserInf({});
+    }
   }
 
   // 获取用户歌单
@@ -65,8 +76,10 @@ class LoginModal extends Component {
     this.props.handelModalPower({ type: IS_SHOW_LOGIN, data: false });
   }
 
+  componentDidMount = () => {
+    this.queryLoginStatus();
+  }
   formRef = React.createRef();
-
   render() {
     return (
       <Modal

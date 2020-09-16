@@ -8,6 +8,9 @@
     width: 100%;
     a {
       display: block;
+      &:hover {
+        color: $c353741;
+      }
 
       li {
         line-height: 40px;
