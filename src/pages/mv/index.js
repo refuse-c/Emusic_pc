@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:49:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-17 09:26:52
+ * @LastEditTime: 2020-09-17 18:23:02
  * @Description:  全部mv
  */
 import React, { Component } from 'react'
@@ -93,13 +93,13 @@ class Mv extends Component {
     const res = await allMv({
       ...params
     })
-
+    this.setState({ loading: false });
     if (res.code !== 200) return;
     const hasMore = res.hasMore;
     const nowList = res.data;
     const oldList = this.state.mvList;
     const newList = oldList.concat(nowList)
-    this.setState({ hasMore, mvList: newList, offset: offset + 1, loading: false })
+    this.setState({ hasMore, mvList: newList, offset: offset + 1 })
   }
 
   componentDidMount = () => {
@@ -111,7 +111,7 @@ class Mv extends Component {
       this.setState({ area, type, order }, () => this.queryAllMv());
     }
   }
-  
+
   componentDidUpdate = () => {
     const { hasMore, onLoad } = this.state;
     if (!hasMore || !onLoad) return;

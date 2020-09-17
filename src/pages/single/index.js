@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 15:39:35
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-17 15:04:43
+ * @LastEditTime: 2020-09-17 18:24:12
  * @Description: 歌单详情
  */
 import React, { Component } from 'react'
@@ -51,12 +51,12 @@ class Single extends Component {
   queryListDetail = async () => {
     const params = { id: this.state.id }
     const res = await playlistDetail({ ...params })
-    console.log(res)
+    this.setState({ loading: false });
     if (res.code !== 200) return;
     const arr = res.playlist.trackIds
     const ids = arr.map(item => item.id).join(',')
     this.querySongDetail({ ids: ids });
-    this.setState({ playlist: res.playlist, loading: false })
+    this.setState({ playlist: res.playlist })
   }
 
   // 歌曲详情

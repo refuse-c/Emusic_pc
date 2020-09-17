@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:49:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-15 09:39:30
+ * @LastEditTime: 2020-09-17 18:25:03
  * @Description:  全部mv
  */
 import React, { Component } from 'react'
@@ -47,8 +47,9 @@ class TopMv extends Component {
   queryTopMv = async () => {
     const { area } = this.state;
     const res = await topMv({ area: area, limit: 50 });
+    this.setState({ loading: false });
     if (res.code !== 200) return;
-    this.setState({ topMvList: res.data, updateTime: res.updateTime, loading: false })
+    this.setState({ topMvList: res.data, updateTime: res.updateTime })
   }
 
 

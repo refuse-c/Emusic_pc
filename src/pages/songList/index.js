@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:45:31
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-15 23:18:37
+ * @LastEditTime: 2020-09-17 18:24:41
  * @Description: 歌单
  */
 import React, { Component } from 'react';
@@ -65,9 +65,11 @@ class SongList extends Component {
       coverImgUrl: ''
     }]
     const res = await playList(params);
+    this.setState({ loading: false });
+    if (res.code !== 200) return;
     const { total, playlists } = res;
     offset === 1 ? playlist = defaultList.concat(playlists) : playlist = playlists;
-    this.setState({ total, playlist, loading: false }, () => this.props.fun()) // 滚动到顶部
+    this.setState({ total, playlist }, () => this.props.fun()) // 滚动到顶部
   }
 
   //点击tag

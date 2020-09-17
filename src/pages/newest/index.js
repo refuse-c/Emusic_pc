@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-11 09:51:05
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-15 14:05:48
+ * @LastEditTime: 2020-09-17 18:23:59
  * @Description: 发现-最新音乐
  */
 import React, { Component } from 'react';
@@ -68,8 +68,9 @@ class Newest extends Component {
     const { type } = this.state;
     const params = { type }
     const res = await topSong({ ...params });
+    this.setState({ loading: false });
     if (res.code !== 200) return;
-    this.setState({ topSongData: res.data, loading: false })
+    this.setState({ topSongData: res.data })
   }
 
   //新碟上架 
@@ -86,9 +87,9 @@ class Newest extends Component {
       area: this.state.area
     }
     const res = await topAlbum({ ...params })
+    this.setState({ loading: false });
     if (res.code !== 200) return;
     this.setState({
-      loading: false,
       monthData: res.monthData || [],
       weekData: res.weekData || []
     })
