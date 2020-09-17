@@ -126,6 +126,9 @@
 
 .list {
   margin-left: -1px;
+  .active {
+    color: $c999;
+  }
 }
 
 :global {
@@ -149,16 +152,6 @@
         color: $cFF4400;
         font-size: $fz12;
         background: url("~@images/i.png") center center / 100% no-repeat;
-
-        // &.vip {
-        //   background: url("~@images/vip.png") center center / 21px no-repeat;
-        // }
-        // &.sq {
-        //   background: url("~@images/sq.png") center center / 18px no-repeat;
-        // }
-        // &.mv {
-        //   background: url("~@images/mv.png") center center / 30px no-repeat;
-        // }
       }
     }
   }

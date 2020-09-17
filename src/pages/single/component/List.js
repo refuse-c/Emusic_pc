@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-17 18:33:25
+ * @LastEditTime: 2020-09-17 23:07:43
  * @Description: 歌单详情-头部
  */
 import { formatSerialNo, formatSongTime } from '@/common/utils/format';
@@ -64,6 +64,7 @@ class List extends Component {
   ];
 
   selectRow = record => {
+    console.log(record)
     if (record.st === -200) {
       message.error('因合作方要求，该资源暂时下架')
     } else {
@@ -74,7 +75,7 @@ class List extends Component {
 
   // 控制样式
   setClassName = (record) => {
-    return (record.st === -200 ? styles.red : '')
+    return (record.st === -200 ? styles.active : '')
   }
 
   render() {

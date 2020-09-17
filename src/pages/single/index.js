@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 15:39:35
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-17 21:32:10
+ * @LastEditTime: 2020-09-17 23:06:01
  * @Description: 歌单详情
  */
 import React, { Component } from 'react'
@@ -24,12 +24,35 @@ class Single extends Component {
     }
   }
 
-  componentDidMount = () => {
-    const id = this.props.match.params.id
-    this.setState({ id }, () => this.queryListDetail())
+  // 获取歌单列表
+  queryPlayListDetail = async () => {
+    const { id } = this.state;
+    const res = await playlistDetail({ id });
+    res.code === 200 ? this.querySongDetail(res) : this.setState({ loading: false });
   }
 
-  static getDerivedStateFromProps(props, state) {
+  // 歌曲详情
+  querySongDetail = async data => {
+    const ids = data.playlist.trackIds.map(item => item.id).join(',');
+    const res = await songDetail({ ids });
+    this.setState({ loading: false });
+    if (res.code !== 200) return;
+    const { songs, privileges } = res;
+    // 合并数据
+    const list = privileges.reduce((pre, cur) => {
+      const item = pre.find(el => el.id === cur.id);
+      if (item) Object.assign(item, cur);
+      return pre;
+    }, songs);
+    this.setState({ list, playlist: data.playlist });
+  }
+
+  componentDidMount = () => {
+    const id = this.props.match.params.id
+    this.setState({ id }, () => this.queryPlayListDetail())
+  }
+
+  static getDerivedStateFromProps = (props, state) => {
     const stateId = state.id;
     const propsId = props.match.params.id;
     if (stateId !== propsId) {
@@ -40,37 +63,11 @@ class Single extends Component {
     return null;
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate = (prevProps, prevState) => {
     if (this.state.id !== prevState.id) {
-      this.queryListDetail();
+      this.queryPlayListDetail();
       this.setState({ loading: true, list: [] })
     }
-  }
-
-  // 获取歌单列表
-  queryListDetail = async () => {
-    const params = { id: this.state.id };
-    const res = await playlistDetail({ ...params });
-    if (res.code !== 200) { this.setState({ loading: false }); }
-    const arr = res.playlist.trackIds;
-    const ids = arr.map(item => item.id).join(',');
-    this.querySongDetail({ ids: ids });
-    this.setState({ playlist: res.playlist });
-  }
-
-  // 歌曲详情
-  querySongDetail = async params => {
-    const res = await songDetail(params);
-    this.setState({ loading: false });
-    if (res.code !== 200) return;
-    const songs = res.songs;
-    const privileges = res.privileges;
-    const list = privileges.reduce((pre, cur) => {
-      const target = pre.find(ee => ee.id === cur.id)
-      if (target) Object.assign(target, cur)
-      return pre
-    }, songs)
-    this.setState({ list });
   }
 
   render() {
@@ -89,7 +86,6 @@ class Single extends Component {
             </div>
           </Spin>
         </ScrollView>
-
       </div >
     );
   }
