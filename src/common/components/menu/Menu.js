@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-25 10:14:46
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-16 22:24:02
+ * @LastEditTime: 2020-09-17 21:03:48
  * @Description: 左侧菜单栏
  */
 import React, { Component } from 'react';
@@ -57,7 +57,6 @@ class Menu extends Component {
           })}
         </ul>
       </ScrollView>
-
     </div >);
   }
 }
