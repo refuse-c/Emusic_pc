@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 21:48:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-16 22:17:10
+ * @LastEditTime: 2020-09-17 18:33:17
  * @Description 登录弹窗
  */
 import React, { Component } from 'react'
@@ -24,7 +24,7 @@ class LoginModal extends Component {
   handelLogin = async params => {
     const res = await login(params);
     if (res.code !== 200) return;
-    setLocal('userInfo', res);
+    setLocal('userInfo', res.profile);
     this.props.handleQueryUserInf(res);
     const uid = res.profile.userId;
     this.queryUserPlaylist(uid);
@@ -33,6 +33,7 @@ class LoginModal extends Component {
   queryLoginStatus = async params => {
     const res = await loginStatus(params);
     if (res.code === 200) {
+      setLocal('userInfo', res.profile);
       const uid = res.profile.userId;
       this.queryUserPlaylist(uid);
     } else {

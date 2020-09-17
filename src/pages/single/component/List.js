@@ -2,10 +2,10 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-17 17:50:19
+ * @LastEditTime: 2020-09-17 18:33:25
  * @Description: 歌单详情-头部
  */
-import { formatSerialNo, formatSongTime, isEmpty } from '@/common/utils/format';
+import { formatSerialNo, formatSongTime } from '@/common/utils/format';
 import { message, Table } from 'antd';
 import React, { Component } from 'react'
 import styles from '../css/index.module.scss';
