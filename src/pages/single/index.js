@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 15:39:35
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-16 22:23:37
+ * @LastEditTime: 2020-09-17 15:04:43
  * @Description: 歌单详情
  */
 import React, { Component } from 'react'
@@ -11,13 +11,14 @@ import Head from './component/Head';
 import List from './component/List';
 import ScrollView from 'react-custom-scrollbars';
 
-import { playlistDetail } from '@/common/api/api';
+import { playlistDetail, songDetail } from '@/common/api/api';
 import { Spin } from 'antd';
 class Single extends Component {
   constructor(props) {
     super(props);
     this.state = {
       id: '',
+      list: [],
       playlist: {},
       loading: true
     }
@@ -42,7 +43,7 @@ class Single extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.state.id !== prevState.id) {
       this.queryListDetail();
-      this.setState({ loading: true })
+      this.setState({ loading: true, list: [] })
     }
   }
 
@@ -50,15 +51,32 @@ class Single extends Component {
   queryListDetail = async () => {
     const params = { id: this.state.id }
     const res = await playlistDetail({ ...params })
+    console.log(res)
     if (res.code !== 200) return;
+    const arr = res.playlist.trackIds
+    const ids = arr.map(item => item.id).join(',')
+    this.querySongDetail({ ids: ids });
     this.setState({ playlist: res.playlist, loading: false })
   }
 
+  // 歌曲详情
+  querySongDetail = async params => {
+    const res = await songDetail(params)
+    if (res.code !== 200) return;
+    const songs = res.songs;
+    const privileges = res.privileges;
+    const list = privileges.reduce((pre, cur) => {
+      const target = pre.find(ee => ee.id === cur.id)
+      if (target) Object.assign(target, cur)
+      return pre
+    }, songs)
+    this.setState({ list });
+  }
+
   render() {
-    const { playlist, loading } = this.state;
+    const { loading, playlist, list } = this.state;
     return (
       <div className={styles.single}>
-
         <ScrollView
           ref={sc => this.sc = sc}
           className={styles.find_scroll}
@@ -67,7 +85,7 @@ class Single extends Component {
           <Spin tip="Loading..." spinning={loading} >
             <div className={styles.single_box}>
               <Head data={playlist} type={`歌单`} />
-              <List list={playlist.tracks} />
+              <List list={list} />
             </div>
           </Spin>
         </ScrollView>

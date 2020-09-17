@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-16 22:10:29
+ * @LastEditTime: 2020-09-17 09:49:12
  * @Description: 
  */
 import { getRequest } from './request';
@@ -111,6 +111,14 @@ export const artistTop = params => {
  */
 export const playlistDetail = params => {
   return getRequest('playlist/detail', params)
+}
+
+/**
+ * @name:获取每首歌的详情 
+ * @param {type} 
+ */
+export const songDetail = params => {
+  return getRequest('song/detail', params)
 }
 
 // 歌手

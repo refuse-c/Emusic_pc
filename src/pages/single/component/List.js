@@ -2,11 +2,11 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-16 18:01:17
+ * @LastEditTime: 2020-09-17 17:50:19
  * @Description: 歌单详情-头部
  */
-import { formatSerialNo, formatSongTime } from '@/common/utils/format';
-import { Table } from 'antd';
+import { formatSerialNo, formatSongTime, isEmpty } from '@/common/utils/format';
+import { message, Table } from 'antd';
 import React, { Component } from 'react'
 import styles from '../css/index.module.scss';
 
@@ -33,7 +33,12 @@ class List extends Component {
       key: 'name',
       ellipsis: true,
       sorter: (a, b) => a.name.localeCompare(b.name),
-      render: item => item.name
+      render: item => <div className='item'>
+        <p>{item.name}</p>
+        {item.fee === 1 ? <i>VIP</i> : null}
+        {item.dl === 999000 ? <i>SQ</i> : null}
+        {item.mv !== 0 ? <i>MV</i> : null}
+      </div >
     },
     {
       title: '歌手',
@@ -59,7 +64,17 @@ class List extends Component {
   ];
 
   selectRow = record => {
-    // console.log(record)
+    if (record.st === -200) {
+      message.error('因合作方要求，该资源暂时下架')
+    } else {
+      console.log(record)
+    }
+
+  }
+
+  // 控制样式
+  setClassName = (record) => {
+    return (record.st === -200 ? styles.red : '')
   }
 
   render() {
@@ -73,6 +88,7 @@ class List extends Component {
           columns={this.columns}
           dataSource={list}
           pagination={false}
+          rowClassName={this.setClassName}
           onRow={record => {
             return {
               onClick: event => { this.selectRow(record) }, // 点击行

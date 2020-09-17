@@ -2,9 +2,11 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:17
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-16 22:16:51
+ * @LastEditTime: 2020-09-17 09:40:44
  * @Description:基础工具
  */
+
+import { isEmpty } from "./format";
 
 
 /**
@@ -85,3 +87,13 @@ export const getSession = (name) => {
 export const reSession = (name) => {
   window.sessionStorage.removeItem(name)
 };
+
+/**
+ * @name:遍历歌单id
+ * @param {type}
+ */
+export const traverseId = (arr) => {
+  if (isEmpty(arr)) return;
+  let ids = arr.map(item => item.id).join(',')
+  return ids;
+}

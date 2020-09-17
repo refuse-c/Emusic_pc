@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:49:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-15 09:36:18
+ * @LastEditTime: 2020-09-17 09:26:52
  * @Description:  全部mv
  */
 import React, { Component } from 'react'
@@ -111,17 +111,7 @@ class Mv extends Component {
       this.setState({ area, type, order }, () => this.queryAllMv());
     }
   }
-
-
-  // ocation:
-  //   hash: ""
-  // key: "prcogs"
-  // pathname: "/allmv"
-  // search: "?area=%E5%86%85%E5%9C%B0"
-
-
-
-
+  
   componentDidUpdate = () => {
     const { hasMore, onLoad } = this.state;
     if (!hasMore || !onLoad) return;

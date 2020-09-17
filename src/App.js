@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 17:57:51
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-16 17:24:28
+ * @LastEditTime: 2020-09-17 11:05:37
  * @Description: 
  */
 import React from 'react';
@@ -43,7 +43,7 @@ function App() {
             );
           }
         })}
-        <Redirect exact from='/' to='/single5235207058' />
+        <Redirect exact from='/' to='/single2210176391' />
         <Footer />
       </Router>
     </div >
@@ -51,3 +51,10 @@ function App() {
 }
 
 export default (App);
+
+// privilege.fee
+// 8、0：免费
+// 4：所在专辑需单独付费
+// 1：VIP可听
+// privilege.cs: 云盘
+// privilege.st：-200无版权
