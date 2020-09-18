@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-16 16:50:04
+ * @LastEditTime: 2020-09-18 14:26:27
  * @Description: 路由
  */
 
@@ -15,21 +15,22 @@ import TopList from '@pages/topList';
 import Singer from '@pages/singer';
 import Newest from '@pages/newest';
 
+// 每日推荐音乐
+import RecommendSong from '@pages/recommendSong';
+
 // 视频
 import Videos from '@pages/video';
 import Video from '@pages/video/component/Video';
 import Mv from '@pages/video/component/Mv';
 
-// 全部MV
-import AllMv from '@pages/mv';
 
-// MV排行榜
-import TopMv from '@pages/topMv';
+import AllMv from '@pages/mv';// 全部MV
 
+import TopMv from '@pages/topMv';// MV排行榜
+import PrivatecontentList from '@pages/privatecontentList'; //独家放送列表
 
 import Search from '@pages/search';
 import Friend from '@pages/friend';
-
 import Home from '@pages/home';
 
 //歌单列表(详情)
@@ -41,7 +42,6 @@ const routers = [
   {
     path: '/',
     component: Home,
-    // eslint-disable-next-line
     routers: [{
       path: '/find',
       component: Find,
@@ -82,10 +82,13 @@ const routers = [
         path: '/video/mv',
         component: Mv  // Mv
       }]
-    },
-      , {
+    }, {
       path: '/single:id',
       component: Single
+    },
+    {
+      path: '/recommendSong',
+      component: RecommendSong
     },
     {
       path: '/allmv',
@@ -94,6 +97,10 @@ const routers = [
     {
       path: '/topmv',
       component: TopMv
+    },
+    {
+      path: '/privatecontentList',
+      component: PrivatecontentList
     }
     ]
   },

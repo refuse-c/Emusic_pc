@@ -2,10 +2,9 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-25 15:04:12
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-13 02:06:06
+ * @LastEditTime: 2020-09-18 16:35:47
  * @Description: 搜索
  */
-import { Input } from 'antd';
 import React, { Component } from 'react';
 import './css/index.scss';
 class Search extends Component {
@@ -16,9 +15,7 @@ class Search extends Component {
   render() {
     return (
       <div className="search">
-        <Input
-          type='search'
-        />
+
       </div>
     );
   }

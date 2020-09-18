@@ -14,6 +14,7 @@
   .main {
     display: flex;
     width: 100%;
+    min-width: 1150px;
     height: calc(100vh - 100px);
   }
 }
@@ -51,7 +52,9 @@ img {
 
 // loading
 .loading {
-  display: table;
+  display: flex;
   margin: 0 auto;
   height: 80px;
+  align-items: center;
+  justify-content: center;
 }

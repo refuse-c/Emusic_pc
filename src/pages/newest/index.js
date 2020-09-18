@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-11 09:51:05
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-17 18:23:59
+ * @LastEditTime: 2020-09-18 14:03:04
  * @Description: 发现-最新音乐
  */
 import React, { Component } from 'react';
@@ -110,7 +110,6 @@ class Newest extends Component {
       total, topAlbumData, loading: false
     })
   }
-
 
   componentDidMount = () => {
     this.queryTopSong();

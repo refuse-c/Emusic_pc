@@ -2,18 +2,20 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-17 23:07:43
- * @Description: 歌单详情-头部
+ * @LastEditTime: 2020-09-18 11:21:23
+ * @Description: 歌单列表
  */
 import { formatSerialNo, formatSongTime } from '@/common/utils/format';
 import { message, Table } from 'antd';
 import React, { Component } from 'react'
-import styles from '../css/index.module.scss';
-
-class List extends Component {
+import styles from './css/index.module.scss';
+import propTypes from 'prop-types';
+class MusicList extends Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      newList: [] // 点击排序后的新列表
+    }
   }
   columns = [
     {
@@ -71,43 +73,52 @@ class List extends Component {
       console.log(record)
     }
 
+    // privilege.fee
+    // 8、0：免费
+    // 4：所在专辑需单独付费
+    // 1：VIP可听
+    // privilege.cs: 云盘
+    // privilege.st：-200无版权
   }
-
+  onChange = (pagination, filters, sorter, extra) => {
+    this.setState({ newList: extra.currentDataSource })
+  }
   // 控制样式
   setClassName = (record) => {
-    return (record.st === -200 ? styles.active : '')
+    return record.st === -200 ? styles.active : ''
   }
 
   render() {
     const { list } = this.props;
     return (
-      <div className={styles.list}>
-        <Table
-          bordered
-          rowKey={"id"}
-          size={"small"}
-          columns={this.columns}
-          dataSource={list}
-          pagination={false}
-          rowClassName={this.setClassName}
-          onRow={record => {
-            return {
-              onClick: event => { this.selectRow(record) }, // 点击行
-              // onDoubleClick: {},
-              // onContextMenu: event => { },
-              // onMouseEnter: event => { }, // 鼠标移入行
-              // onMouseLeave: event => { },
-            };
-          }}
-          locale={{
-            cancelSort: '取消排序',
-            triggerAsc: '点击升序',
-            triggerDesc: '点击降序'
-          }}
-        />
-      </div>
+      <Table
+        bordered
+        rowKey={"id"}
+        size={"small"}
+        columns={this.columns}
+        dataSource={list}
+        pagination={false}
+        rowClassName={this.setClassName}
+        onChange={this.onChange}
+        onRow={record => {
+          return {
+            onClick: event => { this.selectRow(record) }, // 点击行
+            // onDoubleClick: {},
+            // onContextMenu: event => { },
+            // onMouseEnter: event => { }, // 鼠标移入行
+            // onMouseLeave: event => { },
+          };
+        }}
+        locale={{
+          cancelSort: '取消排序',
+          triggerAsc: '点击升序',
+          triggerDesc: '点击降序'
+        }}
+      />
     );
   }
 }
-
-export default List;
+MusicList.propTypes = {
+  list: propTypes.array
+}
+export default MusicList;

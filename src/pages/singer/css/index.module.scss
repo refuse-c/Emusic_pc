@@ -1,11 +1,13 @@
 @import "~@common/css/_variables.scss";
 
 .singer {
+  .tag_box {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e5e6ea;
+  }
   // 歌手列表
   .singer_list {
-    margin-top: 10px;
-    padding-top: 30px;
-    border-top: 1px solid #e5e6ea;
     ul {
       display: flex;
       flex-wrap: wrap;

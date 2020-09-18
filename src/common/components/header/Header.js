@@ -2,19 +2,21 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-17 18:46:14
+ * @LastEditTime: 2020-09-18 16:38:29
  * @Description: 头部 
  */
 import React, { Component } from 'react';
+import styles from './css/index.module.scss';
 import Login from '../modal/LoginModal';
-import './index.scss';
-
+import SearchModal from '../modal/SearchModal';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modalPower } from '@/store/actions';
 import { IS_SHOW_LOGIN, IS_SHOW_SKIN } from '@/store/actionTypes';
 import { getLocal } from '@/common/utils/tools';
 import { withRouter } from 'react-router-dom';
+import { Input } from 'antd';
+const { Search } = Input;
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -35,21 +37,31 @@ class Header extends Component {
   render() {
     const { loginStatue } = this.props.modalPower;
     const userInfo = getLocal('userInfo') || {};
-    return (<div className="header">
+    return (<div className={styles.header}>
       <Login showModal={loginStatue} hideModal={this.hideModal} />
-      <div className="header-left">
-        <div className="logo"></div>
-        <div className='arrow arrow-left' onClick={() => this.go(-1)}></div>
-        <div className='arrow arrow-right' onClick={() => this.go(1)}></div>
+      <SearchModal />
+      <div className={styles.header_left}>
+        <div className={styles.logo}></div>
+        <div className={[styles.arrow, styles.arrow_left].join(' ')} onClick={() => this.go(-1)}></div>
+        <div className={[styles.arrow, styles.arrow_right].join(' ')} onClick={() => this.go(1)}></div>
+        <Search
+          size={`small`}
+          borderd={`false`}
+          allowClear
+          // enterButton
+          onChange={() => console.log(1111)}
+          onSearch={() => console.log(2222)}
+          loading={false}
+        />
       </div>
-      <ul className="header-right">
+      <ul className={styles.header_right}>
         {userInfo ?
           <li onClick={() => this.props.handleModalPower({ type: IS_SHOW_LOGIN, data: true })}>
-            <p className="avatar" style={{ backgroundImage: `url(${userInfo.avatarUrl})` }}></p>
-            <p className='nickname'>
+            <p className={styles.avatar} style={{ backgroundImage: `url(${userInfo.avatarUrl})` }}></p>
+            <p className={styles.nickname}>
               {userInfo.nickname}
-              <span className="vip"></span>
-              <span className="arrow"></span>
+              <span className={styles.vip}></span>
+              <span className={styles.arrow}></span>
             </p>
           </li>
           :

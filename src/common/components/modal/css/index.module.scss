@@ -1,0 +1,11 @@
+@import "~@common/css/_variables.scss";
+
+.search_Modal {
+  position: absolute;
+  top: 50px;
+  left: 260px;
+  width: 425px;
+  height: 500px;
+  background-color: #fafafa;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
+}

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-17 09:49:12
+ * @LastEditTime: 2020-09-18 11:24:23
  * @Description: 
  */
 import { getRequest } from './request';
@@ -40,12 +40,30 @@ export const recommendList = params => {
 }
 
 /**
- * @name: 独家放送
+ * @name:每日推荐音乐
+ * @param {} 
+ */
+export const recommendSongs = params => {
+  return getRequest('/recommend/songs', params)
+}
+
+/**
+ * @name: 独家放送(个性推荐入口)
  * @param {}
  */
 export const privatecontent = params => {
   return getRequest('/personalized/privatecontent', params)
 }
+
+/**
+ * @name: 独家放送(个性推荐入口)
+ * @param {}
+ */
+export const privatecontentList = params => {
+  return getRequest('/personalized/privatecontent/list', params)
+}
+
+
 /**
  * @name:最新音乐
  * @param {}

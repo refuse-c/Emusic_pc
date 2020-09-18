@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:49:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-14 21:59:52
+ * @LastEditTime: 2020-09-18 14:33:13
  * @Description:  发现-歌手
  */
 import React, { Component } from 'react'
@@ -120,9 +120,11 @@ class Singer extends Component {
     const { type, area, initial, typeList, areaList, initialList, list, more } = this.state;
     return (
       <div className={styles.singer} >
-        <Tag title={`语种`} tag={area} list={areaList} type={`1`} fun={this.chooseItem} />
-        <Tag title={`分类`} tag={type} list={typeList} type={`2`} fun={this.chooseItem} />
-        <Tag title={`热门`} tag={initial} list={initialList} type={`3`} fun={this.chooseItem} />
+        <div className={styles.tag_box}>
+          <Tag title={`语种`} tag={area} list={areaList} type={`1`} fun={this.chooseItem} />
+          <Tag title={`分类`} tag={type} list={typeList} type={`2`} fun={this.chooseItem} />
+          <Tag title={`热门`} tag={initial} list={initialList} type={`3`} fun={this.chooseItem} />
+        </div>
         <SingerList list={list} />
         {
           more ? <div className='loading'><Spin style={{ color: '#666' }} tip="Loading..."></Spin></div> : ''

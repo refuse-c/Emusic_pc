@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 20:23:12
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-15 09:56:05
+ * @LastEditTime: 2020-09-18 11:32:00
  * @Description: FindTitle
  */
 import { message } from 'antd';
@@ -25,7 +25,7 @@ class FindTitle extends Component {
         params = { pathname: `/find/songlist` };
         break;
       case 1:
-        message.warning('客官请稍等, <独家放送>页面程序汪还在开发ing');
+        params = { pathname: `/privatecontentList` };
         break;
       case 2:
         params = { pathname: `/find/newest` };

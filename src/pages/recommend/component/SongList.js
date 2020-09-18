@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-02 17:37:19
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-16 18:03:13
+ * @LastEditTime: 2020-09-18 09:56:25
  * @Description: 个性推荐-歌单组件
  */
 import React, { Component } from 'react';
@@ -30,7 +30,10 @@ class SongList extends Component {
             list && list.map((item) => {
               return (
                 item.type === 'recommended' ?
-                  < li key={item.id}>
+                  < li
+                    key={item.id}
+                    onClick={() => this.props.history.push({ pathname: `/recommendSong` })}
+                  >
                     <div className={styles.positioning}>
                       <div className={styles.box}>
                         <p className={styles.week}>{item.week}</p>
@@ -52,7 +55,7 @@ class SongList extends Component {
             })
           }
         </ul>
-      </div>
+      </div >
     );
   }
 }

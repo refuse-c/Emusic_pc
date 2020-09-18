@@ -11,7 +11,7 @@
   background-color: #c62f2f;
   box-shadow: 0 0 1px #000;
 
-  .header-left {
+  .header_left {
     display: flex;
     align-items: center;
     .logo {
@@ -26,13 +26,13 @@
       &:hover {
         border: 1px solid #fff;
       }
-      &.arrow-left {
+      &.arrow_left {
         cursor: pointer;
         border-radius: 4px 0 0 4px;
         background: url("~@images/arrow_left_w.png") center center / 14px
           no-repeat;
       }
-      &.arrow-right {
+      &.arrow_right {
         cursor: pointer;
         border-radius: 0 4px 4px 0;
         margin-left: -1px;
@@ -40,8 +40,35 @@
           no-repeat;
       }
     }
+    :global {
+      .ant-input-affix-wrapper {
+        border-radius: 15px;
+        overflow: hidden;
+        margin-left: 10px;
+        width: 220px;
+        color: $cfafafa;
+        border: none;
+        box-shadow: none;
+        background-color: #a82828;
+        &:focus {
+          border: none;
+          box-shadow: none;
+        }
+      }
+      .ant-input {
+        color: $cfafafa;
+        background-color: #a82828;
+      }
+      .anticon {
+        color: $cfafafa;
+        &::before {
+          border: none;
+        }
+      }
+    }
   }
-  .header-right {
+  
+  .header_right {
     display: flex;
     align-items: center;
     justify-content: flex-end;
