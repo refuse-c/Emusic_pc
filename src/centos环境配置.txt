@@ -4,44 +4,62 @@ wget -N --no-check-certificate https://raw.githubusercontent.com/luyiming1016/la
 
 tips:  后面一直回车就好了啦
 
+---------------------------------------------------------------------------------------------------------------------------
+
 
 2.安装nginx
 
-sudo yum install yum-utils
-vi  /etc/yum.repos.d/nginx.repo
-输入：
+//一键安装上面四个依赖
+yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel
+ 
 
-[nginx-stable]
-name=nginx stable repo
-baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
-gpgcheck=1
-enabled=1
-gpgkey=https://nginx.org/keys/nginx_signing.key
-module_hotfixes=true
+2、创建nginx目录，并下载解压
 
-[nginx-mainline]
-name=nginx mainline repo
-baseurl=http://nginx.org/packages/mainline/centos/$releasever/$basearch/
-gpgcheck=1
-enabled=0
-gpgkey=https://nginx.org/keys/nginx_signing.key
-module_hotfixes=true
+复制代码
+//创建一个文件夹
+cd /usr/local
+mkdir nginx
+cd nginx
 
-yum-config-manager --enable nginx-mainline
-yum install nginx
-ps -ef | grep nginx
-systemctl enable nginx
-systemctl start nginx
+//远程下载tar包
+wget http://nginx.org/download/nginx-1.10.2.tar.gz
+
+//远程下载tar包
+tar -xvf nginx-1.10.2.tar.gz
+复制代码
+ 
+
+3、开始安装
+
+复制代码
+//进入nginx目录
+cd /usr/local/nginx
+//执行命令
+./configure --prefix=/usr/local/nginx --conf-path=/usr/local/nginx/nginx.conf
+//执行make命令
+make
+//执行make install命令
+make install
+复制代码
+ 
+
+4、启动、停止、重启命令
+
+复制代码
+//启动
+cd /usr/local/nginx/sbin/nginx
+./nginx 
+
+//停止
+cd /usr/local/nginx/sbin/nginx
+./nginx -s stop 
+
+//重启，这个命令是nginx已经启动的前提下生效，一般改配置文件时，要重启
+cd /usr/local/nginx/sbin/nginx
+./nginx -s reload
 
 
-默认的html根目录在：/usr/share/nginx/html
-
-默认的配置文件在：/etc/nginx/conf.d/default.conf  以及 /etc/nginx/nginx.conf
-
-////////////////////////////////
-////////Sixi. Let it be.../////
-//////////////////////////////
-
+---------------------------------------------------------------------------------------------------------------------------
 
 
 3.安装node
@@ -87,3 +105,51 @@ export PATH=$N_PREFIX/bin:$PATH
 
 $ source ~/.bash_profile
 3.6 这时候再查看node -v发现版本切换成功了。
+
+
+
+
+
+启动 Nginx
+
+sudo systemctl start nginx
+1
+停止 Nginx
+
+sudo systemctl stop nginx
+1
+重启 Nginx
+
+sudo systemctl restart nginx
+1
+修改 Nginx 配置后，重新加载
+
+sudo systemctl reload nginx
+1
+设置开机启动 Nginx
+
+sudo systemctl enable nginx
+1
+关闭开机启动 Nginx
+
+sudo systemctl disable nginx
+
+
+
+/usr/sbin/nginx #启动
+/usr/sbin/nginx -s reload #重启
+/usr/sbin/nginx -s stop #停止
+
+
+
+删除: /usr/local/bin/npm
+删除: /usr/local/share/man/man1/node.1
+删除: /usr/local/lib/dtrace/node.d
+删除: rm -rf /home/[homedir]/.npm
+删除: rm -rf /home/root/.npm
+
+
+
+查找nginx 目录 
+
+ps  -ef | grep nginx

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 17:57:51
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-18 14:25:20
+ * @LastEditTime: 2020-09-20 20:16:38
  * @Description: 
  */
 import React from 'react';
@@ -43,7 +43,7 @@ function App() {
             );
           }
         })}
-        <Redirect exact from='/' to='/search' />
+        <Redirect exact from='/' to='/single395805382' />
         <Footer />
       </Router>
     </div >

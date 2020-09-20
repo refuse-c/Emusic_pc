@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-18 11:21:23
+ * @LastEditTime: 2020-09-20 20:20:36
  * @Description: 歌单列表
  */
 import { formatSerialNo, formatSongTime } from '@/common/utils/format';
@@ -37,9 +37,12 @@ class MusicList extends Component {
       sorter: (a, b) => a.name.localeCompare(b.name),
       render: item => <div className='item'>
         <p>{item.name}</p>
-        {item.fee === 1 ? <i>VIP</i> : null}
+        {/* {item.fee === 1 ? <i>VIP</i> : null}
         {item.dl === 999000 ? <i>SQ</i> : null}
-        {item.mv !== 0 ? <i>MV</i> : null}
+        {item.mv !== 0 ? <i>MV</i> : null} */}
+        {item.fee === 1 ? <i></i> : null}
+        {item.dl === 999000 ? <i></i> : null}
+        {item.mv !== 0 ? <i></i> : null}
       </div >
     },
     {
@@ -100,6 +103,7 @@ class MusicList extends Component {
         pagination={false}
         rowClassName={this.setClassName}
         onChange={this.onChange}
+        className={styles.table}
         onRow={record => {
           return {
             onClick: event => { this.selectRow(record) }, // 点击行

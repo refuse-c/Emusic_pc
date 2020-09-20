@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-18 16:38:29
+ * @LastEditTime: 2020-09-19 13:40:12
  * @Description: 头部 
  */
 import React, { Component } from 'react';
@@ -32,7 +32,6 @@ class Header extends Component {
   go = setp => {
     this.props.history.go(setp)
   }
-
 
   render() {
     const { loginStatue } = this.props.modalPower;
