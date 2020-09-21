@@ -20,18 +20,19 @@
         padding: 2px 4px;
         color: $cFF4400;
         font-size: $fz12;
-        width: 20px;
+        width: 30px;
         height: 20px;
-        &:nth-child(1) {
-          background: url("~@images/vip.png") center center / 100% no-repeat;
-        }
-        &:nth-child(2) {
-          background: url("~@images/sq.png") center center / 100% no-repeat;
-        }
-        &:nth-child(3) {
-          background: url("~@images/mv.png") center center / 100% no-repeat;
-        }
       }
     }
   }
+}
+
+.vip {
+  background: url("~@images/vip.png") center center / auto 14px no-repeat;
+}
+.sq {
+  background: url("~@images/sq.png") center center / auto 14px no-repeat;
+}
+.mv {
+  background: url("~@images/mv.png") center center / auto 14px no-repeat;
 }

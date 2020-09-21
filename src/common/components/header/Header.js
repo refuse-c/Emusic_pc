@@ -2,13 +2,13 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-19 13:40:12
+ * @LastEditTime: 2020-09-21 14:11:21
  * @Description: 头部 
  */
 import React, { Component } from 'react';
 import styles from './css/index.module.scss';
 import Login from '../modal/LoginModal';
-import SearchModal from '../modal/SearchModal';
+// import SearchModal from '../modal/SearchModal';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modalPower } from '@/store/actions';
@@ -38,7 +38,7 @@ class Header extends Component {
     const userInfo = getLocal('userInfo') || {};
     return (<div className={styles.header}>
       <Login showModal={loginStatue} hideModal={this.hideModal} />
-      <SearchModal />
+      {/* <SearchModal /> */}
       <div className={styles.header_left}>
         <div className={styles.logo}></div>
         <div className={[styles.arrow, styles.arrow_left].join(' ')} onClick={() => this.go(-1)}></div>
@@ -47,7 +47,6 @@ class Header extends Component {
           size={`small`}
           borderd={`false`}
           allowClear
-          // enterButton
           onChange={() => console.log(1111)}
           onSearch={() => console.log(2222)}
           loading={false}

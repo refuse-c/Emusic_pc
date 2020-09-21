@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-16 14:17:08
+ * @LastEditTime: 2020-09-21 17:03:00
  * @Description: 歌单详情-头部
  */
 import { formatDate, formatImgSize, formatSerialNo, isEmpty } from '@/common/utils/format';

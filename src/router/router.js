@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-18 14:26:27
+ * @LastEditTime: 2020-09-21 14:28:09
  * @Description: 路由
  */
 
@@ -35,6 +35,9 @@ import Home from '@pages/home';
 
 //歌单列表(详情)
 import Single from '@pages/single';
+//精品歌单
+import QualityList from '@pages/qualityList';
+// 播放页
 import Player from '@pages/player';
 
 
@@ -101,6 +104,10 @@ const routers = [
     {
       path: '/privatecontentList',
       component: PrivatecontentList
+    },
+    {
+      path: '/qualityList:id',
+      component: QualityList
     }
     ]
   },

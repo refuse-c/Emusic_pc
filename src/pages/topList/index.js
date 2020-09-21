@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:48:25
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-16 17:53:13
+ * @LastEditTime: 2020-09-21 11:47:24
  * @Description: 发现-排行榜
  */
 import React, { Component } from 'react'
@@ -10,7 +10,8 @@ import { artistTop, playlistDetail, topList } from '@/common/api/api';
 import styles from './css/index.module.scss';
 import FindTitle from '@common/components/findTitle';
 import OfficialList from './component/OfficialList';
-import GlobalList from './component/GlobalList';
+// import GlobalList from './component/GlobalList';
+import SongList from '@components/songlList';
 
 class TopList extends Component {
   constructor(props) {
@@ -19,13 +20,6 @@ class TopList extends Component {
       officialList: [], // 官方榜
       globalList: [], // 全球榜
     }
-  }
-
-  // 跳转歌单详情页
-  jump = item => {
-    this.props.history.push({
-      pathname: `/single${item.id}`
-    })
   }
 
   // 所有榜单
@@ -79,7 +73,7 @@ class TopList extends Component {
       <FindTitle title={`官方榜`} />
       <OfficialList history={history} list={officialList} fun={this.jump} />
       <FindTitle title={`全球榜`} />
-      <GlobalList history={history} list={globalList} fun={this.jump} />
+      <SongList history={history} list={globalList} />
     </div >);
   }
 }

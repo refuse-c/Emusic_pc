@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-18 11:24:23
+ * @LastEditTime: 2020-09-21 14:30:20
  * @Description: 
  */
 import { getRequest } from './request';
@@ -96,6 +96,21 @@ export const taglist = params => {
  */
 export const hotTag = params => {
   return getRequest('/playlist/hot', params)
+}
+
+/**
+ * @name: 精品歌单标签列表
+ * @param {} 
+ */
+export const qualityTag = params => {
+  return getRequest('/playlist/highquality/tags', params)
+}
+/**
+ * @name: 精品歌单
+ * @param {} 
+ */
+export const highquality = params => {
+  return getRequest('/top/playlist/highquality', params)
 }
 
 /**
