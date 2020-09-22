@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-21 17:52:48
+ * @LastEditTime: 2020-09-22 11:19:29
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -19,7 +19,7 @@ class Footer extends Component {
         <img src="" alt="" />
         <div className={styles.control}>
           <i className={styles.prev}></i>
-          <i className={styles.play}></i>
+          <i className={styles.pause}></i>
           <i className={styles.next}></i>
         </div>
         <div className={styles.progress}>

@@ -20,6 +20,7 @@
     position: absolute;
     top: 35px;
     left: 0px;
+    z-index: 2;
   }
 
   // 热门歌单
@@ -69,28 +70,28 @@
           display: flex;
           margin-top: 10px;
           &:nth-child(2) h3 {
-            background: url("~@images/icon_0.png") top 7px left / 20px 20px
+            background: url("~@images/icon_0.png") top 7px left / 24px 24px
               no-repeat;
           }
           &:nth-child(3) h3 {
-            background: url("~@images/icon_1.png") top 7px left / 20px 20px
+            background: url("~@images/icon_1.png") top 7px left / 24px 24px
               no-repeat;
           }
           &:nth-child(4) h3 {
-            background: url("~@images/icon_2.png") top 7px left / 20px 20px
+            background: url("~@images/icon_2.png") top 7px left / 24px 24px
               no-repeat;
           }
           &:nth-child(5) h3 {
-            background: url("~@images/icon_3.png") top 7px left / 20px 20px
+            background: url("~@images/icon_3.png") top 7px left / 24px 24px
               no-repeat;
           }
           &:nth-child(6) h3 {
-            background: url("~@images/icon_4.png") top 7px left / 20px 20px
+            background: url("~@images/icon_4.png") top 7px left / 24px 24px
               no-repeat;
           }
           h3 {
             width: 80px;
-            line-height: 34px;
+            line-height: 36px;
             padding-left: 30px;
           }
           ul {

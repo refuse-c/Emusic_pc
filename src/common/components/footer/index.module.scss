@@ -5,15 +5,35 @@
   width: 100%;
   height: 50px;
   padding-right: 30px;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
+
   img {
     width: 50px;
     height: 50px;
   }
   .control {
     display: flex;
+    align-items: center;
     i {
-      &:nth-child(1) {
-        background-color: saddlebrown;
+      &:nth-child(2) {
+        width: 36px;
+        height: 36px;
+      }
+      &.prev {
+        background: #e83c3c url("~@images/prev.png") center right 6px / 20px
+          no-repeat;
+      }
+      &.play {
+        background: #e83c3c url("~@images/play.png") center right 4px / 24px
+          no-repeat;
+      }
+      &.pause {
+        background: #e83c3c url("~@images/pause.png") center center / 24px
+          no-repeat;
+      }
+      &.next {
+        background: #e83c3c url("~@images/next.png") center left 6px / 20px
+          no-repeat;
       }
     }
   }
@@ -36,8 +56,8 @@
   }
   i {
     display: inline-block;
-    width: 36px;
-    height: 36px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background-color: pink;
     &:not(:first-child) {
