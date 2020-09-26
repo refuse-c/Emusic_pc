@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 17:57:51
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-21 16:56:22
+ * @LastEditTime: 2020-09-26 04:58:50
  * @Description: 
  */
 import React from 'react';
@@ -12,7 +12,7 @@ import Footer from '@components/footer/Footer';
 import './App.scss';
 import routers from '@/router/router';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
-import debounce from '@/common/utils/debounce';// 防抖
+import debounce from './common/utils/debounce';// 防抖
 global.debounce = debounce;
 function App() {
   return (

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:17
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-17 09:40:44
+ * @LastEditTime: 2020-09-26 04:32:40
  * @Description:基础工具
  */
 
@@ -96,4 +96,13 @@ export const traverseId = (arr) => {
   if (isEmpty(arr)) return;
   let ids = arr.map(item => item.id).join(',')
   return ids;
+}
+
+/**
+ * @name:首尾去空格
+ * @param {type}
+ */
+export const Trim = v => {
+  if (!v) return;
+  return v.replace(/^\s+|\s+$/g, "");
 }
