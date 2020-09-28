@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-10 12:22:21
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-16 11:11:14
+ * @LastEditTime: 2020-09-28 23:51:32
  * @Description: 发现-排行榜-官方榜
  */
 import React, { Component } from 'react'
@@ -17,7 +17,7 @@ class OfficialList extends Component {
     this.state = {}
   }
   render() {
-    const { list, fun } = this.props;
+    const { list, history } = this.props;
     return (
       <div className={styles.official_list}>
         {
@@ -29,7 +29,7 @@ class OfficialList extends Component {
               >
                 <div
                   className={styles.bg}
-                  onClick={() => fun(item)}
+                  onClick={() => history.push({ pathname: `/single${item.id}` })}
                 >
                   {formatDate(item.updateTime, '0').substr(5) + '更新'}
                   <div className={styles.btn}>

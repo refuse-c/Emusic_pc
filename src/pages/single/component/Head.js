@@ -2,13 +2,14 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-21 17:03:00
+ * @LastEditTime: 2020-09-28 23:41:26
  * @Description: 歌单详情-头部
  */
 import { formatDate, formatImgSize, formatSerialNo, isEmpty } from '@/common/utils/format';
 import React, { Component } from 'react'
 import styles from '../css/index.module.scss';
 import ReactMarkdown from 'react-markdown'
+import { replaceName } from '@/common/utils/tools';
 class Head extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +24,7 @@ class Head extends Component {
           <div className={styles.info}>
             <div className={styles.name}>
               <span>{type}</span>
-              <span>{data.name}</span>
+              <span>{replaceName(data.userId, data.name)}</span>
             </div>
             <div className={styles.count}>
               <p>

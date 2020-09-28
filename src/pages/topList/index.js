@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:48:25
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-21 11:47:24
+ * @LastEditTime: 2020-09-28 23:52:06
  * @Description: 发现-排行榜
  */
 import React, { Component } from 'react'
@@ -62,6 +62,7 @@ class TopList extends Component {
     this.queryTopList();
     this.queryArtistTop();
   }
+
   componentWillUnmount() {
     this.setState = () => false;
   }

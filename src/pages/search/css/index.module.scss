@@ -1,0 +1,96 @@
+@import "~@common/css/_variables.scss";
+
+// index.js
+.search {
+  position: relative;
+}
+
+// 热搜榜
+.search_hotList {
+  position: fixed;
+  top: 50px;
+  left: 260px;
+  width: 425px;
+  height: 500px;
+  z-index: 5;
+  background-color: #fff;
+  padding: 16px 0;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
+  .title {
+    color: $c666;
+    line-height: 1;
+    padding-bottom: 24px;
+    padding: 0 16px 16px;
+  }
+  ul {
+    color: $c333;
+
+    li {
+      display: flex;
+      align-items: center;
+      padding: 10px 16px;
+      cursor: pointer;
+      .num {
+        width: 36px;
+        color: $c999;
+        font-size: $fz16;
+      }
+      .info {
+        div {
+          span {
+            color: $cccc;
+            padding: 0 14px;
+            font-weight: 400;
+          }
+          img {
+            height: 12px;
+            font-size: $fz12;
+          }
+        }
+        p {
+          margin-top: 10px;
+          color: $c999;
+        }
+      }
+      &:hover {
+        background-color: #eee;
+      }
+      &.active {
+        .num {
+          width: 36px;
+          color: $cff3a3a;
+        }
+        .info {
+          div {
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+}
+
+.arrow {
+  &::before {
+    position: absolute;
+    content: "";
+    top: -10px;
+    left: 24px;
+    width: 0;
+    height: 0;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    border-bottom: 10px solid rgba($color: #000000, $alpha: 0.1);
+  }
+  &::after {
+    position: absolute;
+    content: "";
+    top: -9px;
+    left: 24px;
+    width: 0;
+    height: 0;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    border-bottom: 10px solid #fafafa;
+  }
+}

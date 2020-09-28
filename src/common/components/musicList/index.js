@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-21 09:24:35
+ * @LastEditTime: 2020-09-28 23:47:16
  * @Description: 歌单列表
  */
 import { formatSerialNo, formatSongTime } from '@/common/utils/format';
@@ -73,7 +73,7 @@ class MusicList extends Component {
     if (record.st === -200) {
       message.error('因合作方要求，该资源暂时下架')
     } else {
-      console.log(record)
+      // console.log(record)
     }
 
     // privilege.fee

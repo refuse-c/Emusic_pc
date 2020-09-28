@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-25 10:14:46
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-17 21:03:48
+ * @LastEditTime: 2020-09-28 23:38:33
  * @Description: 左侧菜单栏
  */
 import React, { Component } from 'react';
@@ -10,6 +10,7 @@ import ScrollView from 'react-custom-scrollbars';
 import { NavLink } from 'react-router-dom';
 import styles from './index.module.scss';
 import { connect } from 'react-redux';
+import { replaceName } from '@/common/utils/tools';
 class Menu extends Component {
   constructor(props) {
     super(props);
@@ -49,7 +50,7 @@ class Menu extends Component {
             return (
               item.id ?
                 <NavLink exact activeClassName={styles.menu_list_active} key={index} to={`/single${item.id}`}>
-                  <li> {item.name}</li>
+                  <li> {replaceName(item.userId, item.name)}</li>
                 </NavLink>
                 :
                 <h3 key={index}>{item.name}</h3>

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:17
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-26 04:32:40
+ * @LastEditTime: 2020-09-28 23:52:47
  * @Description:基础工具
  */
 
@@ -105,4 +105,14 @@ export const traverseId = (arr) => {
 export const Trim = v => {
   if (!v) return;
   return v.replace(/^\s+|\s+$/g, "");
+}
+
+/**
+ * @name:  重命名
+ * @param {type}
+ */
+export const replaceName = (userId, name) => {
+  const userInfo = getLocal('userInfo');
+  if (isEmpty(userInfo)) return name;
+  return userId === userInfo.userId ? name.replace(userInfo.nickname, '我') : name;
 }

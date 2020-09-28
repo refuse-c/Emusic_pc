@@ -2,14 +2,15 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-25 15:04:12
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-26 05:26:02
+ * @LastEditTime: 2020-09-29 00:56:50
  * @Description: 搜索
  */
 import React, { Component } from 'react';
-import './css/index.scss';
-import { search, searchDefault, searchSuggest } from '@/common/api/search';
+import { search, searchDefault, searchHotDetail, searchSuggest } from '@/common/api/search';
 import { Trim } from '@/common/utils/format';
 import { Input } from 'antd';
+import styles from './css/index.module.scss';
+import SearchHotList from './component/SearchHotList'
 const { Search } = Input;
 class Searchs extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class Searchs extends Component {
       keywords: '',
       limit: 100,
       offset: 1,
+      searchHotList: []
     }
   }
   // 查询搜索框默认显示的文字 
@@ -44,18 +46,24 @@ class Searchs extends Component {
     const params = { type, keywords, limit, offset: offset * limit - limit }
     const res = await search(params);
     if (res.code !== 200) return;
-    console.log(res)
+    console.log(res.result.songs)
   }
+
+  // 热搜列表(详情)
+  querySearchHotDetail = async () => {
+    const res = await searchHotDetail();
+    if (res.code !== 200) return;
+    this.setState({ searchHotList: res.data })
+  }
+
 
   // 搜索框搜索/回车事件
   onSearch = () => {
     const { keywords, defaultKeyword } = this.state;
     if (Trim(keywords)) {
-      console.log(1)
       this.querySearch();
     } else {
       this.setState({ keywords: defaultKeyword }, () => {
-        console.log(2)
         this.querySearch();
       })
     }
@@ -70,14 +78,26 @@ class Searchs extends Component {
     });
   }
 
+  // input聚焦显示热搜榜
+  handelFocus = () => {
+
+  }
+
+  searchHotListCaback = keywords => {
+    this.setState({ keywords }, () => {
+      this.querySearch();
+    })
+  }
+
   componentDidMount = () => {
     this.querySearchDefault();
+    this.querySearchHotDetail();
   }
 
   render() {
-    const { defaultKeyword, keywords } = this.state;
+    const { defaultKeyword, keywords, searchHotList } = this.state;
     return (
-      <div className="search">
+      <div className={styles.search}>
         <Search
           size={`small`}
           borderd={`false`}
@@ -87,7 +107,9 @@ class Searchs extends Component {
           loading={false}
           placeholder={defaultKeyword}
           value={keywords}
+          onFocus={this.handelFocus}
         />
+        <SearchHotList data={searchHotList} fun={this.searchHotListCaback} />
       </div>
     );
   }
