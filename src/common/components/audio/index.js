@@ -1,67 +1,72 @@
 /*
  * @Author: REFUSE_C
- * @Date: 2020-08-29 07:14:35
+ * @Date: 2020-10-10 15:55:14
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-02 23:18:22
- * @Description: 
+ * @LastEditTime: 2020-10-11 14:44:09
+ * @Description 播放组件
  */
-import { spectrum } from '@/common/utils/tools';
 import React, { Component } from 'react'
-import './index.scss';
+import { connect } from 'react-redux';
 class Audio extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      runing: false,
-
-    }
+    this.state = {}
   }
 
 
 
-  componentDidMount = () => {
-    const { audio, canvas } = this;
-    this.audio.addEventListener('playing', () => {
-      spectrum(audio, canvas);
-    });
+  // static getDerivedStateFromProps = (nextProps, prevState) => {
+  //   const { currentPlayer } = nextProps;
+  //   const { id } = nextProps.currentPlayer;
+  //   if (id !== prevState.id) {
+  //     return {
+  //       id,
+  //       currentPlayer,
+  //       props: {
+  //         id: id,
+  //         currentPlayer: currentPlayer
+  //       },
+  //     };
+  //   }
+  //   return null;
+  // }
 
-    this.audio.addEventListener('pause', () => {
-      // spectrum(audio, canvas);
-    });
-    this.audio.addEventListener('volumechange', (e) => {
-      const { volume } = e.target
+  // componentDidUpdate = prevState => {
+  //   const { id } = prevState.currentPlayer;
+  //   if (id !== this.state.id) {
+  //     this.getSongUrl();
+  //   }
+  // }
 
-      spectrum(audio, canvas, volume);
-    });
-
-    // this.audio.addEventListener('ended', () => {
-    //   spectrum(audio, canvas, true);
-    // });
-  }
-
-  play = () => {
-    const { audio } = this;
-    if (!audio.paused) return;
-    audio.play();
+  componentDidUpdate = () => {
+    const { isPlay, url } = this.props;
+    if (!url) return;
+    isPlay ? this.audio.play() : this.audio.pause();
   }
 
   render() {
+    const { url } = this.props;
     return (
-      <div className="audio" onClick={this.play}>
-        <canvas
-          id="canvas"
-          ref={(canvas => this.canvas = canvas)}
-        >
-        </canvas>
-        <audio id="audio"
-          controls
-          ref={(audio => this.audio = audio)}
-          crossOrigin="anonymous">
-          <source ref={(source => this.source = source)} src={require('@components/audio/test.mp3')}></source>
-        </audio>
-      </div >
+      <audio
+        id="audio"
+        // controls
+        loop
+        src={url}
+        // autoPlay
+        ref={(audio => this.audio = audio)}
+        crossOrigin="anonymous">
+        {/* <source ref={(source => this.source = source)} src={url}></source> */}
+      </audio>
     );
   }
 }
 
-export default Audio;
+const mapStateToprops = state => {
+  // console.log(state)
+  return {
+    currentPlayer: state.currentPlayer,
+  }
+}
+// const mapDispatchToProps = dispatch => { }
+
+export default connect(mapStateToprops, null)(Audio);

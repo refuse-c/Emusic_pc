@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:20:09
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-16 16:07:14
+ * @LastEditTime: 2020-10-11 14:39:55
  * @Description:
  */
 
@@ -41,11 +41,18 @@ const userPlayList = (state = initState.userPlayList, action) => {
   }
 }
 
+const currentPlayer = (state = initState.currentPlayer, action) => {
+  switch (action.type) {
+    case ACTIONTYPE.CURRENT_PLAYER: return action.data;
+    default: return state;
+  }
+}
 
 
 
 export default combineReducers({
   userInfo,
   modalPower,
-  userPlayList
+  userPlayList,
+  currentPlayer
 })

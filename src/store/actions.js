@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:45:41
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-16 14:28:56
+ * @LastEditTime: 2020-10-11 14:40:07
  * @Description: redux
  */
 
@@ -18,4 +18,9 @@ export const userPlayList = (data) => {
 
 export const modalPower = (data) => {
   return data
+}
+
+// 播放的歌曲信息
+export const currentPlayer = (data) => {
+  return { type: ACTIONTYPS.CURRENT_PLAYER, data }
 }

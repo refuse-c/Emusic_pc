@@ -1,6 +1,7 @@
 {
   "name": "emusicpc",
   "version": "0.1.0",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@babel/core": "7.9.0",
@@ -54,6 +55,7 @@
     "query-string": "^6.13.1",
     "react": "^16.4.1",
     "react-app-polyfill": "^1.0.6",
+    "react-cookies": "^0.1.1",
     "react-custom-scrollbars": "^4.2.1",
     "react-dev-utils": "^10.2.1",
     "react-dom": "^16.4.1",

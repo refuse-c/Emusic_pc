@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-21 14:30:20
+ * @LastEditTime: 2020-10-10 16:15:46
  * @Description: 
  */
 import { getRequest } from './request';
@@ -13,6 +13,15 @@ import { getRequest } from './request';
 export const login = (params) => {
   return getRequest('/login/cellphone', params)
 }
+
+/**
+ * @name:登录 
+ * @param {phone,password} 
+ */
+export const logout = (params) => {
+  return getRequest('/logout', params)
+}
+
 
 /**
  * @name: 检测登录状态
@@ -261,3 +270,12 @@ export const topMv = (params) => {
 export const allMv = (params) => {
   return getRequest('/mv/all', params)
 }
+
+/**
+ * @name:获取音乐地址
+ * @param {}
+ */
+export const songUrl = (params) => {
+  return getRequest('/song/url', params)
+}
+

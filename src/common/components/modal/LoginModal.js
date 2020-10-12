@@ -2,17 +2,17 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 21:48:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-17 18:33:17
+ * @LastEditTime: 2020-10-05 23:37:29
  * @Description 登录弹窗
  */
 import React, { Component } from 'react'
-import { Modal, Form, Input } from 'antd'
+import { Modal, Form, Input, message } from 'antd'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modalPower, queryUserInfo, userPlayList } from '@/store/actions';
 import { IS_SHOW_LOGIN } from '@/store/actionTypes';
 import { login, loginStatus } from '@/common/api/api';
-import { reLocal, setLocal } from '@/common/utils/tools';
+import { setLocal } from '@/common/utils/tools';
 import { userPlaylist } from '@/common/api/user';
 const FormItem = Form.Item;
 class LoginModal extends Component {
@@ -24,22 +24,21 @@ class LoginModal extends Component {
   handelLogin = async params => {
     const res = await login(params);
     if (res.code !== 200) return;
+    message.info('登录成功');
     setLocal('userInfo', res.profile);
-    this.props.handleQueryUserInf(res);
     const uid = res.profile.userId;
     this.queryUserPlaylist(uid);
+    this.props.handleQueryUserInfo(res);
+    this.props.history.push({ pathname: `/find/` });
   }
 
   queryLoginStatus = async params => {
     const res = await loginStatus(params);
-    if (res.code === 200) {
-      setLocal('userInfo', res.profile);
-      const uid = res.profile.userId;
-      this.queryUserPlaylist(uid);
-    } else {
-      reLocal('userInfo');
-      this.props.handleQueryUserInf({});
-    }
+    if (res.code !== 200) return;
+    setLocal('userInfo', res.profile);
+    const uid = res.profile.userId;
+    this.queryUserPlaylist(uid);
+    this.props.handleQueryUserInfo(res);
   }
 
   // 获取用户歌单
@@ -65,10 +64,19 @@ class LoginModal extends Component {
           password: values.password
         }
         this.handelLogin(params)
+        this.props.handelModalPower({ type: IS_SHOW_LOGIN, data: false });
       }).catch(err => {
         console.log(err);
+        if (!err.phone) {
+          message.error('请输入手机号码');
+          return;
+        }
+        if (!err.password) {
+          message.error('请输入登录密码');
+          return;
+        }
       });
-    this.props.handelModalPower({ type: IS_SHOW_LOGIN, data: false });
+
   }
 
   // 关闭登录弹窗
@@ -116,7 +124,7 @@ class LoginModal extends Component {
           </FormItem >
           <FormItem label="密码"
             name="password"
-            initialValue="Wangyi123"
+            initialValue="Wangyi123" // Wangyi123
             rules={[
               {
                 required: true,
@@ -148,7 +156,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     handelModalPower: bindActionCreators(modalPower, dispatch),
-    handleQueryUserInf: bindActionCreators(queryUserInfo, dispatch),
+    handleQueryUserInfo: bindActionCreators(queryUserInfo, dispatch),
     handeUserPlayList: bindActionCreators(userPlayList, dispatch)
   }
 }

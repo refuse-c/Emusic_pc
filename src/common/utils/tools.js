@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:17
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-28 23:52:47
+ * @LastEditTime: 2020-10-05 21:00:12
  * @Description:基础工具
  */
 
@@ -56,15 +56,6 @@ export const spectrum = (audio, canvas, volume = 1) => {
   renderFrame();
 }
 
-
-
-
-
-
-
-
-
-
 /**
  * @name: 缓存
  * @param {any} 
@@ -115,4 +106,12 @@ export const replaceName = (userId, name) => {
   const userInfo = getLocal('userInfo');
   if (isEmpty(userInfo)) return name;
   return userId === userInfo.userId ? name.replace(userInfo.nickname, '我') : name;
+}
+
+/**
+ * @name:  高亮检索内容
+ * @param {type}
+ */
+export const highlightText = (key, str) => {
+  return str.replace(new RegExp(key, 'gi'), val => `<span class='highlight'>${val}</span>`);
 }

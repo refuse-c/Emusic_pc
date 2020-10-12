@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-28 23:47:16
+ * @LastEditTime: 2020-10-11 14:44:55
  * @Description: 歌单列表
  */
 import { formatSerialNo, formatSongTime } from '@/common/utils/format';
@@ -10,6 +10,9 @@ import { message, Table } from 'antd';
 import React, { Component } from 'react'
 import styles from './css/index.module.scss';
 import propTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { currentPlayer } from '@/store/actions';
 class MusicList extends Component {
   constructor(props) {
     super(props);
@@ -73,7 +76,7 @@ class MusicList extends Component {
     if (record.st === -200) {
       message.error('因合作方要求，该资源暂时下架')
     } else {
-      // console.log(record)
+      this.props.handelCurrentPlayer(record);
     }
 
     // privilege.fee
@@ -87,7 +90,7 @@ class MusicList extends Component {
     this.setState({ newList: extra.currentDataSource })
   }
   // 控制样式
-  setClassName = (record) => {
+  setClassName = record => {
     return record.st === -200 ? styles.active : ''
   }
 
@@ -125,4 +128,16 @@ class MusicList extends Component {
 MusicList.propTypes = {
   list: propTypes.array
 }
-export default MusicList;
+
+const mapStateToProps = state => {
+  return {
+    currentPlayer: state.currentPlayer,
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    handelCurrentPlayer: bindActionCreators(currentPlayer, dispatch),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MusicList)

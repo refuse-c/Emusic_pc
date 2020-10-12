@@ -25,6 +25,15 @@
       }
     }
   }
+  .ant-table-tbody {
+    .ant-table-column-sort {
+      background-color: #fff;
+    }
+  }
+}
+
+.active {
+  color: $c999;
 }
 
 .vip {

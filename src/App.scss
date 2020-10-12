@@ -58,3 +58,13 @@ img {
   align-items: center;
   justify-content: center;
 }
+
+.highlight {
+  color: #0071fb;
+}
+
+:global {
+    .ant-table-column-sort {
+      background-color: #fff !important;
+    }
+}
