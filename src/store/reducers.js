@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:20:09
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-13 21:13:47
+ * @LastEditTime: 2020-10-15 16:26:53
  * @Description:
  */
 
@@ -50,9 +50,9 @@ const currentPlayer = (state = initState.currentPlayer, action) => {
   }
 }
 // 播放列表
-const playList = (state = initState.playList, action) => {
+const currentPlayList = (state = initState.currentPlayList, action) => {
   switch (action.type) {
-    case ACTIONTYPE.PLAY_LIST: return action.data;
+    case ACTIONTYPE.CURRENT_PLAY_LIST: return action.data;
     default: return state;
   }
 }
@@ -62,5 +62,5 @@ export default combineReducers({
   modalPower,
   userPlayList,
   currentPlayer,
-  playList
+  currentPlayList
 })

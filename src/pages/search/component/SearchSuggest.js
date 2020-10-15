@@ -16,7 +16,6 @@ class SearchSuggest extends Component {
   }
   render() {
     const { data, fun, keywords } = this.props;
-    console.log(data)
     return (
       <div className={[styles.suggest, styles.arrow].join(' ')}>
         <p>搜索" <span className='highlight'>{keywords}</span> "的相关结果</p>

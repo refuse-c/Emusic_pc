@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 15:39:35
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-18 10:50:50
+ * @LastEditTime: 2020-10-15 16:39:49
  * @Description: 歌单详情
  */
 import React, { Component } from 'react'
@@ -81,7 +81,7 @@ class Single extends Component {
         >
           <Spin tip="Loading..." spinning={loading} >
             <div className={styles.single_box}>
-              <Head data={playlist} type={`歌单`} />
+              <Head data={playlist} type={`歌单`} list={list} />
               <MusicList list={list} />
             </div>
           </Spin>

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 21:48:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-05 23:37:29
+ * @LastEditTime: 2020-10-15 16:36:03
  * @Description 登录弹窗
  */
 import React, { Component } from 'react'
@@ -66,7 +66,6 @@ class LoginModal extends Component {
         this.handelLogin(params)
         this.props.handelModalPower({ type: IS_SHOW_LOGIN, data: false });
       }).catch(err => {
-        console.log(err);
         if (!err.phone) {
           message.error('请输入手机号码');
           return;

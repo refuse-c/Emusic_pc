@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-29 07:14:35
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-10 15:54:39
+ * @LastEditTime: 2020-10-15 16:54:40
  * @Description: 
  */
 import { spectrum } from '@/common/utils/tools';
@@ -40,7 +40,6 @@ class Audio extends Component {
   }
 
   static getDerivedStateFromProps = (nextProps, prevState) => {
-    console.log(nextProps, prevState)
     if (nextProps.aduioInfo !== nextProps.aduioInfo) {
       return {
         aduioInfo: nextProps.aduioInfo
@@ -50,7 +49,6 @@ class Audio extends Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    console.log(prevProps, prevState)
     if (this.state.aduioInfo !== prevState.aduioInfo) {
       this.queryPlayListDetail();
       this.setState({ aduioInfo: prevState.aduioInfo })
@@ -68,7 +66,6 @@ class Audio extends Component {
 
   render() {
     const { aduioInfo } = this.props;
-    console.log(aduioInfo)
     return (
       <div className={styles.audio} onClick={this.play}>
         <canvas

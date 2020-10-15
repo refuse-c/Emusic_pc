@@ -2,19 +2,42 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-28 23:41:26
+ * @LastEditTime: 2020-10-15 17:51:07
  * @Description: 歌单详情-头部
  */
 import { formatDate, formatImgSize, formatSerialNo, isEmpty } from '@/common/utils/format';
 import React, { Component } from 'react'
 import styles from '../css/index.module.scss';
 import ReactMarkdown from 'react-markdown'
+import propTypes from 'prop-types';
 import { replaceName } from '@/common/utils/tools';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { currentPlayer, currentPlayList } from '@/store/actions';
+import { message } from 'antd';
 class Head extends Component {
   constructor(props) {
     super(props);
     this.state = {}
   }
+
+  // 播放全部
+  playAll = () => {
+    const {
+      list,
+      setCurrentPlayer,
+      setCurrentPlayList
+    } = this.props;
+    const filterData = list.filter(item => item.st !== -200); // 筛选出没有版权的音乐
+    if (filterData.length > 0) {
+      setCurrentPlayer(filterData[0]);
+      setCurrentPlayList(filterData);
+      message.info('已添加到播放列表')
+    } else {
+      message.error('当前歌单暂无可播放音乐')
+    }
+  }
+
   render() {
     const { data, type } = this.props;
     return (
@@ -43,7 +66,7 @@ class Head extends Component {
             <span>{data.createTime ? formatDate(data.createTime) + '创建' : ''}</span>
           </div>
           <div className={styles.btn_group}>
-            <button>播放全部</button>
+            <button onClick={() => this.playAll()}>播放全部</button>
             <button>收藏({formatSerialNo(data.subscribedCount)})</button>
             <button>分享({formatSerialNo(data.shareCount)})</button>
             <button>下载全部</button>
@@ -76,4 +99,23 @@ class Head extends Component {
   }
 }
 
-export default Head;
+Head.propTypes = {
+  data: propTypes.object,
+  type: propTypes.string,
+  list: propTypes.array
+}
+
+const mapStateToProps = state => {
+  return {
+    currentPlayer: state.currentPlayer,
+    currentPlayList: state.currentPlayList,
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    setCurrentPlayList: bindActionCreators(currentPlayList, dispatch), // 当前播放歌单列表
+    setCurrentPlayer: bindActionCreators(currentPlayer, dispatch), // 获取当前音乐信息
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Head)

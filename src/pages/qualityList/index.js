@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-18 11:26:20
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-21 16:49:04
+ * @LastEditTime: 2020-10-15 16:36:15
  * @Description: 独家放送-列表
  */
 import React, { Component } from 'react';
@@ -33,7 +33,6 @@ class Highquality extends Component {
     const res = await highquality({ limit, before })
     this.setState({ loading: false })
     if (res.code === 200) {
-      console.log(res)
       const nowList = res.playlists;
       const newList = oldList.concat(nowList);
       this.setState({ list: newList, more: res.more })
