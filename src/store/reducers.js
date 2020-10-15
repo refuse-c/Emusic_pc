@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:20:09
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-11 14:39:55
+ * @LastEditTime: 2020-10-13 21:13:47
  * @Description:
  */
 
@@ -11,7 +11,7 @@ import { combineReducers } from 'redux';
 import initState from './initState'
 
 
-
+// 用户信息
 const userInfo = (state = initState.userInfo, action) => {
   switch (action.type) {
     case ACTIONTYPE.QUERY_USER_INFO: return action.data;
@@ -19,7 +19,7 @@ const userInfo = (state = initState.userInfo, action) => {
   }
 }
 
-
+// 弹窗状态
 const modalPower = (state = initState.modalPower, action) => {
   switch (action.type) {
     case ACTIONTYPE.IS_SHOW_SKIN:
@@ -34,6 +34,7 @@ const modalPower = (state = initState.modalPower, action) => {
   }
 }
 
+// 用户歌单列表
 const userPlayList = (state = initState.userPlayList, action) => {
   switch (action.type) {
     case ACTIONTYPE.USRT_PLAYLIST: return action.data;
@@ -41,18 +42,25 @@ const userPlayList = (state = initState.userPlayList, action) => {
   }
 }
 
+// 当前播放的信息
 const currentPlayer = (state = initState.currentPlayer, action) => {
   switch (action.type) {
     case ACTIONTYPE.CURRENT_PLAYER: return action.data;
     default: return state;
   }
 }
-
-
+// 播放列表
+const playList = (state = initState.playList, action) => {
+  switch (action.type) {
+    case ACTIONTYPE.PLAY_LIST: return action.data;
+    default: return state;
+  }
+}
 
 export default combineReducers({
   userInfo,
   modalPower,
   userPlayList,
-  currentPlayer
+  currentPlayer,
+  playList
 })

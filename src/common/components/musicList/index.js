@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-11 14:44:55
+ * @LastEditTime: 2020-10-13 22:29:49
  * @Description: 歌单列表
  */
 import { formatSerialNo, formatSongTime } from '@/common/utils/format';
@@ -12,7 +12,7 @@ import styles from './css/index.module.scss';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { currentPlayer } from '@/store/actions';
+import { playList, currentPlayer } from '@/store/actions';
 class MusicList extends Component {
   constructor(props) {
     super(props);
@@ -76,6 +76,9 @@ class MusicList extends Component {
     if (record.st === -200) {
       message.error('因合作方要求，该资源暂时下架')
     } else {
+      const { playList } = this.props;
+      const data = playList.push(record);
+      this.props.handelPlayList(data);
       this.props.handelCurrentPlayer(record);
     }
 
@@ -130,13 +133,16 @@ MusicList.propTypes = {
 }
 
 const mapStateToProps = state => {
+  console.log(state)
   return {
     currentPlayer: state.currentPlayer,
+    playList: state.playList,
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    handelCurrentPlayer: bindActionCreators(currentPlayer, dispatch),
+    handelPlayList: bindActionCreators(playList, dispatch), // 当前播放歌单列表
+    handelCurrentPlayer: bindActionCreators(currentPlayer, dispatch), // 获取当前音乐信息
   }
 }
 
