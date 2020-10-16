@@ -17,6 +17,7 @@
     display: flex;
     align-items: center;
     i {
+      cursor: pointer;
       &:nth-child(2) {
         width: 36px;
         height: 36px;
@@ -40,9 +41,23 @@
     }
   }
   .progress {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: calc(100% - 600px);
-    height: 2px;
-    background-color: red;
+    height: 100%;
+    // background-color: red;
+    span {
+      width: 60px;
+      &:first-child {
+        text-align: right;
+      }
+    }
+    p {
+      width: calc(100% - 160px);
+      height: 2px;
+      background-color: blue;
+    }
   }
   .volume {
     width: 150px;

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-15 14:17:33
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-15 16:22:46
+ * @LastEditTime: 2020-10-16 00:12:19
  * @Description: 播放列表
  */
 import { currentPlayer, currentPlayList } from '@/store/actions';
@@ -19,6 +19,15 @@ class PlayListModal extends Component {
       active: 0
     }
   }
+
+  // 当前播放音乐置顶
+  scrollTop = () => {
+    const { currentPlayer, currentPlayList } = this.props;
+    const index = currentPlayList.findIndex(item => currentPlayer.id === item.id);
+    this.sc.scrollTop(index * 30);
+  }
+
+  // 清空播放列表
   handelClear = () => {
     const {
       callback,
@@ -42,7 +51,8 @@ class PlayListModal extends Component {
           >播放列表</li>
           <li
             className={active === 1 ? styles.active : null}
-            onClick={() => this.setState({ active: 1 })}
+            // onClick={() => this.setState({ active: 1 })}
+            onClick={() => this.scrollTop()}
           >历史记录</li>
         </ul>
         <div className={styles.tool}>
@@ -50,7 +60,7 @@ class PlayListModal extends Component {
           <p onClick={() => this.handelClear()}>清空</p>
         </div>
         <div className={styles.scroll}>
-          <ScrollView>
+          <ScrollView ref={sc => this.sc = sc}>
             <ul>
               {
                 currentPlayList.map((item, index) => {

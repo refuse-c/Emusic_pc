@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-15 17:32:06
+ * @LastEditTime: 2020-10-16 00:19:58
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -11,6 +11,11 @@ import Audio from '@components/audio';
 import PlayList from '@components/modal/PlayListModal';
 import { connect } from 'react-redux';
 import { songUrl } from '@/common/api/api';
+import { bindActionCreators } from 'redux';
+import { currentPlayer, currentPlayList } from '@/store/actions';
+import { cutSong } from '@/common/utils/tools';
+import { message } from 'antd';
+import { formatSongTime } from '@/common/utils/format';
 class Footer extends Component {
   constructor(props) {
     super(props);
@@ -18,6 +23,9 @@ class Footer extends Component {
       id: '',
       url: '',
       isPlay: false,
+      orderType: 1,
+      currentTime: 0, // 当前播放时间
+      duration: 0, // 当前音乐总时间
       currentPlayer: {}
     }
   }
@@ -32,6 +40,44 @@ class Footer extends Component {
   // 点击歌单列表清空按钮回调
   playListCallback = () => {
     this.setState({ url: '', isPlay: false })
+  }
+
+  // 切歌
+  handelCutSong = type => {
+    const {
+      currentPlayer,
+      currentPlayList,
+      setCurrentPlayer
+    } = this.props;
+    const { orderType } = this.state;
+    const { id } = currentPlayer;
+    const data = cutSong(id, currentPlayList, type, orderType);
+    setCurrentPlayer(data)
+  }
+  cabackCurrentTime = (currentTime, duration) => {
+    // console.log(currentTime, duration)
+    this.setState({ currentTime, duration })
+  }
+
+  //  设置播放顺序
+  setOrderType = () => {
+    const { orderType } = this.state;
+    let order = orderType;
+    message.destroy();
+    switch (orderType) {
+      case 1:
+        order = 2;
+        message.info('随机播放');
+        break;
+      case 2:
+        order = 3;
+        message.info('单曲循环');
+        break;
+      default: order = 1;
+        message.info('顺序播放');
+        break;
+    }
+    this.setState({ orderType: order })
   }
 
   static getDerivedStateFromProps = (nextProps, prevState) => {
@@ -50,10 +96,6 @@ class Footer extends Component {
     return null;
   }
 
-  setIsPlay = () => {
-    this.setState({ isPlay: false });
-  }
-
   componentDidUpdate = prevState => {
     const { id } = prevState.currentPlayer;
     if (id !== this.state.id && this.state.id !== undefined) {
@@ -62,29 +104,42 @@ class Footer extends Component {
   }
 
   render() {
-    const { url, isPlay, currentPlayer } = this.state;
+    const { url, isPlay, orderType, currentTime, duration, currentPlayer } = this.state;
     return (
       <div className={styles.footer}>
         <Audio
           url={url}
           isPlay={isPlay}
+          callback={this.cabackCurrentTime}
+          orderType={orderType}
         />
         <PlayList callback={this.playListCallback} />
         <img src={(currentPlayer.al && currentPlayer.al.picUrl) || require('@images/album.png')} alt="" />
         <div className={styles.control}>
-          <i className={styles.prev}></i>
+          <i className={styles.prev}
+            onClick={() => this.handelCutSong(1)}
+          ></i>
           <i
             className={isPlay ? styles.pause : styles.play}
             onClick={() => url ? this.setState({ isPlay: !isPlay }) : null}
           ></i>
-          <i className={styles.next}></i>
+          <i
+            className={styles.next}
+            onClick={() => this.handelCutSong(2)}
+          ></i>
         </div>
         <div className={styles.progress}>
+          <span>{formatSongTime(currentTime, true)}</span>
+          <p></p>
+          <span>{formatSongTime(duration, true)}</span>
         </div>
         <div className={styles.volume}>
         </div>
         <div className={styles.tool}>
-          <i className={styles.order}></i>
+          <i
+            className={styles.order}
+            onClick={() => this.setOrderType()}>
+          </i>
           <i className={styles.Sound_quality}></i>
           <i className={styles.lyrics}></i>
           <i className={styles.song_list}></i>
@@ -94,12 +149,17 @@ class Footer extends Component {
   }
 }
 
-const mapStateToprops = state => {
-  // console.log(state)
+const mapStateToProps = state => {
   return {
     currentPlayer: state.currentPlayer,
+    currentPlayList: state.currentPlayList,
   }
 }
-// const mapDispatchToProps = dispatch => { }
+const mapDispatchToProps = dispatch => {
+  return {
+    setCurrentPlayList: bindActionCreators(currentPlayList, dispatch), // 当前播放歌单列表
+    setCurrentPlayer: bindActionCreators(currentPlayer, dispatch), // 获取当前音乐信息
+  }
+}
 
-export default connect(mapStateToprops, null)(Footer);
+export default connect(mapStateToProps, mapDispatchToProps)(Footer);

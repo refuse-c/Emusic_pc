@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-15 14:14:43
+ * @LastEditTime: 2020-10-15 20:09:21
  * @Description: 歌单列表
  */
 import { formatSerialNo, formatSongTime } from '@/common/utils/format';
@@ -77,7 +77,7 @@ class MusicList extends Component {
       message.error('因合作方要求，该资源暂时下架')
     } else {
       const { currentPlayList } = this.props;
-      const index = currentPlayList.findIndex((item, index) => item.id === record.id);
+      const index = currentPlayList.findIndex(item => item.id === record.id);
       if (index !== -1) {
         currentPlayList.splice(index, 1)
       }

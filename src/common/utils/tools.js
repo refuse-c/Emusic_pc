@@ -2,10 +2,11 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:17
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-05 21:00:12
+ * @LastEditTime: 2020-10-15 22:59:03
  * @Description:基础工具
  */
 
+import { message } from "antd";
 import { isEmpty } from "./format";
 
 
@@ -114,4 +115,35 @@ export const replaceName = (userId, name) => {
  */
 export const highlightText = (key, str) => {
   return str.replace(new RegExp(key, 'gi'), val => `<span class='highlight'>${val}</span>`);
+}
+
+/**
+ * @name:切歌 上/下一曲
+ * @param {id} currentId
+ * @param {list} currentPlayList
+ * @param {type} type  1 上一曲 2下一曲  default:1
+ * @param {orderType} orderType 1 顺序播放 2 单曲循环 3 随机播放
+ */
+
+export const cutSong = (id, list, type, orderType) => {
+  const length = list.length - 1;
+  if (length === -1) {
+    message.destroy();
+    message.info('当前无可以播放音乐,快去添加吧^v^');
+    return false;
+  }
+  let index = list.findIndex(item => id === item.id);
+  if (type === 1) {
+    index--;
+    index = index === -1 ? length : index;
+  } else {
+    switch (orderType) {
+      case 2: index = Math.floor(Math.random() * length);
+        break;
+      default: index++;
+        index = index === length + 1 ? 0 : index;
+        break;
+    }
+  }
+  return list[index]
 }

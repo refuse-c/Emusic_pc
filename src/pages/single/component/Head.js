@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-15 17:51:07
+ * @LastEditTime: 2020-10-15 23:16:43
  * @Description: 歌单详情-头部
  */
 import { formatDate, formatImgSize, formatSerialNo, isEmpty } from '@/common/utils/format';
@@ -29,6 +29,7 @@ class Head extends Component {
       setCurrentPlayList
     } = this.props;
     const filterData = list.filter(item => item.st !== -200); // 筛选出没有版权的音乐
+    message.destroy();
     if (filterData.length > 0) {
       setCurrentPlayer(filterData[0]);
       setCurrentPlayList(filterData);

@@ -2,9 +2,10 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-10 15:55:14
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-15 17:53:15
+ * @LastEditTime: 2020-10-15 23:48:08
  * @Description 播放组件
  */
+import { cutSong } from '@/common/utils/tools';
 import { currentPlayer, currentPlayList } from '@/store/actions';
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
@@ -17,20 +18,25 @@ class Audio extends Component {
 
 
   componentDidMount = () => {
+    const { audio } = this;
+    const { callback } = this.props;
     // 当前音乐播放完毕自动播放下一曲
-    this.audio.addEventListener('ended', () => {
+    audio.addEventListener('ended', () => {
       const {
         currentPlayer,
         currentPlayList,
         setCurrentPlayer
       } = this.props;
       const { id } = currentPlayer;
-      const listLength = currentPlayList.length;
-      let index = currentPlayList.findIndex(item => id === item.id);
-      index++;
-      index = index === listLength ? 0 : index;
-      setCurrentPlayer(currentPlayList[index])
+      const data = cutSong(id, currentPlayList, 2, 1);
+      setCurrentPlayer(data)
     });
+    // 监听播放
+    audio.addEventListener('timeupdate', () => {
+      const { currentTime, duration } = audio;
+      callback && callback(currentTime, duration);
+    });
+
   }
 
   componentDidUpdate = () => {
@@ -40,14 +46,14 @@ class Audio extends Component {
   }
 
   render() {
-    const { url } = this.props;
+    const { url, orderType } = this.props;
     return (
       <audio
         src={url}
-        loop={false}
+        crossOrigin="anonymous"
+        loop={orderType === 3 ? true : false}
         ref={(audio => this.audio = audio)}
-        crossOrigin="anonymous">
-        {/* <source ref={(source => this.source = source)} src={url}></source> */}
+      >
       </audio>
     );
   }
@@ -61,7 +67,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    handelCurrentPlayList: bindActionCreators(currentPlayList, dispatch), // 当前播放歌单列表
+    setCurrentPlayList: bindActionCreators(currentPlayList, dispatch), // 当前播放歌单列表
     setCurrentPlayer: bindActionCreators(currentPlayer, dispatch), // 获取当前音乐信息
   }
 }
