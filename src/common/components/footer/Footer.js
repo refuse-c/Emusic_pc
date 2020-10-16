@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-16 00:19:58
+ * @LastEditTime: 2020-10-16 11:33:59
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -12,10 +12,11 @@ import PlayList from '@components/modal/PlayListModal';
 import { connect } from 'react-redux';
 import { songUrl } from '@/common/api/api';
 import { bindActionCreators } from 'redux';
-import { currentPlayer, currentPlayList } from '@/store/actions';
+import { currentPlayer, currentPlayList, modalPower } from '@/store/actions';
 import { cutSong } from '@/common/utils/tools';
 import { message } from 'antd';
 import { formatSongTime } from '@/common/utils/format';
+import { IS_SHOW_PLAYLIST } from '@/store/actionTypes';
 class Footer extends Component {
   constructor(props) {
     super(props);
@@ -24,6 +25,7 @@ class Footer extends Component {
       url: '',
       isPlay: false,
       orderType: 1,
+      currentIndex: 0,
       currentTime: 0, // 当前播放时间
       duration: 0, // 当前音乐总时间
       currentPlayer: {}
@@ -32,11 +34,12 @@ class Footer extends Component {
 
   // 获取音乐播放地址
   getSongUrl = async () => {
-    const { id } = this.state;
-    this.setState({ isPlay: false })
-    const res = await songUrl({ id })
+    const { id } = this.state
+    this.setState({ url: '' })
+    const res = await songUrl({ id, br: 128000 })
     if (res.code === 200) this.setState({ url: res.data[0].url, isPlay: true })
   }
+
   // 点击歌单列表清空按钮回调
   playListCallback = () => {
     this.setState({ url: '', isPlay: false })
@@ -54,8 +57,9 @@ class Footer extends Component {
     const data = cutSong(id, currentPlayList, type, orderType);
     setCurrentPlayer(data)
   }
+
+  // 返回音乐的当前时间 / 总时间
   cabackCurrentTime = (currentTime, duration) => {
-    // console.log(currentTime, duration)
     this.setState({ currentTime, duration })
   }
 
@@ -104,6 +108,7 @@ class Footer extends Component {
   }
 
   render() {
+    const { playListStatus } = this.props.modalPower;
     const { url, isPlay, orderType, currentTime, duration, currentPlayer } = this.state;
     return (
       <div className={styles.footer}>
@@ -113,7 +118,12 @@ class Footer extends Component {
           callback={this.cabackCurrentTime}
           orderType={orderType}
         />
-        <PlayList callback={this.playListCallback} />
+
+        <PlayList
+          isPlay={isPlay}
+          playListStatus={playListStatus}
+          callback={this.playListCallback}
+        />
         <img src={(currentPlayer.al && currentPlayer.al.picUrl) || require('@images/album.png')} alt="" />
         <div className={styles.control}>
           <i className={styles.prev}
@@ -142,7 +152,10 @@ class Footer extends Component {
           </i>
           <i className={styles.Sound_quality}></i>
           <i className={styles.lyrics}></i>
-          <i className={styles.song_list}></i>
+          <i
+            className={styles.song_list}
+            onClick={() => this.props.handleModalPower({ type: IS_SHOW_PLAYLIST, data: !playListStatus })}
+          ></i>
         </div>
       </ div >
     );
@@ -153,10 +166,12 @@ const mapStateToProps = state => {
   return {
     currentPlayer: state.currentPlayer,
     currentPlayList: state.currentPlayList,
+    modalPower: state.modalPower,
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
+    handleModalPower: bindActionCreators(modalPower, dispatch),
     setCurrentPlayList: bindActionCreators(currentPlayList, dispatch), // 当前播放歌单列表
     setCurrentPlayer: bindActionCreators(currentPlayer, dispatch), // 获取当前音乐信息
   }

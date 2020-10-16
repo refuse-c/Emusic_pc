@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:17
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-15 22:59:03
+ * @LastEditTime: 2020-10-16 11:19:24
  * @Description:基础工具
  */
 
@@ -119,7 +119,7 @@ export const highlightText = (key, str) => {
 
 /**
  * @name:切歌 上/下一曲
- * @param {id} currentId
+ * @param {currentIndex} currentIndex
  * @param {list} currentPlayList
  * @param {type} type  1 上一曲 2下一曲  default:1
  * @param {orderType} orderType 1 顺序播放 2 单曲循环 3 随机播放

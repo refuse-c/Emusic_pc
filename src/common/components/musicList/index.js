@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-15 20:09:21
+ * @LastEditTime: 2020-10-16 10:26:39
  * @Description: 歌单列表
  */
 import { formatSerialNo, formatSongTime } from '@/common/utils/format';
@@ -74,14 +74,15 @@ class MusicList extends Component {
   selectRow = record => {
     // console.log(record)
     if (record.st === -200) {
+      message.destroy();
       message.error('因合作方要求，该资源暂时下架')
     } else {
       const { currentPlayList } = this.props;
       const index = currentPlayList.findIndex(item => item.id === record.id);
-      if (index !== -1) {
-        currentPlayList.splice(index, 1)
+      if (index === -1) {
+        currentPlayList.unshift(record)
+        // currentPlayList.splice(index, 1)
       }
-      currentPlayList.unshift(record)
       this.props.setCurrentPlayList(currentPlayList);
       this.props.setCurrentPlayer(record);
     }

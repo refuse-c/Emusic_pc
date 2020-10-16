@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:20:09
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-15 16:26:53
+ * @LastEditTime: 2020-10-16 09:26:24
  * @Description:
  */
 
@@ -29,6 +29,10 @@ const modalPower = (state = initState.modalPower, action) => {
     case ACTIONTYPE.IS_SHOW_LOGIN:
       return Object.assign({}, state, {
         loginStatue: action.data
+      });
+    case ACTIONTYPE.IS_SHOW_PLAYLIST:
+      return Object.assign({}, state, {
+        playListStatus: action.data
       });
     default: return state;
   }

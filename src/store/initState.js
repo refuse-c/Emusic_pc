@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-30 08:48:51
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-15 10:41:17
+ * @LastEditTime: 2020-10-16 11:36:55
  * @Description: 声明默认值
  */
 let initState = {
@@ -14,6 +14,7 @@ let initState = {
   modalPower: {
     loginStatue: false,
     skinStatue: false,
+    playListStatus: false
   },
   currentPlayer: { id: '' }, // 当前播放的音乐
   currentPlayList: [],// 当前的播放列表

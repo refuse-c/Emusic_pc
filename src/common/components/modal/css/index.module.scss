@@ -16,9 +16,11 @@
   bottom: 50px;
   right: 0;
   width: 580px;
-  height: 480px;
+  // height: 480px;
   border-radius: 4px;
   background-color: #fff;
+  overflow: hidden;
+  transition: ease 0.3s all;
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
   .title {
     display: flex;
@@ -74,9 +76,10 @@
         height: 30px;
         p {
           &:nth-child(1) {
-            width: 30px;
-            height: 100%;
-            padding-right: 10px;
+            width: 40px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
           }
           &:nth-child(2) {
             width: 340px;
@@ -94,6 +97,10 @@
           }
           &.icon_play {
             background: url("~@images/icon_play_red.png") center center / 12px
+              no-repeat;
+          }
+          &.icon_pause {
+            background: url("~@images/icon_pause_red.png") center center / 14px
               no-repeat;
           }
         }
