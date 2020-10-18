@@ -2,13 +2,14 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-02 17:37:19
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-21 16:57:01
+ * @LastEditTime: 2020-10-18 13:22:03
  * @Description: 歌单组件
  */
 import React, { Component } from 'react';
 import styles from './css/index.module.scss';
 import propTypes from 'prop-types';
 import { formatImgSize, formatSerialNo } from '@/common/utils/format';
+import { routerJump } from '@/common/utils/tools';
 class SongList extends Component {
   constructor(props) {
     super(props);
@@ -20,13 +21,13 @@ class SongList extends Component {
   // 跳转歌单详情页
   jump = item => {
     let pathname = '';
-    const { tag } = this.props;
+    const { tag, history } = this.props;
     switch (item.type) {
       case 'recommended': pathname = `/recommendSong`; break;
       case 'quality': pathname = `/qualityList${tag}`; break;
       default: pathname = `/single${item.id}`; break;
     }
-    this.props.history.push({ pathname })
+    routerJump(history, pathname);
   }
 
   render() {

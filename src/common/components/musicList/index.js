@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-16 10:26:39
+ * @LastEditTime: 2020-10-16 21:09:39
  * @Description: 歌单列表
  */
 import { formatSerialNo, formatSongTime } from '@/common/utils/format';
@@ -17,7 +17,7 @@ class MusicList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newList: [] // 点击排序后的新列表
+      newList: [], // 点击排序后的新列表
     }
   }
   columns = [
@@ -99,11 +99,11 @@ class MusicList extends Component {
   }
   // 控制样式
   setClassName = record => {
-    return record.st === -200 ? styles.active : ''
+    return record.st === -200 ? styles.disabled : ''
   }
 
   render() {
-    const { list } = this.props;
+    const { list, currentPlayer } = this.props;
     return (
       <Table
         bordered
@@ -112,10 +112,10 @@ class MusicList extends Component {
         columns={this.columns}
         dataSource={list}
         pagination={false}
-        rowClassName={this.setClassName}
+        rowClassName={(record, i) => record.st === -200 ? styles.disabled : (currentPlayer.id === record.id) ? styles.active : null}
         onChange={this.onChange}
         className={styles.table}
-        onRow={record => {
+        onRow={(record, index) => {
           return {
             onClick: event => { this.selectRow(record) }, // 点击行
             // onDoubleClick: {},

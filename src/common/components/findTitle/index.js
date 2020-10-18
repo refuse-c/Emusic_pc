@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 20:23:12
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-18 11:32:00
+ * @LastEditTime: 2020-10-18 13:20:40
  * @Description: FindTitle
  */
 import { message } from 'antd';
@@ -18,7 +18,7 @@ class FindTitle extends Component {
   }
 
   jump = () => {
-    const { type, tag } = this.props;
+    const { type, tag, history } = this.props;
     let params = {};
     switch (type) {
       case 0:
@@ -63,7 +63,7 @@ class FindTitle extends Component {
         break;
       default: message.warning(`客官请稍等,<看看>页面程序汪还在开发ing`)
     }
-    this.props.history.push({ ...params })
+    history.push({ ...params })
   }
   render() {
     const { tag, type, list, fun, title, date } = this.props;

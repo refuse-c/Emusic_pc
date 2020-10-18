@@ -2,27 +2,28 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-11 12:56:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-11 13:26:03
+ * @LastEditTime: 2020-10-18 13:42:28
  * @Description: 发现-歌手-歌手列表
  */
 import React, { Component } from 'react';
 import styles from '../css/index.module.scss';
 import propTypes from 'prop-types';
 import { formatImgSize } from '@/common/utils/format';
-
+import { routerJump } from '@/common/utils/tools';
+import queryString from 'query-string';
 class SingerList extends Component {
   constructor(props) {
     super(props);
     this.state = {}
   }
   render() {
-    const { list } = this.props;
+    const { list, history } = this.props;
     return (
       <div className={styles.singer_list}>
         <ul>
           {list.map(item => {
             return (
-              <li key={item.id} >
+              <li key={item.id} onClick={() => routerJump(history, `/singerdeatil`, queryString.stringify({ id: item.id }))} >
                 <div className={styles.positioning}>
                   <div
                     className={styles.box}

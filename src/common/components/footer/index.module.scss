@@ -53,9 +53,8 @@
         text-align: right;
       }
     }
-    p {
+    .progress_box {
       width: calc(100% - 160px);
-      height: 2px;
       background-color: blue;
     }
   }
@@ -68,6 +67,22 @@
     i {
       &:nth-child(1) {
         background-color: saddlebrown;
+      }
+      &.order {
+        background: url("~@common/images/icon_order.png") center center / 24px
+          no-repeat;
+      }
+      &.random {
+        background: url("~@common/images/icon_random.png") center center / 20px
+          no-repeat;
+      }
+      &.cycle {
+        background: url("~@common/images/icon_cycle.png") center center / 24px
+          no-repeat;
+      }
+      &.list {
+        background: url("~@common/images/icon_list.png") center center / 20px
+          no-repeat;
       }
     }
   }

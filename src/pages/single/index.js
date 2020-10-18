@@ -2,12 +2,12 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 15:39:35
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-15 16:39:49
+ * @LastEditTime: 2020-10-18 13:31:05
  * @Description: 歌单详情
  */
 import React, { Component } from 'react'
 import styles from './css/index.module.scss';
-import Head from './component/Head';
+import Head from '@components/head';
 import MusicList from '@components/musicList';
 import ScrollView from 'react-custom-scrollbars';
 
@@ -81,7 +81,7 @@ class Single extends Component {
         >
           <Spin tip="Loading..." spinning={loading} >
             <div className={styles.single_box}>
-              <Head data={playlist} type={`歌单`} list={list} />
+              <Head data={playlist} type={1} list={list} />
               <MusicList list={list} />
             </div>
           </Spin>

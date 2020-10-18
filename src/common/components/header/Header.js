@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-05 23:36:53
+ * @LastEditTime: 2020-10-18 13:20:53
  * @Description: 头部 
  */
 import React, { Component } from 'react';
@@ -13,7 +13,7 @@ import SearchInput from '@pages/search/component/SearchInput';
 import { bindActionCreators } from 'redux';
 import { modalPower, queryUserInfo, userPlayList } from '@/store/actions';
 import { IS_SHOW_LOGIN, IS_SHOW_SKIN } from '@/store/actionTypes';
-import { getLocal, reLocal } from '@/common/utils/tools';
+import { getLocal, reLocal, routerJump } from '@/common/utils/tools';
 import { withRouter } from 'react-router-dom';
 import { isEmpty } from '@/common/utils/format';
 import { logout } from '@/common/api/api';
@@ -36,13 +36,14 @@ class Header extends Component {
   }
 
   logout = async params => {
+    const { history } = this.props;
     const res = await logout(params);
     if (res.code !== 200) return;
     reLocal('userInfo');
     message.info('退出登录成功');
     this.props.handeUserPlayList([]);
     this.props.handleQueryUserInfo({});
-    this.props.history.push({ pathname: `/find/` })
+    routerJump(history, `/find/`)
   }
 
   render() {

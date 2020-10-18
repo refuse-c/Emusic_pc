@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 21:48:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-15 16:36:03
+ * @LastEditTime: 2020-10-18 13:25:09
  * @Description 登录弹窗
  */
 import React, { Component } from 'react'
@@ -12,7 +12,7 @@ import { bindActionCreators } from 'redux';
 import { modalPower, queryUserInfo, userPlayList } from '@/store/actions';
 import { IS_SHOW_LOGIN } from '@/store/actionTypes';
 import { login, loginStatus } from '@/common/api/api';
-import { setLocal } from '@/common/utils/tools';
+import { routerJump, setLocal } from '@/common/utils/tools';
 import { userPlaylist } from '@/common/api/user';
 const FormItem = Form.Item;
 class LoginModal extends Component {
@@ -22,6 +22,7 @@ class LoginModal extends Component {
   }
   // 登录
   handelLogin = async params => {
+    const { history } = this.props;
     const res = await login(params);
     if (res.code !== 200) return;
     message.info('登录成功');
@@ -29,7 +30,7 @@ class LoginModal extends Component {
     const uid = res.profile.userId;
     this.queryUserPlaylist(uid);
     this.props.handleQueryUserInfo(res);
-    this.props.history.push({ pathname: `/find/` });
+    routerJump(history, `/find/`)
   }
 
   queryLoginStatus = async params => {

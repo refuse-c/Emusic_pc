@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-21 14:28:09
+ * @LastEditTime: 2020-10-18 13:43:38
  * @Description: 路由
  */
 
@@ -33,12 +33,14 @@ import Search from '@pages/search';
 import Friend from '@pages/friend';
 import Home from '@pages/home';
 
-//歌单列表(详情)
+// 歌单列表(详情)
 import Single from '@pages/single';
-//精品歌单
+// 精品歌单
 import QualityList from '@pages/qualityList';
 // 播放页
 import Player from '@pages/player';
+// 歌手详情 
+import SingerDeatil from '@pages/singerDeatil';
 
 
 const routers = [
@@ -108,6 +110,10 @@ const routers = [
     {
       path: '/qualityList:id',
       component: QualityList
+    },
+    {
+      path: '/singerdeatil',
+      component: SingerDeatil
     }
     ]
   },

@@ -1,0 +1,28 @@
+.range {
+  position: relative;
+  width: 100%;
+  height: 5px;
+  background-color: pink;
+  .buffer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+  }
+  .progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+  }
+  .point {
+    position: absolute;
+    top: -2.5px;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: #dd5862;
+  }
+}

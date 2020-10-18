@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:17
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-16 11:19:24
+ * @LastEditTime: 2020-10-18 13:38:53
  * @Description:基础工具
  */
 
@@ -146,4 +146,13 @@ export const cutSong = (id, list, type, orderType) => {
     }
   }
   return list[index]
+}
+
+/**
+ * @name: 路由跳转
+ * @param {history}
+ * @param {pathname}
+ */
+export const routerJump = (history, pathname, search) => {
+  return history.push({ pathname, search })
 }

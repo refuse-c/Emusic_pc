@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-16 11:33:59
+ * @LastEditTime: 2020-10-17 02:07:54
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -17,6 +17,7 @@ import { cutSong } from '@/common/utils/tools';
 import { message } from 'antd';
 import { formatSongTime } from '@/common/utils/format';
 import { IS_SHOW_PLAYLIST } from '@/store/actionTypes';
+import Range from '@components/range';
 class Footer extends Component {
   constructor(props) {
     super(props);
@@ -140,20 +141,22 @@ class Footer extends Component {
         </div>
         <div className={styles.progress}>
           <span>{formatSongTime(currentTime, true)}</span>
-          <p></p>
+          <div className={styles.progress_box}>
+            <Range />
+          </div>
           <span>{formatSongTime(duration, true)}</span>
         </div>
         <div className={styles.volume}>
         </div>
         <div className={styles.tool}>
           <i
-            className={styles.order}
+            className={orderType === 1 ? styles.order : orderType === 2 ? styles.random : styles.cycle}
             onClick={() => this.setOrderType()}>
           </i>
           <i className={styles.Sound_quality}></i>
           <i className={styles.lyrics}></i>
           <i
-            className={styles.song_list}
+            className={styles.list}
             onClick={() => this.props.handleModalPower({ type: IS_SHOW_PLAYLIST, data: !playListStatus })}
           ></i>
         </div>

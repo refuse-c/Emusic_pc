@@ -6,6 +6,7 @@
  * @Description: 精品歌单-列表
  */
 import { formatImgSize } from '@/common/utils/format';
+import { routerJump } from '@/common/utils/tools';
 import React, { Component } from 'react'
 import styles from '../css/index.module.scss';
 class Index extends Component {
@@ -14,7 +15,7 @@ class Index extends Component {
     this.state = {}
   }
   render() {
-    const { list } = this.props;
+    const { list, history } = this.props;
     return (
       <div className={styles.list}>
         <ul>
@@ -23,7 +24,7 @@ class Index extends Component {
               return (
                 <li
                   key={'item' + index}
-                  onClick={() => this.props.history.push({ pathname: `/single${item.id}` })}
+                  onClick={() => routerJump(history, `/single${item.id}`)}
                 >
                   <p
                     className={styles.cover}

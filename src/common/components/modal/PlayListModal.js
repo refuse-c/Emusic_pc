@@ -2,16 +2,17 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-15 14:17:33
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-16 11:34:28
+ * @LastEditTime: 2020-10-17 01:06:04
  * @Description: 播放列表
  */
-import { currentPlayer, currentPlayList } from '@/store/actions';
+import { currentPlayer, currentPlayList, modalPower } from '@/store/actions';
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styles from './css/index.module.scss';
 import ScrollView from 'react-custom-scrollbars';
 import { formatSerialNo, formatSongTime } from '@/common/utils/format';
+import { IS_SHOW_PLAYLIST } from '@/store/actionTypes';
 class PlayListModal extends Component {
   constructor(props) {
     super(props);
@@ -84,6 +85,10 @@ class PlayListModal extends Component {
             onClick={() => this.setState({ active: 1 })}
           >历史记录</li>
         </ul>
+        <p
+          className={styles.close}
+          onClick={() => this.props.handleModalPower({ type: IS_SHOW_PLAYLIST, data: false })}
+        ></p>
         <div className={styles.tool}>
           <p>{`总${currentPlayList.length}首`}</p>
           <p onClick={() => this.handelClear()}>清空</p>
@@ -91,7 +96,6 @@ class PlayListModal extends Component {
         <div className={styles.scroll}>
           <ScrollView
             ref={sc => this.sc = sc}
-          // onUpdate={() => this.scrollTop()}
           >
             <ul>
               {
@@ -130,6 +134,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
+    handleModalPower: bindActionCreators(modalPower, dispatch),
     setCurrentPlayList: bindActionCreators(currentPlayList, dispatch), // 当前播放歌单列表
     setCurrentPlayer: bindActionCreators(currentPlayer, dispatch), // 获取当前音乐信息
   }
