@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-18 23:02:32
+ * @LastEditTime: 2020-10-19 17:53:11
  * @Description: 歌单详情-头部
  * @param {type} 1 歌单 2 歌手 3 用户
  */
@@ -11,11 +11,12 @@ import React, { Component } from 'react'
 import styles from './css/index.module.scss';
 import ReactMarkdown from 'react-markdown'
 import propTypes from 'prop-types';
-import { replaceName } from '@/common/utils/tools';
+import { replaceName, routerJump } from '@/common/utils/tools';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { currentPlayer, currentPlayList } from '@/store/actions';
 import { message } from 'antd';
+import queryString from 'query-string';
 class Head extends Component {
   constructor(props) {
     super(props);
@@ -46,36 +47,76 @@ class Head extends Component {
   renderTop = (data, type) => {
     const { fun } = this.props;
     return (
-      <div className={styles.top}>
-        <div className={styles.name_box}>
-          {type !== 3 ?
-            <span
-              className={styles.type}
-            > {type === 1 ? '歌单' : '歌手'}</span>
-            : null
+      <div className={[styles.top, type === 3 ? styles.top_border : ''].join(' ')}>
+        <div className={styles.flex_box}>
+          <div className={styles.name_box} >
+            {type !== 3 ?
+              <span
+                className={styles.type}
+              > {type === 1 ? '歌单' : '歌手'}</span>
+              : null
+            }
+
+            <span className={styles.name}>
+              {
+                type === 1 ?
+                  replaceName(data.userId, data.name) :
+                  type === 2 ? data.nickname : data.profile && data.profile.nickname
+              }
+            </span>
+
+            {
+              data.profile && data.profile.vipType > 0 ?
+                <span className={styles.vipType}></span>
+                : null}
+
+            {
+              data.profile && data.profile.gender ?
+                <span className={data.profile && data.profile.gender === 1 ? styles.man : styles.woman}></span>
+                : null
+            }
+
+            {
+              data && data.level ?
+                <span className={styles.level}> Lv.{data && data.level}</span>
+                : null
+            }
+          </div >
+          {type === 1 ?
+            <div className={styles.count}>
+              <p>
+                <span>歌曲数</span>
+                <span>{data.trackCount}</span>
+              </p>
+              <p>
+                <span>播放数</span>
+                <span>{formatSerialNo(data.playCount)}</span>
+              </p>
+            </div>
+            :
+            type === 2 ?
+              <div
+                className={[styles.followed, data.followed ? styles.is_followed : styles.not_followed].join(' ')}
+                onClick={() => fun(data.id, data.followed ? 2 : 1)}
+              >{data.followed ? '已收藏' : '收藏'}
+              </div>
+              : <div className={styles.userBtn}>
+                <div>发私信</div>
+                <div>关注</div>
+                <div>···</div>
+              </div>
           }
-          <span className={styles.name}>{replaceName(data.userId, data.name)}</span>
         </div>
-        {type === 1 ?
-          <div className={styles.count}>
-            <p>
-              <span>歌曲数</span>
-              <span>{data.trackCount}</span>
-            </p>
-            <p>
-              <span>播放数</span>
-              <span>{formatSerialNo(data.playCount)}</span>
-            </p>
-          </div>
-          :
-          type === 2 ?
-            <div
-              className={[styles.followed, data.followed ? styles.is_followed : styles.not_followed].join(' ')}
-              onClick={() => fun(data.id, data.followed ? 2 : 1)}
-            >{data.followed ? '已收藏' : '收藏'}</div>
-            : '用户'
-        }
-      </div>
+        <ul className={styles.allAuthTypes}>
+          {
+            data.profile && data.profile.allAuthTypes && data.profile.allAuthTypes.map((item, index) => {
+              return (
+                <li key={`item` + index}><span></span>{item.desc}</li>
+              )
+            })
+          }
+        </ul>
+      </div >
     )
   }
 
@@ -92,7 +133,21 @@ class Head extends Component {
             {data.musicSize ? <div>单曲数：<span>{data.musicSize}</span></div> : null}
             {data.albumSize ? <div>专辑数：<span>{data.albumSize}</span></div> : null}
             {data.mvSize ? <div>MV数：<span>{data.mvSize}</span></div> : null}
-          </div> : null
+          </div> :
+          <div className={styles.userCount}>
+            <div>
+              <span>{data.profile && data.profile.eventCount}</span>
+              <span>动态</span>
+            </div>
+            <div>
+              <span>{data.profile && data.profile.follows}</span>
+              <span>关注</span>
+            </div>
+            <div>
+              <span>{data.profile && data.profile.followeds}</span>
+              <span>粉丝</span>
+            </div>
+          </div>
     )
   }
 
@@ -120,7 +175,13 @@ class Head extends Component {
                 }
               </div>
             </div>
-            : null
+            : type === 3 ?
+              <div>
+                {type === 2 ? <div>社交网络：</div> : null}
+                {type === 2 ? <div>所在地区：</div> : null}
+                {type === 2 ? <div>个人介绍：</div> : null}
+              </div>
+              : null
         }
       </div>
     )
@@ -141,12 +202,17 @@ class Head extends Component {
   }
 
   render() {
-    const { data, type } = this.props;
+    const { data = {}, type, history } = this.props;
     return (
       <div className={styles.head}>
         <div className={styles.cover_img}>
-          <img src={formatImgSize(data.coverImgUrl || data.picUrl, 200, 200)} alt="" />
-          {type === 2 && data.accountId ? <div className={styles.accountId}>个人主页</div> : null}
+          <img src={formatImgSize(type === 1 ? data.coverImgUrl : type === 2 ? data.picUrl : data.profile && data.profile.avatarUrl, 200, 200)} alt="" />
+          {type === 2 && data.accountId ?
+            <div
+              className={styles.accountId}
+              onClick={() => routerJump(history, `/userdetail`, queryString.stringify({ uid: data.accountId }))}
+            >个人主页</div>
+            : null}
         </div>
 
         <div className={styles.single_info}>

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-18 13:43:38
+ * @LastEditTime: 2020-10-19 12:39:26
  * @Description: 路由
  */
 
@@ -40,7 +40,10 @@ import QualityList from '@pages/qualityList';
 // 播放页
 import Player from '@pages/player';
 // 歌手详情 
-import SingerDeatil from '@pages/singerDeatil';
+import SingerDetail from '@pages/singerDetail';
+// 用户详情
+import UserDetail from '@pages/userDetail';
+
 
 
 const routers = [
@@ -112,8 +115,12 @@ const routers = [
       component: QualityList
     },
     {
-      path: '/singerdeatil',
-      component: SingerDeatil
+      path: '/singerdetail',
+      component: SingerDetail
+    },
+    {
+      path: '/userdetail',
+      component: UserDetail
     }
     ]
   },

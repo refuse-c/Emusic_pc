@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-18 12:03:33
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-18 22:38:16
+ * @LastEditTime: 2020-10-19 12:39:39
  * @Description: 
  */
 import styles from './css/index.module.scss';
@@ -11,12 +11,19 @@ import Head from '@components/head';
 import queryString from 'query-string';
 import { artists, artistSub, artistDesc } from '@/common/api/singer';
 import { message } from 'antd';
-class SingerDeatil extends Component {
+
+class SingerDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
       id: '',
-      artist: {} // 歌手数据
+      artist: {}, // 歌手数据
+      menuList: [
+        { name: '专辑', path: '/singerdetail' },
+        { name: 'MV', path: '/singerdetail/mv' },
+        { name: '歌手详情', path: '/singerdetail/desc' },
+        { name: '相似歌手', path: '/singerdetail/simi' }
+      ],
     }
   }
   componentDidMount = () => {
@@ -48,13 +55,14 @@ class SingerDeatil extends Component {
   }
   render() {
     const { artist } = this.state;
+    const { history } = this.props;
     console.log(artist)
     return (
-      <div className={styles.singer_deatil}>
-        <Head data={artist} type={2} fun={this.getArtistSub} />
+      <div className={styles.singer_detail}>
+        <Head data={artist} type={2} history={history} fun={this.getArtistSub} />
       </div>
     );
   }
 }
 
-export default SingerDeatil;
+export default SingerDetail;

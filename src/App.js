@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 17:57:51
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-18 21:08:20
+ * @LastEditTime: 2020-10-19 16:52:15
  * @Description: 
  */
 import React from 'react';
@@ -44,7 +44,8 @@ function App() {
           }
         })}
         {/* <Redirect exact from='/' to='/single395805382' />  */}
-        <Redirect exact from='/' to='/singerdeatil?id=5781' />
+        {/* <Redirect exact from='/' to='/singerdetail?id=5781' /> */}
+        <Redirect exact from='/' to='/userdetail?uid=287070050' />
         <Footer />
       </Router>
     </div >

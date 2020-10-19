@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-11 12:56:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-18 13:42:28
+ * @LastEditTime: 2020-10-19 09:57:55
  * @Description: 发现-歌手-歌手列表
  */
 import React, { Component } from 'react';
@@ -23,7 +23,7 @@ class SingerList extends Component {
         <ul>
           {list.map(item => {
             return (
-              <li key={item.id} onClick={() => routerJump(history, `/singerdeatil`, queryString.stringify({ id: item.id }))} >
+              <li key={item.id} onClick={() => routerJump(history, `/singerdetail`, queryString.stringify({ id: item.id }))} >
                 <div className={styles.positioning}>
                   <div
                     className={styles.box}
