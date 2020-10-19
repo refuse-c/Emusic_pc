@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-19 17:53:11
+ * @LastEditTime: 2020-10-19 21:10:26
  * @Description: 歌单详情-头部
  * @param {type} 1 歌单 2 歌手 3 用户
  */
@@ -176,10 +176,10 @@ class Head extends Component {
               </div>
             </div>
             : type === 3 ?
-              <div>
+              <div className={styles.user_other}>
                 {type === 2 ? <div>社交网络：</div> : null}
                 {type === 2 ? <div>所在地区：</div> : null}
-                {type === 2 ? <div>个人介绍：</div> : null}
+                {data.profile && data.profile.signature ? <div>个人介绍：{data.profile && data.profile.signature}</div> : null}
               </div>
               : null
         }

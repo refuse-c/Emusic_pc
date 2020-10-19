@@ -226,7 +226,7 @@
         }
         span {
           &:first-child {
-            font-size: $fz18;
+            font-size: $fz24;
           }
           &:last-child {
             margin-top: 5px;
@@ -269,6 +269,10 @@
         padding-top: 10px;
         overflow: hidden;
       }
+    }
+    .user_other {
+      margin-top: 20px;
+      font-size: $fz12;
     }
   }
 }

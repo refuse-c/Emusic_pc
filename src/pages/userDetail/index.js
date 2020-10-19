@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-18 12:03:33
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-19 14:25:46
+ * @LastEditTime: 2020-10-19 22:25:32
  * @Description: 用户详情
  */
 import styles from './css/index.module.scss';
@@ -39,6 +39,9 @@ class UserDetail extends Component {
     return (
       <div className={styles.user_detail}>
         <Head data={userData} type={3} fun={this.getArtistSub} />
+        <div className={styles.user_info}>
+          <div className={styles.title}>歌单</div>
+        </div>
       </div>
     );
   }
