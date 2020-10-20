@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-16 21:09:39
+ * @LastEditTime: 2020-10-20 16:20:01
  * @Description: 歌单列表
  */
 import { formatSerialNo, formatSongTime } from '@/common/utils/format';
@@ -13,6 +13,8 @@ import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { currentPlayList, currentPlayer } from '@/store/actions';
+import { routerJump } from '@/common/utils/tools';
+import queryString from 'query-string';
 class MusicList extends Component {
   constructor(props) {
     super(props);
@@ -53,7 +55,14 @@ class MusicList extends Component {
       key: 'singer',
       ellipsis: true,
       sorter: (a, b) => a.ar[0].name.localeCompare(b.ar[0].name),
-      render: item => item.ar.map(item => item.name),
+      render: item => item.ar.map((item, index) =>
+        <span
+          key={`item` + index}
+          className={styles.singerText}
+          onClick={() => routerJump(this.props.history, `/singerdetail`, queryString.stringify({ id: item.id }))}
+        >
+          {item.name}</span>
+      ),
     },
     {
       title: '专辑',
@@ -117,8 +126,8 @@ class MusicList extends Component {
         className={styles.table}
         onRow={(record, index) => {
           return {
-            onClick: event => { this.selectRow(record) }, // 点击行
-            // onDoubleClick: {},
+            onClick: event => { }, // 点击行
+            onDoubleClick: event => { this.selectRow(record) },
             // onContextMenu: event => { },
             // onMouseEnter: event => { }, // 鼠标移入行
             // onMouseLeave: event => { },

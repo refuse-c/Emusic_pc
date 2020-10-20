@@ -10,18 +10,20 @@
   font-size: $fz13;
   background-color: #c62f2f;
   box-shadow: 0 0 1px #000;
-
+  -webkit-app-region: drag;
   .header_left {
     display: flex;
     align-items: center;
     .logo {
       width: 186px;
       height: 50px;
-      background: url("~@images/logo_w.png") center left -30px / contain no-repeat;
+      // background: url("~@images/logo_w.png") center left -30px / contain no-repeat;
+      background: url("~@images/logo_w.png") center left 0 / 120px no-repeat;
     }
     .arrow {
       width: 24px;
       height: 20px;
+      -webkit-app-region: no-drag;
       border: 1px solid rgba(255, 255, 255, 0.5);
       &:hover {
         border: 1px solid #fff;
@@ -45,11 +47,12 @@
         border-radius: 15px;
         overflow: hidden;
         margin-left: 10px;
-        width: 300px;
+        width: 220px;
         color: $cfafafa;
         border: none;
         box-shadow: none;
         background-color: #a82828;
+        -webkit-app-region: no-drag;
         &:focus {
           border: none;
           box-shadow: none;
@@ -67,11 +70,12 @@
       }
     }
   }
-  
+
   .header_right {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    -webkit-app-region: no-drag;
     li {
       cursor: pointer;
       display: flex;

@@ -34,7 +34,13 @@
     background-color: red;
   }
 }
-
+.singerText {
+  cursor: pointer;
+  padding-right: 5px;
+  &:hover {
+    text-decoration: underline;
+  }
+}
 .disabled {
   color: $c999;
 }

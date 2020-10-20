@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-02 17:37:19
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-20 16:18:42
+ * @LastEditTime: 2020-10-20 13:57:33
  * @Description: 歌单组件
  */
 import React, { Component } from 'react';
@@ -15,7 +15,6 @@ class SongList extends Component {
     super(props);
     this.state = {
       moreDesc: false,
-      width: 140,
     }
   }
 
@@ -31,19 +30,32 @@ class SongList extends Component {
     routerJump(history, pathname);
   }
 
+  componentDidMount = () => {
+    // 监听窗口大小变化
+    window.addEventListener('resize', this.resizeListener)
+  }
+
+  resizeListener = () => {
+    // const clientWidth = this.ul.clientWidth;
+    // const width = (clientWidth - 25) / 5;
+    // this.setState({ width })
+    // console.log(width)
+
+  }
+
   render() {
-    const { list, type, isMedia } = this.props;
+    // const { width } = this.state;
+    const { list, type } = this.props;
     const cls = type === 'recommend' ? styles.recommend : styles.positioning;
     return (
       <div className={styles.song_list}>
-        <ul className={isMedia ? styles.list1 : styles.list2} >
+        <ul ref={ul => this.ul = ul}>
           {
             list && list.map((item) => {
               return (
                 item.type === 'recommended' ?
                   <li
                     key={item.id}
-                    className={isMedia ? styles.item1 : styles.item2}
                     onClick={() => this.jump(item)}
                   >
                     <div className={cls}>
@@ -60,7 +72,6 @@ class SongList extends Component {
                   :
                   <li
                     key={item.id}
-                    className={isMedia ? styles.item1 : styles.item2}
                   >
                     <div
                       className={cls}

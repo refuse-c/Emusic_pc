@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 15:39:35
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-19 12:41:30
+ * @LastEditTime: 2020-10-20 16:54:29
  * @Description: 歌单详情
  */
 import React, { Component } from 'react'
@@ -12,7 +12,7 @@ import MusicList from '@components/musicList';
 import ScrollView from 'react-custom-scrollbars';
 
 import { playlistDetail, songDetail } from '@/common/api/api';
-import { Spin } from 'antd';
+import { message, Spin } from 'antd';
 class Single extends Component {
   constructor(props) {
     super(props);
@@ -28,7 +28,12 @@ class Single extends Component {
   queryPlayListDetail = async () => {
     const { id } = this.state;
     const res = await playlistDetail({ id });
-    res.code === 200 ? this.querySongDetail(res) : this.setState({ loading: false });
+    if (res.code === 200) {
+      if (res.playlist.trackIds.length === 0) {
+        message.info('当前歌单无播放歌曲,试试其他的吧')
+      }
+      this.querySongDetail(res);
+    }
   }
 
   // 歌曲详情
@@ -82,7 +87,7 @@ class Single extends Component {
           <Spin tip="Loading..." spinning={loading} >
             <div className={styles.single_box}>
               <Head data={playlist} type={1} list={list} />
-              <MusicList list={list} />
+              <MusicList list={list} history={this.props.history} />
             </div>
           </Spin>
         </ScrollView>

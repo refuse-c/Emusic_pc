@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-10 16:15:46
+ * @LastEditTime: 2020-10-20 09:15:51
  * @Description: 
  */
 import { getRequest } from './request';
@@ -277,5 +277,13 @@ export const allMv = (params) => {
  */
 export const songUrl = (params) => {
   return getRequest('/song/url', params)
+}
+
+/**
+ * @name:获取国家编码列表
+ * @param {}
+ */
+export const countriesCode = (params) => {
+  return getRequest('/countries/code/list', params)
 }
 

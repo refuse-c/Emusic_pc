@@ -6,17 +6,35 @@
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    margin: 0 auto;
+    justify-content: space-between;
+
+    &:after {
+      content: "";
+      width: 120px;
+      flex: 1;
+      margin: auto;
+    }
+
     li {
       position: relative;
-      width: calc(20% - 20px);
-      margin: 0 0 20px 0;
       border-radius: 4px;
       overflow: hidden;
       cursor: pointer;
-      &:not(:nth-child(5n + 1)) {
-        margin-left: 25px;
+      margin-top: 20px;
+      &.item1 {
+        width: 120px;
+        margin-left: 20px;
       }
+      &.item2 {
+        width: 20px;
+        max-width: 190px;
+        width: calc(20% - 20px);
+        margin: 0 0 20px 0;
+        &:not(:nth-child(5n + 1)) {
+          margin-left: 25px;
+        }
+      }
+
       .positioning,
       .recommend {
         position: relative;

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-19 21:10:26
+ * @LastEditTime: 2020-10-20 17:08:04
  * @Description: 歌单详情-头部
  * @param {type} 1 歌单 2 歌手 3 用户
  */
@@ -218,8 +218,9 @@ class Head extends Component {
         <div className={styles.single_info}>
           {this.renderTop(data, type)}
           {this.renderCenter(data, type)}
-          {this.renderBottom(data, type)}
           {this.renderBtn(data, type)}
+          {this.renderBottom(data, type)}
+
         </div>
       </div >
     );
