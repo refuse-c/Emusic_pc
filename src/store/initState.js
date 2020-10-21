@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-30 08:48:51
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-16 11:36:55
+ * @LastEditTime: 2020-10-21 23:26:44
  * @Description: 声明默认值
  */
 let initState = {
@@ -16,6 +16,7 @@ let initState = {
     skinStatue: false,
     playListStatus: false
   },
+  currentTime: 0,// 当前播放时间
   currentPlayer: { id: '' }, // 当前播放的音乐
   currentPlayList: [],// 当前的播放列表
   musicList: [],// 当前显示列表

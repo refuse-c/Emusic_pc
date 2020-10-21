@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-17 02:07:54
+ * @LastEditTime: 2020-10-22 00:34:02
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -12,12 +12,12 @@ import PlayList from '@components/modal/PlayListModal';
 import { connect } from 'react-redux';
 import { songUrl } from '@/common/api/api';
 import { bindActionCreators } from 'redux';
-import { currentPlayer, currentPlayList, modalPower } from '@/store/actions';
+import { currentPlayer, currentPlayList, currentTime, modalPower } from '@/store/actions';
 import { cutSong } from '@/common/utils/tools';
 import { message } from 'antd';
 import { formatSongTime } from '@/common/utils/format';
 import { IS_SHOW_PLAYLIST } from '@/store/actionTypes';
-import Range from '@components/range';
+
 class Footer extends Component {
   constructor(props) {
     super(props);
@@ -25,11 +25,12 @@ class Footer extends Component {
       id: '',
       url: '',
       isPlay: false,
-      orderType: 1,
-      currentIndex: 0,
-      currentTime: 0, // 当前播放时间
+      orderType: 1,// 播放模式 1 顺序播放 2 随机播放 3 单曲循环
+      rangeVal: 0, // 进度条数值
       duration: 0, // 当前音乐总时间
-      currentPlayer: {}
+      currentIndex: 0,
+      currentPlayer: {},
+
     }
   }
 
@@ -56,12 +57,18 @@ class Footer extends Component {
     const { orderType } = this.state;
     const { id } = currentPlayer;
     const data = cutSong(id, currentPlayList, type, orderType);
+    global.range.style.backgroundSize = `0% 100%`;
     setCurrentPlayer(data)
   }
 
   // 返回音乐的当前时间 / 总时间
-  cabackCurrentTime = (currentTime, duration) => {
-    this.setState({ currentTime, duration })
+  cabackCurrentTime = (duration) => {
+    const { range } = this;
+    const { currentTime } = this.props;
+    const cdColumn = currentTime / duration;
+    const rangeVal = cdColumn * range.max;
+    range.style.backgroundSize = cdColumn * 100 + `% 100%`;
+    this.setState({ duration, rangeVal })
   }
 
   //  设置播放顺序
@@ -85,6 +92,9 @@ class Footer extends Component {
     this.setState({ orderType: order })
   }
 
+  componentDidMount = () => {
+    global.range = this.range;
+  }
   static getDerivedStateFromProps = (nextProps, prevState) => {
     const { currentPlayer } = nextProps;
     const { id } = nextProps.currentPlayer;
@@ -108,16 +118,26 @@ class Footer extends Component {
     }
   }
 
+  changeInput = () => {
+    const { max, value } = this.range;
+    const { duration } = this.state;
+    if (!duration) return;
+    const changeCurrentTime = (value / max) * duration;
+    global.audio.currentTime = changeCurrentTime;
+    this.props.setCurrentTime(changeCurrentTime);
+  };
+
   render() {
+    const { currentTime } = this.props;
     const { playListStatus } = this.props.modalPower;
-    const { url, isPlay, orderType, currentTime, duration, currentPlayer } = this.state;
+    const { url, isPlay, orderType, duration, currentPlayer, rangeVal } = this.state;
     return (
       <div className={styles.footer}>
         <Audio
           url={url}
           isPlay={isPlay}
-          callback={this.cabackCurrentTime}
           orderType={orderType}
+          callback={this.cabackCurrentTime}
         />
 
         <PlayList
@@ -142,11 +162,26 @@ class Footer extends Component {
         <div className={styles.progress}>
           <span>{formatSongTime(currentTime, true)}</span>
           <div className={styles.progress_box}>
-            <Range />
+            <input
+              className={styles.range}
+              onChange={this.changeInput}
+              ref={(range) => (this.range = range)}
+              type="range"
+              min="0"
+              max="1000"
+              value={rangeVal || 0}
+            />
           </div>
           <span>{formatSongTime(duration, true)}</span>
         </div>
         <div className={styles.volume}>
+          <input
+            className={styles.range}
+            type="range"
+            min="0"
+            max="1000"
+            value={0}
+          />
         </div>
         <div className={styles.tool}>
           <i
@@ -167,6 +202,7 @@ class Footer extends Component {
 
 const mapStateToProps = state => {
   return {
+    currentTime: state.currentTime,
     currentPlayer: state.currentPlayer,
     currentPlayList: state.currentPlayList,
     modalPower: state.modalPower,
@@ -174,6 +210,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
+    setCurrentTime: bindActionCreators(currentTime, dispatch), // 当前播放歌单列表
     handleModalPower: bindActionCreators(modalPower, dispatch),
     setCurrentPlayList: bindActionCreators(currentPlayList, dispatch), // 当前播放歌单列表
     setCurrentPlayer: bindActionCreators(currentPlayer, dispatch), // 获取当前音乐信息

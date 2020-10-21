@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:20:09
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-16 09:26:24
+ * @LastEditTime: 2020-10-21 23:29:42
  * @Description:
  */
 
@@ -61,10 +61,19 @@ const currentPlayList = (state = initState.currentPlayList, action) => {
   }
 }
 
+// 当前播放时间
+const currentTime = (state = initState.currentTime, action) => {
+  switch (action.type) {
+    case ACTIONTYPE.CURRENT_TIME: return action.data;
+    default: return state;
+  }
+}
+
 export default combineReducers({
   userInfo,
   modalPower,
   userPlayList,
   currentPlayer,
-  currentPlayList
+  currentPlayList,
+  currentTime
 })
