@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:49:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-17 18:23:02
+ * @LastEditTime: 2020-10-21 13:59:32
  * @Description:  全部mv
  */
 import React, { Component } from 'react'
@@ -10,7 +10,7 @@ import styles from './css/index.module.scss';
 import Tag from '@components/tag';
 import FindTitle from '@components/findTitle';
 import ScrollView from 'react-custom-scrollbars';
-import MvList from '@pages/video/component/MvList';
+import MvList from '@components/mv';
 import queryString from 'query-string';
 
 import { allMv } from '@/common/api/api';

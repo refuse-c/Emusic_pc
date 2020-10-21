@@ -2,21 +2,24 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-18 12:03:33
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-19 12:39:39
+ * @LastEditTime: 2020-10-21 16:23:02
  * @Description: 
  */
 import styles from './css/index.module.scss';
 import React, { Component } from 'react';
 import Head from '@components/head';
 import queryString from 'query-string';
-import { artists, artistSub, artistDesc } from '@/common/api/singer';
+import { artists, artistSub } from '@/common/api/singer';
 import { message } from 'antd';
+import ScrollView from 'react-custom-scrollbars';
+import { NavLink, Route } from 'react-router-dom';
 
 class SingerDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
       id: '',
+      onLoad: false,
       artist: {}, // 歌手数据
       menuList: [
         { name: '专辑', path: '/singerdetail' },
@@ -28,20 +31,42 @@ class SingerDetail extends Component {
   }
   componentDidMount = () => {
     const { id } = queryString.parse(this.props.history.location.search)
-    console.log(id)
-    this.getArtistDesc(id);
+    this.setState({ id })
     this.getArtists(id);
   }
-  // 获取歌手描述
-  getArtistDesc = async (id) => {
-    const res = await artistDesc({ id });
-    console.log(res)
+
+
+  static getDerivedStateFromProps = (nextProps, prevState) => {
+    const { id } = queryString.parse(nextProps.location.search)
+    if (id !== nextProps.id) {
+      return {
+        id: id,
+      };
+    }
+    return null;
+  }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (this.state.id !== prevState.id) {
+      this.getArtists(this.state.id);
+    }
+  }
+
+
+  componentWillUnmount() {
+    this.setState = () => false;
+  }
+
+  // 滚动到底部改变状态触发事件
+  handleScroll = e => {
+    if (e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight - 10) {
+      this.setState({ onLoad: true }, () => this.setState({ onLoad: false }))
+    }
   }
 
   // 获取歌手单曲
   getArtists = async (id) => {
     const res = await artists({ id });
-    console.log(res.artist)
     if (res.code === 200) this.setState({ artist: res.artist })
   }
   // 收藏取消歌手  t:操作,1 为收藏,其他为取消收藏
@@ -53,13 +78,52 @@ class SingerDetail extends Component {
       this.getArtists(id);
     }
   }
+
   render() {
-    const { artist } = this.state;
-    const { history } = this.props;
-    console.log(artist)
+    const { id, artist, menuList, onLoad } = this.state;
+    const { history, routes } = this.props;
     return (
       <div className={styles.singer_detail}>
-        <Head data={artist} type={2} history={history} fun={this.getArtistSub} />
+        <ScrollView onScroll={this.handleScroll}>
+          <Head data={artist} type={2} history={history} fun={this.getArtistSub} />
+          <div className={styles.singer_nav}>
+            <ul>
+              {
+                menuList.map(item => {
+                  return (
+                    <NavLink
+                      exact
+                      activeClassName={styles.active}
+                      key={item.path}
+                      to={`${item.path}?id=${id}`}
+                    >
+                      <li>{item.name}</li>
+                    </NavLink>
+                  )
+                })
+              }
+            </ul>
+          </div>
+          <div className={styles.singer_content}>
+            {routes.map((route, key) => {
+              return (
+                <Route
+                  exact
+                  key={key}
+                  path={route.path}
+                  render={(props) => (
+                    <route.component
+                      {...props}
+                      id={id}
+                      onLoad={onLoad}
+                      routes={route.routes}
+                    />
+                  )}
+                />
+              );
+            })}
+          </div>
+        </ScrollView>
       </div>
     );
   }

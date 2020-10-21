@@ -2,14 +2,14 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-11 09:51:05
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-18 14:03:04
+ * @LastEditTime: 2020-10-21 18:22:35
  * @Description: 发现-最新音乐
  */
 import React, { Component } from 'react';
 import styles from './css/index.module.scss';
 import NewestMenu from './component/NewestMenu';
 import TopSong from './component/TopSong';
-import TopAlbum from './component/TopAlbum';
+import Album from '@components/album';
 import { Spin } from 'antd';
 import { allTopAlbum, topAlbum, topSong } from '@/common/api/api';
 class Newest extends Component {
@@ -139,13 +139,13 @@ class Newest extends Component {
         {
           menuIndex ?
             albumType ?
-              <TopAlbum title={`本周新碟`} list={topAlbumData} fun={this.chooseItem} />
+              <Album title={`本周新碟`} list={topAlbumData} fun={this.chooseItem} />
               :
               <div>
                 {area === 'ALL' ?
-                  < TopAlbum title={`本周新碟`} list={weekData} fun={this.chooseItem} />
+                  < Album title={`本周新碟`} list={weekData} fun={this.chooseItem} />
                   : null}
-                <TopAlbum title={`本月新碟`} list={monthData} fun={this.chooseItem} />
+                <Album title={`本月新碟`} list={monthData} fun={this.chooseItem} />
               </div>
             :
             <TopSong list={topSongData} fun={this.chooseItem} />

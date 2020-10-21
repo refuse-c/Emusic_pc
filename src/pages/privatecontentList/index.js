@@ -2,12 +2,12 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-18 11:26:20
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-18 13:55:32
+ * @LastEditTime: 2020-10-21 14:00:07
  * @Description: 独家放送-列表
  */
 import React, { Component } from 'react';
 import styles from './css/index.module.scss';
-import MvList from '@pages/video/component/MvList';
+import MvList from '@components/mv';
 import { Spin } from 'antd';
 import FindTitle from '@common/components/findTitle';
 import { privatecontentList } from '@/common/api/api';

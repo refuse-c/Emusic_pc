@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-19 12:39:26
+ * @LastEditTime: 2020-10-21 11:16:55
  * @Description: 路由
  */
 
@@ -41,19 +41,25 @@ import QualityList from '@pages/qualityList';
 import Player from '@pages/player';
 // 歌手详情 
 import SingerDetail from '@pages/singerDetail';
+import singerAlbum from '@pages/singerDetail/component/Album';
+import singerMv from '@pages/singerDetail/component/Mv';
+import singerDesc from '@pages/singerDetail/component/Desc';
+import singerSimi from '@pages/singerDetail/component/Simi';
+
+
 // 用户详情
 import UserDetail from '@pages/userDetail';
 
 
 
-const routers = [
+const routes = [
   {
     path: '/',
     component: Home,
-    routers: [{
+    routes: [{
       path: '/find',
       component: Find,
-      routers: [{
+      routes: [{
         path: '/find',
         exact: true,
         component: Recommend  // 个性推荐
@@ -82,7 +88,7 @@ const routers = [
     }, {
       path: '/video',
       component: Videos,
-      routers: [{
+      routes: [{
         path: '/video',
         exact: true,
         component: Video  // 视频
@@ -116,7 +122,25 @@ const routers = [
     },
     {
       path: '/singerdetail',
-      component: SingerDetail
+      component: SingerDetail,
+      routes: [
+        {
+          path: '/singerdetail',
+          component: singerAlbum,
+        },
+        {
+          path: '/singerdetail/mv',
+          component: singerMv,
+        },
+        {
+          path: '/singerdetail/desc',
+          component: singerDesc,
+        },
+        {
+          path: '/singerdetail/simi',
+          component: singerSimi,
+        }
+      ]
     },
     {
       path: '/userdetail',
@@ -132,4 +156,4 @@ const routers = [
 
 ]
 
-export default routers;
+export default routes;

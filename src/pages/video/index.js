@@ -50,7 +50,7 @@ class Videos extends Component {
           < div className={styles.video_box}>
             <Spin tip="Loading..." spinning={false}>
               {
-                this.props.routers.map((route, key) => {
+                this.props.routes.map((route, key) => {
                   if (route.exact) {
                     return (
                       <Route
@@ -58,7 +58,7 @@ class Videos extends Component {
                         exact
                         path={route.path}
                         render={(props) => (
-                          <route.component {...props} routers={route.routers} onLoad={onLoad} fun={this.scrollToTop} />
+                          <route.component {...props} routes={route.routes} onLoad={onLoad} fun={this.scrollToTop} />
                         )}
                       />
                     );
@@ -68,7 +68,7 @@ class Videos extends Component {
                         key={key}
                         path={route.path}
                         render={(props) => (
-                          <route.component {...props} routers={route.routers} onLoad={onLoad} fun={this.scrollToTop} />
+                          <route.component {...props} routes={route.routes} onLoad={onLoad} fun={this.scrollToTop} />
                         )}
                       />
                     );

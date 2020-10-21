@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-20 17:08:04
+ * @LastEditTime: 2020-10-21 14:10:14
  * @Description: 歌单详情-头部
  * @param {type} 1 歌单 2 歌手 3 用户
  */
@@ -61,7 +61,7 @@ class Head extends Component {
               {
                 type === 1 ?
                   replaceName(data.userId, data.name) :
-                  type === 2 ? data.nickname : data.profile && data.profile.nickname
+                  type === 2 ? data.name : data.profile && data.profile.nickname
               }
             </span>
 

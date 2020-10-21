@@ -21,7 +21,7 @@ class Home extends Component {
           <Menu />
         </div>
         <div className={styles.right}>
-          {this.props.routers.map((route, key) => {
+          {this.props.routes.map((route, key) => {
             if (route.exact) {
               return (
                 <Route
@@ -29,7 +29,7 @@ class Home extends Component {
                   exact
                   path={route.path}
                   render={(props) => (
-                    <route.component {...props} routers={route.routers} />
+                    <route.component {...props} routes={route.routes} />
                   )}
                 />
               );
@@ -39,7 +39,7 @@ class Home extends Component {
                   key={key}
                   path={route.path}
                   render={(props) => (
-                    <route.component {...props} routers={route.routers} />
+                    <route.component {...props} routes={route.routes} />
                   )}
                 />
               );

@@ -2,12 +2,12 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-13 02:34:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-14 22:42:12
+ * @LastEditTime: 2020-10-21 13:52:58
  * @Description: 视频-视频
  */
 import React, { Component } from 'react';
 import { firstMv, hotMv, wycpMv, topMv } from '@common/api/api';
-import MvList from './MvList';
+import MvList from '@components/mv';
 import TopMvList from './TopMvList';
 import FindTitle from '@common/components/findTitle';
 class Mv extends Component {

@@ -3,35 +3,38 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-11 17:01:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-14 20:51:19
- * @Description: 发现-最新音乐-新碟上架
+ * @LastEditTime: 2020-10-21 18:39:07
+ * @Description: 专辑列表
  */
 
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
-import styles from '../css/index.module.scss';
-import { formatImgSize } from '@/common/utils/format';
-class TopAlbum extends Component {
+import styles from './css/index.module.scss';
+import { formatDate, formatImgSize } from '@/common/utils/format';
+class Album extends Component {
   constructor(props) {
     super(props);
     this.state = {}
   }
 
   render() {
-    const { title, list } = this.props;
+    const { title, list, isMedia } = this.props;
     return (
-      <div className={styles.top_album}>
-        <h3>{title}</h3>
-        <ul>
+      <div className={styles.album}>
+        {isMedia ? null : <h3>{title}</h3>}
+        <ul className={isMedia ? styles.list1 : styles.list2}>
           {
             list.map((item, index) => {
               return (
-                <li key={item.id}>
+                <li
+                  key={`item` + index}
+                  className={isMedia ? styles.item1 : styles.item2}
+                >
                   <div className={styles.positioning}>
                     <img src={formatImgSize(item.picUrl, 200, 200)} alt="" />
                   </div>
                   <p className='overflows'>{item.name}</p>
-                  <p className='overflow'>{item.artist.name}</p>
+                  <p className='overflow'>{isMedia ? formatDate(item.publishTime) : item.artist.name}</p>
                 </li>
               )
             })
@@ -43,8 +46,8 @@ class TopAlbum extends Component {
 }
 
 
-TopAlbum.propTypes = {
+Album.propTypes = {
   list: propTypes.array,
   fun: propTypes.func
 }
-export default TopAlbum;
+export default Album;
