@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-10 15:55:14
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-22 00:30:32
+ * @LastEditTime: 2020-10-22 12:25:46
  * @Description 播放组件
  */
 import { cutSong } from '@/common/utils/tools';
@@ -52,9 +52,7 @@ class Audio extends Component {
   }
 
   componentDidUpdate = () => {
-    // const { audio } = this;
     const { isPlay, url } = this.props;
-    // audio.currentTime = currentTime;
     if (!url) return;
     isPlay ? this.audio.play() : this.audio.pause();
   }

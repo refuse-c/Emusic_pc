@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-22 00:34:02
+ * @LastEditTime: 2020-10-22 12:30:36
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -37,7 +37,7 @@ class Footer extends Component {
   // 获取音乐播放地址
   getSongUrl = async () => {
     const { id } = this.state
-    this.setState({ url: '' })
+    // this.setState({ url: '' })
     const res = await songUrl({ id, br: 128000 })
     if (res.code === 200) this.setState({ url: res.data[0].url, isPlay: true })
   }
@@ -175,13 +175,13 @@ class Footer extends Component {
           <span>{formatSongTime(duration, true)}</span>
         </div>
         <div className={styles.volume}>
-          <input
+          {/* <input
             className={styles.range}
             type="range"
             min="0"
             max="1000"
             value={0}
-          />
+          /> */}
         </div>
         <div className={styles.tool}>
           <i
