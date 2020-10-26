@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-18 13:20:53
+ * @LastEditTime: 2020-10-26 11:23:11
  * @Description: 头部 
  */
 import React, { Component } from 'react';
@@ -56,7 +56,7 @@ class Header extends Component {
         <div className={styles.logo}></div>
         <div className={[styles.arrow, styles.arrow_left].join(' ')} onClick={() => this.go(-1)}></div>
         <div className={[styles.arrow, styles.arrow_right].join(' ')} onClick={() => this.go(1)}></div>
-        <SearchInput />
+        <SearchInput history={history} />
       </div>
       <ul className={styles.header_right}>
         {!isEmpty(userInfo) ?

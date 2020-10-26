@@ -1,8 +1,10 @@
+
+
 /*
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:17
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-18 13:38:53
+ * @LastEditTime: 2020-10-26 11:40:35
  * @Description:基础工具
  */
 
@@ -106,7 +108,7 @@ export const Trim = v => {
 export const replaceName = (userId, name) => {
   const userInfo = getLocal('userInfo');
   if (isEmpty(userInfo)) return name;
-  return userId === userInfo.userId ? name.replace(userInfo.nickname, '我') : name;
+  return Number(userId) === Number(userInfo.userId) ? name.replace(userInfo.nickname, '我') : name;
 }
 
 /**
@@ -150,9 +152,21 @@ export const cutSong = (id, list, type, orderType) => {
 
 /**
  * @name: 路由跳转
- * @param {history}
- * @param {pathname}
+ * @param {history}  T
+ * @param {pathname} T
+ * @param {search}   F  携带的参数
  */
 export const routerJump = (history, pathname, search) => {
   return history.push({ pathname, search })
+}
+
+
+/**
+ * @name:  判断是不是当前用户的相关东西
+ * @param {type}
+ */
+export const isLoginUser = userId => {
+  const userInfo = getLocal('userInfo');
+  if (isEmpty(userInfo)) return false;
+  return Number(userId) === Number(userInfo.userId) ? true : false;
 }

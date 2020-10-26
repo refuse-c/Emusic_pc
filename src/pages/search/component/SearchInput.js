@@ -2,16 +2,18 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-25 15:04:12
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-15 16:36:22
+ * @LastEditTime: 2020-10-26 14:45:02
  * @Description: 搜索-搜索框
  */
 import React, { Component } from 'react';
-import { search, searchDefault, searchHotDetail, searchSuggest } from '@/common/api/search';
+import { searchDefault, searchHotDetail, searchSuggest } from '@/common/api/search';
 import { isEmpty, Trim } from '@/common/utils/format';
 import { Input } from 'antd';
 // import styles from '../css/index.module.scss';
 import SearchHotList from './SearchHotList';
+import { routerJump } from '@/common/utils/tools';
 // import SearchSuggest from './SearchSuggest';
+import queryString from 'query-string';
 const { Search } = Input;
 class Searchs extends Component {
   constructor(props) {
@@ -44,13 +46,11 @@ class Searchs extends Component {
     this.setState({ suggestList: res.result, isShowSuggestStatus: true })
   }
 
-  // 搜索
-  querySearch = async () => {
-    const { type, keywords, limit, offset } = this.state;
-    const params = { type, keywords, limit, offset: offset * limit - limit }
-    const res = await search(params);
-    if (res.code !== 200) return;
-    console.log(res.result.songs)
+  // 传递搜索的关键字
+  querySearch = () => {
+    const { history } = this.props;
+    const { keywords } = this.state;
+    routerJump(history, `/search`, queryString.stringify({ keywords }))
   }
 
   // 热搜列表(详情)
@@ -67,7 +67,7 @@ class Searchs extends Component {
       this.querySearch();
       this.setState({ keywords })
     } else {
-      this.setState({ keywords: defaultKeyword }, () => {
+      this.setState({ keywords: defaultKeyword, isShowHotListStatus: false }, () => {
         this.querySearch();
       })
     }
@@ -120,6 +120,7 @@ class Searchs extends Component {
           placeholder={defaultKeyword}
           value={keywords}
           onFocus={this.handelFocus}
+          maxLength={30}
         // onBlur={() => global.debounce(this.setState({ isShowHotListStatus: false }))}
         />
         {isShowHotListStatus ? <SearchHotList data={searchHotList} fun={this.searchHotListCaback} /> : null}

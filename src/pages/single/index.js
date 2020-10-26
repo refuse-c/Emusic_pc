@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 15:39:35
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-20 16:54:29
+ * @LastEditTime: 2020-10-26 15:00:23
  * @Description: 歌单详情
  */
 import React, { Component } from 'react'
@@ -13,6 +13,7 @@ import ScrollView from 'react-custom-scrollbars';
 
 import { playlistDetail, songDetail } from '@/common/api/api';
 import { message, Spin } from 'antd';
+import { traverseId } from '@/common/utils/tools';
 class Single extends Component {
   constructor(props) {
     super(props);
@@ -38,7 +39,8 @@ class Single extends Component {
 
   // 歌曲详情
   querySongDetail = async data => {
-    const ids = data.playlist.trackIds.map(item => item.id).join(',');
+    // const ids = data.playlist.trackIds.map(item => item.id).join(',');
+    const ids = traverseId(data.playlist.trackIds);
     const res = await songDetail({ ids });
     this.setState({ loading: false });
     if (res.code !== 200) return;
