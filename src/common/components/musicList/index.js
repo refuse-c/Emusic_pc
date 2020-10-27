@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-20 16:20:01
+ * @LastEditTime: 2020-10-27 14:47:27
  * @Description: 歌单列表
  */
 import { formatSerialNo, formatSongTime } from '@/common/utils/format';
@@ -13,7 +13,7 @@ import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { currentPlayList, currentPlayer } from '@/store/actions';
-import { routerJump } from '@/common/utils/tools';
+import { highlightText, routerJump } from '@/common/utils/tools';
 import queryString from 'query-string';
 class MusicList extends Component {
   constructor(props) {
@@ -41,7 +41,11 @@ class MusicList extends Component {
       ellipsis: true,
       sorter: (a, b) => a.name.localeCompare(b.name),
       render: item => <div className='item'>
-        <p>{item.name}</p>
+        <p
+          dangerouslySetInnerHTML={{
+            __html: highlightText(this.props.keywords, item.name)
+          }}
+        ></p>
         {/* {item.fee === 1 ? <i>VIP</i> : null}
         {item.dl === 999000 ? <i>SQ</i> : null}
         {item.mv !== 0 ? <i>MV</i> : null} */}
@@ -60,8 +64,11 @@ class MusicList extends Component {
           key={`item` + index}
           className={styles.singerText}
           onClick={() => routerJump(this.props.history, `/singerdetail`, queryString.stringify({ id: item.id }))}
+          dangerouslySetInnerHTML={{
+            __html: highlightText(this.props.keywords, item.name)
+          }}
         >
-          {item.name}</span>
+        </span>
       ),
     },
     {
@@ -69,7 +76,11 @@ class MusicList extends Component {
       key: 'album',
       ellipsis: true,
       sorter: (a, b) => a.al.name.localeCompare(b.al.name),
-      render: item => item.al.name
+      render: item => <span
+        dangerouslySetInnerHTML={{
+          __html: highlightText(this.props.keywords, item.al.name)
+        }}
+      ></span>
     },
     {
       title: '时长',

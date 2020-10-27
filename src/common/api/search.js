@@ -2,14 +2,14 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-16 13:52:21
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-26 22:43:54
+ * @LastEditTime: 2020-10-27 09:45:29
  * @Description: 搜索API
  */
 import { getRequest } from './request';
 
 // 搜索
 export const search = params => {
-  return getRequest('/cloudsearch', params)
+  return getRequest('/search', params)
 }
 
 // 默认搜索关键词

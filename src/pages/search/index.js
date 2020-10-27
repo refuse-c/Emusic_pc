@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-01 02:13:43
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-26 22:44:13
+ * @LastEditTime: 2020-10-27 17:38:25
  * @Description:搜索
  */
 import React, { Component } from 'react';
@@ -12,7 +12,7 @@ import queryString from 'query-string';
 import { search } from '@/common/api/search';
 import ScrollView from 'react-custom-scrollbars';
 import { songDetail } from '@/common/api/api';
-import { traverseId } from '@/common/utils/tools';
+import { highlightText, traverseId } from '@/common/utils/tools';
 import { Pagination } from 'antd';
 
 class Search extends Component {
@@ -39,7 +39,8 @@ class Search extends Component {
     }
   }
 
-  getSearch = async () => {
+  getSearch = async (isFirst = false) => {
+    console.log(isFirst)
     const { type, keywords, limit, offset } = this.state;
     const params = { type, keywords, limit, offset: offset * limit - limit }
     const res = await search(params);
@@ -47,7 +48,8 @@ class Search extends Component {
     console.log(res.result)
     const { songs, songCount: total } = res.result;
     console.log(total)
-    this.setState({ total })
+    if (isFirst) this.setState({ total });
+
     this.querySongDetail(songs)
   }
 
@@ -73,7 +75,7 @@ class Search extends Component {
 
   componentDidMount = () => {
     const { keywords } = queryString.parse(this.props.location.search);
-    this.setState({ keywords }, () => this.getSearch())
+    this.setState({ keywords }, () => this.getSearch(true))
   }
 
   static getDerivedStateFromProps = (nextProps, prevState) => {
@@ -88,7 +90,7 @@ class Search extends Component {
 
   componentDidUpdate = (prevProps, prevState) => {
     if (this.state.keywords !== prevState.keywords) {
-      this.getSearch()
+      this.getSearch(true)
     }
   }
 
@@ -96,14 +98,31 @@ class Search extends Component {
 
 
   render() {
-    const { keywords, list, limit, offset, total } = this.state;
-    console.log(list)
+    const { menuList, keywords, list, limit, offset, total } = this.state;
+    console.log(list, total)
     return (
 
       <div className={styles.search}>
-        <div>搜索{keywords},找到{total}首单曲</div>
         <ScrollView>
-          <MusicList list={list} />
+          <div
+            className={styles.searchInfo}
+            dangerouslySetInnerHTML={{
+              __html: `搜索${highlightText(keywords, keywords)},找到${total}首单曲`
+            }}
+          >
+          </div>
+          <div className={styles.searchNav}>
+            <ul>
+              {
+                menuList.map(item => {
+                  return (
+                    <li key={item.key}>{item.title}</li>
+                  )
+                })
+              }
+            </ul>
+          </div>
+          <MusicList list={list} keywords={keywords} />
           <div className={styles.pages}>
             <Pagination
               total={total}
