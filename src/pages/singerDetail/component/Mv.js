@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-21 10:36:37
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-21 16:24:58
+ * @LastEditTime: 2020-10-28 16:30:25
  * @Description: 
  */
 import React, { Component } from 'react';
@@ -52,7 +52,7 @@ class Mv extends Component {
     const { mvs, hasMore } = this.state;
     return (
       <div className={styles.mv}>
-        <MvList list={mvs} isMedia={true} />
+        <MvList list={mvs} isFullScreen={true} />
         {
           hasMore ? <div className='loading'><Spin style={{ color: '#666' }} tip="Loading..."></Spin></div> : ''
         }

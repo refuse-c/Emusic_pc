@@ -18,23 +18,23 @@ class Album extends Component {
   }
 
   render() {
-    const { title, list, isMedia } = this.props;
+    const { title, list, isFullScreen } = this.props;
     return (
       <div className={styles.album}>
-        {isMedia ? null : <h3>{title}</h3>}
-        <ul className={isMedia ? styles.list1 : styles.list2}>
+        {isFullScreen ? null : <h3>{title}</h3>}
+        <ul className={isFullScreen ? styles.list1 : styles.list2}>
           {
             list.map((item, index) => {
               return (
                 <li
                   key={`item` + index}
-                  className={isMedia ? styles.item1 : styles.item2}
+                  className={isFullScreen ? styles.item1 : styles.item2}
                 >
                   <div className={styles.positioning}>
                     <img src={formatImgSize(item.picUrl, 200, 200)} alt="" />
                   </div>
                   <p className='overflows'>{item.name}</p>
-                  <p className='overflow'>{isMedia ? formatDate(item.publishTime) : item.artist.name}</p>
+                  <p className='overflow'>{isFullScreen ? formatDate(item.publishTime) : item.artist.name}</p>
                 </li>
               )
             })

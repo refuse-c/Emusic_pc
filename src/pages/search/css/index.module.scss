@@ -17,7 +17,10 @@
         cursor: pointer;
         margin-right: 30px;
         padding-bottom: 4px;
-        border-bottom: 4px solid red;
+        border-bottom: 4px solid transparent;
+        &.active {
+          border-bottom: 4px solid red;
+        }
       }
     }
   }

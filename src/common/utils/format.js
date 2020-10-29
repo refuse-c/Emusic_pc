@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:06
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-15 23:45:12
+ * @LastEditTime: 2020-10-29 12:13:27
  * @Description:工具
  */
 
@@ -144,4 +144,17 @@ export const isArray = (v) => {
  */
 export const isEmpty = v => {
   return v === '' || v === null || v === undefined || (isArray(v) && !v.length) || !Object.keys(v).length;
+}
+
+export const keyToStr = key => {
+  switch (key) {
+    case 10: return '张专辑';
+    case 100: return '位歌手';
+    case 1000: return '个歌单';
+    case 1004: return '位用户';
+    case 1006: return '首歌词';
+    case 1009: return '个电台';
+    case 1014: return '个视频';
+    default: return '首单曲';
+  }
 }

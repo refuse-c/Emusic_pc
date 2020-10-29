@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-21 10:36:37
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-21 18:35:25
+ * @LastEditTime: 2020-10-28 15:42:08
  * @Description: 
  */
 import { artistAlbum } from '@/common/api/singer';
@@ -57,7 +57,7 @@ class Album extends Component {
     const { albumData, more } = this.state;
     return (
       <div className={styles.album}>
-        <AlbumList list={albumData} isMedia={true} />
+        <AlbumList list={albumData} isFullScreen={true} />
         {
           more ? <div className='loading'><Spin style={{ color: '#666' }} tip="Loading..."></Spin></div> : ''
         }

@@ -32,18 +32,18 @@ class SongList extends Component {
   }
 
   render() {
-    const { list, type, isMedia } = this.props;
+    const { list, type, isFullScreen } = this.props;
     const cls = type === 'recommend' ? styles.recommend : styles.positioning;
     return (
       <div className={styles.song_list}>
-        <ul className={isMedia ? styles.list1 : styles.list2} >
+        <ul className={isFullScreen ? styles.list1 : styles.list2} >
           {
             list && list.map((item) => {
               return (
                 item.type === 'recommended' ?
                   <li
                     key={item.id}
-                    className={isMedia ? styles.item1 : styles.item2}
+                    className={isFullScreen ? styles.item1 : styles.item2}
                     onClick={() => this.jump(item)}
                   >
                     <div className={cls}>
@@ -60,7 +60,7 @@ class SongList extends Component {
                   :
                   <li
                     key={item.id}
-                    className={isMedia ? styles.item1 : styles.item2}
+                    className={isFullScreen ? styles.item1 : styles.item2}
                   >
                     <div
                       className={cls}

@@ -17,7 +17,7 @@ class SingerList extends Component {
     this.state = {}
   }
   render() {
-    const { list, history, isMedia } = this.props;
+    const { list, history, isFullScreen } = this.props;
     return (
       <div className={styles.singer_list}>
         <ul>
@@ -25,7 +25,7 @@ class SingerList extends Component {
             return (
               <li
                 key={item.id}
-                className={isMedia ? styles.item1 : styles.item2}
+                className={isFullScreen ? styles.item1 : styles.item2}
                 onClick={() => routerJump(history, `/singerdetail`, queryString.stringify({ id: item.id }))} >
                 <div className={styles.positioning}>
                   <div

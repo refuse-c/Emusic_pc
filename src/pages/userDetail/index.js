@@ -82,11 +82,11 @@ class UserDetail extends Component {
           <div className={styles.user_info}>
             {createList.length > 0 ? <div className={styles.title}>歌单（{createList.length}）</div> : null}
             <div className={styles.list_box}>
-              <SongList history={history} list={createList} isMedia={true} />
+              <SongList history={history} list={createList} isFullScreen={true} />
             </div>
             {collectList.length > 0 ? <div className={styles.title}>创建（{collectList.length}）</div> : null}
             <div className={styles.list_box}>
-              <SongList history={history} list={collectList} isMedia={true} />
+              <SongList history={history} list={collectList} isFullScreen={true} />
             </div>
           </div>
         </ScrollView>

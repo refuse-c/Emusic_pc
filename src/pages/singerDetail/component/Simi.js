@@ -2,13 +2,13 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-21 10:36:37
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-21 16:26:06
+ * @LastEditTime: 2020-10-28 15:48:52
  * @Description: 
  */
 import { artistSimi } from '@/common/api/singer';
 import React, { Component } from 'react';
 import styles from '../css/index.module.scss';
-import SinfgerList from '@components/singer';
+import SingerList from '@components/singer';
 import queryString from 'query-string';
 
 class Simi extends Component {
@@ -37,7 +37,7 @@ class Simi extends Component {
     return (
       <div className={styles.simi}>
 
-        <SinfgerList list={simiData} history={this.props.history} isMedia={true} />
+        <SingerList list={simiData} history={this.props.history} isFullScreen={true} />
       </div>
     );
   }

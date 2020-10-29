@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-01 02:13:43
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-27 17:38:25
+ * @LastEditTime: 2020-10-29 09:10:15
  * @Description:搜索
  */
 import React, { Component } from 'react';
@@ -14,7 +14,10 @@ import ScrollView from 'react-custom-scrollbars';
 import { songDetail } from '@/common/api/api';
 import { highlightText, traverseId } from '@/common/utils/tools';
 import { Pagination } from 'antd';
-
+import AlbumList from '@components/album';
+import SingerList from '@components/singer';
+import MvList from '@components/mv';
+import { keyToStr } from '@/common/utils/format';
 class Search extends Component {
   constructor(props) {
     super(props);
@@ -27,14 +30,14 @@ class Search extends Component {
       list: [], // 单曲
       // 1 即单曲, 取值意义: 1: 单曲, 10: 专辑, 100: 歌手, 1000: 歌单, 1002: 用户, 1004: MV, 1006: 歌词, 1009: 电台, 1014: 视频, 1018: 综合
       menuList: [
-        { title: '单曲', key: '1' },
-        { title: '歌手', key: '100' },
-        { title: '专辑', key: '10' },
-        { title: '视频', key: '1014' },
-        { title: '歌单', key: '1000' },
-        { title: '歌词', key: '1006' },
-        { title: '主播电台', key: '1009' },
-        { title: '用户', key: '1004' },
+        { title: '单曲', key: 1 },
+        { title: '歌手', key: 100 },
+        { title: '专辑', key: 10 },
+        { title: '视频', key: 1014 },
+        { title: '歌单', key: 1000 },
+        { title: '歌词', key: 1006 },
+        { title: '主播电台', key: 1009 },
+        { title: '用户', key: 1004 },
       ]
     }
   }
@@ -45,12 +48,29 @@ class Search extends Component {
     const params = { type, keywords, limit, offset: offset * limit - limit }
     const res = await search(params);
     if (res.code !== 200) return;
-    console.log(res.result)
-    const { songs, songCount: total } = res.result;
-    console.log(total)
-    if (isFirst) this.setState({ total });
+    console.log(res)
+    const { songs, songCount, albums, albumCount, artists, artistCount, videos, videoCount } = res.result;
+    switch (type) {
+      case 1: // 单曲
+        if (isFirst) this.setState({ total: songCount })
+        this.querySongDetail(songs);
+        break;
 
-    this.querySongDetail(songs)
+      case 10: // 专辑
+        isFirst ? this.setState({ list: albums, total: albumCount }) : this.setState({ total: albumCount });
+        break;
+
+      case 100: // 歌手
+        isFirst ? this.setState({ list: artists, total: artistCount }) : this.setState({ total: artistCount });
+        break;
+
+      case 1014: // 视频
+        isFirst ? this.setState({ list: videos, total: videoCount }) : this.setState({ total: videoCount });
+        break;
+
+      default: break;
+    }
+
   }
 
   querySongDetail = async data => {
@@ -73,9 +93,15 @@ class Search extends Component {
     this.setState({ offset, total: 0, songList: [], loading: true }, () => this.getSearch());
   }
 
+  // 点击类型
+  chooseItem = type => {
+    console.log(type)
+    this.setState({ type, offset: 1, total: 0, list: [], loading: true }, () => this.getSearch(true))
+  }
+
   componentDidMount = () => {
     const { keywords } = queryString.parse(this.props.location.search);
-    this.setState({ keywords }, () => this.getSearch(true))
+    this.setState({ keywords }, () => this.getSearch(true));
   }
 
   static getDerivedStateFromProps = (nextProps, prevState) => {
@@ -94,20 +120,28 @@ class Search extends Component {
     }
   }
 
-
+  renderDom = () => {
+    const { history } = this.props;
+    const { type, list, keywords } = this.state;
+    switch (type) {
+      case 1: return <MusicList list={list} keywords={keywords} history={history} />;
+      case 10: return <div style={{ paddingRight: 30 }}><AlbumList list={list} isFullScreen={true} /></div>
+      case 100: return <div style={{ paddingRight: 30 }}><SingerList list={list} history={history} isFullScreen={true} /></div>
+      case 1014: return <div style={{ paddingRight: 30 }}><MvList list={list} isFullScreen={true} /></div>
+      default: break;
+    }
+  }
 
 
   render() {
-    const { menuList, keywords, list, limit, offset, total } = this.state;
-    console.log(list, total)
+    const { type, menuList, keywords, limit, offset, total } = this.state;
     return (
-
       <div className={styles.search}>
         <ScrollView>
           <div
             className={styles.searchInfo}
             dangerouslySetInnerHTML={{
-              __html: `搜索${highlightText(keywords, keywords)},找到${total}首单曲`
+              __html: `搜索${highlightText(keywords, keywords)},找到${total}${keyToStr(type)}`
             }}
           >
           </div>
@@ -115,14 +149,23 @@ class Search extends Component {
             <ul>
               {
                 menuList.map(item => {
+                  const cls = item.key === type ? styles.active : null
                   return (
-                    <li key={item.key}>{item.title}</li>
+                    <li
+                      key={item.key}
+                      className={cls}
+                      onClick={() => this.chooseItem(item.key)}
+                    >
+                      {item.title}
+                    </li>
                   )
                 })
               }
             </ul>
           </div>
-          <MusicList list={list} keywords={keywords} />
+          {
+            this.renderDom()
+          }
           <div className={styles.pages}>
             <Pagination
               total={total}
