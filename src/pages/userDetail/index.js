@@ -11,7 +11,7 @@ import Head from '@components/head';
 import queryString from 'query-string';
 import { userDetail, userPlaylist, userRecord } from '@/common/api/user';
 import { countriesCode } from '@/common/api/api';
-import SongList from '@components/songlList';
+import SongList from '@components/songList';
 import ScrollView from 'react-custom-scrollbars';
 
 class UserDetail extends Component {

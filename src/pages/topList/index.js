@@ -11,7 +11,7 @@ import styles from './css/index.module.scss';
 import FindTitle from '@common/components/findTitle';
 import OfficialList from './component/OfficialList';
 // import GlobalList from './component/GlobalList';
-import SongList from '@components/songlList';
+import SongList from '@components/songList';
 
 class TopList extends Component {
   constructor(props) {

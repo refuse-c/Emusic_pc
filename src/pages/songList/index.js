@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 import styles from './css/index.module.scss';
 import { taglist, hotTag, playList, qualityTag } from '@/common/api/api';
 import SongListClassify from './component/SongListClassify';
-import SongList from '@components/songlList';
+import SongList from '@components/songList';
 import { formatTag } from '@/common/utils/format';
 import { Spin, Pagination } from 'antd';
 

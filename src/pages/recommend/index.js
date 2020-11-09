@@ -2,13 +2,13 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:41:50
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-20 11:37:24
+ * @LastEditTime: 2020-11-05 17:14:31
  * @Description: 发现-个性推荐
  */
 import React, { Component } from 'react';
 import Banner from '@common/components/banner/Banner';
 import FindTitle from '@common/components/findTitle';
-import SongList from '@components/songlList';
+import SongList from '@components/songList';
 import NewMusic from './component/NewMusic';
 import Privatecontent from './component/Privatecontent';
 import PersonalizedMv from './component/PersonalizedMv';

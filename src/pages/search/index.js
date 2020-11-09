@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-01 02:13:43
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-29 09:10:15
+ * @LastEditTime: 2020-11-09 14:32:29
  * @Description:搜索
  */
 import React, { Component } from 'react';
@@ -16,6 +16,8 @@ import { highlightText, traverseId } from '@/common/utils/tools';
 import { Pagination } from 'antd';
 import AlbumList from '@components/album';
 import SingerList from '@components/singer';
+import Vertical from '@components/songList/Vertical';
+
 import MvList from '@components/mv';
 import { keyToStr } from '@/common/utils/format';
 class Search extends Component {
@@ -35,9 +37,9 @@ class Search extends Component {
         { title: '专辑', key: 10 },
         { title: '视频', key: 1014 },
         { title: '歌单', key: 1000 },
-        { title: '歌词', key: 1006 },
-        { title: '主播电台', key: 1009 },
-        { title: '用户', key: 1004 },
+        // { title: '歌词', key: 1006 },
+        // { title: '主播电台', key: 1009 },
+        { title: '用户', key: 1002 },
       ]
     }
   }
@@ -45,11 +47,11 @@ class Search extends Component {
   getSearch = async (isFirst = false) => {
     console.log(isFirst)
     const { type, keywords, limit, offset } = this.state;
-    const params = { type, keywords, limit, offset: offset * limit - limit }
+    const params = { type, keywords, limit, offset: (offset - 1) }
     const res = await search(params);
     if (res.code !== 200) return;
     console.log(res)
-    const { songs, songCount, albums, albumCount, artists, artistCount, videos, videoCount } = res.result;
+    const { songs, songCount, albums, albumCount, artists, artistCount, videos, videoCount, playlists, playlistCount, userprofiles, userprofileCount } = res.result;
     switch (type) {
       case 1: // 单曲
         if (isFirst) this.setState({ total: songCount })
@@ -57,17 +59,22 @@ class Search extends Component {
         break;
 
       case 10: // 专辑
-        isFirst ? this.setState({ list: albums, total: albumCount }) : this.setState({ total: albumCount });
+        isFirst ? this.setState({ list: albums, total: albumCount }) : this.setState({ list: albums });
         break;
 
       case 100: // 歌手
-        isFirst ? this.setState({ list: artists, total: artistCount }) : this.setState({ total: artistCount });
+        isFirst ? this.setState({ list: artists, total: artistCount }) : this.setState({ list: artists });
         break;
 
       case 1014: // 视频
-        isFirst ? this.setState({ list: videos, total: videoCount }) : this.setState({ total: videoCount });
+        isFirst ? this.setState({ list: videos, total: videoCount }) : this.setState({ list: videos });
         break;
-
+      case 1000: // 歌单
+        isFirst ? this.setState({ list: playlists, total: playlistCount }) : this.setState({ list: playlists });
+        break;
+      // case 1000: // 歌单
+      //   isFirst ? this.setState({ list: userprofiles, total: userprofileCount }) : this.setState({ list: userprofiles });
+      //   break;
       default: break;
     }
 
@@ -128,6 +135,8 @@ class Search extends Component {
       case 10: return <div style={{ paddingRight: 30 }}><AlbumList list={list} isFullScreen={true} /></div>
       case 100: return <div style={{ paddingRight: 30 }}><SingerList list={list} history={history} isFullScreen={true} /></div>
       case 1014: return <div style={{ paddingRight: 30 }}><MvList list={list} isFullScreen={true} /></div>
+      case 1000: return <div><Vertical list={list} history={history} /></div>
+      case 1002: return <div><Vertical list={list} history={history} /></div>
       default: break;
     }
   }
