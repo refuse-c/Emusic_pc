@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-27 14:47:27
+ * @LastEditTime: 2020-11-11 16:53:08
  * @Description: 歌单列表
  */
 import { formatSerialNo, formatSongTime } from '@/common/utils/format';
@@ -127,7 +127,7 @@ class MusicList extends Component {
     return (
       <Table
         bordered
-        rowKey={"id"}
+        rowKey={"ids"}
         size={"small"}
         columns={this.columns}
         dataSource={list}

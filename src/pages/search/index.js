@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-01 02:13:43
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-11-09 14:32:29
+ * @LastEditTime: 2020-11-11 16:26:45
  * @Description:搜索
  */
 import React, { Component } from 'react';
@@ -17,6 +17,7 @@ import { Pagination } from 'antd';
 import AlbumList from '@components/album';
 import SingerList from '@components/singer';
 import Vertical from '@components/songList/Vertical';
+import UserList from '@components/userList';
 
 import MvList from '@components/mv';
 import { keyToStr } from '@/common/utils/format';
@@ -72,9 +73,9 @@ class Search extends Component {
       case 1000: // 歌单
         isFirst ? this.setState({ list: playlists, total: playlistCount }) : this.setState({ list: playlists });
         break;
-      // case 1000: // 歌单
-      //   isFirst ? this.setState({ list: userprofiles, total: userprofileCount }) : this.setState({ list: userprofiles });
-      //   break;
+      case 1002: // 用户
+        isFirst ? this.setState({ list: userprofiles, total: userprofileCount }) : this.setState({ list: userprofiles });
+        break;
       default: break;
     }
 
@@ -130,13 +131,15 @@ class Search extends Component {
   renderDom = () => {
     const { history } = this.props;
     const { type, list, keywords } = this.state;
+    console.log(list)
     switch (type) {
       case 1: return <MusicList list={list} keywords={keywords} history={history} />;
       case 10: return <div style={{ paddingRight: 30 }}><AlbumList list={list} isFullScreen={true} /></div>
       case 100: return <div style={{ paddingRight: 30 }}><SingerList list={list} history={history} isFullScreen={true} /></div>
       case 1014: return <div style={{ paddingRight: 30 }}><MvList list={list} isFullScreen={true} /></div>
       case 1000: return <div><Vertical list={list} history={history} /></div>
-      case 1002: return <div><Vertical list={list} history={history} /></div>
+      case 1002: return <div><UserList list={list} history={history} /></div>
+
       default: break;
     }
   }
