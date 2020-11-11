@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-25 15:04:12
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-28 15:46:43
+ * @LastEditTime: 2020-11-11 23:30:38
  * @Description: 搜索-搜索框
  */
 import React, { Component } from 'react';
@@ -50,6 +50,7 @@ class Searchs extends Component {
   querySearch = () => {
     const { history } = this.props;
     const { keywords } = this.state;
+    this.querySearchDefault();//查询搜索框默认显示的文字
     routerJump(history, `/search`, queryString.stringify({ keywords }))
   }
 
@@ -113,7 +114,7 @@ class Searchs extends Component {
         <Search
           size={`small`}
           borderd={`false`}
-          allowClear
+          // allowClear
           onChange={this.onChange}
           onSearch={(e) => this.onSearch(e)}
           loading={false}
