@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-01 02:13:43
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-11-11 16:26:45
+ * @LastEditTime: 2020-11-11 22:17:46
  * @Description:搜索
  */
 import React, { Component } from 'react';
@@ -13,7 +13,7 @@ import { search } from '@/common/api/search';
 import ScrollView from 'react-custom-scrollbars';
 import { songDetail } from '@/common/api/api';
 import { highlightText, traverseId } from '@/common/utils/tools';
-import { Pagination } from 'antd';
+import { Pagination, Spin } from 'antd';
 import AlbumList from '@components/album';
 import SingerList from '@components/singer';
 import Vertical from '@components/songList/Vertical';
@@ -31,6 +31,7 @@ class Search extends Component {
       offset: 1,
       total: 0,
       list: [], // 单曲
+      loading: true,
       // 1 即单曲, 取值意义: 1: 单曲, 10: 专辑, 100: 歌手, 1000: 歌单, 1002: 用户, 1004: MV, 1006: 歌词, 1009: 电台, 1014: 视频, 1018: 综合
       menuList: [
         { title: '单曲', key: 1 },
@@ -46,12 +47,14 @@ class Search extends Component {
   }
 
   getSearch = async (isFirst = false) => {
-    console.log(isFirst)
+    this.setState({ loading: true })
     const { type, keywords, limit, offset } = this.state;
     const params = { type, keywords, limit, offset: (offset - 1) }
     const res = await search(params);
+    if (type !== 1) {
+      this.setState({ loading: false })
+    }
     if (res.code !== 200) return;
-    console.log(res)
     const { songs, songCount, albums, albumCount, artists, artistCount, videos, videoCount, playlists, playlistCount, userprofiles, userprofileCount } = res.result;
     switch (type) {
       case 1: // 单曲
@@ -78,13 +81,12 @@ class Search extends Component {
         break;
       default: break;
     }
-
   }
 
   querySongDetail = async data => {
     const ids = traverseId(data);
     const res = await songDetail({ ids });
-    this.setState({ loading: false });
+    this.setState({ loading: true });
     if (res.code !== 200) return;
     const { songs, privileges } = res;
     // 合并数据
@@ -93,7 +95,7 @@ class Search extends Component {
       if (item) Object.assign(item, cur);
       return pre;
     }, songs);
-    this.setState({ list });
+    this.setState({ list, loading: false });
   }
 
   // 点击分页组件
@@ -146,48 +148,50 @@ class Search extends Component {
 
 
   render() {
-    const { type, menuList, keywords, limit, offset, total } = this.state;
+    const { type, menuList, keywords, limit, offset, total, loading } = this.state;
     return (
       <div className={styles.search}>
         <ScrollView>
-          <div
-            className={styles.searchInfo}
-            dangerouslySetInnerHTML={{
-              __html: `搜索${highlightText(keywords, keywords)},找到${total}${keyToStr(type)}`
-            }}
-          >
-          </div>
-          <div className={styles.searchNav}>
-            <ul>
-              {
-                menuList.map(item => {
-                  const cls = item.key === type ? styles.active : null
-                  return (
-                    <li
-                      key={item.key}
-                      className={cls}
-                      onClick={() => this.chooseItem(item.key)}
-                    >
-                      {item.title}
-                    </li>
-                  )
-                })
-              }
-            </ul>
-          </div>
-          {
-            this.renderDom()
-          }
-          <div className={styles.pages}>
-            <Pagination
-              total={total}
-              pageSize={limit}
-              current={offset}
-              hideOnSinglePage={true}
-              onChange={this.onChange}
-              showSizeChanger={false}
-            />
-          </div>
+          <Spin tip="Loading..." spinning={loading}>
+            <div
+              className={styles.searchInfo}
+              dangerouslySetInnerHTML={{
+                __html: `搜索${highlightText(keywords, keywords)},找到${total}${keyToStr(type)}`
+              }}
+            >
+            </div>
+            <div className={styles.searchNav}>
+              <ul>
+                {
+                  menuList.map(item => {
+                    const cls = item.key === type ? styles.active : null
+                    return (
+                      <li
+                        key={item.key}
+                        className={cls}
+                        onClick={() => this.chooseItem(item.key)}
+                      >
+                        {item.title}
+                      </li>
+                    )
+                  })
+                }
+              </ul>
+            </div>
+            {
+              this.renderDom()
+            }
+            <div className={styles.pages}>
+              <Pagination
+                total={total}
+                pageSize={limit}
+                current={offset}
+                hideOnSinglePage={true}
+                onChange={this.onChange}
+                showSizeChanger={false}
+              />
+            </div>
+          </Spin>
         </ScrollView>
       </div>
     );

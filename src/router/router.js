@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-21 11:16:55
+ * @LastEditTime: 2020-11-11 20:14:31
  * @Description: 路由
  */
 
@@ -39,6 +39,8 @@ import Single from '@pages/single';
 import QualityList from '@pages/qualityList';
 // 播放页
 import Player from '@pages/player';
+
+import MyLove from '@pages/myLove';
 // 歌手详情 
 import SingerDetail from '@pages/singerDetail';
 import singerAlbum from '@pages/singerDetail/component/Album';
@@ -152,6 +154,10 @@ const routes = [
     path: '/player',
     // exact: true,
     component: Player,
+  }, {
+    path: '/mylove',
+    // exact: true,
+    component: MyLove,
   },
 
 ]
