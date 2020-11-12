@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-11-02 09:43:05
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-11-05 17:51:36
+ * @LastEditTime: 2020-11-12 17:33:31
  * @Description:  歌单列表组件-竖排    
  */
 import { routerJump } from '@/common/utils/tools';
@@ -42,7 +42,6 @@ class Vertical extends Component {
   ]
 
   render() {
-    console.log(this.props)
     const { list, history } = this.props;
     return (
       <div className={styles.vertical}>

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-11-11 20:14:31
+ * @LastEditTime: 2020-11-12 14:42:36
  * @Description: 路由
  */
 
@@ -39,6 +39,8 @@ import Single from '@pages/single';
 import QualityList from '@pages/qualityList';
 // 播放页
 import Player from '@pages/player';
+// 专辑详情
+import Album from '@pages/album';
 
 import MyLove from '@pages/myLove';
 // 歌手详情 
@@ -143,6 +145,9 @@ const routes = [
           component: singerSimi,
         }
       ]
+    }, {
+      path: '/album:id',
+      component: Album
     },
     {
       path: '/userdetail',

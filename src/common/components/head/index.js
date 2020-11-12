@@ -2,9 +2,9 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-21 14:10:14
+ * @LastEditTime: 2020-11-12 17:33:04
  * @Description: 歌单详情-头部
- * @param {type} 1 歌单 2 歌手 3 用户
+ * @param {type} 1 歌单 2 歌手 3 用户 4 专辑
  */
 import { formatDate, formatImgSize, formatSerialNo, isEmpty } from '@/common/utils/format';
 import React, { Component } from 'react'
@@ -40,8 +40,24 @@ class Head extends Component {
       message.error('当前歌单暂无可播放音乐')
     }
   }
+  // 渲染类型
+  renderType = type => {
+    switch (type) {
+      case 1: return '歌单';
+      case 2: return '歌手';
+      case 4: return '专辑';
+      default: break
+    }
+  }
 
-
+  // 渲染名字
+  renderName = (data, type) => {
+    switch (type) {
+      case 1: return replaceName(data.userId, data.name);
+      case 3: return data.profile && data.profile.nickname
+      default: return data.name
+    }
+  }
 
 
   renderTop = (data, type) => {
@@ -50,19 +66,16 @@ class Head extends Component {
       <div className={[styles.top, type === 3 ? styles.top_border : ''].join(' ')}>
         <div className={styles.flex_box}>
           <div className={styles.name_box} >
+            {/* 渲染类型 */}
             {type !== 3 ?
               <span
                 className={styles.type}
-              > {type === 1 ? '歌单' : '歌手'}</span>
+              >{this.renderType(type)}</span>
               : null
             }
-
+            {/* 渲染名字 */}
             <span className={styles.name}>
-              {
-                type === 1 ?
-                  replaceName(data.userId, data.name) :
-                  type === 2 ? data.name : data.profile && data.profile.nickname
-              }
+              {this.renderName(data, type)}
             </span>
 
             {
@@ -100,11 +113,13 @@ class Head extends Component {
                 onClick={() => fun(data.id, data.followed ? 2 : 1)}
               >{data.followed ? '已收藏' : '收藏'}
               </div>
-              : <div className={styles.userBtn}>
-                <div>发私信</div>
-                <div>关注</div>
-                <div>···</div>
-              </div>
+              : type === 3 ?
+                <div className={styles.userBtn}>
+                  <div>发私信</div>
+                  <div>关注</div>
+                  <div>···</div>
+                </div>
+                : null
           }
         </div>
         <ul className={styles.allAuthTypes}>
@@ -134,20 +149,21 @@ class Head extends Component {
             {data.albumSize ? <div>专辑数：<span>{data.albumSize}</span></div> : null}
             {data.mvSize ? <div>MV数：<span>{data.mvSize}</span></div> : null}
           </div> :
-          <div className={styles.userCount}>
-            <div>
-              <span>{data.profile && data.profile.eventCount}</span>
-              <span>动态</span>
-            </div>
-            <div>
-              <span>{data.profile && data.profile.follows}</span>
-              <span>关注</span>
-            </div>
-            <div>
-              <span>{data.profile && data.profile.followeds}</span>
-              <span>粉丝</span>
-            </div>
-          </div>
+          type === 3 ?
+            <div className={styles.userCount}>
+              <div>
+                <span>{data.profile && data.profile.eventCount}</span>
+                <span>动态</span>
+              </div>
+              <div>
+                <span>{data.profile && data.profile.follows}</span>
+                <span>关注</span>
+              </div>
+              <div>
+                <span>{data.profile && data.profile.followeds}</span>
+                <span>粉丝</span>
+              </div>
+            </div> : null
     )
   }
 
@@ -181,7 +197,12 @@ class Head extends Component {
                 {type === 2 ? <div>所在地区：</div> : null}
                 {data.profile && data.profile.signature ? <div>个人介绍：{data.profile && data.profile.signature}</div> : null}
               </div>
-              : null
+              : type === 4 ?
+                <div className={styles.user_other}>
+                  <div>歌手：<span>{data.artist && data.artist.name}</span></div>
+                  <div>时间：<span>{formatDate(data.publishTime)}</span></div>
+                </div>
+                : null
         }
       </div>
     )
@@ -190,7 +211,7 @@ class Head extends Component {
 
   renderBtn = (data, type) => {
     return (
-      type === 1 ?
+      type === 1 || type === 4 ?
         <div className={styles.btn_group}>
           <button onClick={() => this.playAll()}>播放全部</button>
           <button>收藏({formatSerialNo(data.subscribedCount)})</button>
@@ -206,7 +227,7 @@ class Head extends Component {
     return (
       <div className={styles.head}>
         <div className={styles.cover_img}>
-          <img src={formatImgSize(type === 1 ? data.coverImgUrl : type === 2 ? data.picUrl : data.profile && data.profile.avatarUrl, 200, 200)} alt="" />
+          <img src={formatImgSize(type === 1 ? data.coverImgUrl : type === 2 || type === 4 ? data.picUrl : data.profile && data.profile.avatarUrl, 200, 200)} alt="" />
           {type === 2 && data.accountId ?
             <div
               className={styles.accountId}

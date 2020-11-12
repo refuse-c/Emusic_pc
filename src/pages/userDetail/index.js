@@ -39,7 +39,6 @@ class UserDetail extends Component {
     const res = await userDetail({ uid })
     if (res.code === 200) {
       this.setState({ userData: res })
-      // console.log(res)
     }
   }
 

@@ -86,7 +86,6 @@ class Audio extends Component {
 }
 
 const mapStateToprops = state => {
-  // console.log(state)
   return {
     audioInfo: state.audioInfo,
   }

@@ -3,7 +3,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-11 17:01:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-21 18:39:07
+ * @LastEditTime: 2020-11-12 16:30:39
  * @Description: 专辑列表
  */
 
@@ -11,6 +11,7 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import styles from './css/index.module.scss';
 import { formatDate, formatImgSize } from '@/common/utils/format';
+import { routerJump } from '@/common/utils/tools';
 class Album extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +19,7 @@ class Album extends Component {
   }
 
   render() {
-    const { title, list, isFullScreen } = this.props;
+    const { title, list, isFullScreen, history } = this.props;
     return (
       <div className={styles.album}>
         {isFullScreen ? null : <h3>{title}</h3>}
@@ -27,6 +28,7 @@ class Album extends Component {
             list.map((item, index) => {
               return (
                 <li
+                  onClick={() => routerJump(history, `/album${item.id}`)}
                   key={`item` + index}
                   className={isFullScreen ? styles.item1 : styles.item2}
                 >

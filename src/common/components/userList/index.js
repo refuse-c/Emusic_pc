@@ -39,7 +39,6 @@ class UserList extends Component {
   ]
 
   render() {
-    console.log(this.props)
     const { list, history } = this.props;
     return (
       <div className={styles.userList}>

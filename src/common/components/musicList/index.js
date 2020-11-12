@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-11-11 16:53:08
+ * @LastEditTime: 2020-11-12 14:45:11
  * @Description: 歌单列表
  */
 import { formatSerialNo, formatSongTime } from '@/common/utils/format';
@@ -76,11 +76,14 @@ class MusicList extends Component {
       key: 'album',
       ellipsis: true,
       sorter: (a, b) => a.al.name.localeCompare(b.al.name),
-      render: item => <span
-        dangerouslySetInnerHTML={{
-          __html: highlightText(this.props.keywords, item.al.name)
-        }}
-      ></span>
+      render: item =>
+        <span
+          className={styles.singerText}
+          onClick={() => routerJump(this.props.history, `/album${item.al.id}`)}
+          dangerouslySetInnerHTML={{
+            __html: highlightText(this.props.keywords, item.al.name)
+          }}
+        ></span>
     },
     {
       title: '时长',

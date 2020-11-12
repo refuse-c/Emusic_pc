@@ -2,25 +2,26 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-01 02:13:43
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-11-11 22:17:46
+ * @LastEditTime: 2020-11-12 17:33:59
  * @Description:搜索
  */
 import React, { Component } from 'react';
 import styles from './css/index.module.scss';
-import MusicList from '@components/musicList';
 import queryString from 'query-string';
 import { search } from '@/common/api/search';
 import ScrollView from 'react-custom-scrollbars';
 import { songDetail } from '@/common/api/api';
-import { highlightText, traverseId } from '@/common/utils/tools';
-import { Pagination, Spin } from 'antd';
 import AlbumList from '@components/album';
 import SingerList from '@components/singer';
-import Vertical from '@components/songList/Vertical';
 import UserList from '@components/userList';
-
+import MusicList from '@components/musicList';
 import MvList from '@components/mv';
+import Vertical from '@components/songList/Vertical';
+
 import { keyToStr } from '@/common/utils/format';
+import { Pagination, Spin } from 'antd';
+import { highlightText, traverseId } from '@/common/utils/tools';
+
 class Search extends Component {
   constructor(props) {
     super(props);
@@ -105,7 +106,6 @@ class Search extends Component {
 
   // 点击类型
   chooseItem = type => {
-    console.log(type)
     this.setState({ type, offset: 1, total: 0, list: [], loading: true }, () => this.getSearch(true))
   }
 
@@ -133,10 +133,9 @@ class Search extends Component {
   renderDom = () => {
     const { history } = this.props;
     const { type, list, keywords } = this.state;
-    console.log(list)
     switch (type) {
       case 1: return <MusicList list={list} keywords={keywords} history={history} />;
-      case 10: return <div style={{ paddingRight: 30 }}><AlbumList list={list} isFullScreen={true} /></div>
+      case 10: return <div style={{ paddingRight: 30 }}><AlbumList list={list} history={history} isFullScreen={true} /></div>
       case 100: return <div style={{ paddingRight: 30 }}><SingerList list={list} history={history} isFullScreen={true} /></div>
       case 1014: return <div style={{ paddingRight: 30 }}><MvList list={list} isFullScreen={true} /></div>
       case 1000: return <div><Vertical list={list} history={history} /></div>

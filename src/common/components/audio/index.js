@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-10 15:55:14
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-22 12:25:46
+ * @LastEditTime: 2020-11-12 17:31:59
  * @Description 播放组件
  */
 import { cutSong } from '@/common/utils/tools';
@@ -33,7 +33,7 @@ class Audio extends Component {
       const data = cutSong(id, currentPlayList, 2, 1);
       setCurrentPlayer(data)
     });
-
+    audio.volume = 0.1;
     // 监听播放
     audio.addEventListener('timeupdate', () => {
       const { currentTime, duration } = audio;
