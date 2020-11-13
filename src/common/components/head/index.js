@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-11-12 17:33:04
+ * @LastEditTime: 2020-11-13 09:29:13
  * @Description: 歌单详情-头部
  * @param {type} 1 歌单 2 歌手 3 用户 4 专辑
  */
@@ -181,10 +181,9 @@ class Head extends Component {
                 }
               </div>
               <div className={styles.desc}>
-                简介：
                 {!isEmpty(data.description) ?
                   <ReactMarkdown
-                    source={data.description.replace(/\n/g, '\n * ')}
+                    source={`简介：` + data.description.replace(/\n/g, '\n * ')}
                     escapeHtml={false}  //不进行HTML标签的转化
                   />
                   : null

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-11-12 14:42:36
+ * @LastEditTime: 2020-11-13 15:56:43
  * @Description: 路由
  */
 
@@ -152,18 +152,17 @@ const routes = [
     {
       path: '/userdetail',
       component: UserDetail
+    }, {
+      path: '/mylove',
+      component: MyLove,
     }
     ]
   },
   {
     path: '/player',
-    // exact: true,
+    exact: true,
     component: Player,
-  }, {
-    path: '/mylove',
-    // exact: true,
-    component: MyLove,
-  },
+  }
 
 ]
 
