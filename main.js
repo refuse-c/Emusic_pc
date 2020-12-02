@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-20 16:41:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-20 17:58:12
+ * @LastEditTime: 2020-12-02 19:28:34
  * @Description: 
  */
 const fs = require('fs');
@@ -13,17 +13,13 @@ const {
   globalShortcut,
   ipcMain,
 } = require('electron');
-const path = require('path')
-const url = require('url')
-//打开目录地址
-// const path1 = 'd:';
-// shell.openItem(path1);
-Menu.setApplicationMenu(null); //取消菜单栏
-// 保持window对象的全局引用,避免JavaScript对象被垃圾回收时,窗口被自动关闭.
+
 let mainWindow;
+// 取消菜单栏
+Menu.setApplicationMenu(null);
 
 function createWindow() {
-  //创建浏览器窗口,宽高自定义具体大小你开心就好
+  // 创建浏览器窗口
   mainWindow = new BrowserWindow({
     icon: './src/common/images/icon_task.png',
     width: 1100,
@@ -41,9 +37,9 @@ function createWindow() {
     app.quit();
   });
   // mainWindow.loadURL(url.format({
-  //   pathname: path.join(__dirname, './build/index.html'),
-  //   protocol: 'file:',
-  //   slashes: true
+  // pathname: path.join(__dirname, './build/index.html'),
+  // protocol: 'file:',
+  // slashes: true
   // }))
   // 加载应用----适用于 react 项目
   // mainWindow.setIcon('./build/static/media/logo.png');
@@ -56,6 +52,10 @@ function createWindow() {
   });
 }
 
+// 自定义窗口最小化 关闭按钮
+ipcMain.on('min', (e) => mainWindow.minimize());
+ipcMain.on('close', (e) => mainWindow.close());
+
 // 当 Electron 完成初始化并准备创建浏览器窗口时调用此方法
 app.on('ready', createWindow);
 
@@ -67,41 +67,31 @@ app.on('window-all-closed', function () {
   }
 });
 
-app.on('activate', function () {
-  // macOS中点击Dock图标时没有已打开的其余应用窗口时,则通常在应用中重建一个窗口
-  if (mainWindow === null) {
-    createWindow();
-  }
-});
-//快捷键监听全局模式；
+//快捷键监听全局模式
 app.on('ready', () => {
+  // 打开软件
   globalShortcut.register('Alt+X', () => {
-    mainWindow.show(); //alt+x打开软件；
+    mainWindow.show();
   });
+  // 最小化软件
   globalShortcut.register('Alt+Z', () => {
-    mainWindow.minimize(); //alt+c最小化软件
+    mainWindow.minimize();
   });
+  // 退出软件，测试期间使用
   globalShortcut.register('Alt+C', () => {
-    app.exit(); //alt+z退出软件，测试期间使用
+    app.exit();
   });
+  // 进入调试模式
   globalShortcut.register('Alt+K', () => {
-    mainWindow.webContents.openDevTools(); //进入调试模式
+    mainWindow.webContents.openDevTools();
   });
+  // 关闭调试模式
   globalShortcut.register('Alt+L', () => {
-    mainWindow.webContents.closeDevTools(); //关闭调试模式
+    mainWindow.webContents.closeDevTools();
   });
+  // 刷新页面
   globalShortcut.register('Alt+Q', () => {
-    mainWindow.reload(); //刷新页面
+    mainWindow.reload();
   });
-  //自定义窗口最小化,最大化,关闭按钮
-  ipcMain.on('min', (e) => mainWindow.minimize());
-  ipcMain.on('max', (e) => {
-    if (mainWindow.isMaximized()) {
-      mainWindow.unmaximize();
-    } else {
-      mainWindow.maximize();
-    }
-  });
-  ipcMain.on('close', (e) => mainWindow.close());
 });
 

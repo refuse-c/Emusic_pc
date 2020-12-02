@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-11-13 09:29:13
+ * @LastEditTime: 2020-12-02 20:36:49
  * @Description: 歌单详情-头部
  * @param {type} 1 歌单 2 歌手 3 用户 4 专辑
  */
@@ -15,31 +15,14 @@ import { replaceName, routerJump } from '@/common/utils/tools';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { currentPlayer, currentPlayList } from '@/store/actions';
-import { message } from 'antd';
 import queryString from 'query-string';
+import PlayAll from '@common/components/playAll/PlayAll';
 class Head extends Component {
   constructor(props) {
     super(props);
     this.state = {}
   }
 
-  // 播放全部
-  playAll = () => {
-    const {
-      list,
-      setCurrentPlayer,
-      setCurrentPlayList
-    } = this.props;
-    const filterData = list.filter(item => item.st !== -200); // 筛选出没有版权的音乐
-    message.destroy();
-    if (filterData.length > 0) {
-      setCurrentPlayer(filterData[0]);
-      setCurrentPlayList(filterData);
-      message.info('已添加到播放列表')
-    } else {
-      message.error('当前歌单暂无可播放音乐')
-    }
-  }
   // 渲染类型
   renderType = type => {
     switch (type) {
@@ -135,12 +118,15 @@ class Head extends Component {
     )
   }
 
-  renderCenter = (data, type) => {
+  renderCenter = (data, type, history) => {
     return (
       type === 1 ?
         <div className={styles.center}>
           <img src={formatImgSize(data.creator && data.creator.avatarUrl, 30, 30)} alt="" />
-          <span>{data.creator && data.creator.nickname}</span>
+          <span onClick={() => routerJump(history, `/userdetail`, queryString.stringify({ uid: data.userId }))}
+          >
+            {data.creator && data.creator.nickname}
+          </span>
           <span>{data.createTime ? formatDate(data.createTime) + '创建' : ''}</span>
         </div>
         : type === 2 ?
@@ -212,10 +198,10 @@ class Head extends Component {
     return (
       type === 1 || type === 4 ?
         <div className={styles.btn_group}>
-          <button onClick={() => this.playAll()}>播放全部</button>
-          <button>收藏({formatSerialNo(data.subscribedCount)})</button>
-          <button>分享({formatSerialNo(data.shareCount)})</button>
-          <button>下载全部</button>
+          <PlayAll list={this.props.list} title="播放全部" cls={styles.btn} />
+          <button className={styles.btn}>收藏({formatSerialNo(data.subscribedCount)})</button>
+          <button className={styles.btn}>分享({formatSerialNo(data.shareCount)})</button>
+          <button className={styles.btn}>下载全部</button>
         </div>
         : null
     )
@@ -237,7 +223,7 @@ class Head extends Component {
 
         <div className={styles.single_info}>
           {this.renderTop(data, type)}
-          {this.renderCenter(data, type)}
+          {this.renderCenter(data, type, history)}
           {this.renderBtn(data, type)}
           {this.renderBottom(data, type)}
 

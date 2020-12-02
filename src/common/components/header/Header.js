@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-11-11 20:13:03
+ * @LastEditTime: 2020-12-02 19:21:38
  * @Description: 头部 
  */
 import React, { Component } from 'react';
@@ -17,9 +17,10 @@ import { getLocal, reLocal, routerJump } from '@/common/utils/tools';
 import { withRouter } from 'react-router-dom';
 import { isEmpty } from '@/common/utils/format';
 import { logout } from '@/common/api/api';
-import { message } from 'antd';
+import { message, Tooltip } from 'antd';
 
-
+// 使用electron 最小化 关闭 
+const { ipcRenderer: ipc } = window.require('electron');
 
 class Header extends Component {
   constructor(props) {
@@ -30,7 +31,6 @@ class Header extends Component {
    * @name: 路由控制上一页 下一页
    * @param {number}  
    */
-
   go = setp => {
     this.props.history.go(setp)
   }
@@ -40,10 +40,10 @@ class Header extends Component {
     const res = await logout(params);
     if (res.code !== 200) return;
     reLocal('userInfo');
-    message.info('退出登录成功');
+    message.info('已退出登录');
     this.props.handeUserPlayList([]);
     this.props.handleQueryUserInfo({});
-    routerJump(history, `/find/`)
+    routerJump(history, `/find/`);
   }
 
   render() {
@@ -51,32 +51,60 @@ class Header extends Component {
     const { loginStatue } = this.props.modalPower;
     const userInfo = getLocal('userInfo') || {};
     return (<div className={styles.header}>
-      <Login showModal={loginStatue} hideModal={this.hideModal} history={history} />
+      <Login
+        history={history}
+        showModal={loginStatue}
+        hideModal={this.hideModal}
+      />
       <div className={styles.header_left}>
-        <div className={styles.logo} onClick={() => routerJump(history, `/mylove`)}></div>
-        <div className={[styles.arrow, styles.arrow_left].join(' ')} onClick={() => this.go(-1)}></div>
-        <div className={[styles.arrow, styles.arrow_right].join(' ')} onClick={() => this.go(1)}></div>
+        <div
+          className={styles.logo}
+          onClick={() => routerJump(history, `/mylove`)}
+        ></div>
+        <div
+          onClick={() => this.go(-1)}
+          className={[styles.arrow, styles.arrow_left].join(' ')}
+        ></div>
+        <div
+          onClick={() => this.go(1)}
+          className={[styles.arrow, styles.arrow_right].join(' ')}
+        ></div>
         <SearchInput history={history} />
       </div>
       <ul className={styles.header_right}>
         {!isEmpty(userInfo) ?
-          <li title="单点退出登录" onClick={() => this.logout()}>
-            <p className={styles.avatar} style={{ backgroundImage: `url(${userInfo.avatarUrl})` }}></p>
-            <p className={styles.nickname} >
-              {userInfo.nickname}
-              <span className={styles.vip}></span>
-              <span className={styles.arrow}></span>
-            </p>
-          </li>
+          <Tooltip title={`点击此处退出登录`}>
+            <li onClick={() => this.logout()}>
+              <p
+                className={styles.avatar}
+                style={{ backgroundImage: `url(${userInfo.avatarUrl})` }}
+              ></p>
+              <p className={styles.nickname} >
+                {userInfo.nickname}
+                <span className={styles.vip}></span>
+                <span className={styles.arrow}></span>
+              </p>
+            </li>
+          </Tooltip>
           :
           <li onClick={() => this.props.handleModalPower({ type: IS_SHOW_LOGIN, data: true })}>
             登录
           </li>
         }
         <li onClick={() => this.props.handleModalPower({ type: IS_SHOW_SKIN, data: true })}>换肤</li>
-        <li> 私信</li>
+        <li>私信</li>
         <li>设置</li>
-      </ul>
+        <Tooltip title={`最小化`}>
+          <li className={styles.minu}
+            onClick={() => ipc.send('min')}
+          ></li>
+        </Tooltip>
+        <Tooltip title={`关闭`}>
+          <li className={styles.close}
+            onClick={() => ipc.send('close')}
+          ></li>
+        </Tooltip>
+      </ul >
     </div >);
   }
 }

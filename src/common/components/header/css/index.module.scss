@@ -1,4 +1,5 @@
 @import "~@common/css/_variables.scss";
+
 .header {
   display: flex;
   align-items: center;
@@ -11,37 +12,43 @@
   background-color: #c62f2f;
   box-shadow: 0 0 1px #000;
   -webkit-app-region: drag;
+
   .header_left {
     display: flex;
     align-items: center;
+
     .logo {
       width: 186px;
-      height: 50px; -webkit-app-region: no-drag;
+      height: 50px;
+      -webkit-app-region: no-drag;
       // background: url("~@images/logo_w.png") center left -30px / contain no-repeat;
       background: url("~@images/logo_w.png") center left 0 / 120px no-repeat;
     }
+
     .arrow {
       width: 24px;
       height: 20px;
       -webkit-app-region: no-drag;
       border: 1px solid rgba(255, 255, 255, 0.5);
+
       &:hover {
         border: 1px solid #fff;
       }
+
       &.arrow_left {
         cursor: pointer;
         border-radius: 4px 0 0 4px;
-        background: url("~@images/arrow_left_w.png") center center / 14px
-          no-repeat;
+        background: url("~@images/arrow_left_w.png") center center / 14px no-repeat;
       }
+
       &.arrow_right {
         cursor: pointer;
         border-radius: 0 4px 4px 0;
         margin-left: -1px;
-        background: url("~@images/arrow_right_w.png") center center / 14px
-          no-repeat;
+        background: url("~@images/arrow_right_w.png") center center / 14px no-repeat;
       }
     }
+
     :global {
       .ant-input-affix-wrapper {
         border-radius: 15px;
@@ -53,17 +60,21 @@
         box-shadow: none;
         background-color: #a82828;
         -webkit-app-region: no-drag;
+
         &:focus {
           border: none;
           box-shadow: none;
         }
       }
+
       .ant-input {
         color: $cfafafa;
         background-color: #a82828;
       }
+
       .anticon {
         color: $cfafafa;
+
         &::before {
           border: none;
         }
@@ -76,11 +87,13 @@
     align-items: center;
     justify-content: flex-end;
     -webkit-app-region: no-drag;
+
     li {
-      cursor: pointer;
       display: flex;
       align-items: center;
       white-space: nowrap;
+      cursor: pointer;
+
       &:nth-child(1) {
         .avatar {
           width: 24px;
@@ -92,22 +105,36 @@
           border-radius: 50%;
           margin-right: 5px;
         }
+
         .nickname {
           display: flex;
           align-items: center;
+
           .vip {
             display: inline-block;
             width: 28px;
             height: 14px;
             margin-left: 2px;
             border-radius: 4px;
-            background: url("~@images/icon_vip.png") center right / contain
-              no-repeat;
+            background: url("~@images/icon_vip.png") center right / contain no-repeat;
           }
         }
       }
+
       &:not(:nth-child(1)) {
         margin-left: 20px;
+      }
+
+      &.minu {
+        width: 20px;
+        height: 20px;
+        background: url('~@images/icon_minus.png') center center / 20px no-repeat;
+      }
+
+      &.close {
+        width: 20px;
+        height: 20px;
+        background: url('~@images/iocn_close.png') center center / 20px no-repeat;
       }
     }
   }

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:45:41
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-21 23:26:02
+ * @LastEditTime: 2020-12-02 19:47:07
  * @Description: redux
  */
 
@@ -31,7 +31,7 @@ export const currentPlayer = (data) => {
 export const currentPlayList = (data) => {
   return { type: ACTIONTYPS.CURRENT_PLAY_LIST, data }
 }
-// 播放列表
+// 播放时间
 export const currentTime = (data) => {
   return { type: ACTIONTYPS.CURRENT_TIME, data }
 }

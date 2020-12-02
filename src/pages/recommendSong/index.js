@@ -2,17 +2,18 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 15:39:35
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-18 11:00:27
+ * @LastEditTime: 2020-12-02 19:58:35
  * @Description: 歌单详情
  */
 import React, { Component } from 'react'
 import styles from './css/index.module.scss';
 import MusicList from '@components/musicList';
 import ScrollView from 'react-custom-scrollbars';
-
+import PlayAll from '@common/components/playAll/PlayAll';
 import { recommendSongs, songDetail } from '@/common/api/api';
 import { Spin } from 'antd';
 import { formatWeek } from '@/common/utils/format';
+
 class Single extends Component {
   constructor(props) {
     super(props);
@@ -73,6 +74,7 @@ class Single extends Component {
               </div>
             </div>
             <div className={styles.single_box}>
+              <PlayAll list={list} title="播放全部" cls={'play_all_2'} />
               <MusicList list={list} />
             </div>
           </Spin>
