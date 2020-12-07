@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:06
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-29 12:13:27
+ * @LastEditTime: 2020-12-07 16:37:28
  * @Description:工具
  */
 
@@ -158,3 +158,13 @@ export const keyToStr = key => {
     default: return '首单曲';
   }
 }
+
+/**
+ * @name: 判断是不是纯数字
+ * @param {string} 
+ * true位全数字 false为字符串或者空
+ */
+export const checkNum = v => {
+  return !isNaN(v);
+}
+

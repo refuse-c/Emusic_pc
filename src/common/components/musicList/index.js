@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-02 19:54:06
+ * @LastEditTime: 2020-12-03 21:00:57
  * @Description: 歌单列表
  */
 import { formatSerialNo, formatSongTime } from '@/common/utils/format';
@@ -110,12 +110,14 @@ class MusicList extends Component {
       this.props.setCurrentPlayer(record);
     }
 
-    // privilege.fee
-    // 8、0：免费
-    // 4：所在专辑需单独付费
-    // 1：VIP可听
-    // privilege.cs: 云盘
-    // privilege.st：-200无版权
+    /*     
+      privilege.fee
+      8、0：免费
+      4：所在专辑需单独付费
+      1：VIP可听
+      privilege.cs: 云盘
+      privilege.st：-200无版权
+    */
   }
   onChange = (pagination, filters, sorter, extra) => {
     this.setState({ newList: extra.currentDataSource })
