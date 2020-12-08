@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:49:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-11-11 21:48:02
+ * @LastEditTime: 2020-12-08 22:41:12
  * @Description:  全部mv
  */
 import React, { Component } from 'react'
@@ -141,7 +141,7 @@ class Mv extends Component {
             <Tag title={`类型`} tag={type} list={typeList} type={`2`} fun={this.chooseItem} />
             <Tag title={`排序`} tag={order} list={orderList} type={`3`} fun={this.chooseItem} />
             <div className={styles.mv_list_box}>
-              <MvList list={mvList} />
+              <MvList history={history} list={mvList} />
             </div>
             {
               loading ? <div className='loading'><Spin style={{ color: '#666' }} tip="Loading..."></Spin></div> : ''

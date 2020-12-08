@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-03 11:54:25
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-11 11:06:20
+ * @LastEditTime: 2020-12-08 22:50:02
  * @Description: 个性推荐-推荐mv
  */
 
@@ -18,14 +18,14 @@ class PersonalizedMv extends Component {
   }
 
   render() {
-    const { list } = this.props;
+    const { list, history } = this.props;
     return (
       <div className={styles.personalized_mv}>
         <ul>
           {
             list && list.map(item => {
               return (
-                <li key={item.id}>
+                <li key={item.id} onClick={() => history.push({ pathname: `/videoDetail${item.id}` })}>
                   <div
                     className={styles.img_box}
                     style={{

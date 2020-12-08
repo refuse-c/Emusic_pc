@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-03 11:54:25
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-28 16:36:48
+ * @LastEditTime: 2020-12-08 23:09:24
  * @Description: 个性推荐-推荐mv
  */
 
@@ -18,15 +18,17 @@ class MvList extends Component {
   }
 
   render() {
-    const { list, isFullScreen } = this.props;
+    const { list, isFullScreen, history } = this.props;
     return (
       <div className={styles.video_list}>
         <ul>
           {
             list.map((item, index) => {
+              console.log(item)
               return (
                 <li
                   key={'item' + index}
+                  onClick={() => history.push({ pathname: `/videoDetail${item.id || item.vid}` })}
                   className={isFullScreen ? styles.item1 : styles.item2}
                 >
                   <div

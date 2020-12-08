@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-18 11:26:20
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-21 14:00:07
+ * @LastEditTime: 2020-12-08 22:43:33
  * @Description: 独家放送-列表
  */
 import React, { Component } from 'react';
@@ -57,6 +57,7 @@ class PrivatecontentList extends Component {
 
   render() {
     const { list, loading } = this.state;
+    const { history } = this.props;
     return (
       <div className={styles.privatecontent}>
         <ScrollView
@@ -66,7 +67,7 @@ class PrivatecontentList extends Component {
         >
           <div className={styles.privatecontent_box}>
             <FindTitle title={`独家放送`} />
-            <MvList list={list} />
+            <MvList history={history} list={list} />
             {
               loading ? <div className='loading'><Spin style={{ color: '#666' }} tip="Loading..."></Spin></div> : ''
             }

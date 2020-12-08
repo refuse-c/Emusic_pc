@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-11-13 09:23:42
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-08 17:42:23
+ * @LastEditTime: 2020-12-08 23:15:23
  * @Description
  */
 
@@ -22,21 +22,21 @@ class VideoDetail extends Component {
     checkNum(id) ? this.queryMvUrl(id) : this.queryVideoUrl(id)
   }
 
-  componentDidUpdate = prevProps => {
-    console.log(prevProps)
-  }
+  // componentDidUpdate = prevProps => {
+  //   console.log(prevProps)
+  // }
 
   // 获取mv url
   queryMvUrl = async id => {
     const res = await mvUrl({ id })
-    console.log(res)
     this.setState({ url: res.data.url })
   }
 
   // 获取视频 url
   queryVideoUrl = async id => {
     const res = await videoUrl({ id })
-    console.log(res)
+    const url = res.urls[0].url;
+    this.setState({ url })
   }
 
 

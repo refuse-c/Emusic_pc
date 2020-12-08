@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-13 02:34:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-15 23:18:49
+ * @LastEditTime: 2020-12-08 22:45:07
  * @Description: 视频-视频
  */
 import React, { Component } from 'react';
@@ -121,6 +121,7 @@ class Video extends Component {
 
 
   render() {
+    const { history } = this.props;
     const { tag, hotVideoTagList, allVideoTagList, showModal, videoDataList, loading } = this.state;
     return (
       <div className={styles.video}>
@@ -145,7 +146,7 @@ class Video extends Component {
             })}
           </ul>
         </div>
-        <VideoList list={videoDataList} />
+        <VideoList history={history} list={videoDataList} />
         {
           loading ?
             <div className='loading'>

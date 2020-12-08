@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-03 10:16:17
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-11 11:04:22
+ * @LastEditTime: 2020-12-08 22:50:36
  * @Description:个性推荐-独家放送
  */
 
@@ -18,14 +18,14 @@ class Privatecontent extends Component {
   }
 
   render() {
-    const { list } = this.props;
+    const { list, history } = this.props;
     return (
       <div className={styles.privatecontent}>
         <ul>
           {
             list && list.map(item => {
               return (
-                <li key={item.id}>
+                <li key={item.id} onClick={() => history.push({ pathname: `/videoDetail${item.id}` })}>
                   <div
                     className={styles.img_box}
                     style={{

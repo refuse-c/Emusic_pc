@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-03 11:54:25
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-14 22:01:59
+ * @LastEditTime: 2020-12-08 22:52:35
  * @Description: 视频-mv-mv排行榜
  */
 
@@ -18,14 +18,14 @@ class TopMvList extends Component {
   }
 
   render() {
-    const { list } = this.props;
+    const { list, history } = this.props;
     return (
       <div className={styles.top_mv_list}>
         <ul>
           {
             list.map((item, index) => {
               return (
-                <li key={item.id}>
+                <li key={item.id} onClick={() => history.push({ pathname: `/videoDetail${item.id}` })}>
                   <p className={styles.num}>{formatSerialNo(index + 1)}</p>
                   <div
                     className={styles.cover}

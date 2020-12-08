@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-03 11:54:25
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-15 23:14:10
+ * @LastEditTime: 2020-12-08 22:53:43
  * @Description: 个性推荐-推荐mv
  */
 
@@ -18,7 +18,7 @@ class VideoList extends Component {
   }
 
   render() {
-    const { list } = this.props;
+    const { list, history } = this.props;
     return (
       <div className={styles.video_list}>
         <ul>
@@ -26,7 +26,7 @@ class VideoList extends Component {
             list.map((item, index) => {
               const data = item.data;
               return (
-                <li key={'list' + index}>
+                <li key={'list' + index} onClick={() => history.push({ pathname: `/videoDetail${data.vid}` })}>
                   <div
                     className={styles.img_box}
                     style={{

@@ -137,7 +137,7 @@ class Search extends Component {
       case 1: return <MusicList list={list} keywords={keywords} history={history} />;
       case 10: return <div style={{ paddingRight: 30 }}><AlbumList list={list} history={history} isFullScreen={true} /></div>
       case 100: return <div style={{ paddingRight: 30 }}><SingerList list={list} history={history} isFullScreen={true} /></div>
-      case 1014: return <div style={{ paddingRight: 30 }}><MvList list={list} isFullScreen={true} /></div>
+      case 1014: return <div style={{ paddingRight: 30 }}><MvList list={list} isFullScreen={true} history={history} /></div>
       case 1000: return <div><Vertical list={list} history={history} /></div>
       case 1002: return <div><UserList list={list} history={history} /></div>
 

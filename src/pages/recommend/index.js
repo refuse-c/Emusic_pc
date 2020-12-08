@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:41:50
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-11-05 17:14:31
+ * @LastEditTime: 2020-12-08 22:47:05
  * @Description: 发现-个性推荐
  */
 import React, { Component } from 'react';
@@ -96,13 +96,13 @@ class Recommend extends Component {
       <SongList type={`recommend`} history={history} list={personalizedList} />
 
       <FindTitle history={history} title={`独家放送`} type={1} />
-      <Privatecontent list={privatecontentList} />
+      <Privatecontent history={history} list={privatecontentList} />
 
       <FindTitle history={history} title={`最新音乐`} type={2} />
-      <NewMusic list={newMusicList} />
+      <NewMusic history={history} list={newMusicList} />
 
       <FindTitle history={history} title={`推荐MV`} type={3} />
-      <PersonalizedMv list={personalizedMvList} />
+      <PersonalizedMv history={history} list={personalizedMvList} />
 
       {/* <FindTitle history={history} title={`主播电台`} type={4} /> */}
 
