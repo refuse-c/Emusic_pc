@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-03 21:00:57
+ * @LastEditTime: 2020-12-07 17:27:50
  * @Description: 歌单列表
  */
 import { formatSerialNo, formatSongTime } from '@/common/utils/format';
@@ -51,7 +51,7 @@ class MusicList extends Component {
         {item.mv !== 0 ? <i>MV</i> : null} */}
         {item.fee === 1 ? <i className={styles.vip}></i> : null}
         {item.dl === 999000 ? <i className={styles.sq}></i> : null}
-        {item.mv !== 0 ? <i className={styles.mv}></i> : null}
+        {item.mv !== 0 ? <i onClick={() => this.props.history.push({ pathname: `videoDetail${item.mv}` })} className={styles.mv} ></i> : null}
       </div >
     },
     {

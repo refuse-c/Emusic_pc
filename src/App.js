@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 17:57:51
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-11-12 17:34:51
+ * @LastEditTime: 2020-12-08 14:26:09
  * @Description: 
  */
 import React from 'react';
@@ -44,7 +44,7 @@ function App() {
           }
         })}
         {/* <Redirect exact from='/' to='/album82900237' /> */}
-        <Redirect exact from='/' to='/find' />
+        <Redirect exact from='/' to='/videoDetail10971338' />
         {/* <Redirect exact from='/' to='/search?keywords=南风' /> */}
         {/* <Redirect exact from='/' to='/userdetail?uid=287070050' /> */}
         <Footer />

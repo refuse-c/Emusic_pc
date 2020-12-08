@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-11-13 15:56:43
+ * @LastEditTime: 2020-12-07 17:23:04
  * @Description: 路由
  */
 
@@ -53,7 +53,8 @@ import singerSimi from '@pages/singerDetail/component/Simi';
 
 // 用户详情
 import UserDetail from '@pages/userDetail';
-
+// 视频详情
+import VideoDetail from '@pages/videoDetail';
 
 
 const routes = [
@@ -155,6 +156,9 @@ const routes = [
     }, {
       path: '/mylove',
       component: MyLove,
+    }, {
+      path: '/videoDetail:id',
+      component: VideoDetail
     }
     ]
   },
