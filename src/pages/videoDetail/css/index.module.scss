@@ -1,6 +1,77 @@
-video {
-  min-width: 60%;
-  max-width: 600px;
-  max-height: 500px;
-  background-color: #000;
+@import "~@common/css/_variables.scss";
+
+.video_detail {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 16px;
+
+  .video_right {
+    padding-left: 40px;
+    width: calc(100% - 620px);
+    max-width: 380px;
+  }
+
+  h3 {
+    padding: 16px 0;
+    font-size: $fz18;
+    font-weight: 600;
+  }
+
+  video {
+    min-width: 60%;
+    max-width: 620px;
+    height: 354px;
+    background-color: #000;
+  }
+
+  .video_info {
+    min-width: 60%;
+    max-width: 620px;
+
+    .user_info {
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      div {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        img {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+        }
+
+        span {
+          padding-left: 10px;
+          color: $c666;
+        }
+      }
+
+      p {
+        cursor: pointer;
+        width: 80px;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+        color: $cff3a3a;
+        border-radius: 30px;
+        background-color: #FCF4F4;
+
+        &:hover {
+          color: $cfff;
+          background-color: $cff3a3a;
+        }
+      }
+    }
+
+    .title {
+      margin-top: 30px;
+      font-size: $fz22;
+      font-weight: 600;
+    }
+  }
 }

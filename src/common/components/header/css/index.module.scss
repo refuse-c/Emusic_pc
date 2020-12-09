@@ -5,11 +5,11 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 50px;
+  height: 60px;
   padding: 0 16px;
   color: $cfff;
   font-size: $fz13;
-  background-color: #c62f2f;
+  background-color: #ec4141;
   box-shadow: 0 0 1px #000;
   -webkit-app-region: drag;
 
@@ -19,7 +19,7 @@
 
     .logo {
       width: 186px;
-      height: 50px;
+      height: 60px;
       -webkit-app-region: no-drag;
       // background: url("~@images/logo_w.png") center left -30px / contain no-repeat;
       background: url("~@images/logo_w.png") center left 0 / 120px no-repeat;
@@ -58,7 +58,7 @@
         color: $cfafafa;
         border: none;
         box-shadow: none;
-        background-color: #a82828;
+        background-color: #E13E3E;
         -webkit-app-region: no-drag;
 
         &:focus {
@@ -69,7 +69,12 @@
 
       .ant-input {
         color: $cfafafa;
-        background-color: #a82828;
+        height: 30px;
+        background-color: #E13E3E;
+
+        &::placeholder {
+          color: $cddd;
+        }
       }
 
       .anticon {

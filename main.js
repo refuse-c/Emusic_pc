@@ -22,7 +22,7 @@ function createWindow() {
   // 创建浏览器窗口
   mainWindow = new BrowserWindow({
     icon: './src/common/images/icon_task.png',
-    width: 1100,
+    width: 1020,
     height: 670,
     useContentSize: true,
     frame: false,
@@ -45,7 +45,7 @@ function createWindow() {
   // mainWindow.setIcon('./build/static/media/logo.png');
   mainWindow.loadURL('http://localhost:3000/');
   // mainWindow.loadFile('./build/index.html')
-  mainWindow.setMinimumSize(1100, 670);
+  mainWindow.setMinimumSize(1020, 670);
   // 关闭window时触发下列事件.
   mainWindow.on('closed', function () {
     mainWindow = null;

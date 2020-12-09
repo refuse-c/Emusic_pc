@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-19 09:28:56
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-05 23:33:43
+ * @LastEditTime: 2020-12-09 21:41:39
  * @Description: 基础网络请求
  */
 import { message } from 'antd';
@@ -40,9 +40,13 @@ Axios.interceptors.response.use(
   }
   // 请求失败
   , err => {
+    message.destroy();
+    const errMsg = JSON.parse(JSON.stringify(err));
     if (err && err.response) {
       message.destroy();
       message.warning(err.response && err.response.data.msg);
+    } else {
+      message.warning(errMsg.message);
     }
     return Promise.resolve(err)
   })

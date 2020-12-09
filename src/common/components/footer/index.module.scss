@@ -4,64 +4,73 @@
   justify-content: space-between;
   position: relative;
   width: 100%;
-  height: 50px;
+  height: 70px;
   padding-right: 30px;
   z-index: 2;
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
 
   img {
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
   }
+
   .control {
     display: flex;
     align-items: center;
+
     i {
       cursor: pointer;
+
       &:nth-child(2) {
         width: 36px;
         height: 36px;
       }
+
       &.prev {
-        background: #e83c3c url("~@images/prev.png") center right 6px / 20px
-          no-repeat;
+        background: #e83c3c url("~@images/prev.png") center right 6px / 20px no-repeat;
       }
+
       &.play {
-        background: #e83c3c url("~@images/play.png") center right 4px / 24px
-          no-repeat;
+        background: #e83c3c url("~@images/play.png") center right 4px / 24px no-repeat;
       }
+
       &.pause {
-        background: #e83c3c url("~@images/pause.png") center center / 24px
-          no-repeat;
+        background: #e83c3c url("~@images/pause.png") center center / 24px no-repeat;
       }
+
       &.next {
-        background: #e83c3c url("~@images/next.png") center left 6px / 20px
-          no-repeat;
+        background: #e83c3c url("~@images/next.png") center left 6px / 20px no-repeat;
       }
     }
   }
+
   .progress {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: calc(100% - 600px);
     height: 100%;
+
     // background-color: red;
     span {
       width: 60px;
+
       &:first-child {
         text-align: right;
       }
     }
+
     .progress_box {
       display: flex;
       align-items: center;
       width: calc(100% - 160px);
+
       .range {
         width: 100%;
       }
     }
   }
+
   .volume {
     display: flex;
     align-items: center;
@@ -102,30 +111,32 @@
       &:nth-child(1) {
         background-color: saddlebrown;
       }
+
       &.order {
-        background: url("~@common/images/icon_order.png") center center / 24px
-          no-repeat;
+        background: url("~@common/images/icon_order.png") center center / 24px no-repeat;
       }
+
       &.random {
-        background: url("~@common/images/icon_random.png") center center / 20px
-          no-repeat;
+        background: url("~@common/images/icon_random.png") center center / 20px no-repeat;
       }
+
       &.cycle {
-        background: url("~@common/images/icon_cycle.png") center center / 24px
-          no-repeat;
+        background: url("~@common/images/icon_cycle.png") center center / 24px no-repeat;
       }
+
       &.list {
-        background: url("~@common/images/icon_list.png") center center / 20px
-          no-repeat;
+        background: url("~@common/images/icon_list.png") center center / 20px no-repeat;
       }
     }
   }
+
   i {
     display: inline-block;
     width: 30px;
     height: 30px;
     border-radius: 50%;
     background-color: pink;
+
     &:not(:first-child) {
       margin-left: 10px;
     }

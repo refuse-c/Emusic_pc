@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-08 23:03:00
+ * @LastEditTime: 2020-12-10 00:01:07
  * @Description: 歌单列表
  */
 import { formatSerialNo, formatSongTime } from '@/common/utils/format';
@@ -131,7 +131,7 @@ class MusicList extends Component {
     const { list, currentPlayer } = this.props;
     return (
       <Table
-        bordered
+        // bordered
         rowKey={"ids"}
         size={"small"}
         columns={this.columns}

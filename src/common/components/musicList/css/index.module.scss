@@ -7,12 +7,14 @@
       align-items: center;
       width: 100%;
       height: 100%;
+
       p {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
         padding-right: 5px;
       }
+
       i {
         white-space: nowrap;
         text-align: center;
@@ -25,38 +27,47 @@
       }
     }
   }
+
   .ant-table-tbody {
     .ant-table-column-sort {
       background-color: #fff;
     }
   }
-  .ant-table-tbody > .clickRowStyl:hover td {
+
+  .ant-table-tbody>.clickRowStyl:hover td {
     background-color: red;
   }
 }
+
 .singerText {
   cursor: pointer;
   padding-right: 5px;
+
   &:hover {
     text-decoration: underline;
   }
 }
+
 .disabled {
   color: $c999;
 }
+
 .active {
-  background-color: #e3e3e5 !important;
+  background-color: #E5E5E5 !important;
+
   &:hover td {
-    background-color: #e3e3e5 !important;
+    background-color: #E5E5E5 !important;
   }
 }
 
 .vip {
   background: url("~@images/vip.png") center center / contain no-repeat;
 }
+
 .sq {
   background: url("~@images/sq.png") center center / contain no-repeat;
 }
+
 .mv {
   background: url("~@images/mv.png") center center / contain no-repeat;
 }
