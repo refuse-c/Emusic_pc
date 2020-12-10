@@ -1,13 +1,153 @@
 @import "~@common/css/_variables.scss";
 
 .video_detail {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 16px;
+  width: 100%;
+  height: 100%;
+
+
+  .video_scroll {
+    width: 100%;
+    height: 100%;
+
+    .scroll_box {
+      display: flex;
+      padding: 0 16px;
+      width: 1020px;
+      margin: 0 auto;
+      justify-content: space-between;
+    }
+  }
+
+  .video_left {
+    width: 640px;
+    padding-left: 16px;
+
+    video {
+      min-width: 60%;
+      width: 100%;
+      height: 354px;
+      background-color: #000;
+    }
+
+    .video_info {
+      min-width: 60%;
+      width: 100%;
+
+      .user_info {
+        margin-top: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        div {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+
+          img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+          }
+
+          span {
+            padding-left: 10px;
+            color: $c666;
+          }
+        }
+
+        p {
+          cursor: pointer;
+          width: 80px;
+          height: 30px;
+          text-align: center;
+          line-height: 30px;
+          color: $cff3a3a;
+          border-radius: 30px;
+          background-color: #FCF4F4;
+
+          &:hover {
+            color: $cfff;
+            background-color: $cff3a3a;
+          }
+        }
+      }
+
+      .title {
+        margin-top: 30px;
+        font-size: $fz22;
+        font-weight: 600;
+      }
+
+      .play_time {
+        margin-top: 20px;
+        display: flex;
+        color: $c999;
+
+        p {
+          &:last-child {
+            margin-left: 20px;
+          }
+        }
+      }
+
+      .video_tag {
+        margin-top: 20px;
+        display: flex;
+
+        li {
+          display: table;
+          line-height: 20px;
+          cursor: pointer;
+          padding: 0 10px;
+          font-size: $fz12;
+          margin-right: 6px;
+          border-radius: 20px;
+          background-color: #e5e6ea;
+        }
+      }
+
+      .tool {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 30px;
+
+        div {
+          display: flex;
+
+          button {
+            width: 120px;
+            height: 32px;
+            border-radius: 32px;
+            margin-right: 40px;
+            background-color: #fff;
+            border: 1px solid #D8D8D8;
+
+            &:hover {
+              background-color: #F2F2F2;
+            }
+          }
+
+
+        }
+
+        p {
+          color: #989898;
+          cursor: pointer;
+          text-decoration: underline;
+
+          &:hover {
+            color: #656565;
+          }
+        }
+      }
+    }
+  }
 
   .video_right {
     padding-left: 40px;
-    width: calc(100% - 620px);
+    width: calc(100% - 640px);
     max-width: 380px;
   }
 
@@ -17,61 +157,5 @@
     font-weight: 600;
   }
 
-  video {
-    min-width: 60%;
-    max-width: 620px;
-    height: 354px;
-    background-color: #000;
-  }
 
-  .video_info {
-    min-width: 60%;
-    max-width: 620px;
-
-    .user_info {
-      margin-top: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      div {
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-
-        img {
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-        }
-
-        span {
-          padding-left: 10px;
-          color: $c666;
-        }
-      }
-
-      p {
-        cursor: pointer;
-        width: 80px;
-        height: 30px;
-        text-align: center;
-        line-height: 30px;
-        color: $cff3a3a;
-        border-radius: 30px;
-        background-color: #FCF4F4;
-
-        &:hover {
-          color: $cfff;
-          background-color: $cff3a3a;
-        }
-      }
-    }
-
-    .title {
-      margin-top: 30px;
-      font-size: $fz22;
-      font-weight: 600;
-    }
-  }
 }

@@ -2,14 +2,15 @@
  * @Author: REFUSE_C
  * @Date: 2020-11-13 09:23:42
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-09 23:41:00
+ * @LastEditTime: 2020-12-11 00:00:29
  * @Description
  */
 
 import { mvDetail, mvUrl, videoDetail, videoUrl } from '@/common/api/video';
-import { checkNum, formatImgSize } from '@/common/utils/format';
+import { checkNum, formatDate, formatImgSize, formatSerialNo } from '@/common/utils/format';
 import React, { Component } from 'react';
 import styles from './css/index.module.scss';
+import ScrollView from 'react-custom-scrollbars';
 class VideoDetail extends Component {
   constructor(props) {
     super(props);
@@ -71,25 +72,49 @@ class VideoDetail extends Component {
     console.log(data)
     return (
       <div className={styles.video_detail}>
-        {/* 左边部分 */}
-        <div className={styles.video_left}>
-          <h3>{type === 1 ? 'mv详情' : type === 2 ? '视频详情' : '视频获取失败'}</h3>
-          <video src={url} autoPlay></video>
-          <div className={styles.video_info}>
-            <div className={styles.user_info}>
-              <div>
-                <img src={formatImgSize((data.cover && data.cover), 50, 50) || (data.creator && data.creator.avatarUrl)} alt="" />
-                <span>{(data.artistName && data.artistName) || (data.creator && data.creator.nickname)}</span>
+        <ScrollView className={styles.video_scroll}>
+          <div className={styles.scroll_box}>
+            {/* 左边部分 */}
+            <div className={styles.video_left}>
+              <h3>{type === 1 ? 'mv详情' : type === 2 ? '视频详情' : '视频获取失败'}</h3>
+              <video src={url} autoPlay></video>
+              <div className={styles.video_info}>
+                <div className={styles.user_info}>
+                  <div>
+                    <img src={formatImgSize((data.cover && data.cover), 50, 50) || (data.creator && data.creator.avatarUrl)} alt="" />
+                    <span>{(data.artistName && data.artistName) || (data.creator && data.creator.nickname)}</span>
+                  </div>
+                  {type === 2 ? <p>关注</p> : null}
+                </div>
+                <p className={styles.title}>{(data.name && data.name) || (data.title && data.title)}</p>
+                <div className={styles.play_time}>
+                  <p>发布：{formatDate(data && data.publishTime)}</p>
+                  <p>播放：{formatSerialNo(data && data.playTime)}</p>
+                </div>
+                <ul className={styles.video_tag}>
+                  {
+                    data && data.videoGroup && data.videoGroup.map((item, index) => {
+                      return (
+                        <li key={index}>{item.name}</li>
+                      )
+                    })}
+                </ul>
+                <div className={styles.tool}>
+                  <div>
+                    <button>赞{data.praisedCount || ''}</button>
+                    <button>收藏{data.subscribeCount || ''}</button>
+                    <button>分享{data.shareCount || ''}</button>
+                  </div>
+                  <p>举报</p>
+                </div>
               </div>
-              {type === 2 ? <p>关注</p> : null}
             </div>
-            <p className={styles.title}>{(data.name && data.name) || (data.title && data.title)}</p>
+            {/* 右边部分 */}
+            <div className={styles.video_right}>
+              <h3>相关推荐</h3>
+            </div>
           </div>
-        </div>
-        {/* 右边部分 */}
-        <div className={styles.video_right}>
-          <h3>相关推荐</h3>
-        </div>
+        </ScrollView>
       </div>);
   }
 }
