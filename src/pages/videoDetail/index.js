@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-11-13 09:23:42
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-11 00:00:29
+ * @LastEditTime: 2020-12-12 11:41:14
  * @Description
  */
 
@@ -72,6 +72,7 @@ class VideoDetail extends Component {
     console.log(data)
     return (
       <div className={styles.video_detail}>
+        <div className={styles.aa}></div>
         <ScrollView className={styles.video_scroll}>
           <div className={styles.scroll_box}>
             {/* 左边部分 */}

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 17:57:51
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-09 23:04:44
+ * @LastEditTime: 2020-12-14 19:56:10
  * @Description: 
  */
 import React from 'react';
@@ -43,8 +43,8 @@ function App() {
             );
           }
         })}
-        {/* <Redirect exact from='/' to='/album82900237' /> */}
-        <Redirect exact from='/' to='videoDetail490C4BEF78853D8CB24D68F2C2B969B6' />
+        {/* <Redirect exact from='/' to='/find' /> */}
+        <Redirect exact from='/' to='/videoDetail490C4BEF78853D8CB24D68F2C2B969B6' />
         {/* <Redirect exact from='/' to='/search?keywords=南风' /> */}
         {/* <Redirect exact from='/' to='/userdetail?uid=287070050' /> */}
         <Footer />

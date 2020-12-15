@@ -83,6 +83,7 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
+    "starts": "concurrently \"node scripts/start.js\" \"electron .\" ",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "electron-start": "electron .",

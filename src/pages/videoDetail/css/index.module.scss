@@ -1,9 +1,36 @@
 @import "~@common/css/_variables.scss";
 
 .video_detail {
+  position: relative;
   width: 100%;
   height: 100%;
 
+  &:hover {
+    .aa {
+      animation-play-state: paused;
+    }
+  }
+
+  .aa {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background-color: red;
+    animation: myfirst 5s infinite;
+  }
+
+
+  @keyframes myfirst {
+    0% {
+      width: 100%;
+    }
+
+    100% {
+      width: 0px;
+    }
+  }
 
   .video_scroll {
     width: 100%;
