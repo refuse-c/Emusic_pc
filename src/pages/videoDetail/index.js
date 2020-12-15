@@ -2,15 +2,16 @@
  * @Author: REFUSE_C
  * @Date: 2020-11-13 09:23:42
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-12 11:41:14
+ * @LastEditTime: 2020-12-15 23:19:47
  * @Description
  */
 
-import { mvDetail, mvUrl, videoDetail, videoUrl } from '@/common/api/video';
+import { mvDetail, mvUrl, videoDetail, videoUrl, mvSimi, vidoeSimi } from '@/common/api/video';
 import { checkNum, formatDate, formatImgSize, formatSerialNo } from '@/common/utils/format';
 import React, { Component } from 'react';
 import styles from './css/index.module.scss';
 import ScrollView from 'react-custom-scrollbars';
+import Similar from './component/Similar';
 class VideoDetail extends Component {
   constructor(props) {
     super(props);
@@ -18,6 +19,7 @@ class VideoDetail extends Component {
       id: '',
       url: '',
       data: {},
+      simiData: [], // 相似视频
       type: null // 1 mv 2 video
     }
   }
@@ -25,12 +27,46 @@ class VideoDetail extends Component {
   componentDidMount = () => {
     const { id } = this.props.match.params
     this.setState({ id })
-    checkNum(id) ? this.queryMvDetail(id) : this.queryVideoDetail(id)
+    checkNum(id) ? this.queryMvDetail(id) : this.queryVideoDetail(id);
+    checkNum(id) ? this.queryMvSimi(id) : this.queryVidoeSimi(id);
   }
 
-  // componentDidUpdate = prevProps => {
-  //   console.log(prevProps)
-  // }
+
+  static getDerivedStateFromProps = (nextProps, prevState) => {
+    const { id } = nextProps.match.params;
+    if (id !== prevState.id) {
+      return {
+        id,
+        props: {
+          id
+        },
+      };
+    }
+    return null;
+  }
+
+  componentDidUpdate = prevState => {
+    const { id } = this.state;
+    const prevId = prevState.match.params.id;
+    if (id !== prevId) {
+      checkNum(id) ? this.queryMvDetail(id) : this.queryVideoDetail(id);
+      checkNum(id) ? this.queryMvSimi(id) : this.queryVidoeSimi(id);
+    }
+  }
+
+  // 获取相似的mv
+  queryMvSimi = async mvid => {
+    const res = await mvSimi({ mvid })
+    this.setState({ simiData: res.mvs })
+  }
+
+  // 获取相似的视频
+  queryVidoeSimi = async id => {
+    const res = await vidoeSimi({ id })
+    if (res.code !== 200) return;
+    this.setState({ simiData: res.data })
+  }
+
 
   //  获取mv数据
   queryMvDetail = async (id) => {
@@ -43,9 +79,8 @@ class VideoDetail extends Component {
   //  获取视频数据
   queryVideoDetail = async (id) => {
     const res = await videoDetail({ id })
+    console.log(JSON.parse(JSON.stringify(res)))
     if (res.code !== 200) return;
-
-    console.log(res)
     this.queryVideoUrl(id);
     this.setState({ data: res.data, type: 2 })
   }
@@ -68,17 +103,17 @@ class VideoDetail extends Component {
 
 
   render() {
-    const { url, data, type } = this.state;
-    console.log(data)
+    const { history } = this.props;
+    const { url, data, type, id, simiData } = this.state;
     return (
       <div className={styles.video_detail}>
-        <div className={styles.aa}></div>
+        {/* <div className={styles.aa}></div> */}
         <ScrollView className={styles.video_scroll}>
           <div className={styles.scroll_box}>
             {/* 左边部分 */}
             <div className={styles.video_left}>
               <h3>{type === 1 ? 'mv详情' : type === 2 ? '视频详情' : '视频获取失败'}</h3>
-              <video src={url} autoPlay></video>
+              <video src={url} controls autoPlay></video>
               <div className={styles.video_info}>
                 <div className={styles.user_info}>
                   <div>
@@ -90,7 +125,7 @@ class VideoDetail extends Component {
                 <p className={styles.title}>{(data.name && data.name) || (data.title && data.title)}</p>
                 <div className={styles.play_time}>
                   <p>发布：{formatDate(data && data.publishTime)}</p>
-                  <p>播放：{formatSerialNo(data && data.playTime)}</p>
+                  <p>播放：{formatSerialNo(type === 1 ? data.playCount : type === 2 ? data.playTime : '')}</p>
                 </div>
                 <ul className={styles.video_tag}>
                   {
@@ -113,6 +148,8 @@ class VideoDetail extends Component {
             {/* 右边部分 */}
             <div className={styles.video_right}>
               <h3>相关推荐</h3>
+              <Similar history={history} type={type} id={id} data={simiData || []} />
+
             </div>
           </div>
         </ScrollView>

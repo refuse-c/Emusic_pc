@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-11-11 20:09:45
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-15 17:58:43
+ * @LastEditTime: 2020-12-15 20:17:36
  * @Description:
  */
 import React, { Component } from 'react';
@@ -48,7 +48,7 @@ class Mylove extends Component {
         return new Point(this.x, this.y);
       };
       Point.prototype.length = function (length) {
-        if (typeof length == 'undefined')
+        if (typeof length === 'undefined')
           return Math.sqrt(this.x * this.x + this.y * this.y);
         this.normalize();
         this.x *= length;
@@ -121,9 +121,9 @@ class Mylove extends Component {
 
         // handle circular queue
         firstFree++;
-        if (firstFree == particles.length) firstFree = 0;
-        if (firstActive == firstFree) firstActive++;
-        if (firstActive == particles.length) firstActive = 0;
+        if (firstFree === particles.length) firstFree = 0;
+        if (firstActive === firstFree) firstActive++;
+        if (firstActive === particles.length) firstActive = 0;
       };
       ParticlePool.prototype.update = function (deltaTime) {
         var i;
@@ -141,9 +141,9 @@ class Mylove extends Component {
         }
 
         // remove inactive particles
-        while (particles[firstActive].age >= duration && firstActive != firstFree) {
+        while (particles[firstActive].age >= duration && firstActive !== firstFree) {
           firstActive++;
-          if (firstActive == particles.length) firstActive = 0;
+          if (firstActive === particles.length) firstActive = 0;
         }
 
 
@@ -151,14 +151,14 @@ class Mylove extends Component {
       ParticlePool.prototype.draw = function (context, image) {
         // draw active particles
         if (firstActive < firstFree) {
-          for (var i = firstActive; i < firstFree; i++)
+          for (let i = firstActive; i < firstFree; i++)
             particles[i].draw(context, image);
         }
         if (firstFree < firstActive) {
-          for (var i = firstActive; i < particles.length; i++)
-            particles[i].draw(context, image);
-          for (var i = 0; i < firstFree; i++)
-            particles[i].draw(context, image);
+          for (let j = firstActive; j < particles.length; j++)
+            particles[j].draw(context, image);
+          for (let k = 0; k < firstFree; k++)
+            particles[k].draw(context, image);
         }
       };
       return ParticlePool;
