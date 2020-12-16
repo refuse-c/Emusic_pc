@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-22 12:30:36
+ * @LastEditTime: 2020-12-16 17:52:43
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -188,8 +188,8 @@ class Footer extends Component {
             className={orderType === 1 ? styles.order : orderType === 2 ? styles.random : styles.cycle}
             onClick={() => this.setOrderType()}>
           </i>
-          <i className={styles.Sound_quality}></i>
-          <i className={styles.lyrics}></i>
+          {/* <i className={styles.Sound_quality}></i>
+          <i className={styles.lyrics}></i> */}
           <i
             className={styles.list}
             onClick={() => this.props.handleModalPower({ type: IS_SHOW_PLAYLIST, data: !playListStatus })}

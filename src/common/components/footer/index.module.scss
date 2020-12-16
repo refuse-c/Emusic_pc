@@ -27,19 +27,19 @@
       }
 
       &.prev {
-        background: #e83c3c url("~@images/prev.png") center right 6px / 20px no-repeat;
+        background: url("~@images/prev.png") center right 6px / 30px no-repeat;
       }
 
       &.play {
-        background: #e83c3c url("~@images/play.png") center right 4px / 24px no-repeat;
+        background: rgba(0, 0, 0, 0.1) url("~@images/play.png") center right 4px / 24px no-repeat;
       }
 
       &.pause {
-        background: #e83c3c url("~@images/pause.png") center center / 24px no-repeat;
+        background: rgba(0, 0, 0, 0.1) url("~@images/pause.png") center center / 24px no-repeat;
       }
 
       &.next {
-        background: #e83c3c url("~@images/next.png") center left 6px / 20px no-repeat;
+        background: url("~@images/next.png") center left 6px / 30px no-repeat;
       }
     }
   }
@@ -108,24 +108,27 @@
 
   .tool {
     i {
+      width: 40px;
+      height: 40px;
+
       &:nth-child(1) {
         background-color: saddlebrown;
       }
 
       &.order {
-        background: url("~@common/images/icon_order.png") center center / 24px no-repeat;
+        background: url("~@common/images/icon_order.png") center center / 36px no-repeat;
       }
 
       &.random {
-        background: url("~@common/images/icon_random.png") center center / 20px no-repeat;
+        background: url("~@common/images/icon_random.png") center center / 36px no-repeat;
       }
 
       &.cycle {
-        background: url("~@common/images/icon_cycle.png") center center / 24px no-repeat;
+        background: url("~@common/images/icon_cycle.png") center center / 36px no-repeat;
       }
 
       &.list {
-        background: url("~@common/images/icon_list.png") center center / 20px no-repeat;
+        background: url("~@common/images/icon_list.png") center center /40px no-repeat;
       }
     }
   }

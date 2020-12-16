@@ -2,12 +2,13 @@
  * @Author: REFUSE_C
  * @Date: 2020-12-15 20:10:32
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-15 23:19:19
+ * @LastEditTime: 2020-12-16 14:06:06
  * @Description: 视频--相似视频
  */
 import { } from '@/common/api/video';
 import { formatImgSize } from '@/common/utils/format';
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import styles from '../css/index.module.scss';
 class Similar extends Component {
   constructor(props) {
@@ -39,4 +40,4 @@ class Similar extends Component {
   }
 }
 
-export default Similar;
+export default withRouter(Similar);

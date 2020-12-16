@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-11-13 09:23:42
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-15 23:19:47
+ * @LastEditTime: 2020-12-16 14:37:33
  * @Description
  */
 
@@ -39,7 +39,7 @@ class VideoDetail extends Component {
         id,
         props: {
           id
-        },
+        }
       };
     }
     return null;
@@ -79,7 +79,6 @@ class VideoDetail extends Component {
   //  获取视频数据
   queryVideoDetail = async (id) => {
     const res = await videoDetail({ id })
-    console.log(JSON.parse(JSON.stringify(res)))
     if (res.code !== 200) return;
     this.queryVideoUrl(id);
     this.setState({ data: res.data, type: 2 })
@@ -103,7 +102,6 @@ class VideoDetail extends Component {
 
 
   render() {
-    const { history } = this.props;
     const { url, data, type, id, simiData } = this.state;
     return (
       <div className={styles.video_detail}>
@@ -113,7 +111,7 @@ class VideoDetail extends Component {
             {/* 左边部分 */}
             <div className={styles.video_left}>
               <h3>{type === 1 ? 'mv详情' : type === 2 ? '视频详情' : '视频获取失败'}</h3>
-              <video src={url} controls autoPlay></video>
+              <video src={url} controls ></video>
               <div className={styles.video_info}>
                 <div className={styles.user_info}>
                   <div>
@@ -148,12 +146,15 @@ class VideoDetail extends Component {
             {/* 右边部分 */}
             <div className={styles.video_right}>
               <h3>相关推荐</h3>
-              <Similar history={history} type={type} id={id} data={simiData || []} />
+              <Similar type={type} id={id} data={simiData || []} />
+              {/* <div className={styles.simi_music}>
+                <h3>相似音乐</h3>
 
+              </div> */}
             </div>
           </div>
         </ScrollView>
-      </div>);
+      </div >);
   }
 }
 
