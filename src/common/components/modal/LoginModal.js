@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 21:48:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-18 13:25:09
+ * @LastEditTime: 2020-12-16 20:34:31
  * @Description 登录弹窗
  */
 import React, { Component } from 'react'
@@ -25,6 +25,7 @@ class LoginModal extends Component {
     const { history } = this.props;
     const res = await login(params);
     if (res.code !== 200) return;
+    this.props.handelModalPower({ type: IS_SHOW_LOGIN, data: false });
     message.info('登录成功');
     setLocal('userInfo', res.profile);
     const uid = res.profile.userId;
@@ -65,7 +66,7 @@ class LoginModal extends Component {
           password: values.password
         }
         this.handelLogin(params)
-        this.props.handelModalPower({ type: IS_SHOW_LOGIN, data: false });
+
       }).catch(err => {
         if (!err.phone) {
           message.error('请输入手机号码');

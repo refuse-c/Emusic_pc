@@ -2,14 +2,14 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-19 09:28:56
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-15 23:12:12
+ * @LastEditTime: 2020-12-16 20:29:00
  * @Description: 基础网络请求
  */
 import { message } from 'antd';
 import axios from 'axios';
 
 const Axios = axios.create({
-  baseURL: 'http://tshy.xyz:3000', // http://tshy.xyz:3000  //http://139.9.230.159:3000
+  baseURL: 'http://139.9.230.159:3000', // http://tshy.xyz:3000  // http://139.9.230.159:3000
   timeout: '15000',
   withCredentials: true,
   headers: {
