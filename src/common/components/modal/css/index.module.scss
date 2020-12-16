@@ -14,11 +14,10 @@
 // 播放列表
 .play_list {
   position: fixed;
+  z-index: 99;
   bottom: 70px;
   right: 0;
   width: 420px;
-  // height: calc(100vh - 130px);
-  // border-radius: 4px;
   background-color: #fff;
   overflow: hidden;
   transition: ease 0.3s all;

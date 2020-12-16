@@ -1,13 +1,14 @@
 @import "~@common/css/_variables.scss";
 
 .footer {
+
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
   width: 100%;
   height: 70px;
-  z-index: 2;
+  z-index: 9;
   padding: 0 14px;
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
 
