@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-16 17:52:43
+ * @LastEditTime: 2020-12-16 22:19:44
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -145,55 +145,60 @@ class Footer extends Component {
           playListStatus={playListStatus}
           callback={this.playListCallback}
         />
-        <img src={(currentPlayer.al && currentPlayer.al.picUrl) || require('@images/album.png')} alt="" />
-        <div className={styles.control}>
-          <i className={styles.prev}
-            onClick={() => this.handelCutSong(1)}
-          ></i>
-          <i
-            className={isPlay ? styles.pause : styles.play}
-            onClick={() => url ? this.setState({ isPlay: !isPlay }) : null}
-          ></i>
-          <i
-            className={styles.next}
-            onClick={() => this.handelCutSong(2)}
-          ></i>
-        </div>
-        <div className={styles.progress}>
-          <span>{formatSongTime(currentTime, true)}</span>
-          <div className={styles.progress_box}>
-            <input
-              className={styles.range}
-              onChange={this.changeInput}
-              ref={(range) => (this.range = range)}
-              type="range"
-              min="0"
-              max="1000"
-              value={rangeVal || 0}
-            />
+        <div className={styles.left}>
+          <img src={(currentPlayer.al && currentPlayer.al.picUrl) || require('@images/album.png')} alt="" />
+          <div className={styles.music_info}>
+            <p className="overflow">{currentPlayer.name}</p>
+            <p className="overflow">{currentPlayer.ar && currentPlayer.ar.map(item => item.name).join('/ ')}</p>
           </div>
-          <span>{formatSongTime(duration, true)}</span>
         </div>
-        <div className={styles.volume}>
-          {/* <input
-            className={styles.range}
-            type="range"
-            min="0"
-            max="1000"
-            value={0}
-          /> */}
+        <div className={styles.control}>
+          <div className={styles.control_btn}>
+            <i
+              className={orderType === 1 ? styles.order : orderType === 2 ? styles.random : styles.cycle}
+              onClick={() => this.setOrderType()}>
+            </i>
+            <i className={styles.prev}
+              onClick={() => this.handelCutSong(1)}
+            ></i>
+            <i
+              className={isPlay ? styles.pause : styles.play}
+              onClick={() => url ? this.setState({ isPlay: !isPlay }) : null}
+            ></i>
+            <i
+              className={styles.next}
+              onClick={() => this.handelCutSong(2)}
+            ></i>
+            <i
+              className={styles.lrc}
+              onClick={() => console.log('show/hide lrc')}
+            ></i>
+
+          </div>
+          <div className={styles.progress}>
+            <span>{formatSongTime(currentTime, true)}</span>
+            <div className={styles.progress_box}>
+              <input
+                className={styles.range}
+                onChange={this.changeInput}
+                ref={(range) => (this.range = range)}
+                type="range"
+                min="0"
+                max="1000"
+                value={rangeVal || 0}
+              />
+            </div>
+            <span>{formatSongTime(duration, true)}</span>
+          </div>
         </div>
-        <div className={styles.tool}>
-          <i
-            className={orderType === 1 ? styles.order : orderType === 2 ? styles.random : styles.cycle}
-            onClick={() => this.setOrderType()}>
-          </i>
-          {/* <i className={styles.Sound_quality}></i>
-          <i className={styles.lyrics}></i> */}
-          <i
-            className={styles.list}
-            onClick={() => this.props.handleModalPower({ type: IS_SHOW_PLAYLIST, data: !playListStatus })}
-          ></i>
+
+        <div className={styles.right}>
+          <div className={styles.tool}>
+            <i
+              className={styles.list}
+              onClick={() => this.props.handleModalPower({ type: IS_SHOW_PLAYLIST, data: !playListStatus })}
+            ></i>
+          </div>
         </div>
       </ div >
     );
