@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-12-08 14:30:12
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-16 19:24:45
+ * @LastEditTime: 2020-12-16 19:42:11
  * @Description:
  */
 import { getRequest } from './request';
@@ -54,4 +54,4 @@ export const videoUrl = params => {
   return getRequest('/video/url', params)
 }
 // git remote add origin https://github.com/refuse-c/Emusic_pc.git
-//  git remote set-url --add origin  https://gitee.com/refuse-c/Emusic_pc.git
+// git remote set-url --add origin  https://gitee.com/refuse-c/Emusic_pc.git
