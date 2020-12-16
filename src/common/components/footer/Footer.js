@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-16 22:19:44
+ * @LastEditTime: 2020-12-16 22:48:19
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -146,7 +146,7 @@ class Footer extends Component {
           callback={this.playListCallback}
         />
         <div className={styles.left}>
-          <img src={(currentPlayer.al && currentPlayer.al.picUrl) || require('@images/album.png')} alt="" />
+          {currentPlayer.al ? <img src={currentPlayer.al.picUrl || require('@images/album.png')} alt="" /> : null}
           <div className={styles.music_info}>
             <p className="overflow">{currentPlayer.name}</p>
             <p className="overflow">{currentPlayer.ar && currentPlayer.ar.map(item => item.name).join('/ ')}</p>
