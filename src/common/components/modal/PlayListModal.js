@@ -73,7 +73,7 @@ class PlayListModal extends Component {
     return (
       <div
         className={styles.play_list}
-        style={{ height: playListStatus ? '480px' : '0px' }}
+        style={{ height: playListStatus ? 'calc(100vh - 130px)' : '0px' }}
       >
         <ul className={styles.title}>
           <li
