@@ -10,7 +10,7 @@
 
 # production
 /build
-
+/Emusic-win32-x64
 # misc
 .DS_Store
 .env.local
