@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-20 16:41:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-17 15:28:47
+ * @LastEditTime: 2020-12-17 17:59:11
  * @Description: 
  */
 const fs = require('fs');
@@ -42,9 +42,9 @@ function createWindow() {
   // slashes: true
   // }))
   // 加载应用----适用于 react 项目
-  mainWindow.setIcon('./build/static/media/logo.png');
-  // mainWindow.loadURL('http://localhost:3000/');
-  mainWindow.loadFile('./build/index.html')
+  // mainWindow.setIcon('./build/static/media/logo.png');
+  mainWindow.loadURL('http://localhost:3000/');
+  // mainWindow.loadFile('./build/index.html')
   mainWindow.setMinimumSize(1020, 670);
   // 关闭window时触发下列事件.
   mainWindow.on('closed', function () {

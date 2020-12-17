@@ -1,5 +1,5 @@
 {
-  "name": "emusicpc",
+  "name": "emusic",
   "version": "0.1.0",
   "homepage": ".",
   "private": true,
@@ -88,7 +88,7 @@
     "test": "node scripts/test.js",
     "electron-start": "electron .",
     "start2": "electron . --enable-logging",
-    "electron_build": "electron-packager ./build/ Emusic -win=x64 --out=build --arch=x64 –electron-version=10.1.4  --overwrite"
+    "packjson": "electron-packager ./build Emusic -win=64 --out=build/ -–arch=x64 -–electron-version=10.1.4 --overwrite"
   },
   "eslintConfig": {
     "extends": "react-app"
