@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-18 12:03:33
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-21 16:23:02
+ * @LastEditTime: 2020-12-17 12:58:23
  * @Description: 
  */
 import styles from './css/index.module.scss';
@@ -22,10 +22,10 @@ class SingerDetail extends Component {
       onLoad: false,
       artist: {}, // 歌手数据
       menuList: [
-        { name: '专辑', path: '/singerdetail' },
-        { name: 'MV', path: '/singerdetail/mv' },
-        { name: '歌手详情', path: '/singerdetail/desc' },
-        { name: '相似歌手', path: '/singerdetail/simi' }
+        { name: '专辑', path: '/home/singerdetail' },
+        { name: 'MV', path: '/home/singerdetail/mv' },
+        { name: '歌手详情', path: '/home/singerdetail/desc' },
+        { name: '相似歌手', path: '/home/singerdetail/simi' }
       ],
     }
   }

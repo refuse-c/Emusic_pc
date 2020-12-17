@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-02 20:36:49
+ * @LastEditTime: 2020-12-17 12:59:57
  * @Description: 歌单详情-头部
  * @param {type} 1 歌单 2 歌手 3 用户 4 专辑
  */
@@ -123,7 +123,7 @@ class Head extends Component {
       type === 1 ?
         <div className={styles.center}>
           <img src={formatImgSize(data.creator && data.creator.avatarUrl, 30, 30)} alt="" />
-          <span onClick={() => routerJump(history, `/userdetail`, queryString.stringify({ uid: data.userId }))}
+          <span onClick={() => routerJump(history, `/home/userdetail`, queryString.stringify({ uid: data.userId }))}
           >
             {data.creator && data.creator.nickname}
           </span>
@@ -216,7 +216,7 @@ class Head extends Component {
           {type === 2 && data.accountId ?
             <div
               className={styles.accountId}
-              onClick={() => routerJump(history, `/userdetail`, queryString.stringify({ uid: data.accountId }))}
+              onClick={() => routerJump(history, `/home/userdetail`, queryString.stringify({ uid: data.accountId }))}
             >个人主页</div>
             : null}
         </div>

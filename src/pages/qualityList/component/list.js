@@ -24,7 +24,7 @@ class Index extends Component {
               return (
                 <li
                   key={'item' + index}
-                  onClick={() => routerJump(history, `/single${item.id}`)}
+                  onClick={() => routerJump(history, `/home/single${item.id}`)}
                 >
                   <p
                     className={styles.cover}

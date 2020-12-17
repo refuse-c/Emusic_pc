@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-16 10:05:54
+ * @LastEditTime: 2020-12-17 12:58:03
  * @Description: 歌单列表
  */
 import { formatSerialNo, formatSongTime } from '@/common/utils/format';
@@ -15,6 +15,7 @@ import { bindActionCreators } from 'redux';
 import { currentPlayList, currentPlayer } from '@/store/actions';
 import { highlightText, routerJump } from '@/common/utils/tools';
 import queryString from 'query-string';
+import { withRouter } from 'react-router-dom';
 class MusicList extends Component {
   constructor(props) {
     super(props);
@@ -63,7 +64,7 @@ class MusicList extends Component {
         <span
           key={`item` + index}
           className={styles.singerText}
-          onClick={() => routerJump(this.props.history, `/singerdetail`, queryString.stringify({ id: item.id }))}
+          onClick={() => routerJump(this.props.history, `/home/singerdetail`, queryString.stringify({ id: item.id }))}
           dangerouslySetInnerHTML={{
             __html: highlightText(this.props.keywords, item.name)
           }}
@@ -79,7 +80,7 @@ class MusicList extends Component {
       render: item =>
         <span
           className={styles.singerText}
-          onClick={() => routerJump(this.props.history, `/album${item.al.id}`)}
+          onClick={() => routerJump(this.props.history, `/home/album${item.al.id}`)}
           dangerouslySetInnerHTML={{
             __html: highlightText(this.props.keywords, item.al.name)
           }}
@@ -137,7 +138,7 @@ class MusicList extends Component {
         columns={this.columns}
         dataSource={list}
         pagination={false}
-        rowClassName={(record, i) => record.st === -200 ? styles.disabled : (currentPlayer.id === record.id) ? styles.active : null}
+        rowClassName={(record, i) => record.st === -200 ? 'disabled' : (currentPlayer.id === record.id) ? 'active' : null}
         onChange={this.onChange}
         className={styles.table}
         onRow={(record, index) => {
@@ -174,5 +175,5 @@ const mapDispatchToProps = dispatch => {
     setCurrentPlayer: bindActionCreators(currentPlayer, dispatch), // 获取当前音乐信息
   }
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(MusicList)
+const box = connect(mapStateToProps, mapDispatchToProps)(MusicList)
+export default withRouter(box)

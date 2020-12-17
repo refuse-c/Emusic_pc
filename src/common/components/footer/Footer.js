@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-16 22:48:19
+ * @LastEditTime: 2020-12-17 14:02:04
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -17,7 +17,7 @@ import { cutSong } from '@/common/utils/tools';
 import { message } from 'antd';
 import { formatSongTime } from '@/common/utils/format';
 import { IS_SHOW_PLAYLIST } from '@/store/actionTypes';
-
+import { withRouter } from 'react-router-dom';
 class Footer extends Component {
   constructor(props) {
     super(props);
@@ -30,16 +30,14 @@ class Footer extends Component {
       duration: 0, // 当前音乐总时间
       currentIndex: 0,
       currentPlayer: {},
-
     }
   }
 
   // 获取音乐播放地址
-  getSongUrl = async () => {
+  getSongUrl = async (type = true) => {
     const { id } = this.state
-    // this.setState({ url: '' })
     const res = await songUrl({ id, br: 128000 })
-    if (res.code === 200) this.setState({ url: res.data[0].url, isPlay: true })
+    if (res.code === 200) this.setState({ url: res.data[0].url, isPlay: type })
   }
 
   // 点击歌单列表清空按钮回调
@@ -64,9 +62,10 @@ class Footer extends Component {
   // 返回音乐的当前时间 / 总时间
   cabackCurrentTime = (duration) => {
     const { range } = this;
+    if (!range) return;
     const { currentTime } = this.props;
     const cdColumn = currentTime / duration;
-    const rangeVal = cdColumn * range.max;
+    const rangeVal = cdColumn * range.max || 0;
     range.style.backgroundSize = cdColumn * 100 + `% 100%`;
     this.setState({ duration, rangeVal })
   }
@@ -92,8 +91,27 @@ class Footer extends Component {
     this.setState({ orderType: order })
   }
 
+  handelTogglePlayer = () => {
+    const url = window.location.href;
+    if (url.indexOf('player') !== -1) { this.props.history.go(-1) } else {
+
+      this.props.history.push({ pathname: `/home/player` })
+    }
+  }
+  changeInput = () => {
+    const { max, value } = this.range;
+    const { duration } = this.state;
+    if (!duration) return;
+    const changeCurrentTime = (value / max) * duration;
+    global.audio.currentTime = changeCurrentTime;
+    this.props.setCurrentTime(changeCurrentTime);
+  };
+
   componentDidMount = () => {
     global.range = this.range;
+    const { id } = this.state;
+    if (id) this.getSongUrl(false);
+
   }
   static getDerivedStateFromProps = (nextProps, prevState) => {
     const { currentPlayer } = nextProps;
@@ -118,15 +136,9 @@ class Footer extends Component {
     }
   }
 
-  changeInput = () => {
-    const { max, value } = this.range;
-    const { duration } = this.state;
-    if (!duration) return;
-    const changeCurrentTime = (value / max) * duration;
-    global.audio.currentTime = changeCurrentTime;
-    this.props.setCurrentTime(changeCurrentTime);
-  };
-
+  componentWillUnmount = () => {
+    this.setState({ isPlay: false })
+  }
   render() {
     const { currentTime } = this.props;
     const { playListStatus } = this.props.modalPower;
@@ -145,7 +157,7 @@ class Footer extends Component {
           playListStatus={playListStatus}
           callback={this.playListCallback}
         />
-        <div className={styles.left}>
+        <div className={styles.left} onClick={() => this.handelTogglePlayer()}>
           {currentPlayer.al ? <img src={currentPlayer.al.picUrl || require('@images/album.png')} alt="" /> : null}
           <div className={styles.music_info}>
             <p className="overflow">{currentPlayer.name}</p>
@@ -222,4 +234,5 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Footer);
+const box = connect(mapStateToProps, mapDispatchToProps)(Footer);
+export default withRouter(box);

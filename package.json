@@ -45,7 +45,6 @@
     "jest-watch-typeahead": "0.4.2",
     "lazyload": "^2.0.0-rc.2",
     "mini-css-extract-plugin": "0.9.0",
-    "node-sass": "^4.14.1",
     "optimize-css-assets-webpack-plugin": "5.0.3",
     "pnp-webpack-plugin": "1.6.4",
     "postcss-flexbugs-fixes": "4.1.0",
@@ -89,7 +88,7 @@
     "test": "node scripts/test.js",
     "electron-start": "electron .",
     "start2": "electron . --enable-logging",
-    "electron_build": "electron-packager . Emusic –out out_dir –arch=x64 –electron-version=9.0.3 --icon=./build/static/media/logo.png --asar"
+    "electron_build": "electron-packager ./build/ Emusic -win=x64 --out=build --arch=x64 –electron-version=10.1.4  --overwrite"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -162,6 +161,7 @@
   "devDependencies": {
     "babel-plugin-dynamic-import-node": "^2.3.3",
     "electron": "^10.1.4",
-    "electron-packager": "^15.1.0"
+    "electron-packager": "^15.1.0",
+    "node-sass": "^4.14.1"
   }
 }

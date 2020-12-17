@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-02 17:37:19
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-20 13:57:33
+ * @LastEditTime: 2020-12-17 12:56:56
  * @Description: 歌单组件
  */
 import React, { Component } from 'react';
@@ -23,9 +23,9 @@ class SongList extends Component {
     let pathname = '';
     const { tag, history } = this.props;
     switch (item.type) {
-      case 'recommended': pathname = `/recommendSong`; break;
-      case 'quality': pathname = `/qualityList${tag}`; break;
-      default: pathname = `/single${item.id}`; break;
+      case 'recommended': pathname = `/home/recommendSong`; break;
+      case 'quality': pathname = `/home/qualityList${tag}`; break;
+      default: pathname = `/home/single${item.id}`; break;
     }
     routerJump(history, pathname);
   }

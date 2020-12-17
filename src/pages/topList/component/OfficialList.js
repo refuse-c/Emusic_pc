@@ -29,7 +29,7 @@ class OfficialList extends Component {
               >
                 <div
                   className={styles.bg}
-                  onClick={() => history.push({ pathname: `/single${item.id}` })}
+                  onClick={() => history.push({ pathname: `/home/single${item.id}` })}
                 >
                   {formatDate(item.updateTime, '0').substr(5) + '更新'}
                   <div className={styles.btn}>

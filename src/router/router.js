@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-07 17:23:04
+ * @LastEditTime: 2020-12-17 13:13:04
  * @Description: 路由
  */
 
@@ -32,6 +32,7 @@ import PrivatecontentList from '@pages/privatecontentList'; //独家放送列表
 import Search from '@pages/search';
 import Friend from '@pages/friend';
 import Home from '@pages/home';
+import Index from '@pages/index';
 
 // 歌单列表(详情)
 import Single from '@pages/single';
@@ -60,113 +61,117 @@ import VideoDetail from '@pages/videoDetail';
 const routes = [
   {
     path: '/',
-    component: Home,
+    component: Index,
     routes: [{
-      path: '/find',
-      component: Find,
+      path: '/home',
+      component: Home,
       routes: [{
-        path: '/find',
+        path: '/home/find',
+        component: Find,
+        routes: [{
+          exact: true,
+          path: '/home/find',
+          component: Recommend  // 个性推荐
+        }, {
+          path: '/home/find/songlist',
+          component: SongList  // 歌单
+        }, {
+          path: '/home/find/radioStation',
+          component: RadioStation  // 主播电台
+        }, {
+          path: '/home/find/topList',
+          component: TopList  // 排行榜
+        }, {
+          path: '/home/find/singer',
+          component: Singer  // 歌手
+        }, {
+          path: '/home/find/newest',
+          component: Newest  // 最新音乐
+        }]
+      }, {
+        path: '/home/search',
+        component: Search
+      }, {
+        path: '/home/friend',
+        component: Friend
+      }, {
+        path: '/home/video',
+        component: Videos,
+        routes: [{
+          path: '/home/video',
+          exact: true,
+          component: Video  // 视频
+        }, {
+          path: '/home/video/mv',
+          component: Mv  // Mv
+        }]
+      }, {
+        path: '/home/single:id',
+        component: Single
+      },
+      {
+        path: '/home/recommendSong',
+        component: RecommendSong
+      },
+      {
+        path: '/home/allmv',
+        component: AllMv
+      },
+      {
+        path: '/home/topmv',
+        component: TopMv
+      },
+      {
+        path: '/home/privatecontentList',
+        component: PrivatecontentList
+      },
+      {
+        path: '/home/qualityList:id',
+        component: QualityList
+      },
+      {
+        path: '/home/singerdetail',
+        component: SingerDetail,
+        routes: [
+          {
+            path: '/home/singerdetail',
+            component: singerAlbum,
+          },
+          {
+            path: '/home/singerdetail/mv',
+            component: singerMv,
+          },
+          {
+            path: '/home/singerdetail/desc',
+            component: singerDesc,
+          },
+          {
+            path: '/home/singerdetail/simi',
+            component: singerSimi,
+          }
+        ]
+      }, {
+        path: '/home/album:id',
+        component: Album
+      },
+      {
+        path: '/home/userdetail',
+        component: UserDetail
+      }, {
+        path: '/home/mylove',
+        component: MyLove,
+      },
+      {
+        path: '/home/player',
         exact: true,
-        component: Recommend  // 个性推荐
-      }, {
-        path: '/find/songlist',
-        component: SongList  // 歌单
-      }, {
-        path: '/find/radioStation',
-        component: RadioStation  // 主播电台
-      }, {
-        path: '/find/topList',
-        component: TopList  // 排行榜
-      }, {
-        path: '/find/singer',
-        component: Singer  // 歌手
-      }, {
-        path: '/find/newest',
-        component: Newest  // 最新音乐
-      }]
-    }, {
-      path: '/search',
-      component: Search
-    }, {
-      path: '/friend',
-      component: Friend
-    }, {
-      path: '/video',
-      component: Videos,
-      routes: [{
-        path: '/video',
-        exact: true,
-        component: Video  // 视频
-      }, {
-        path: '/video/mv',
-        component: Mv  // Mv
-      }]
-    }, {
-      path: '/single:id',
-      component: Single
-    },
-    {
-      path: '/recommendSong',
-      component: RecommendSong
-    },
-    {
-      path: '/allmv',
-      component: AllMv
-    },
-    {
-      path: '/topmv',
-      component: TopMv
-    },
-    {
-      path: '/privatecontentList',
-      component: PrivatecontentList
-    },
-    {
-      path: '/qualityList:id',
-      component: QualityList
-    },
-    {
-      path: '/singerdetail',
-      component: SingerDetail,
-      routes: [
-        {
-          path: '/singerdetail',
-          component: singerAlbum,
-        },
-        {
-          path: '/singerdetail/mv',
-          component: singerMv,
-        },
-        {
-          path: '/singerdetail/desc',
-          component: singerDesc,
-        },
-        {
-          path: '/singerdetail/simi',
-          component: singerSimi,
-        }
+        component: Player,
+      }
       ]
-    }, {
-      path: '/album:id',
-      component: Album
-    },
-    {
-      path: '/userdetail',
-      component: UserDetail
-    }, {
-      path: '/mylove',
-      component: MyLove,
     }, {
       path: '/videoDetail:id',
       component: VideoDetail
-    }
-    ]
+    }]
   },
-  {
-    path: '/player',
-    exact: true,
-    component: Player,
-  }
 
 ]
 

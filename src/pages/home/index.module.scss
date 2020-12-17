@@ -1,15 +1,26 @@
 .home {
   display: flex;
+  flex-direction: column;
   width: 100%;
-  height: calc(100vh - 130px);
+  height: calc(100% - 60px);
 
-  .left {
-    width: 200px;
-    height: 100%;
+  .top {
+    display: flex;
+    flex: 1;
+
+    .left {
+      width: 200px;
+      height: 100%;
+    }
   }
 
   .right {
     width: calc(100% - 200px);
     height: 100%;
+  }
+
+  .footer {
+    width: 100%;
+    min-height: 70px;
   }
 }

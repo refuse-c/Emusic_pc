@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-25 15:04:12
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-11-11 23:30:38
+ * @LastEditTime: 2020-12-17 12:54:21
  * @Description: 搜索-搜索框
  */
 import React, { Component } from 'react';
@@ -51,7 +51,7 @@ class Searchs extends Component {
     const { history } = this.props;
     const { keywords } = this.state;
     this.querySearchDefault();//查询搜索框默认显示的文字
-    routerJump(history, `/search`, queryString.stringify({ keywords }))
+    routerJump(history, `/home/search`, queryString.stringify({ keywords }))
   }
 
   // 热搜列表(详情)

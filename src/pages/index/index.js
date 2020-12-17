@@ -1,21 +1,26 @@
 /*
  * @Author: REFUSE_C
- * @Date: 2020-08-18 17:57:51
+ * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-17 13:53:12
- * @Description: 
+ * @LastEditTime: 2020-12-17 13:48:53
+//  * @Description: 
  */
-import React from 'react';
-import './App.scss';
-import routes from '@/router/router';
-import { HashRouter as Router, Redirect, Route } from 'react-router-dom';
-import debounce from './common/utils/debounce';// 防抖
-global.debounce = debounce;
-function App() {
-  return (
-    <div className="App">
-      <Router>
-        {routes.map((route, key) => {
+import React, { Component } from "react";
+import Header from '@components/header/Header';
+import { Route } from 'react-router-dom';
+import styles from './css/index.module.scss';
+class Index extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <div className={styles.index}>
+        <Header />
+        {this.props.routes.map((route, key) => {
+
           if (route.exact) {
             return (
               <Route
@@ -39,11 +44,8 @@ function App() {
             );
           }
         })}
-        <Redirect exact from='/' to='/home/find' />
-        {/* <Redirect exact from='/' to='/home/single2971245150' /> */}
-      </Router>
-    </div >
-  );
+      </div>)
+  }
 }
 
-export default (App);
+export default Index;

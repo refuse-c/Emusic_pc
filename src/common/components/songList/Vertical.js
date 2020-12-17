@@ -58,7 +58,7 @@ class Vertical extends Component {
           onRow={(record, index) => {
             return {
               onClick: event => {
-                routerJump(history, `/single${record.id}`);
+                routerJump(history, `/home/single${record.id}`);
               }, // 点击行
             };
           }}

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-25 15:04:12
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-13 05:11:05
+ * @LastEditTime: 2020-12-17 12:56:02
  * @Description: 视频
  */
 import React, { Component } from 'react';
@@ -20,8 +20,8 @@ class Videos extends Component {
       loading: false,
       onLoad: false,
       navList: [
-        { name: '视频', path: `/video` },
-        { name: 'MV', path: `/video/mv` }
+        { name: '视频', path: `/home/video` },
+        { name: 'MV', path: `/home/video/mv` }
       ]
     }
   }

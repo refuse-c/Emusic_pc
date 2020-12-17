@@ -3,7 +3,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-11 17:01:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-11-12 16:30:39
+ * @LastEditTime: 2020-12-17 12:59:27
  * @Description: 专辑列表
  */
 
@@ -28,7 +28,7 @@ class Album extends Component {
             list.map((item, index) => {
               return (
                 <li
-                  onClick={() => routerJump(history, `/album${item.id}`)}
+                  onClick={() => routerJump(history, `/home/album${item.id}`)}
                   key={`item` + index}
                   className={isFullScreen ? styles.item1 : styles.item2}
                 >

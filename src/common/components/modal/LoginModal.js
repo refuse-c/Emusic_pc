@@ -31,7 +31,7 @@ class LoginModal extends Component {
     const uid = res.profile.userId;
     this.queryUserPlaylist(uid);
     this.props.handleQueryUserInfo(res);
-    routerJump(history, `/find/`)
+    routerJump(history, `/home/find/`)
   }
 
   queryLoginStatus = async params => {

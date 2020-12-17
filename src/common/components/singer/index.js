@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-11 12:56:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-21 16:27:11
+ * @LastEditTime: 2020-12-17 12:58:12
  * @Description: 发现-歌手-歌手列表
  */
 import React, { Component } from 'react';
@@ -26,7 +26,7 @@ class SingerList extends Component {
               <li
                 key={item.id}
                 className={isFullScreen ? styles.item1 : styles.item2}
-                onClick={() => routerJump(history, `/singerdetail`, queryString.stringify({ id: item.id }))} >
+                onClick={() => routerJump(history, `/home/singerdetail`, queryString.stringify({ id: item.id }))} >
                 <div className={styles.positioning}>
                   <div
                     className={styles.box}

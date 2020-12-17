@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-25 10:14:46
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-11-12 17:33:16
+ * @LastEditTime: 2020-12-17 12:50:01
  * @Description: 左侧菜单栏
  */
 import React, { Component } from 'react';
@@ -17,15 +17,14 @@ class Menu extends Component {
     this.state = {
       menuList: [
         { name: 'EMusic' },
-        // { name: '搜索', path: '/search', icon: 'search' },
-        { name: '发现', path: '/find/', icon: 'find' },
-        { name: '视频', path: '/video', icon: 'video' },
-        { name: '朋友', path: '/friend', icon: 'friend' },
+        { name: '发现', path: '/home/find/', icon: 'find' },
+        { name: '视频', path: '/home/video', icon: 'video' },
+        { name: '朋友', path: '/home/friend', icon: 'friend' },
         { name: '我的音乐' },
-        { name: '本地音乐', path: '/local', icon: 'local' },
-        { name: '下载管理', path: '/down', icon: 'down' },
-        // { name: '最近播放', path: '/lately', icon: 'lately' },
-        // { name: '播放页', path: '/player', icon: 'player' },
+        { name: '本地音乐', path: '/home/local', icon: 'local' },
+        { name: '下载管理', path: '/home/down', icon: 'down' },
+        // { name: '最近播放', path: '/home/lately', icon: 'lately' },
+        // { name: '播放页', path: '/home/player', icon: 'player' },
       ],
     }
   }
@@ -49,7 +48,7 @@ class Menu extends Component {
           {userPlayList.map((item, index) => {
             return (
               item.id ?
-                <NavLink exact activeClassName={styles.menu_list_active} key={index} to={`/single${item.id}`}>
+                <NavLink exact activeClassName={styles.menu_list_active} key={index} to={`/home/single${item.id}`}>
                   <li> {replaceName(item.userId, item.name)}</li>
                 </NavLink>
                 :

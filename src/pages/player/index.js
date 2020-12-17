@@ -2,12 +2,12 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 21:47:50
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-14 20:51:36
+ * @LastEditTime: 2020-12-17 14:50:07
  * @Description:播放页面
  */
 import React, { Component } from "react";
-import "./index.scss";
-import Audio from "@components/audio";
+import styles from "./css/index.module.scss";
+// import Audio from "@components/audio";
 class Player extends Component {
   constructor(props) {
     super(props);
@@ -15,9 +15,9 @@ class Player extends Component {
   }
   render() {
     return (
-      <div className="player">
-        <Audio />
-      </div>
+      <div className={styles.player}>
+        播放详情页还未开发哦!请耐性等待
+      </div >
     );
   }
 }

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-11-02 09:43:05
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-11-11 16:53:49
+ * @LastEditTime: 2020-12-17 13:00:04
  * @Description:  歌单列表组件-竖排    
  */
 import { highlightText, routerJump } from '@/common/utils/tools';
@@ -54,7 +54,7 @@ class UserList extends Component {
           onRow={(record, index) => {
             return {
               onClick: event => {
-                routerJump(history, `/userdetail`, queryString.stringify({ uid: record.userId }));
+                routerJump(history, `/home/userdetail`, queryString.stringify({ uid: record.userId }));
               }, // 点击行
             };
           }}

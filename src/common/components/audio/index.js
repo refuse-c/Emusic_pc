@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-10 15:55:14
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-12 11:55:58
+ * @LastEditTime: 2020-12-17 13:39:27
  * @Description 播放组件
  */
 import { cutSong } from '@/common/utils/tools';
@@ -57,8 +57,10 @@ class Audio extends Component {
     isPlay ? this.audio.play() : this.audio.pause();
   }
 
-
-
+  componentWillUnmount = () => {
+    this.setState({ isPlay: false })
+    // global.audio.removeEventListener('timeupdate', false);
+  }
 
   render() {
     const { url, orderType } = this.props;
@@ -69,7 +71,7 @@ class Audio extends Component {
         loop={orderType === 3 ? true : false}
         ref={(audio => this.audio = audio)}
       >
-      </audio>
+      </audio >
     );
   }
 }

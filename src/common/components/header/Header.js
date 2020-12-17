@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-02 19:21:38
+ * @LastEditTime: 2020-12-17 12:52:17
  * @Description: 头部 
  */
 import React, { Component } from 'react';
@@ -43,7 +43,7 @@ class Header extends Component {
     message.info('已退出登录');
     this.props.handeUserPlayList([]);
     this.props.handleQueryUserInfo({});
-    routerJump(history, `/find/`);
+    routerJump(history, `/home/find/`);
   }
 
   render() {
@@ -59,7 +59,7 @@ class Header extends Component {
       <div className={styles.header_left}>
         <div
           className={styles.logo}
-          onClick={() => routerJump(history, `/mylove`)}
+          onClick={() => routerJump(history, `/home/mylove`)}
         ></div>
         <div
           onClick={() => this.go(-1)}

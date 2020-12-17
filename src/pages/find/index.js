@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-25 15:04:12
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-11-11 21:51:15
+ * @LastEditTime: 2020-12-17 12:53:00
  * @Description: 发现
  */
 import React, { Component } from 'react';
@@ -20,12 +20,12 @@ class Find extends Component {
       loading: false,
       onLoad: false,
       navList: [
-        { name: '个性推荐', path: `/find` },
-        { name: '歌单', path: `/find/songlist` },
-        // { name: '主播电台', path: `/find/radioStation` },
-        { name: '排行榜', path: `/find/topList` },
-        { name: '歌手', path: `/find/singer` },
-        { name: '最新音乐', path: `/find/newest` }
+        { name: '个性推荐', path: `/home/find` },
+        { name: '歌单', path: `/home/find/songlist` },
+        // { name: '主播电台', path: `/home/find/radioStation` },
+        { name: '排行榜', path: `/home/find/topList` },
+        { name: '歌手', path: `/home/find/singer` },
+        { name: '最新音乐', path: `/home/find/newest` }
       ]
     }
   }
