@@ -2,20 +2,21 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-18 12:51:37
+ * @LastEditTime: 2020-12-18 17:55:27
  * @Description:底部control
  */
 import React, { Component } from 'react';
 import styles from './index.module.scss';
 import Audio from '@components/audio';
+import Player from '@pages/player';
 import PlayList from '@components/modal/PlayListModal';
 import { connect } from 'react-redux';
-import { songUrl } from '@/common/api/api';
+import { lyric, songUrl } from '@/common/api/api';
 import { bindActionCreators } from 'redux';
 import { currentPlayer, currentPlayList, currentTime, modalPower } from '@/store/actions';
 import { cutSong } from '@/common/utils/tools';
 import { message, Tooltip } from 'antd';
-import { formatSongTime } from '@/common/utils/format';
+import { formatImgSize, formatSongTime } from '@/common/utils/format';
 import { IS_SHOW_PLAYLIST } from '@/store/actionTypes';
 import { withRouter } from 'react-router-dom';
 class Footer extends Component {
@@ -32,6 +33,8 @@ class Footer extends Component {
       volumeVal: 50,
       audioVolume: 0.5,
       currentPlayer: {},
+      isShowPlayer: true,
+      lrc: '',
     }
   }
 
@@ -39,7 +42,17 @@ class Footer extends Component {
   getSongUrl = async (type = true) => {
     const { id } = this.state
     const res = await songUrl({ id, br: 128000 })
-    if (res.code === 200) this.setState({ url: res.data[0].url, isPlay: type })
+    const { url } = res.data[0] || '';
+    this.getLyric(id); // 获取歌词
+    this.setState({ url, isPlay: url && type })
+  }
+
+  // 获取音乐播放地址
+  getLyric = async id => {
+    const res = await lyric({ id })
+    console.log(res)
+    const lrc = res.lrc;
+    this.setState({ lrc })
   }
 
   // 点击歌单列表清空按钮回调
@@ -130,6 +143,7 @@ class Footer extends Component {
     if (id) this.getSongUrl(false);
 
   }
+
   static getDerivedStateFromProps = (nextProps, prevState) => {
     const { currentPlayer } = nextProps;
     const { id } = nextProps.currentPlayer;
@@ -159,7 +173,7 @@ class Footer extends Component {
   render() {
     const { currentTime } = this.props;
     const { playListStatus } = this.props.modalPower;
-    const { url, isPlay, orderType, duration, currentPlayer, rangeVal, volumeVal, audioVolume } = this.state;
+    const { url, isPlay, orderType, duration, currentPlayer, rangeVal, volumeVal, audioVolume, isShowPlayer } = this.state;
     return (
       <div className={styles.footer}>
         <Audio
@@ -175,8 +189,9 @@ class Footer extends Component {
           playListStatus={playListStatus}
           callback={this.playListCallback}
         />
-        <div className={styles.left} onClick={() => this.handelTogglePlayer()}>
-          {currentPlayer.al ? <img src={currentPlayer.al.picUrl || require('@images/album.png')} alt="" /> : null}
+        <Player hasShow={isShowPlayer} data={currentPlayer} />
+        <div className={styles.left} onClick={() => this.setState({ isShowPlayer: !isShowPlayer })}>
+          {currentPlayer.al ? <img src={formatImgSize(currentPlayer.al.picUrl, 50, 50) || require('@images/album.png')} alt="" /> : null}
           <div className={styles.music_info}>
             <p className="overflow">{currentPlayer.name}</p>
             <p className="overflow">{currentPlayer.ar && currentPlayer.ar.map(item => item.name).join('/ ')}</p>

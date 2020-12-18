@@ -1,8 +1,86 @@
+@import "~@common/css/_variables.scss";
+
 .player {
   position: fixed;
-  top: 60px;
+  bottom: 70px;
   left: 0;
+  z-index: 99;
   width: 100%;
   height: calc(100vh - 130px);
-  background-color: pink;
+  transform-origin: left bottom;
+  transition: all 0.5s ease;
+  background-color: #fff;
+
+  .player_content {
+    width: 1020px;
+    margin: 0 auto;
+
+    .top {
+      display: flex;
+      height: 500px;
+    }
+
+    .top_content {
+      width: 50%;
+
+      &.album {
+        display: flex;
+        justify-content: center;
+
+        .album_img {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 340px;
+          height: 340px;
+          margin-top: 60px;
+          border-radius: 50%;
+          background: url("~@common/images/albums.png") center center / contain no-repeat;
+          box-shadow: 0 0 5px 1px #EC4141;
+
+          img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+          }
+        }
+      }
+
+      &.lyric {
+        .name {
+          color: $c333;
+          margin-top: 36px;
+
+          p {
+            font-size: $fz24;
+          }
+
+          div {
+            margin-top: 20px;
+            display: flex;
+
+            p {
+              max-width: 50%;
+              padding-right: 20px;
+              font-size: $fz14;
+
+              span {
+                color: #0071fb;
+                max-width: 50%;
+                padding-right: 20px;
+                font-size: $fz14;
+
+                &:hover {
+                  cursor: pointer;
+                  text-decoration: underline;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // .buttom {}
+  }
 }

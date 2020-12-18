@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-11-12 09:47:17
+ * @LastEditTime: 2020-12-18 17:51:03
  * @Description: 
  */
 import { getRequest } from './request';
@@ -285,5 +285,13 @@ export const songUrl = (params) => {
  */
 export const countriesCode = (params) => {
   return getRequest('/countries/code/list', params)
+}
+
+/**
+ * @name:获取歌词
+ * @param {id}
+ */
+export const lyric = (params) => {
+  return getRequest('/lyric', params)
 }
 

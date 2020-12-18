@@ -18,8 +18,10 @@
   bottom: 70px;
   right: 0;
   width: 420px;
+  height: calc(100vh - 130px);
   background-color: #fff;
   overflow: hidden;
+  transform-origin: right bottom;
   transition: ease 0.3s all;
   box-shadow: -1px 0px 2px 0px rgba(0, 0, 0, 0.2);
 

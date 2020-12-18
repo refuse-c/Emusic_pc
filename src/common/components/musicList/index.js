@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-18 12:42:30
+ * @LastEditTime: 2020-12-18 15:47:43
  * @Description: 歌单列表
  */
 import { formatSerialNo, formatSongTime } from '@/common/utils/format';
@@ -145,7 +145,8 @@ class MusicList extends Component {
           return {
             onClick: event => { }, // 点击行
             onDoubleClick: event => {
-              record.fee === 4 ? message.info('版权方要求,当前专辑需单独付费,购买数字专辑即可无限畅享') : this.selectRow(record)
+              this.selectRow(record)
+              // record.fee === 4 ? message.info('版权方要求,当前专辑需单独付费,购买数字专辑即可无限畅享') : this.selectRow(record)
             },
             // onContextMenu: event => { },
             // onMouseEnter: event => { }, // 鼠标移入行

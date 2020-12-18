@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-25 15:04:12
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-17 12:54:21
+ * @LastEditTime: 2020-12-18 15:57:19
  * @Description: 搜索-搜索框
  */
 import React, { Component } from 'react';
@@ -76,7 +76,6 @@ class Searchs extends Component {
 
   onChange = e => {
     const { value: keywords } = e.target;
-    console.log(keywords)
     this.setState({ keywords }, () => {
       if (Trim(keywords)) {
         this.setState({ isShowHotListStatus: false })
