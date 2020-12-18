@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-18 20:40:51
+ * @LastEditTime: 2020-12-18 23:29:08
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -53,7 +53,7 @@ class Footer extends Component {
         const { rotate } = this.state;
         let num = rotate > 360 ? 0 : rotate + 1
         this.setState({ rotate: num })
-      }, 30);
+      }, 50);
       this.setState({ isPlay: true })
     }
 
@@ -79,8 +79,8 @@ class Footer extends Component {
   // 获取音乐播放地址
   getLyric = async id => {
     const res = await lyric({ id })
-    const { lrc, klyric, tlyric } = res;
-    const lyricText = lrc.lyric || klyric.lyric || tlyric.lyric || '';
+    const { lrc, klyric, tlyric, nolyric } = res;
+    const lyricText = nolyric ? '' : lrc.lyric || klyric.lyric || tlyric.lyric || '';
     this.setState({ lyricText: formatLrc(lyricText) })
   }
 
@@ -220,6 +220,7 @@ class Footer extends Component {
           callback={this.playListCallback}
         />
         <Player
+          isPlay={isPlay}
           hasShow={isShowPlayer}
           lyricText={lyricText}
           data={currentPlayer}
