@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-20 16:41:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-17 23:28:11
+ * @LastEditTime: 2020-12-18 11:39:17
  * @Description: 
  */
 const fs = require('fs');
@@ -42,7 +42,7 @@ function createWindow() {
   // slashes: true
   // }))
   // 加载应用----适用于 react 项目
-  mainWindow.setIcon('./build/static/media/logo.ico');
+  // mainWindow.setIcon('./build/static/media/logo.ico');
   mainWindow.loadURL('http://localhost:3000/');
   // mainWindow.loadFile('./build/index.html')
   mainWindow.setMinimumSize(1020, 670);
@@ -58,7 +58,6 @@ ipcMain.on('close', (e) => mainWindow.close());
 
 // 当 Electron 完成初始化并准备创建浏览器窗口时调用此方法
 app.on('ready', createWindow);
-
 // 所有窗口关闭时退出应用.
 app.on('window-all-closed', function () {
   // macOS中除非用户按下 `Cmd + Q` 显式退出,否则应用与菜单栏始终处于活动状态.

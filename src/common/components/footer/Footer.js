@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-17 14:02:04
+ * @LastEditTime: 2020-12-18 12:51:37
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -14,7 +14,7 @@ import { songUrl } from '@/common/api/api';
 import { bindActionCreators } from 'redux';
 import { currentPlayer, currentPlayList, currentTime, modalPower } from '@/store/actions';
 import { cutSong } from '@/common/utils/tools';
-import { message } from 'antd';
+import { message, Tooltip } from 'antd';
 import { formatSongTime } from '@/common/utils/format';
 import { IS_SHOW_PLAYLIST } from '@/store/actionTypes';
 import { withRouter } from 'react-router-dom';
@@ -29,6 +29,8 @@ class Footer extends Component {
       rangeVal: 0, // 进度条数值
       duration: 0, // 当前音乐总时间
       currentIndex: 0,
+      volumeVal: 50,
+      audioVolume: 0.5,
       currentPlayer: {},
     }
   }
@@ -55,7 +57,7 @@ class Footer extends Component {
     const { orderType } = this.state;
     const { id } = currentPlayer;
     const data = cutSong(id, currentPlayList, type, orderType);
-    global.range.style.backgroundSize = `0% 100%`;
+    this.range.style.backgroundSize = `0% 100%`;
     setCurrentPlayer(data)
   }
 
@@ -98,7 +100,9 @@ class Footer extends Component {
       this.props.history.push({ pathname: `/home/player` })
     }
   }
-  changeInput = () => {
+
+  // 调整歌曲进度
+  changeProgress = () => {
     const { max, value } = this.range;
     const { duration } = this.state;
     if (!duration) return;
@@ -107,9 +111,22 @@ class Footer extends Component {
     this.props.setCurrentTime(changeCurrentTime);
   };
 
+  // 调整音量
+  changeVolume = () => {
+    const { volume } = this;
+    const volumeVal = volume.value;
+    const audioVolume = volume.value / volume.max;
+    this.setState({ audioVolume, volumeVal })
+    volume.style.backgroundSize = audioVolume * 100 + `% 100%`;
+  }
+
   componentDidMount = () => {
-    global.range = this.range;
-    const { id } = this.state;
+    const { range, volume } = this;
+    global.range = range;
+    const { id, volumeVal } = this.state;
+    const audioVolume = volumeVal / volume.max;
+    this.setState({ audioVolume })
+    volume.style.backgroundSize = audioVolume * 100 + `% 100%`;
     if (id) this.getSongUrl(false);
 
   }
@@ -142,11 +159,12 @@ class Footer extends Component {
   render() {
     const { currentTime } = this.props;
     const { playListStatus } = this.props.modalPower;
-    const { url, isPlay, orderType, duration, currentPlayer, rangeVal } = this.state;
+    const { url, isPlay, orderType, duration, currentPlayer, rangeVal, volumeVal, audioVolume } = this.state;
     return (
       <div className={styles.footer}>
         <Audio
           url={url}
+          volume={audioVolume}
           isPlay={isPlay}
           orderType={orderType}
           callback={this.cabackCurrentTime}
@@ -192,7 +210,7 @@ class Footer extends Component {
             <div className={styles.progress_box}>
               <input
                 className={styles.range}
-                onChange={this.changeInput}
+                onChange={this.changeProgress}
                 ref={(range) => (this.range = range)}
                 type="range"
                 min="0"
@@ -206,6 +224,17 @@ class Footer extends Component {
 
         <div className={styles.right}>
           <div className={styles.tool}>
+            <Tooltip title={`current volume:${volumeVal + '/' + 100}`}>
+              <input
+                className={styles.volume}
+                onChange={this.changeVolume}
+                ref={volume => (this.volume = volume)}
+                type="range"
+                min="0"
+                max="100"
+                value={volumeVal || 0}
+              />
+            </Tooltip>
             <i
               className={styles.list}
               onClick={() => this.props.handleModalPower({ type: IS_SHOW_PLAYLIST, data: !playListStatus })}
