@@ -1,0 +1,15 @@
+{
+  "name": "emusic",
+  "version": "1.0.0",
+  "main": "./main.js",
+  "author": {
+    "name": "RA"
+  },
+  "build": {
+    "appId": "refuse",
+    "win": {
+      "icon": "./icon.ico"
+    }
+  },
+  "license": "MIT"
+}
