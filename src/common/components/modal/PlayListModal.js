@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-15 14:17:33
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-18 16:48:52
+ * @LastEditTime: 2020-12-18 18:39:10
  * @Description: 播放列表
  */
 import { currentPlayer, currentPlayList, modalPower } from '@/store/actions';
@@ -75,7 +75,6 @@ class PlayListModal extends Component {
         className={styles.play_list}
         // style={{ height: playListStatus ? 'calc(100vh - 130px)' : '0px' }}
         style={{ transform: playListStatus ? `scale(1)` : `scale(0)` }}>
-        >
         <ul className={styles.title}>
           <li
             className={active === 0 ? styles.active : null}

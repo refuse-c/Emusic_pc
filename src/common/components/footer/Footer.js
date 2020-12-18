@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-18 17:55:27
+ * @LastEditTime: 2020-12-18 20:40:51
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -14,11 +14,13 @@ import { connect } from 'react-redux';
 import { lyric, songUrl } from '@/common/api/api';
 import { bindActionCreators } from 'redux';
 import { currentPlayer, currentPlayList, currentTime, modalPower } from '@/store/actions';
-import { cutSong } from '@/common/utils/tools';
+import { cutSong, formatLrc } from '@/common/utils/tools';
 import { message, Tooltip } from 'antd';
 import { formatImgSize, formatSongTime } from '@/common/utils/format';
 import { IS_SHOW_PLAYLIST } from '@/store/actionTypes';
 import { withRouter } from 'react-router-dom';
+
+let timer1 = undefined;
 class Footer extends Component {
   constructor(props) {
     super(props);
@@ -33,9 +35,28 @@ class Footer extends Component {
       volumeVal: 50,
       audioVolume: 0.5,
       currentPlayer: {},
-      isShowPlayer: true,
-      lrc: '',
+      isShowPlayer: false,
+      lyricText: [],
+      rotate: 0,
     }
+  }
+
+  // 专辑图旋转
+  handelIsPlay = () => {
+    const { isPlay } = this.state;
+    if (isPlay) {
+      clearInterval(timer1);
+      this.setState({ isPlay: false })
+    } else {
+
+      timer1 = setInterval(() => {
+        const { rotate } = this.state;
+        let num = rotate > 360 ? 0 : rotate + 1
+        this.setState({ rotate: num })
+      }, 30);
+      this.setState({ isPlay: true })
+    }
+
   }
 
   // 获取音乐播放地址
@@ -44,15 +65,23 @@ class Footer extends Component {
     const res = await songUrl({ id, br: 128000 })
     const { url } = res.data[0] || '';
     this.getLyric(id); // 获取歌词
+    if (url && type) {
+      clearInterval(timer1);
+      timer1 = setInterval(() => {
+        const { rotate } = this.state;
+        let num = rotate > 360 ? 0 : rotate + 1
+        this.setState({ rotate: num })
+      }, 30);
+    }
     this.setState({ url, isPlay: url && type })
   }
 
   // 获取音乐播放地址
   getLyric = async id => {
     const res = await lyric({ id })
-    console.log(res)
-    const lrc = res.lrc;
-    this.setState({ lrc })
+    const { lrc, klyric, tlyric } = res;
+    const lyricText = lrc.lyric || klyric.lyric || tlyric.lyric || '';
+    this.setState({ lyricText: formatLrc(lyricText) })
   }
 
   // 点击歌单列表清空按钮回调
@@ -168,12 +197,13 @@ class Footer extends Component {
   }
 
   componentWillUnmount = () => {
+    clearInterval(timer1);
     this.setState({ isPlay: false })
   }
   render() {
     const { currentTime } = this.props;
     const { playListStatus } = this.props.modalPower;
-    const { url, isPlay, orderType, duration, currentPlayer, rangeVal, volumeVal, audioVolume, isShowPlayer } = this.state;
+    const { url, isPlay, orderType, duration, currentPlayer, rangeVal, volumeVal, audioVolume, isShowPlayer, lyricText, rotate } = this.state;
     return (
       <div className={styles.footer}>
         <Audio
@@ -189,8 +219,13 @@ class Footer extends Component {
           playListStatus={playListStatus}
           callback={this.playListCallback}
         />
-        <Player hasShow={isShowPlayer} data={currentPlayer} />
-        <div className={styles.left} onClick={() => this.setState({ isShowPlayer: !isShowPlayer })}>
+        <Player
+          hasShow={isShowPlayer}
+          lyricText={lyricText}
+          data={currentPlayer}
+          rotate={rotate}
+        />
+        <div className={styles.left} onClick={() => { if (currentPlayer.al) this.setState({ isShowPlayer: !isShowPlayer }) }}>
           {currentPlayer.al ? <img src={formatImgSize(currentPlayer.al.picUrl, 50, 50) || require('@images/album.png')} alt="" /> : null}
           <div className={styles.music_info}>
             <p className="overflow">{currentPlayer.name}</p>
@@ -208,7 +243,7 @@ class Footer extends Component {
             ></i>
             <i
               className={isPlay ? styles.pause : styles.play}
-              onClick={() => url ? this.setState({ isPlay: !isPlay }) : null}
+              onClick={() => url ? this.handelIsPlay() : null}
             ></i>
             <i
               className={styles.next}

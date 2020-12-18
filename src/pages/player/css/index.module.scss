@@ -22,6 +22,7 @@
 
     .top_content {
       width: 50%;
+      overflow: hidden;
 
       &.album {
         display: flex;
@@ -47,9 +48,10 @@
       }
 
       &.lyric {
+
         .name {
           color: $c333;
-          margin-top: 36px;
+          padding: 30px 0;
 
           p {
             font-size: $fz24;
@@ -75,6 +77,18 @@
                   text-decoration: underline;
                 }
               }
+            }
+          }
+        }
+
+        .lrc_content {
+          height: 330px;
+          overflow: hidden;
+
+          ul {
+            li {
+              font-size: $fz12;
+              line-height: 2;
             }
           }
         }
