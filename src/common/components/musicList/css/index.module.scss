@@ -109,6 +109,10 @@
         .item {
           color: $cec4141;
           font-size: $fz14;
+
+          .highlight {
+            color: $cec4141;
+          }
         }
 
         .ant-table-cell {

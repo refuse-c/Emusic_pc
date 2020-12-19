@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-19 15:53:51
+ * @LastEditTime: 2020-12-19 21:22:27
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -225,6 +225,7 @@ class Footer extends Component {
           lyricText={lyricText}
           data={currentPlayer}
           rotate={rotate}
+          currentTime={currentTime}
         />
         <div className={styles.left} onClick={() => { if (currentPlayer.al) this.setState({ isShowPlayer: !isShowPlayer }) }}>
           {currentPlayer.al ? <img src={formatImgSize(currentPlayer.al.picUrl, 50, 50) || require('@images/album.png')} alt="" /> : null}

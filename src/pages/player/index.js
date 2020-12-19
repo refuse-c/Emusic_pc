@@ -2,11 +2,13 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 21:47:50
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-18 22:52:00
+ * @LastEditTime: 2020-12-19 21:56:30
  * @Description:播放页面
  */
 import { formatImgSize } from "@/common/utils/format";
+import { getTimeIndex } from "@/common/utils/tools";
 import React, { Component } from "react";
+import ScrollArea from 'react-scrollbar';
 import styles from "./css/index.module.scss";
 // import Audio from "@components/audio";
 class Player extends Component {
@@ -18,7 +20,7 @@ class Player extends Component {
 
 
   render() {
-    const { hasShow, data, lyricText, rotate, isPlay } = this.props;
+    const { hasShow, data, lyricText, rotate, isPlay, currentTime } = this.props;
     const cls = isPlay ? styles.active : null;
     return (
       <div className={styles.player}
@@ -44,13 +46,33 @@ class Player extends Component {
                 </div>
               </div>
               <div className={styles.lrc_content}>
-                <ul>
-                  {lyricText.map((item, index) => {
-                    return (
-                      <li key={index}>{item.c}</li>
-                    )
-                  })}
-                </ul>
+                <ScrollArea
+                  speed={1}
+                  className={styles.area}
+                  ref={(content) => (this.content = content)}
+                >
+                  <ul>
+                    {
+                      lyricText && lyricText.map((item, index, lyric) => {
+                        const num = getTimeIndex(lyric, currentTime);
+                        if (num > 7) {
+                          this.content.scrollArea.scrollYTo((num - 7) * 24);
+                        } else {
+                          this.content.scrollArea.scrollYTo(0);
+                        }
+                        return (
+                          <li
+                            key={index}
+                            className={index === num ? styles.aa : styles.bb}
+                            ref={(item) => (this.item = item)}
+                          >
+                            {item.c}
+                          </li>
+                        );
+                      })
+                    }
+                  </ul>
+                </ScrollArea>
               </div>
             </div>
           </div>
