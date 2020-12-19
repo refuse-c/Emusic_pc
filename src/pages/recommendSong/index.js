@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 15:39:35
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-02 19:58:35
+ * @LastEditTime: 2020-12-19 16:48:06
  * @Description: 歌单详情
  */
 import React, { Component } from 'react'
@@ -75,7 +75,7 @@ class Single extends Component {
             </div>
             <div className={styles.single_box}>
               <PlayAll list={list} title="播放全部" cls={'play_all_2'} />
-              <MusicList list={list} />
+              <MusicList list={list} callBack={this.queryRecommendSongs} />
             </div>
           </Spin>
         </ScrollView>

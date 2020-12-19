@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 15:39:35
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-11-12 17:33:50
+ * @LastEditTime: 2020-12-19 16:48:20
  * @Description: 歌单详情
  */
 import React, { Component } from 'react'
@@ -88,7 +88,7 @@ class Single extends Component {
           <Spin tip="Loading..." spinning={loading} >
             <div className={styles.single_box}>
               <Head data={playlist} type={4} list={list} />
-              <MusicList list={list} history={this.props.history} />
+              <MusicList list={list} history={this.props.history} callBack={this.queryAlbum} />
             </div>
           </Spin>
         </ScrollView>

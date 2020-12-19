@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-18 23:29:08
+ * @LastEditTime: 2020-12-19 15:53:51
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -79,8 +79,8 @@ class Footer extends Component {
   // 获取音乐播放地址
   getLyric = async id => {
     const res = await lyric({ id })
-    const { lrc, klyric, tlyric, nolyric } = res;
-    const lyricText = nolyric ? '' : lrc.lyric || klyric.lyric || tlyric.lyric || '';
+    const { lrc, klyric, tlyric, nolyric, needDesc } = res;
+    const lyricText = nolyric || needDesc ? '' : lrc.lyric || klyric.lyric || tlyric.lyric || '';
     this.setState({ lyricText: formatLrc(lyricText) })
   }
 

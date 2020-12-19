@@ -39,6 +39,37 @@
         height: 16px;
       }
     }
+
+    .btn_box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+
+      i {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 36px;
+        height: 36px;
+        cursor: pointer;
+
+        &.unlike {
+          left: -10px;
+          background: url("~@images/unlike.png") center center / auto 40px no-repeat;
+        }
+
+        &.like {
+          left: -10px;
+          background: url("~@images/like.png") center center / auto 40px no-repeat;
+        }
+
+        &.download {
+          left: 30px;
+          background: url("~@images/download.png") center center / auto 20px no-repeat;
+        }
+      }
+    }
   }
 
   .ant-table-tbody {

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 21:48:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-16 20:34:31
+ * @LastEditTime: 2020-12-19 00:09:19
  * @Description 登录弹窗
  */
 import React, { Component } from 'react'
@@ -14,6 +14,7 @@ import { IS_SHOW_LOGIN } from '@/store/actionTypes';
 import { login, loginStatus } from '@/common/api/api';
 import { routerJump, setLocal } from '@/common/utils/tools';
 import { userPlaylist } from '@/common/api/user';
+// import MD5 from 'crypto-js/md5'
 const FormItem = Form.Item;
 class LoginModal extends Component {
   constructor(props) {
