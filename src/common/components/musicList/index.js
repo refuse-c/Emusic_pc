@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-19 17:02:53
+ * @LastEditTime: 2020-12-19 17:18:29
  * @Description: 歌单列表
  */
 import { formatSerialNo, formatSongTime } from '@/common/utils/format';
@@ -35,7 +35,7 @@ class MusicList extends Component {
     {
       title: '操作',
       key: 'tool',
-      width: 80,
+      width: 60,
       render: item => <div className="btn_box">
         <i
           className={this.isLike(item.id) !== -1 ? "like" : 'unlike'}

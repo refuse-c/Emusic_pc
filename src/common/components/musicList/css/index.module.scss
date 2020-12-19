@@ -50,7 +50,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        width: 36px;
+        width: 30px;
         height: 36px;
         cursor: pointer;
 
@@ -65,7 +65,7 @@
         }
 
         &.download {
-          left: 30px;
+          left: 20px;
           background: url("~@images/download.png") center center / auto 20px no-repeat;
         }
       }
