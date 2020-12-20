@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 21:47:50
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-19 21:56:30
+ * @LastEditTime: 2020-12-20 12:43:41
  * @Description:播放页面
  */
 import { formatImgSize } from "@/common/utils/format";
@@ -55,8 +55,8 @@ class Player extends Component {
                     {
                       lyricText && lyricText.map((item, index, lyric) => {
                         const num = getTimeIndex(lyric, currentTime);
-                        if (num > 7) {
-                          this.content.scrollArea.scrollYTo((num - 7) * 24);
+                        if (num > 6) {
+                          this.content.scrollArea.scrollYTo((num - 6) * 24);
                         } else {
                           this.content.scrollArea.scrollYTo(0);
                         }
@@ -66,7 +66,7 @@ class Player extends Component {
                             className={index === num ? styles.aa : styles.bb}
                             ref={(item) => (this.item = item)}
                           >
-                            {item.c}
+                            {item.text}
                           </li>
                         );
                       })

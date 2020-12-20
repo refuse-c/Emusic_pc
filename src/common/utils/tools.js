@@ -4,7 +4,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:17
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-18 18:48:35
+ * @LastEditTime: 2020-12-20 12:41:07
  * @Description:基础工具
  */
 
@@ -182,8 +182,8 @@ export const formatLrc = (array) => {
   if (!array) {
     return (lrcArr = [
       {
-        t: '0',
-        c: '暂无歌词,请欣赏',
+        time: '0',
+        text: '暂无歌词,请欣赏',
       },
     ]);
   }
@@ -211,12 +211,14 @@ export const formatLrc = (array) => {
       arr.map((item, index) => {
         t = item.substring(1, item.length - 1); //取[]间的内容
         s = t.split(':'); //分离:前后文字
-        lrcArr.push({
-          //对象{t:时间,c:歌词}加入ms数组
-          t: (parseFloat(s[0]) * 60 + parseFloat(s[1])).toFixed(3),
-          // c: isEmpty(content) ? '~ ~ ~ ~ ~ ~ ~ ~' : content,
-          c: content,
-        });
+        let time = (parseFloat(s[0]) * 60 + parseFloat(s[1])).toFixed(3)
+        if (time && content) {
+          lrcArr.push({
+            //对象{t:时间,text:歌词}加入ms数组
+            time,
+            text: content,
+          });
+        }
         return index.id;
       });
     }
@@ -239,7 +241,7 @@ export const getTimeIndex = (timeArr, time) => {
   const length = timeArr.length;
   const currentTime = Number(time) + 0.2;
   for (let i = 0; i < length; i++) {
-    if (timeArr[i].t >= currentTime) {
+    if (timeArr[i].time >= currentTime) {
       timeIndex = i - 1;
       break;
     } else {
