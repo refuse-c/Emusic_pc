@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-11-11 20:09:45
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-15 20:17:36
+ * @LastEditTime: 2020-12-20 15:48:07
  * @Description:
  */
 import React, { Component } from 'react';
@@ -259,6 +259,22 @@ class Mylove extends Component {
     return (
       <div className={styles.myLove}>
         <canvas id="pinkboard"></canvas>
+        <div className={styles.svg_box}>
+          <svg width="100%" height="100">
+            <text textAnchor="middle" x="50%" y="50%" className={[styles.text, styles.text_1].join(' ')}>
+              2021 ♥ oneself
+            </text>
+            <text textAnchor="middle" x="50%" y="50%" className={[styles.text, styles.text_2].join(' ')}>
+              2021 ♥ oneself
+            </text>
+            <text textAnchor="middle" x="50%" y="50%" className={[styles.text, styles.text_3].join(' ')}>
+              2021 ♥ oneself
+            </text>
+            <text textAnchor="middle" x="50%" y="50%" className={[styles.text, styles.text_4].join(' ')}>
+              2021 ♥ oneself
+            </text>
+          </svg>
+        </div>
       </div>
     );
   }
