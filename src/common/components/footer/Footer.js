@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-19 21:22:27
+ * @LastEditTime: 2020-12-20 15:07:44
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -19,8 +19,10 @@ import { message, Tooltip } from 'antd';
 import { formatImgSize, formatSongTime } from '@/common/utils/format';
 import { IS_SHOW_PLAYLIST } from '@/store/actionTypes';
 import { withRouter } from 'react-router-dom';
-
-let timer1 = undefined;
+// electron 键盘事件 
+const { ipcRenderer: ipc } = window.require('electron');
+let timer1;
+let timer2;
 class Footer extends Component {
   constructor(props) {
     super(props);
@@ -38,6 +40,42 @@ class Footer extends Component {
       isShowPlayer: false,
       lyricText: [],
       rotate: 0,
+      isShowVolume: false,
+    }
+  }
+
+  // 通过键盘组合件调整音量
+  keyboardSetVolume = (type) => {
+    const { volume } = this;
+    const { volumeVal } = this.state;
+    let val = type === 'Up' ? Number(volumeVal) + 10 : Number(volumeVal) - 10;
+    val = val >= 100 ? 100 : val;
+    val = val <= 0 ? 0 : val;
+    const audioVolume = val / 100;
+    clearTimeout(timer2);
+    this.setState({ audioVolume, volumeVal: val, isShowVolume: true }, () =>
+      timer2 = setTimeout(() => {
+        this.setState({ isShowVolume: false })
+      }, 1000))
+    volume.style.backgroundSize = audioVolume * 100 + `% 100%`;
+  }
+
+  // 全局键盘事件
+  keyboardEvents = type => {
+    switch (type) {
+      case 'Up':
+      case 'Down':
+        this.keyboardSetVolume(type);
+        break;
+      case 'Left':
+      case 'Right':
+        type === 'Left' ? this.handelCutSong(1) : this.handelCutSong(2);
+        break;
+      case 'Space': this.handelIsPlay(); break;
+      default: break;
+
+
+
     }
   }
 
@@ -155,21 +193,31 @@ class Footer extends Component {
 
   // 调整音量
   changeVolume = () => {
+    clearTimeout(timer2);
     const { volume } = this;
     const volumeVal = volume.value;
     const audioVolume = volume.value / volume.max;
-    this.setState({ audioVolume, volumeVal })
+    this.setState({ audioVolume, volumeVal, isShowVolume: true }, () =>
+      timer2 = setTimeout(() => {
+        this.setState({ isShowVolume: false })
+      }, 1000))
     volume.style.backgroundSize = audioVolume * 100 + `% 100%`;
   }
 
   componentDidMount = () => {
+    const that = this;
     const { range, volume } = this;
-    global.range = range;
     const { id, volumeVal } = this.state;
+    global.range = range;
     const audioVolume = volumeVal / volume.max;
     this.setState({ audioVolume })
     volume.style.backgroundSize = audioVolume * 100 + `% 100%`;
     if (id) this.getSongUrl(false);
+    ipc.on('Up', (e, message) => that.keyboardEvents(message))
+    ipc.on('Down', (e, message) => that.keyboardEvents(message))
+    ipc.on('Left', (e, message) => that.keyboardEvents(message))
+    ipc.on('Right', (e, message) => that.keyboardEvents(message))
+    ipc.on('Space', (e, message) => that.keyboardEvents(message))
 
   }
 
@@ -203,7 +251,7 @@ class Footer extends Component {
   render() {
     const { currentTime } = this.props;
     const { playListStatus } = this.props.modalPower;
-    const { url, isPlay, orderType, duration, currentPlayer, rangeVal, volumeVal, audioVolume, isShowPlayer, lyricText, rotate } = this.state;
+    const { url, isPlay, orderType, duration, currentPlayer, rangeVal, volumeVal, audioVolume, isShowPlayer, lyricText, rotate, isShowVolume } = this.state;
     return (
       <div className={styles.footer}>
         <Audio
@@ -265,8 +313,8 @@ class Footer extends Component {
                 onChange={this.changeProgress}
                 ref={(range) => (this.range = range)}
                 type="range"
-                min="0"
-                max="1000"
+                min={0}
+                max={1000}
                 value={rangeVal || 0}
               />
             </div>
@@ -276,14 +324,17 @@ class Footer extends Component {
 
         <div className={styles.right}>
           <div className={styles.tool}>
-            <Tooltip title={`current volume:${volumeVal + '/' + 100}`}>
+            <Tooltip
+              visible={isShowVolume}
+              title={`current volume:${volumeVal + '/' + 100}`}
+            >
               <input
                 className={styles.volume}
                 onChange={this.changeVolume}
                 ref={volume => (this.volume = volume)}
                 type="range"
-                min="0"
-                max="100"
+                min={0}
+                max={100}
                 value={volumeVal || 0}
               />
             </Tooltip>

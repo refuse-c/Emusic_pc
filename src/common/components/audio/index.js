@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-10 15:55:14
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-18 19:36:44
+ * @LastEditTime: 2020-12-20 14:37:11
  * @Description 播放组件
  */
 import { cutSong } from '@/common/utils/tools';

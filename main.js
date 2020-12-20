@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-20 16:41:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-18 11:39:17
+ * @LastEditTime: 2020-12-20 15:09:46
  * @Description: 
  */
 const fs = require('fs');
@@ -91,6 +91,26 @@ app.on('ready', () => {
   // 刷新页面
   globalShortcut.register('Alt+Q', () => {
     mainWindow.reload();
+  });
+  // 音量+
+  globalShortcut.register('Alt+Up', (even) => {
+    mainWindow.webContents.send('Up', 'Up')
+  });
+  // 音量-
+  globalShortcut.register('Alt+Down', () => {
+    mainWindow.webContents.send('Down', 'Down')
+  });
+  // 上一曲
+  globalShortcut.register('Alt+Left', () => {
+    mainWindow.webContents.send('Left', 'Left')
+  });
+  // 下一曲
+  globalShortcut.register('Alt+Right', () => {
+    mainWindow.webContents.send('Right', 'Right')
+  });
+  // 播放/暂停
+  globalShortcut.register('Alt+Space', () => {
+    mainWindow.webContents.send('Space', 'Space')
   });
 });
 
