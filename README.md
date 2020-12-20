@@ -32,4 +32,4 @@ gitee: https://github.com/refuse-c/Emusic_pc.git
 
 4. npm run packager
 
-5. ./Emusic-win32-x64/Emusic.exe(window 系统,mac 自行研究)
+5. ./Emusic-win32-x64/Emusic.exe(适用于window系统,mac自行研究)
