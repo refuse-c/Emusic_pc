@@ -20,10 +20,11 @@
 
 ## 使用方法
 
+### projectUrl:
 github:https://gitee.com/refuse-c/Emusic_pc.git
 gitee: https://github.com/refuse-c/Emusic_pc.git
 
-1. git clone <url>
+1. git clone projectUrl
 
 2. npm install
 
