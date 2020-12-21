@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-20 15:07:44
+ * @LastEditTime: 2020-12-21 17:33:02
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -14,11 +14,12 @@ import { connect } from 'react-redux';
 import { lyric, songUrl } from '@/common/api/api';
 import { bindActionCreators } from 'redux';
 import { currentPlayer, currentPlayList, currentTime, modalPower } from '@/store/actions';
-import { cutSong, formatLrc } from '@/common/utils/tools';
+import { cutSong, formatLrc, getLocal } from '@/common/utils/tools';
 import { message, Tooltip } from 'antd';
 import { formatImgSize, formatSongTime } from '@/common/utils/format';
 import { IS_SHOW_PLAYLIST } from '@/store/actionTypes';
 import { withRouter } from 'react-router-dom';
+import { likeList, setLike } from '@/common/api/like';
 // electron 键盘事件 
 const { ipcRenderer: ipc } = window.require('electron');
 let timer1;
@@ -29,6 +30,7 @@ class Footer extends Component {
     this.state = {
       id: '',
       url: '',
+      uid: '',
       isPlay: false,
       orderType: 1,// 播放模式 1 顺序播放 2 随机播放 3 单曲循环
       rangeVal: 0, // 进度条数值
@@ -41,6 +43,7 @@ class Footer extends Component {
       lyricText: [],
       rotate: 0,
       isShowVolume: false,
+      likeListIds: []  // 喜欢的列表
     }
   }
 
@@ -73,9 +76,6 @@ class Footer extends Component {
         break;
       case 'Space': this.handelIsPlay(); break;
       default: break;
-
-
-
     }
   }
 
@@ -95,6 +95,36 @@ class Footer extends Component {
       this.setState({ isPlay: true })
     }
 
+  }
+
+  // 查询当前音乐是否为喜欢音乐
+  isLike = id => {
+    const { likeListIds: list } = this.state;
+    console.log(list)
+    if (list.length === 0) return -1;
+    return list.findIndex(item => item === id)
+  }
+
+  // 查询全部喜欢的音乐
+  queryLikeList = async (uid) => {
+    const res = await likeList({ uid })
+    const likeListIds = res.ids || [];
+    this.setState({ likeListIds })
+  }
+
+  // 添加/删除喜欢
+  handelLike = async (id, like) => {
+    const res = await setLike({ id, like })
+    message.destroy();
+
+    const { callBack } = this.props;
+    callBack && callBack()
+    if (res.code === 200) {
+      this.queryLikeList();
+      like ? message.info('已添加到我喜欢的音乐') : message.info('取消喜欢成功')
+    } else {
+      like ? message.info('添加到我喜欢的音乐失败,,请重试') : message.info('取消喜欢失败,请重试')
+    }
   }
 
   // 获取音乐播放地址
@@ -204,11 +234,14 @@ class Footer extends Component {
     volume.style.backgroundSize = audioVolume * 100 + `% 100%`;
   }
 
+
+
   componentDidMount = () => {
     const that = this;
     const { range, volume } = this;
     const { id, volumeVal } = this.state;
     global.range = range;
+
     const audioVolume = volumeVal / volume.max;
     this.setState({ audioVolume })
     volume.style.backgroundSize = audioVolume * 100 + `% 100%`;
@@ -218,6 +251,10 @@ class Footer extends Component {
     ipc.on('Left', (e, message) => that.keyboardEvents(message))
     ipc.on('Right', (e, message) => that.keyboardEvents(message))
     ipc.on('Space', (e, message) => that.keyboardEvents(message))
+    // 获取用户喜欢的列表
+    const userInfo = getLocal('userInfo') || {};
+    const uid = userInfo.userId ? userInfo.userId : '';
+    if (uid) this.queryLikeList(uid);
 
   }
 
@@ -237,10 +274,17 @@ class Footer extends Component {
     return null;
   }
 
-  componentDidUpdate = prevState => {
-    const { id } = prevState.currentPlayer;
+
+  componentDidUpdate = prevProps => {
+    const { id } = prevProps.currentPlayer;
     if (id !== this.state.id && this.state.id !== undefined) {
       this.getSongUrl();
+    }
+    if (this.props.likeRefreshStatus) {
+      // 获取用户喜欢的列表
+      const userInfo = getLocal('userInfo') || {};
+      const uid = userInfo.userId ? userInfo.userId : '';
+      if (uid) this.queryLikeList(uid);
     }
   }
 
@@ -251,7 +295,7 @@ class Footer extends Component {
   render() {
     const { currentTime } = this.props;
     const { playListStatus } = this.props.modalPower;
-    const { url, isPlay, orderType, duration, currentPlayer, rangeVal, volumeVal, audioVolume, isShowPlayer, lyricText, rotate, isShowVolume } = this.state;
+    const { id, url, isPlay, orderType, duration, currentPlayer, rangeVal, volumeVal, audioVolume, isShowPlayer, lyricText, rotate, isShowVolume } = this.state;
     return (
       <div className={styles.footer}>
         <Audio
@@ -278,8 +322,20 @@ class Footer extends Component {
         <div className={styles.left} onClick={() => { if (currentPlayer.al) this.setState({ isShowPlayer: !isShowPlayer }) }}>
           {currentPlayer.al ? <img src={formatImgSize(currentPlayer.al.picUrl, 50, 50) || require('@images/album.png')} alt="" /> : null}
           <div className={styles.music_info}>
-            <p className="overflow">{currentPlayer.name}</p>
-            <p className="overflow">{currentPlayer.ar && currentPlayer.ar.map(item => item.name).join('/ ')}</p>
+            <div>
+              <p className="overflow">{currentPlayer.name} </p>
+              {currentPlayer.al ? <i
+                className={this.isLike(id) !== -1 ? styles.like : styles.unlike}
+                onClick={(e) => {
+                  this.handelLike(id, this.isLike(id) === -1 ? true : false)
+                  e.stopPropagation();
+                  e.nativeEvent.stopImmediatePropagation();
+                }}
+              ></i> : null}
+            </div>
+            <div>
+              <p className="overflow">{currentPlayer.ar && currentPlayer.ar.map(item => item.name).join('/ ')}</p>
+            </div>
           </div>
         </div>
         <div className={styles.control}>
@@ -351,6 +407,8 @@ class Footer extends Component {
 
 const mapStateToProps = state => {
   return {
+    userInfo: state.userInfo,
+    likeRefreshStatus: state.likeRefreshStatus,
     currentTime: state.currentTime,
     currentPlayer: state.currentPlayer,
     currentPlayList: state.currentPlayList,

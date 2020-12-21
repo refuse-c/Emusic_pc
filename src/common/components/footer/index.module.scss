@@ -11,6 +11,17 @@
   padding: 0 14px;
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
 
+  i {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: pink;
+
+    &:not(:first-child) {
+      margin-left: 20px;
+    }
+  }
 
   .left {
     display: flex;
@@ -29,16 +40,46 @@
       display: flex;
       width: 200px;
       flex-direction: column;
-      justify-content: center;
       padding-left: 16px;
 
-      p {
+      div {
+        display: flex;
+        align-items: center;
         font-size: $fz14;
         line-height: 1.2;
 
+        p {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          padding-right: 5px;
+          line-height: 30px;
+
+
+        }
+
+        i {
+          cursor: pointer;
+          min-width: 30px !important;
+          min-height: 30px !important;
+          margin-left: 0 !important;
+
+          &.unlike {
+            background: url("~@images/unlike.png") center center / auto 48px no-repeat;
+          }
+
+          &.like {
+            min-width: 30px !important;
+            min-height: 30px !important;
+            margin-left: 0 !important;
+            background: url("~@images/like.png") center center / auto 48px no-repeat;
+          }
+        }
+
         &:last-child {
-          margin-top: 8px;
           font-size: $fz13;
+          height: 14px;
+          line-height: 14px;
         }
       }
     }
@@ -128,8 +169,6 @@
         display: flex;
         align-items: center;
         flex: 1;
-
-
       }
 
 
@@ -186,18 +225,6 @@
         width: 10px;
         visibility: visible;
       }
-    }
-  }
-
-  i {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: pink;
-
-    &:not(:first-child) {
-      margin-left: 20px;
     }
   }
 }

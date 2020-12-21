@@ -2,20 +2,29 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 18:50:54
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-17 13:48:40
+ * @LastEditTime: 2020-12-21 16:19:21
  * @Description 布局
  */
 import React, { Component } from 'react';
 import styles from './index.module.scss';
 import Menu from '@components/menu/Menu';
 import { Route } from 'react-router-dom';
-import Footer from '@components/footer/Footer';
+import Footer from '@components/footer';
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      onLoadData: false
+    }
   }
+
+
+  callBack = () => {
+    this.setState({ onLoadData: true }, () => this.setState({ onLoadData: false }))
+  }
+
   render() {
+    const { onLoadData } = this.state;
     return (
       <div className={styles.home} >
         <div className={styles.top}>
@@ -32,7 +41,7 @@ class Home extends Component {
                     // exact
                     path={route.path}
                     render={(props) => (
-                      <route.component {...props} routes={route.routes} />
+                      <route.component {...props} onLoadData={onLoadData} routes={route.routes} />
                     )}
                   />
                 );
@@ -42,7 +51,7 @@ class Home extends Component {
                     key={key}
                     path={route.path}
                     render={(props) => (
-                      <route.component {...props} routes={route.routes} />
+                      <route.component {...props} onLoadData={onLoadData} routes={route.routes} />
                     )}
                   />
                 );
@@ -50,8 +59,8 @@ class Home extends Component {
             })}
           </div>
         </div>
-        <div className={styles.footer}>
-          <Footer />
+        <div className={styles.footer} >
+          <Footer callBack={this.callBack} />
         </div>
       </div>
     );

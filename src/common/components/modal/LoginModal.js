@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 21:48:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-19 00:09:19
+ * @LastEditTime: 2020-12-21 17:28:44
  * @Description 登录弹窗
  */
 import React, { Component } from 'react'
@@ -11,9 +11,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modalPower, queryUserInfo, userPlayList } from '@/store/actions';
 import { IS_SHOW_LOGIN } from '@/store/actionTypes';
-import { login, loginStatus } from '@/common/api/api';
+import { login } from '@/common/api/api';
 import { routerJump, setLocal } from '@/common/utils/tools';
-import { userPlaylist } from '@/common/api/user';
+
 // import MD5 from 'crypto-js/md5'
 const FormItem = Form.Item;
 class LoginModal extends Component {
@@ -23,38 +23,16 @@ class LoginModal extends Component {
   }
   // 登录
   handelLogin = async params => {
-    const { history } = this.props;
+    const { history, callBack } = this.props;
     const res = await login(params);
     if (res.code !== 200) return;
     this.props.handelModalPower({ type: IS_SHOW_LOGIN, data: false });
     message.info('登录成功');
     setLocal('userInfo', res.profile);
     const uid = res.profile.userId;
-    this.queryUserPlaylist(uid);
-    this.props.handleQueryUserInfo(res);
+    callBack && callBack(uid);
+    this.props.handleQueryUserInfo(res.profile);
     routerJump(history, `/home/find/`)
-  }
-
-  queryLoginStatus = async params => {
-    const res = await loginStatus(params);
-    if (res.code !== 200) return;
-    setLocal('userInfo', res.profile);
-    const uid = res.profile.userId;
-    this.queryUserPlaylist(uid);
-    this.props.handleQueryUserInfo(res);
-  }
-
-  // 获取用户歌单
-  queryUserPlaylist = async uid => {
-    const res = await userPlaylist({ uid })
-    if (res.code !== 200) return;
-    const allList = res.playlist;
-    let createList = allList.filter(item => item.privacy !== 10 && item.userId === uid);
-    let collectList = allList.filter(item => item.privacy !== 10 && item.userId !== uid);
-    createList.unshift({ name: '创建的歌单' })
-    collectList.unshift({ name: '收藏的歌单' })
-    const list = createList.concat(collectList);
-    this.props.handeUserPlayList(list);
   }
 
   // 表单验证
@@ -87,9 +65,7 @@ class LoginModal extends Component {
     this.props.handelModalPower({ type: IS_SHOW_LOGIN, data: false });
   }
 
-  componentDidMount = () => {
-    this.queryLoginStatus();
-  }
+
   formRef = React.createRef();
   render() {
     return (

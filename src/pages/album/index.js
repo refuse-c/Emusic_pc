@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 15:39:35
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-19 16:48:20
+ * @LastEditTime: 2020-12-21 16:25:37
  * @Description: 歌单详情
  */
 import React, { Component } from 'react'
@@ -77,6 +77,7 @@ class Single extends Component {
   }
 
   render() {
+    const { onLoadData } = this.props;
     const { loading, playlist, list } = this.state;
     return (
       <div className={styles.single}>
@@ -88,7 +89,7 @@ class Single extends Component {
           <Spin tip="Loading..." spinning={loading} >
             <div className={styles.single_box}>
               <Head data={playlist} type={4} list={list} />
-              <MusicList list={list} history={this.props.history} callBack={this.queryAlbum} />
+              <MusicList list={list} history={this.props.history} callBack={this.queryAlbum} onLoadData={onLoadData} />
             </div>
           </Spin>
         </ScrollView>

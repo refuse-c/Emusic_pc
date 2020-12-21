@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 15:39:35
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-19 16:48:06
+ * @LastEditTime: 2020-12-21 16:25:52
  * @Description: 歌单详情
  */
 import React, { Component } from 'react'
@@ -53,6 +53,7 @@ class Single extends Component {
 
   render() {
     const date = new Date();
+    const { onLoadData } = this.props;
     const { loading, list } = this.state;
     return (
       <div className={styles.single}>
@@ -75,7 +76,7 @@ class Single extends Component {
             </div>
             <div className={styles.single_box}>
               <PlayAll list={list} title="播放全部" cls={'play_all_2'} />
-              <MusicList list={list} callBack={this.queryRecommendSongs} />
+              <MusicList list={list} callBack={this.queryRecommendSongs} onLoadData={onLoadData} />
             </div>
           </Spin>
         </ScrollView>

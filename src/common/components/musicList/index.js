@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-19 17:18:29
+ * @LastEditTime: 2020-12-21 17:34:05
  * @Description: 歌单列表
  */
 import { formatSerialNo, formatSongTime } from '@/common/utils/format';
@@ -12,7 +12,7 @@ import styles from './css/index.module.scss';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { currentPlayList, currentPlayer } from '@/store/actions';
+import { currentPlayList, currentPlayer, likeRefreshStatus } from '@/store/actions';
 import { highlightText, routerJump } from '@/common/utils/tools';
 import queryString from 'query-string';
 import { withRouter } from 'react-router-dom';
@@ -106,7 +106,7 @@ class MusicList extends Component {
   // 查询当前音乐是否为喜欢音乐
   isLike = id => {
     const { likeListIds: list } = this.state;
-    if (list.length === 0) return;
+    if (list.length === 0) return -1;
     return list.findIndex(item => item === id)
   }
 
@@ -119,16 +119,26 @@ class MusicList extends Component {
 
   // 添加/删除喜欢
   handelLike = async (id, like) => {
-    const { callBack } = this.props;
+    const { callBack, userPlayList, singleId } = this.props;
+    const specialType = userPlayList.find(item => item.specialType === 5)
     const res = await setLike({ id, like })
     message.destroy();
     if (res.code === 200) {
-      callBack && callBack();
+      // id相等时是默认喜欢的歌单 // 需要刷新歌单//否者只需要刷新喜欢的列表
+      console.log(singleId, specialType.id)
+      if (Number(singleId) === specialType.id) {
+        callBack && callBack();
+      } else {
+        const { userInfo } = this.props;
+        const uid = userInfo.userId ? userInfo.userId : '';
+        if (uid) await this.queryLikeList(uid);
+      }
+      this.props.setLikeRefreshStatus(true);
+      this.props.setLikeRefreshStatus(false);
       like ? message.info('已添加到我喜欢的音乐') : message.info('取消喜欢成功')
     } else {
-      like ? message.info('添加到我喜欢的音乐失败,,请重试') : message.info('取消喜欢失败,请重试')
+      like ? message.error('添加到我喜欢的音乐失败,请重试') : message.error('取消喜欢失败,请重试')
     }
-
 
   }
 
@@ -165,18 +175,21 @@ class MusicList extends Component {
     return record.st === -200 ? styles.disabled : ''
   }
 
-  // 获取喜欢的列表 
+
   componentDidMount = async () => {
     const { userInfo } = this.props;
-    const uid = userInfo.profile ? userInfo.profile.userId : '';
+    const uid = userInfo.userId ? userInfo.userId : '';
     if (uid) await this.queryLikeList(uid);
   }
 
   componentDidUpdate = prevProps => {
-    const { userInfo } = this.props;
-    const uid = userInfo.profile ? userInfo.profile.userId : '';
-    if (prevProps.list !== this.props.list) {
+    const { userInfo, onLoadData } = this.props;
+    const uid = userInfo.userId ? userInfo.userId : '';
+    if (prevProps.list !== this.props.list && uid) {
       this.queryLikeList(uid);
+    }
+    if (uid && onLoadData) {
+      this.queryLikeList(uid)
     }
   }
 
@@ -223,6 +236,7 @@ MusicList.propTypes = {
 const mapStateToProps = state => {
   return {
     userInfo: state.userInfo,
+    userPlayList: state.userPlayList,
     currentPlayer: state.currentPlayer,
     currentPlayList: state.currentPlayList,
   }
@@ -231,6 +245,7 @@ const mapDispatchToProps = dispatch => {
   return {
     setCurrentPlayList: bindActionCreators(currentPlayList, dispatch), // 当前播放歌单列表
     setCurrentPlayer: bindActionCreators(currentPlayer, dispatch), // 获取当前音乐信息
+    setLikeRefreshStatus: bindActionCreators(likeRefreshStatus, dispatch), // 设置喜欢的音乐刷新数据
   }
 }
 const box = connect(mapStateToProps, mapDispatchToProps)(MusicList)

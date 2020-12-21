@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-17 12:52:17
+ * @LastEditTime: 2020-12-21 12:38:33
  * @Description: 头部 
  */
 import React, { Component } from 'react';
@@ -11,14 +11,12 @@ import Login from '../modal/LoginModal';
 import { connect } from 'react-redux';
 import SearchInput from '@pages/search/component/SearchInput';
 import { bindActionCreators } from 'redux';
-import { modalPower, queryUserInfo, userPlayList } from '@/store/actions';
+import { modalPower } from '@/store/actions';
 import { IS_SHOW_LOGIN, IS_SHOW_SKIN } from '@/store/actionTypes';
-import { getLocal, reLocal, routerJump } from '@/common/utils/tools';
+import { getLocal, routerJump } from '@/common/utils/tools';
 import { withRouter } from 'react-router-dom';
 import { isEmpty } from '@/common/utils/format';
-import { logout } from '@/common/api/api';
-import { message, Tooltip } from 'antd';
-
+import { Tooltip } from 'antd';
 // 使用electron 最小化 关闭 
 const { ipcRenderer: ipc } = window.require('electron');
 
@@ -35,15 +33,8 @@ class Header extends Component {
     this.props.history.go(setp)
   }
 
-  logout = async params => {
-    const { history } = this.props;
-    const res = await logout(params);
-    if (res.code !== 200) return;
-    reLocal('userInfo');
-    message.info('已退出登录');
-    this.props.handeUserPlayList([]);
-    this.props.handleQueryUserInfo({});
-    routerJump(history, `/home/find/`);
+  callBack = id => {
+    this.props.queryUserPlaylist(id)
   }
 
   render() {
@@ -55,6 +46,7 @@ class Header extends Component {
         history={history}
         showModal={loginStatue}
         hideModal={this.hideModal}
+        callBack={this.callBack}
       />
       <div className={styles.header_left}>
         <div
@@ -74,7 +66,7 @@ class Header extends Component {
       <ul className={styles.header_right}>
         {!isEmpty(userInfo) ?
           <Tooltip title={`点击此处退出登录`}>
-            <li onClick={() => this.logout()}>
+            <li onClick={() => this.props.logout()}>
               <p
                 className={styles.avatar}
                 style={{ backgroundImage: `url(${userInfo.avatarUrl})` }}
@@ -119,9 +111,7 @@ const mapStateToprops = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    handleModalPower: bindActionCreators(modalPower, dispatch),
-    handleQueryUserInfo: bindActionCreators(queryUserInfo, dispatch),
-    handeUserPlayList: bindActionCreators(userPlayList, dispatch)
+    handleModalPower: bindActionCreators(modalPower, dispatch)
   }
 }
 

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:45:41
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-02 19:47:07
+ * @LastEditTime: 2020-12-21 16:35:47
  * @Description: redux
  */
 
@@ -34,4 +34,9 @@ export const currentPlayList = (data) => {
 // 播放时间
 export const currentTime = (data) => {
   return { type: ACTIONTYPS.CURRENT_TIME, data }
+}
+
+// 设置喜欢的音乐刷新数据
+export const likeRefreshStatus = (data) => {
+  return { type: ACTIONTYPS.LIKE_REFRESH_STATUES, data }
 }
