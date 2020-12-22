@@ -7,9 +7,9 @@
 
 # testing
 /coverage
-
 # production
 /build
+/src/common/components/modal/LoginModal.js
 /Emusic-win32-x64
 # misc
 .DS_Store

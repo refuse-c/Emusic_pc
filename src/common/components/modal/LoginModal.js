@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 21:48:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-22 11:09:48
+ * @LastEditTime: 2020-12-22 11:10:38
  * @Description 登录弹窗
  */
 import React, { Component } from 'react'
@@ -83,7 +83,7 @@ class LoginModal extends Component {
           <FormItem
             label="账号"
             name="phone"
-            // initialValue="13272946536"
+            initialValue="13272946536"
             extra="*目前仅支持使用手机号码登录"
             getValueFromEvent={(e) => (e.target.value)}
             rules={
@@ -102,7 +102,7 @@ class LoginModal extends Component {
           </FormItem >
           <FormItem label="密码"
             name="password"
-            // initialValue="Wangyi123" // Wangyi123
+            initialValue="Wangyi123" // Wangyi123
             rules={[
               {
                 required: true,

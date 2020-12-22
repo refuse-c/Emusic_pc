@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 21:47:50
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-22 11:06:23
+ * @LastEditTime: 2020-12-22 11:11:39
  * @Description:播放页面
  */
 import { formatImgSize } from "@/common/utils/format";
@@ -45,7 +45,6 @@ class Player extends Component {
                 className={styles.album_img}
                 style={{ transform: `rotate(${rotate + 'deg'})` }}
               >
-
                 {data.al ? <img src={formatImgSize(data.al.picUrl, 200, 200)} alt="" /> : ''}
               </div>
             </div>
