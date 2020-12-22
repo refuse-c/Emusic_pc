@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 21:47:50
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-20 12:43:41
+ * @LastEditTime: 2020-12-22 11:06:23
  * @Description:播放页面
  */
 import { formatImgSize } from "@/common/utils/format";
@@ -10,6 +10,12 @@ import { getTimeIndex } from "@/common/utils/tools";
 import React, { Component } from "react";
 import ScrollArea from 'react-scrollbar';
 import styles from "./css/index.module.scss";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { modalPower } from '@/store/actions';
+import { withRouter } from 'react-router-dom';
+import { IS_SHOW_PLAYLIST } from "@/store/actionTypes";
+
 // import Audio from "@components/audio";
 class Player extends Component {
   constructor(props) {
@@ -17,6 +23,10 @@ class Player extends Component {
     this.state = {};
   }
 
+  hidePlayList = () => {
+    const { playListStatus } = this.props.modalPower;
+    if (playListStatus) { this.props.handleModalPower({ type: IS_SHOW_PLAYLIST, data: !playListStatus }) }
+  }
 
 
   render() {
@@ -24,7 +34,9 @@ class Player extends Component {
     const cls = isPlay ? styles.active : null;
     return (
       <div className={styles.player}
-        style={{ transform: hasShow ? `scale(1)` : `scale(0)` }}>
+        style={{ transform: hasShow ? `scale(1)` : `scale(0)` }}
+        onClick={this.hidePlayList}
+      >
         <div className={styles.player_content}>
           <div className={styles.top}>
             <div className={[styles.top_content, styles.album].join(' ')}>
@@ -83,4 +95,18 @@ class Player extends Component {
   }
 }
 
-export default Player;
+
+const mapStateToprops = state => {
+  return {
+    userInfo: state.userInfo,
+    modalPower: state.modalPower,
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    handleModalPower: bindActionCreators(modalPower, dispatch)
+  }
+}
+
+export default withRouter(connect(mapStateToprops, mapDispatchToProps)(Player));
+

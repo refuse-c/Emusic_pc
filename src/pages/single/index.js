@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 15:39:35
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-21 17:20:14
+ * @LastEditTime: 2020-12-22 10:26:38
  * @Description: 歌单详情
  */
 import React, { Component } from 'react'
@@ -13,7 +13,7 @@ import ScrollView from 'react-custom-scrollbars';
 
 import { playlistDetail, songDetail } from '@/common/api/api';
 import { message, Spin } from 'antd';
-import { traverseId } from '@/common/utils/tools';
+import { getSession, setSession, traverseId } from '@/common/utils/tools';
 class Single extends Component {
   constructor(props) {
     super(props);
@@ -21,13 +21,15 @@ class Single extends Component {
       id: '',
       list: [],
       playlist: {},
-      loading: true
+      loading: false,
     }
   }
 
   // 获取歌单列表
   queryPlayListDetail = async () => {
     const { id } = this.state;
+    this.setState({ loading: true, list: [] })
+    setSession('currentSingleId', id || '');
     const res = await playlistDetail({ id });
     if (res.code === 200) {
       if (res.playlist.trackIds.length === 0) {
@@ -39,7 +41,6 @@ class Single extends Component {
 
   // 歌曲详情
   querySongDetail = async data => {
-    // const ids = data.playlist.trackIds.map(item => item.id).join(',');
     const ids = traverseId(data.playlist.trackIds);
     const res = await songDetail({ ids });
     this.setState({ loading: false });
@@ -55,7 +56,7 @@ class Single extends Component {
   }
 
   componentDidMount = () => {
-    const id = this.props.match.params.id
+    const id = this.props.match.params.id;
     this.setState({ id }, () => this.queryPlayListDetail())
   }
 
@@ -71,9 +72,14 @@ class Single extends Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
+    const { onLoadData } = this.props;
+    const currentSingleId = getSession('currentSingleId') || '';
+    const myLikeSingleId = getSession('myLikeSingleId') || '';
     if (this.state.id !== prevState.id) {
       this.queryPlayListDetail();
-      this.setState({ loading: true, list: [] })
+    }
+    if (onLoadData && String(currentSingleId) === String(myLikeSingleId)) {
+      this.queryPlayListDetail();
     }
   }
 

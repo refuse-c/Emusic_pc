@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-30 08:48:51
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-21 16:29:31
+ * @LastEditTime: 2020-12-22 10:33:08
  * @Description: 声明默认值
  */
 let initState = {
@@ -12,9 +12,10 @@ let initState = {
     // pwd: '123456'
   },// 登录后的信息
   modalPower: {
-    loginStatue: false,
-    skinStatue: false,
-    playListStatus: false
+    loginStatus: false,
+    skinStatus: false,
+    playListStatus: false,
+    playerStatus: false,
   },
   currentTime: 0,// 当前播放时间
   currentPlayer: { id: '' }, // 当前播放的音乐

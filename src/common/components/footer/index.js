@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-21 17:33:02
+ * @LastEditTime: 2020-12-22 10:52:34
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -14,10 +14,10 @@ import { connect } from 'react-redux';
 import { lyric, songUrl } from '@/common/api/api';
 import { bindActionCreators } from 'redux';
 import { currentPlayer, currentPlayList, currentTime, modalPower } from '@/store/actions';
-import { cutSong, formatLrc, getLocal } from '@/common/utils/tools';
+import { cutSong, formatLrc, getSession } from '@/common/utils/tools';
 import { message, Tooltip } from 'antd';
 import { formatImgSize, formatSongTime } from '@/common/utils/format';
-import { IS_SHOW_PLAYLIST } from '@/store/actionTypes';
+import { IS_SHOW_PLAYER, IS_SHOW_PLAYLIST } from '@/store/actionTypes';
 import { withRouter } from 'react-router-dom';
 import { likeList, setLike } from '@/common/api/like';
 // electron 键盘事件 
@@ -39,7 +39,6 @@ class Footer extends Component {
       volumeVal: 50,
       audioVolume: 0.5,
       currentPlayer: {},
-      isShowPlayer: false,
       lyricText: [],
       rotate: 0,
       isShowVolume: false,
@@ -100,7 +99,6 @@ class Footer extends Component {
   // 查询当前音乐是否为喜欢音乐
   isLike = id => {
     const { likeListIds: list } = this.state;
-    console.log(list)
     if (list.length === 0) return -1;
     return list.findIndex(item => item === id)
   }
@@ -116,7 +114,6 @@ class Footer extends Component {
   handelLike = async (id, like) => {
     const res = await setLike({ id, like })
     message.destroy();
-
     const { callBack } = this.props;
     callBack && callBack()
     if (res.code === 200) {
@@ -252,8 +249,7 @@ class Footer extends Component {
     ipc.on('Right', (e, message) => that.keyboardEvents(message))
     ipc.on('Space', (e, message) => that.keyboardEvents(message))
     // 获取用户喜欢的列表
-    const userInfo = getLocal('userInfo') || {};
-    const uid = userInfo.userId ? userInfo.userId : '';
+    const uid = getSession('uid');
     if (uid) this.queryLikeList(uid);
 
   }
@@ -282,8 +278,7 @@ class Footer extends Component {
     }
     if (this.props.likeRefreshStatus) {
       // 获取用户喜欢的列表
-      const userInfo = getLocal('userInfo') || {};
-      const uid = userInfo.userId ? userInfo.userId : '';
+      const uid = getSession('uid');
       if (uid) this.queryLikeList(uid);
     }
   }
@@ -294,8 +289,8 @@ class Footer extends Component {
   }
   render() {
     const { currentTime } = this.props;
-    const { playListStatus } = this.props.modalPower;
-    const { id, url, isPlay, orderType, duration, currentPlayer, rangeVal, volumeVal, audioVolume, isShowPlayer, lyricText, rotate, isShowVolume } = this.state;
+    const { playListStatus, playerStatus } = this.props.modalPower;
+    const { id, url, isPlay, orderType, duration, currentPlayer, rangeVal, volumeVal, audioVolume, lyricText, rotate, isShowVolume } = this.state;
     return (
       <div className={styles.footer}>
         <Audio
@@ -313,13 +308,13 @@ class Footer extends Component {
         />
         <Player
           isPlay={isPlay}
-          hasShow={isShowPlayer}
+          hasShow={playerStatus}
           lyricText={lyricText}
           data={currentPlayer}
           rotate={rotate}
           currentTime={currentTime}
         />
-        <div className={styles.left} onClick={() => { if (currentPlayer.al) this.setState({ isShowPlayer: !isShowPlayer }) }}>
+        <div className={styles.left} onClick={() => { if (currentPlayer.al) this.props.handleModalPower({ type: IS_SHOW_PLAYER, data: !playerStatus }) }}>
           {currentPlayer.al ? <img src={formatImgSize(currentPlayer.al.picUrl, 50, 50) || require('@images/album.png')} alt="" /> : null}
           <div className={styles.music_info}>
             <div>

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-21 12:38:33
+ * @LastEditTime: 2020-12-22 11:05:36
  * @Description: 头部 
  */
 import React, { Component } from 'react';
@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import SearchInput from '@pages/search/component/SearchInput';
 import { bindActionCreators } from 'redux';
 import { modalPower } from '@/store/actions';
-import { IS_SHOW_LOGIN, IS_SHOW_SKIN } from '@/store/actionTypes';
+import { IS_SHOW_LOGIN, IS_SHOW_PLAYER, IS_SHOW_PLAYLIST, IS_SHOW_SKIN } from '@/store/actionTypes';
 import { getLocal, routerJump } from '@/common/utils/tools';
 import { withRouter } from 'react-router-dom';
 import { isEmpty } from '@/common/utils/format';
@@ -30,6 +30,9 @@ class Header extends Component {
    * @param {number}  
    */
   go = setp => {
+    const { playListStatus, playerStatus } = this.props.modalPower;
+    if (playListStatus) { this.props.handleModalPower({ type: IS_SHOW_PLAYLIST, data: !playListStatus }) }
+    if (playerStatus) { this.props.handleModalPower({ type: IS_SHOW_PLAYER, data: !playerStatus }); return };
     this.props.history.go(setp)
   }
 
@@ -39,12 +42,12 @@ class Header extends Component {
 
   render() {
     const { history } = this.props;
-    const { loginStatue } = this.props.modalPower;
+    const { loginStatus } = this.props.modalPower;
     const userInfo = getLocal('userInfo') || {};
-    return (<div className={styles.header}>
+    return (<div className={styles.header} onClick={() => this.props.handelHideModal()}>
       <Login
         history={history}
-        showModal={loginStatue}
+        showModal={loginStatus}
         hideModal={this.hideModal}
         callBack={this.callBack}
       />

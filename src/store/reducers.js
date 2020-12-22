@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:20:09
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-21 16:31:07
+ * @LastEditTime: 2020-12-22 10:34:36
  * @Description:
  */
 
@@ -24,15 +24,19 @@ const modalPower = (state = initState.modalPower, action) => {
   switch (action.type) {
     case ACTIONTYPE.IS_SHOW_SKIN:
       return Object.assign({}, state, {
-        skinStatue: action.data
+        skinStatus: action.data
       });
     case ACTIONTYPE.IS_SHOW_LOGIN:
       return Object.assign({}, state, {
-        loginStatue: action.data
+        loginStatus: action.data
       });
     case ACTIONTYPE.IS_SHOW_PLAYLIST:
       return Object.assign({}, state, {
         playListStatus: action.data
+      });
+    case ACTIONTYPE.IS_SHOW_PLAYER:
+      return Object.assign({}, state, {
+        playerStatus: action.data
       });
     default: return state;
   }

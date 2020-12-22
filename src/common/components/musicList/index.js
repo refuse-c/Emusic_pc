@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-21 17:34:05
+ * @LastEditTime: 2020-12-22 10:08:04
  * @Description: 歌单列表
  */
 import { formatSerialNo, formatSongTime } from '@/common/utils/format';
@@ -13,7 +13,7 @@ import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { currentPlayList, currentPlayer, likeRefreshStatus } from '@/store/actions';
-import { highlightText, routerJump } from '@/common/utils/tools';
+import { getSession, highlightText, routerJump } from '@/common/utils/tools';
 import queryString from 'query-string';
 import { withRouter } from 'react-router-dom';
 import { setLike, likeList } from '@/common/api/like';
@@ -119,18 +119,17 @@ class MusicList extends Component {
 
   // 添加/删除喜欢
   handelLike = async (id, like) => {
-    const { callBack, userPlayList, singleId } = this.props;
-    const specialType = userPlayList.find(item => item.specialType === 5)
+    const { callBack, singleId } = this.props;
+    // 我喜欢的音乐的id
+    const myLikeSingleId = getSession('myLikeSingleId') || '';
     const res = await setLike({ id, like })
     message.destroy();
     if (res.code === 200) {
       // id相等时是默认喜欢的歌单 // 需要刷新歌单//否者只需要刷新喜欢的列表
-      console.log(singleId, specialType.id)
-      if (Number(singleId) === specialType.id) {
+      if (String(singleId) === String(myLikeSingleId)) {
         callBack && callBack();
       } else {
-        const { userInfo } = this.props;
-        const uid = userInfo.userId ? userInfo.userId : '';
+        const uid = getSession('uid');
         if (uid) await this.queryLikeList(uid);
       }
       this.props.setLikeRefreshStatus(true);
@@ -177,14 +176,13 @@ class MusicList extends Component {
 
 
   componentDidMount = async () => {
-    const { userInfo } = this.props;
-    const uid = userInfo.userId ? userInfo.userId : '';
+    const uid = getSession('uid');
     if (uid) await this.queryLikeList(uid);
   }
 
   componentDidUpdate = prevProps => {
-    const { userInfo, onLoadData } = this.props;
-    const uid = userInfo.userId ? userInfo.userId : '';
+    const { onLoadData } = this.props;
+    const uid = getSession('uid');
     if (prevProps.list !== this.props.list && uid) {
       this.queryLikeList(uid);
     }

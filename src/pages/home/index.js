@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 18:50:54
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-21 16:19:21
+ * @LastEditTime: 2020-12-22 11:02:17
  * @Description 布局
  */
 import React, { Component } from 'react';
@@ -25,9 +25,10 @@ class Home extends Component {
 
   render() {
     const { onLoadData } = this.state;
+    const { handelHideModal } = this.props;
     return (
       <div className={styles.home} >
-        <div className={styles.top}>
+        <div className={styles.top} onClick={() => handelHideModal && handelHideModal()}>
           <div className={styles.left}>
             <Menu />
           </div>
