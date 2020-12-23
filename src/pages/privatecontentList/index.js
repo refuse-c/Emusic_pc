@@ -7,10 +7,10 @@
  */
 import React, { Component } from 'react';
 import styles from './css/index.module.scss';
-import MvList from '@components/mv';
+import MvList from 'components/mv';
 import { Spin } from 'antd';
-import FindTitle from '@common/components/findTitle';
-import { privatecontentList } from '@/common/api/api';
+import FindTitle from 'components/findTitle';
+import { privatecontentList } from 'common/api/api';
 import ScrollView from 'react-custom-scrollbars';
 class PrivatecontentList extends Component {
   constructor(props) {

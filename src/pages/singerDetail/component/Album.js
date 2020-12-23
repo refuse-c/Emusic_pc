@@ -5,11 +5,11 @@
  * @LastEditTime: 2020-11-12 16:33:22
  * @Description: 
  */
-import { artistAlbum } from '@/common/api/singer';
+import { artistAlbum } from 'common/api/singer';
 import React, { Component } from 'react'
 import styles from '../css/index.module.scss';
 import queryString from 'query-string';
-import AlbumList from '@components/album';
+import AlbumList from 'components/album';
 import { Spin } from 'antd';
 
 class Album extends Component {

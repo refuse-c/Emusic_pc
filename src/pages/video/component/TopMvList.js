@@ -9,7 +9,7 @@
 import React, { Component } from 'react';
 import styles from '../css/index.module.scss';
 import propTypes from 'prop-types';
-import { formatImgSize, formatSerialNo } from '@/common/utils/format';
+import { formatImgSize, formatSerialNo } from 'common/utils/format';
 
 class TopMvList extends Component {
   constructor(props) {

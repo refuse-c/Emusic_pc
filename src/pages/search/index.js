@@ -8,19 +8,19 @@
 import React, { Component } from 'react';
 import styles from './css/index.module.scss';
 import queryString from 'query-string';
-import { search } from '@/common/api/search';
+import { search } from 'common/api/search';
 import ScrollView from 'react-custom-scrollbars';
-import { songDetail } from '@/common/api/api';
-import AlbumList from '@components/album';
-import SingerList from '@components/singer';
-import UserList from '@components/userList';
-import MusicList from '@components/musicList';
-import MvList from '@components/mv';
-import Vertical from '@components/songList/Vertical';
+import { songDetail } from 'common/api/api';
+import AlbumList from 'components/album';
+import SingerList from 'components/singer';
+import UserList from 'components/userList';
+import MusicList from 'components/musicList';
+import MvList from 'components/mv';
+import Vertical from 'components/songList/Vertical';
 
-import { keyToStr } from '@/common/utils/format';
+import { keyToStr } from 'common/utils/format';
 import { Pagination, Spin } from 'antd';
-import { highlightText, traverseId } from '@/common/utils/tools';
+import { highlightText, traverseId } from 'common/utils/tools';
 
 class Search extends Component {
   constructor(props) {

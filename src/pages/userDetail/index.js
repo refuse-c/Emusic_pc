@@ -7,11 +7,11 @@
  */
 import styles from './css/index.module.scss';
 import React, { Component } from 'react';
-import Head from '@components/head';
+import Head from 'components/head';
 import queryString from 'query-string';
-import { userDetail, userPlaylist, userRecord } from '@/common/api/user';
-import { countriesCode } from '@/common/api/api';
-import SongList from '@components/songList';
+import { userDetail, userPlaylist, userRecord } from 'common/api/user';
+import { countriesCode } from 'common/api/api';
+import SongList from 'components/songList';
 import ScrollView from 'react-custom-scrollbars';
 
 class UserDetail extends Component {

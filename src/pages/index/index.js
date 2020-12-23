@@ -6,17 +6,17 @@
 //  * @Description: 
  */
 import React, { Component } from "react";
-import Header from '@components/header/Header';
+import Header from 'components/header/Header';
 import { Route } from 'react-router-dom';
 import styles from './css/index.module.scss';
-import { setLocal, reLocal, routerJump, setSession } from '@/common/utils/tools';
-import { logout, loginStatus } from '@/common/api/api';
+import { setLocal, reLocal, routerJump, setSession } from 'common/utils/tools';
+import { logout, loginStatus } from 'common/api/api';
 import { message } from 'antd';
-import { userPlaylist } from '@/common/api/user';
+import { userPlaylist } from 'common/api/user';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { modalPower, queryUserInfo, userPlayList } from '@/store/actions';
-import { IS_SHOW_PLAYER, IS_SHOW_PLAYLIST } from "@/store/actionTypes";
+import { modalPower, queryUserInfo, userPlayList } from 'store/actions';
+import { IS_SHOW_PLAYER, IS_SHOW_PLAYLIST } from "store/actionTypes";
 
 class Index extends Component {
   constructor(props) {

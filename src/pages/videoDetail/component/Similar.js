@@ -5,8 +5,8 @@
  * @LastEditTime: 2020-12-16 14:06:06
  * @Description: 视频--相似视频
  */
-import { } from '@/common/api/video';
-import { formatImgSize } from '@/common/utils/format';
+import { } from 'common/api/video';
+import { formatImgSize } from 'common/utils/format';
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import styles from '../css/index.module.scss';

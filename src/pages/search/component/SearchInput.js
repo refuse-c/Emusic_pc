@@ -6,12 +6,12 @@
  * @Description: 搜索-搜索框
  */
 import React, { Component } from 'react';
-import { searchDefault, searchHotDetail, searchSuggest } from '@/common/api/search';
-import { isEmpty, Trim } from '@/common/utils/format';
+import { searchDefault, searchHotDetail, searchSuggest } from 'common/api/search';
+import { isEmpty, Trim } from 'common/utils/format';
 import { Input } from 'antd';
 // import styles from '../css/index.module.scss';
 import SearchHotList from './SearchHotList';
-import { routerJump } from '@/common/utils/tools';
+import { routerJump } from 'common/utils/tools';
 // import SearchSuggest from './SearchSuggest';
 import queryString from 'query-string';
 const { Search } = Input;

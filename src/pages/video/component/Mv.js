@@ -2,14 +2,14 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-13 02:34:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-08 22:51:48
+ * @LastEditTime: 2020-12-23 20:13:41
  * @Description: 视频-视频
  */
 import React, { Component } from 'react';
-import { firstMv, hotMv, wycpMv, topMv } from '@common/api/api';
-import MvList from '@components/mv';
+import { firstMv, hotMv, wycpMv, topMv } from 'common/api/api';
+import MvList from 'components/mv';
 import TopMvList from './TopMvList';
-import FindTitle from '@common/components/findTitle';
+import FindTitle from 'components/findTitle';
 class Mv extends Component {
   constructor(props) {
     super(props);

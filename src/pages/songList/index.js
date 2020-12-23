@@ -7,10 +7,10 @@
  */
 import React, { Component } from 'react';
 import styles from './css/index.module.scss';
-import { taglist, hotTag, playList, qualityTag } from '@/common/api/api';
+import { taglist, hotTag, playList, qualityTag } from 'common/api/api';
 import SongListClassify from './component/SongListClassify';
-import SongList from '@components/songList';
-import { formatTag } from '@/common/utils/format';
+import SongList from 'components/songList';
+import { formatTag } from 'common/utils/format';
 import { Spin, Pagination } from 'antd';
 
 
@@ -33,7 +33,7 @@ class Index extends Component {
         type: 'quality',
         id: 'refuse5201314',
         description: "精品歌单",
-        coverImgUrl: require('@images/quality.png')
+        coverImgUrl: require('common/images/quality.png')
       }],
     }
   }

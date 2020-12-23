@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import styles from './css/index.module.scss';
 import { Route } from 'react-router-dom';
-import Nav from '@components/nav/Nav';
+import Nav from 'components/nav/Nav';
 import ScrollView from 'react-custom-scrollbars';
 import { Spin } from 'antd';
 

@@ -7,10 +7,10 @@
  */
 import React, { Component } from 'react'
 import styles from './css/index.module.scss';
-import Tag from '@components/tag';
-import SingerList from '@components/singer';
+import Tag from 'components/tag';
+import SingerList from 'components/singer';
 
-import { artistList } from '@/common/api/api';
+import { artistList } from 'common/api/api';
 import { Spin } from 'antd';
 class Singer extends Component {
   constructor(props) {

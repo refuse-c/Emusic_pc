@@ -1,4 +1,4 @@
-@import "~@common/css/_variables.scss";
+@import "~common/css/_variables.scss";
 
 // 官方榜
 .official_list {
@@ -31,24 +31,24 @@
       }
     }
     &:nth-child(1) .bg {
-      background: url(~@images/text0.png) center left 20px / 120px no-repeat,
-        url(~@images/0.png) center center / 100% 100% no-repeat;
+      background: url(~common/images/text0.png) center left 20px / 120px no-repeat,
+        url(~common/images/0.png) center center / 100% 100% no-repeat;
     }
     &:nth-child(2) .bg {
-      background: url(~@images/text1.png) center left 20px / 120px no-repeat,
-        url(~@images/1.png) center center / 100% 100% no-repeat;
+      background: url(~common/images/text1.png) center left 20px / 120px no-repeat,
+        url(~common/images/1.png) center center / 100% 100% no-repeat;
     }
     &:nth-child(3) .bg {
-      background: url(~@images/text2.png) center left 20px / 120px no-repeat,
-        url(~@images/2.png) center center / 100% 100% no-repeat;
+      background: url(~common/images/text2.png) center left 20px / 120px no-repeat,
+        url(~common/images/2.png) center center / 100% 100% no-repeat;
     }
     &:nth-child(4) .bg {
-      background: url(~@images/text3.png) center left 20px / 120px no-repeat,
-        url(~@images/3.png) center center / 100% 100% no-repeat;
+      background: url(~common/images/text3.png) center left 20px / 120px no-repeat,
+        url(~common/images/3.png) center center / 100% 100% no-repeat;
     }
     &:nth-child(5) .bg {
-      background: url(~@images/text4.png) center left 20px / 120px no-repeat,
-        url(~@images/4.png) center center / 100% 100% no-repeat;
+      background: url(~common/images/text4.png) center left 20px / 120px no-repeat,
+        url(~common/images/4.png) center center / 100% 100% no-repeat;
     }
     ul {
       width: 100%;

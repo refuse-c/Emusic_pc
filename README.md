@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-11-19 09:21:07
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-20 15:17:41
+ * @LastEditTime: 2020-12-23 19:09:52
  * @Description: git remote set-url --add origin https://gitee.com/refuse-c/Emusic_pc.git
 -->
 
@@ -21,6 +21,7 @@
 ## 使用方法
 
 ### projectUrl:
+
 github:https://gitee.com/refuse-c/Emusic_pc.git
 gitee: https://github.com/refuse-c/Emusic_pc.git
 
@@ -32,4 +33,4 @@ gitee: https://github.com/refuse-c/Emusic_pc.git
 
 4. npm run packager
 
-5. ./Emusic-win32-x64/Emusic.exe(适用于window系统,mac自行研究)
+5. ./Emusic-win32-x64/Emusic.exe(适用于 window 系统,mac 自行研究)

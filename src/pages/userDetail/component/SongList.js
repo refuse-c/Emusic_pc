@@ -8,8 +8,8 @@
 import React, { Component } from 'react';
 import styles from './css/index.module.scss';
 import propTypes from 'prop-types';
-import { formatImgSize, formatSerialNo } from '@/common/utils/format';
-import { routerJump } from '@/common/utils/tools';
+import { formatImgSize, formatSerialNo } from 'common/utils/format';
+import { routerJump } from 'common/utils/tools';
 class SongList extends Component {
   constructor(props) {
     super(props);

@@ -7,11 +7,11 @@
  */
 import React, { Component } from 'react'
 import styles from './css/index.module.scss';
-import FindTitle from '@components/findTitle';
+import FindTitle from 'components/findTitle';
 import ScrollView from 'react-custom-scrollbars';
-import TopMvList from '@pages/video/component/TopMvList';
+import TopMvList from 'pages/video/component/TopMvList';
 import queryString from 'query-string';
-import { topMv } from '@/common/api/api';
+import { topMv } from 'common/api/api';
 import { Spin } from 'antd';
 class TopMv extends Component {
   constructor(props) {

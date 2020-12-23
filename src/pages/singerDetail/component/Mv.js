@@ -7,8 +7,8 @@
  */
 import React, { Component } from 'react';
 import styles from '../css/index.module.scss';
-import MvList from '@components/mv';
-import { artistMv } from '@/common/api/singer';
+import MvList from 'components/mv';
+import { artistMv } from 'common/api/singer';
 import { Spin } from 'antd';
 import queryString from 'query-string';
 

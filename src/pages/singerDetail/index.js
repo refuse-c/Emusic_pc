@@ -7,9 +7,9 @@
  */
 import styles from './css/index.module.scss';
 import React, { Component } from 'react';
-import Head from '@components/head';
+import Head from 'components/head';
 import queryString from 'query-string';
-import { artists, artistSub } from '@/common/api/singer';
+import { artists, artistSub } from 'common/api/singer';
 import { message } from 'antd';
 import ScrollView from 'react-custom-scrollbars';
 import { NavLink, Route } from 'react-router-dom';

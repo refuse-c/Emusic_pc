@@ -7,13 +7,13 @@
  */
 import React, { Component } from 'react'
 import styles from './css/index.module.scss';
-import Head from '@components/head';
-import MusicList from '@components/musicList';
+import Head from 'components/head';
+import MusicList from 'components/musicList';
 import ScrollView from 'react-custom-scrollbars';
-import { songDetail } from '@/common/api/api';
+import { songDetail } from 'common/api/api';
 import { message, Spin } from 'antd';
-import { traverseId } from '@/common/utils/tools';
-import { album } from '@/common/api/album';
+import { traverseId } from 'common/utils/tools';
+import { album } from 'common/api/album';
 class Single extends Component {
   constructor(props) {
     super(props);

@@ -1,0 +1,59 @@
+@import "~common/css/_variables.scss";
+
+// 新碟上架
+.album {
+  margin-top: 10px;
+  display: flex;
+  h3 {
+    width: 50px;
+    font-size: 18px;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    &.list2 {
+      width: calc(100% - 50px);
+    }
+    &:after {
+      content: "";
+      margin-right: auto;
+    }
+    li {
+      position: relative;
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+      &.item1 {
+        width: 160px;
+        margin: 20px 0 0 30px;
+      }
+      &.item2 {
+        width: calc(20% - 20px);
+        margin: 0 0 60px 0;
+        &:not(:nth-child(5n + 1)) {
+          margin-left: 25px;
+        }
+      }
+      .positioning {
+        position: relative;
+        width: 100%;
+        background: url("~common/images/icon_album.png") center right / 15% 100%
+          no-repeat;
+
+        img {
+          width: 85%;
+          height: 85%;
+        }
+      }
+      p {
+        margin-top: 10px;
+        &:last-child {
+          color: $c888;
+          font-size: $fz12;
+        }
+      }
+    }
+  }
+}

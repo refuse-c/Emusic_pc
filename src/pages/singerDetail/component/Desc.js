@@ -5,9 +5,9 @@
  * @LastEditTime: 2020-10-21 18:11:59
  * @Description: 
  */
-import { artistDesc } from '@/common/api/singer';
+import { artistDesc } from 'common/api/singer';
 import styles from '../css/index.module.scss';
-import { isEmpty } from '@/common/utils/format';
+import { isEmpty } from 'common/utils/format';
 import { Spin } from 'antd';
 import React, { Component } from 'react'
 import ReactMarkdown from 'react-markdown'

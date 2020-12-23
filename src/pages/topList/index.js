@@ -6,12 +6,12 @@
  * @Description: 发现-排行榜
  */
 import React, { Component } from 'react'
-import { artistTop, playlistDetail, topList } from '@/common/api/api';
+import { artistTop, playlistDetail, topList } from 'common/api/api';
 import styles from './css/index.module.scss';
-import FindTitle from '@common/components/findTitle';
+import FindTitle from 'components/findTitle';
 import OfficialList from './component/OfficialList';
 // import GlobalList from './component/GlobalList';
-import SongList from '@components/songList';
+import SongList from 'components/songList';
 
 class TopList extends Component {
   constructor(props) {

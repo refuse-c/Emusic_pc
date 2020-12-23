@@ -9,10 +9,10 @@ import React, { Component } from 'react';
 import styles from './css/index.module.scss';
 import List from './component/list';
 import { Spin } from 'antd';
-import FindTitle from '@common/components/findTitle';
-import { highquality } from '@/common/api/api';
+import FindTitle from 'components/findTitle';
+import { highquality } from 'common/api/api';
 import ScrollView from 'react-custom-scrollbars';
-import { isEmpty } from '@/common/utils/format';
+import { isEmpty } from 'common/utils/format';
 class Highquality extends Component {
   constructor(props) {
     super(props);

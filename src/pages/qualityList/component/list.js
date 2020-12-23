@@ -5,8 +5,8 @@
  * @LastEditTime: 2020-09-21 17:04:54
  * @Description: 精品歌单-列表
  */
-import { formatImgSize } from '@/common/utils/format';
-import { routerJump } from '@/common/utils/tools';
+import { formatImgSize } from 'common/utils/format';
+import { routerJump } from 'common/utils/tools';
 import React, { Component } from 'react'
 import styles from '../css/index.module.scss';
 class Index extends Component {

@@ -2,19 +2,19 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:41:50
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-08 22:47:05
+ * @LastEditTime: 2020-12-23 20:14:01
  * @Description: 发现-个性推荐
  */
 import React, { Component } from 'react';
-import Banner from '@common/components/banner/Banner';
-import FindTitle from '@common/components/findTitle';
-import SongList from '@components/songList';
+import Banner from 'components/banner/Banner';
+import FindTitle from 'components/findTitle';
+import SongList from 'components/songList';
 import NewMusic from './component/NewMusic';
 import Privatecontent from './component/Privatecontent';
 import PersonalizedMv from './component/PersonalizedMv';
 
-import { banner, newMusic, personalizedMv, privatecontent, recommendList } from '@/common/api/api';
-import { formatWeek } from '@/common/utils/format';
+import { banner, newMusic, personalizedMv, privatecontent, recommendList } from 'common/api/api';
+import { formatWeek } from 'common/utils/format';
 class Recommend extends Component {
   constructor(props) {
     super(props);

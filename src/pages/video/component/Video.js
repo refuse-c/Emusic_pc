@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import VideoList from './VideoList';
 import { Spin } from 'antd';
-import { hotVideoTag, allVideoTag, allVideo, videoGroup } from '@/common/api/api';
+import { hotVideoTag, allVideoTag, allVideo, videoGroup } from 'common/api/api';
 import styles from '../css/index.module.scss';
 import VideoTag from './VideoTag';
 class Video extends Component {

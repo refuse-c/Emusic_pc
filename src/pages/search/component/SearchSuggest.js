@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import styles from '../css/index.module.scss';
 import propTypes from 'prop-types';
-import { highlightText } from '@/common/utils/tools';
+import { highlightText } from 'common/utils/tools';
 class SearchSuggest extends Component {
   constructor(props) {
     super(props);

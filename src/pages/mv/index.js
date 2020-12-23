@@ -7,13 +7,13 @@
  */
 import React, { Component } from 'react'
 import styles from './css/index.module.scss';
-import Tag from '@components/tag';
-import FindTitle from '@components/findTitle';
+import Tag from 'components/tag';
+import FindTitle from 'components/findTitle';
 import ScrollView from 'react-custom-scrollbars';
-import MvList from '@components/mv';
+import MvList from 'components/mv';
 import queryString from 'query-string';
 
-import { allMv } from '@/common/api/api';
+import { allMv } from 'common/api/api';
 import { Spin } from 'antd';
 class Mv extends Component {
   constructor(props) {

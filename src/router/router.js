@@ -7,55 +7,55 @@
  */
 
 // 发现
-import Find from '@pages/find';
-import Recommend from '@pages/recommend';
-import SongList from '@pages/songList';
-import RadioStation from '@pages/radioStation';
-import TopList from '@pages/topList';
-import Singer from '@pages/singer';
-import Newest from '@pages/newest';
+import Find from 'pages/find';
+import Recommend from 'pages/recommend';
+import SongList from 'pages/songList';
+import RadioStation from 'pages/radioStation';
+import TopList from 'pages/topList';
+import Singer from 'pages/singer';
+import Newest from 'pages/newest';
 
 // 每日推荐音乐
-import RecommendSong from '@pages/recommendSong';
+import RecommendSong from 'pages/recommendSong';
 
 // 视频
-import Videos from '@pages/video';
-import Video from '@pages/video/component/Video';
-import Mv from '@pages/video/component/Mv';
+import Videos from 'pages/video';
+import Video from 'pages/video/component/Video';
+import Mv from 'pages/video/component/Mv';
 
 
-import AllMv from '@pages/mv';// 全部MV
+import AllMv from 'pages/mv';// 全部MV
 
-import TopMv from '@pages/topMv';// MV排行榜
-import PrivatecontentList from '@pages/privatecontentList'; //独家放送列表
+import TopMv from 'pages/topMv';// MV排行榜
+import PrivatecontentList from 'pages/privatecontentList'; //独家放送列表
 
-import Search from '@pages/search';
-import Friend from '@pages/friend';
-import Home from '@pages/home';
-import Index from '@pages/index';
+import Search from 'pages/search';
+import Friend from 'pages/friend';
+import Home from 'pages/home';
+import Index from 'pages/index';
 
 // 歌单列表(详情)
-import Single from '@pages/single';
+import Single from 'pages/single';
 // 精品歌单
-import QualityList from '@pages/qualityList';
+import QualityList from 'pages/qualityList';
 // 播放页
-import Player from '@pages/player';
+import Player from 'pages/player';
 // 专辑详情
-import Album from '@pages/album';
+import Album from 'pages/album';
 
-import MyLove from '@pages/myLove';
+import MyLove from 'pages/myLove';
 // 歌手详情 
-import SingerDetail from '@pages/singerDetail';
-import singerAlbum from '@pages/singerDetail/component/Album';
-import singerMv from '@pages/singerDetail/component/Mv';
-import singerDesc from '@pages/singerDetail/component/Desc';
-import singerSimi from '@pages/singerDetail/component/Simi';
+import SingerDetail from 'pages/singerDetail';
+import singerAlbum from 'pages/singerDetail/component/Album';
+import singerMv from 'pages/singerDetail/component/Mv';
+import singerDesc from 'pages/singerDetail/component/Desc';
+import singerSimi from 'pages/singerDetail/component/Simi';
 
 
 // 用户详情
-import UserDetail from '@pages/userDetail';
+import UserDetail from 'pages/userDetail';
 // 视频详情
-import VideoDetail from '@pages/videoDetail';
+import VideoDetail from 'pages/videoDetail';
 
 
 const routes = [

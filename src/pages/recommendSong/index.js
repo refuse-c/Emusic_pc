@@ -7,12 +7,12 @@
  */
 import React, { Component } from 'react'
 import styles from './css/index.module.scss';
-import MusicList from '@components/musicList';
+import MusicList from 'components/musicList';
 import ScrollView from 'react-custom-scrollbars';
-import PlayAll from '@common/components/playAll/PlayAll';
-import { recommendSongs, songDetail } from '@/common/api/api';
+import PlayAll from 'components/playAll/PlayAll';
+import { recommendSongs, songDetail } from 'common/api/api';
 import { Spin } from 'antd';
-import { formatWeek } from '@/common/utils/format';
+import { formatWeek } from 'common/utils/format';
 
 class Single extends Component {
   constructor(props) {

@@ -6,8 +6,8 @@
  * @Description
  */
 
-import { mvDetail, mvUrl, videoDetail, videoUrl, mvSimi, vidoeSimi } from '@/common/api/video';
-import { checkNum, formatDate, formatImgSize, formatSerialNo } from '@/common/utils/format';
+import { mvDetail, mvUrl, videoDetail, videoUrl, mvSimi, vidoeSimi } from 'common/api/video';
+import { checkNum, formatDate, formatImgSize, formatSerialNo } from 'common/utils/format';
 import React, { Component } from 'react';
 import styles from './css/index.module.scss';
 import ScrollView from 'react-custom-scrollbars';

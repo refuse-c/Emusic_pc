@@ -9,7 +9,7 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import styles from '../css/index.module.scss';
-import { formatImgSize, formatSongTime } from '@/common/utils/format';
+import { formatImgSize, formatSongTime } from 'common/utils/format';
 class TopSong extends Component {
   constructor(props) {
     super(props);

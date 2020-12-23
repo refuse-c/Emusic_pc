@@ -5,18 +5,18 @@
  * @LastEditTime: 2020-12-23 11:24:49
  * @Description:播放页面
  */
-import { formatImgSize } from "@/common/utils/format";
-import { getTimeIndex } from "@/common/utils/tools";
+import { formatImgSize } from "common/utils/format";
+import { getTimeIndex } from "common/utils/tools";
 import React, { Component } from "react";
 import ScrollArea from 'react-scrollbar';
 import styles from "./css/index.module.scss";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { modalPower } from '@/store/actions';
+import { modalPower } from 'store/actions';
 import { withRouter } from 'react-router-dom';
-import { IS_SHOW_PLAYLIST } from "@/store/actionTypes";
+import { IS_SHOW_PLAYLIST } from "store/actionTypes";
 
-// import Audio from "@components/audio";
+// import Audio from "components/audio";
 class Player extends Component {
   constructor(props) {
     super(props);

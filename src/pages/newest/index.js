@@ -9,9 +9,9 @@ import React, { Component } from 'react';
 import styles from './css/index.module.scss';
 import NewestMenu from './component/NewestMenu';
 import TopSong from './component/TopSong';
-import Album from '@components/album';
+import Album from 'components/album';
 import { Spin } from 'antd';
-import { allTopAlbum, topAlbum, topSong } from '@/common/api/api';
+import { allTopAlbum, topAlbum, topSong } from 'common/api/api';
 class Newest extends Component {
   constructor(props) {
     super(props);

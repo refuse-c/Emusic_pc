@@ -8,8 +8,8 @@
 import React, { Component } from 'react'
 import styles from '../css/index.module.scss';
 import propTypes from 'prop-types';
-import PlayAll from '@common/components/playAll/PlayAll';
-import { formatDate } from '@/common/utils/format';
+import PlayAll from 'components/playAll/PlayAll';
+import { formatDate } from 'common/utils/format';
 
 class OfficialList extends Component {
   constructor(props) {

@@ -9,7 +9,7 @@
 import React, { Component } from 'react';
 import styles from '../css/index.module.scss';
 import propTypes from 'prop-types';
-import { formatImgSize } from '@/common/utils/format';
+import { formatImgSize } from 'common/utils/format';
 
 class VideoList extends Component {
   constructor(props) {

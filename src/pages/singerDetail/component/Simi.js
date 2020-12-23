@@ -5,10 +5,10 @@
  * @LastEditTime: 2020-10-28 15:48:52
  * @Description: 
  */
-import { artistSimi } from '@/common/api/singer';
+import { artistSimi } from 'common/api/singer';
 import React, { Component } from 'react';
 import styles from '../css/index.module.scss';
-import SingerList from '@components/singer';
+import SingerList from 'components/singer';
 import queryString from 'query-string';
 
 class Simi extends Component {
