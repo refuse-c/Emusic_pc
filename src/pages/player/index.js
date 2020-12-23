@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 21:47:50
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-22 11:11:39
+ * @LastEditTime: 2020-12-23 11:24:49
  * @Description:播放页面
  */
 import { formatImgSize } from "@/common/utils/format";
@@ -47,13 +47,19 @@ class Player extends Component {
               >
                 {data.al ? <img src={formatImgSize(data.al.picUrl, 200, 200)} alt="" /> : ''}
               </div>
+              <ul className={styles.tool_ul}>
+                <li>喜欢</li>
+                <li>收藏</li>
+                <li>下载</li>
+                <li>分享</li>
+              </ul>
             </div>
             <div className={[styles.top_content, styles.lyric].join(' ')}>
               <div className={styles.name}>
                 <p>{data.name || ''}</p>
                 <div>
-                  <p>专辑: <span>{data.al ? data.al.name : ''}</span></p>
-                  <p>歌手: <span>{data.ar ? data.ar.map(item => item.name).join('/ ') : ''}</span></p>
+                  <p>专辑: <span className="overflow">{data.al ? data.al.name : ''}</span></p>
+                  <p>歌手: <span className="overflow">{data.ar ? data.ar.map(item => item.name).join('/ ') : ''}</span></p>
                 </div>
               </div>
               <div className={styles.lrc_content}>

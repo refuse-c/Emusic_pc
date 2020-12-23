@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-22 10:52:34
+ * @LastEditTime: 2020-12-23 11:40:02
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -104,7 +104,9 @@ class Footer extends Component {
   }
 
   // 查询全部喜欢的音乐
-  queryLikeList = async (uid) => {
+  queryLikeList = async () => {
+    const uid = getSession('uid');
+    if (!uid) return;
     const res = await likeList({ uid })
     const likeListIds = res.ids || [];
     this.setState({ likeListIds })
@@ -128,7 +130,7 @@ class Footer extends Component {
   getSongUrl = async (type = true) => {
     const { id } = this.state
     const res = await songUrl({ id, br: 128000 })
-    const { url } = res.data[0] || '';
+    const { url } = (res.data && res.data[0]) || '';
     this.getLyric(id); // 获取歌词
     if (url && type) {
       clearInterval(timer1);
@@ -203,7 +205,6 @@ class Footer extends Component {
   handelTogglePlayer = () => {
     const url = window.location.href;
     if (url.indexOf('player') !== -1) { this.props.history.go(-1) } else {
-
       this.props.history.push({ pathname: `/home/player` })
     }
   }
@@ -249,8 +250,7 @@ class Footer extends Component {
     ipc.on('Right', (e, message) => that.keyboardEvents(message))
     ipc.on('Space', (e, message) => that.keyboardEvents(message))
     // 获取用户喜欢的列表
-    const uid = getSession('uid');
-    if (uid) this.queryLikeList(uid);
+    this.queryLikeList();
 
   }
 
@@ -278,8 +278,7 @@ class Footer extends Component {
     }
     if (this.props.likeRefreshStatus) {
       // 获取用户喜欢的列表
-      const uid = getSession('uid');
-      if (uid) this.queryLikeList(uid);
+      this.queryLikeList();
     }
   }
 
@@ -290,7 +289,7 @@ class Footer extends Component {
   render() {
     const { currentTime } = this.props;
     const { playListStatus, playerStatus } = this.props.modalPower;
-    const { id, url, isPlay, orderType, duration, currentPlayer, rangeVal, volumeVal, audioVolume, lyricText, rotate, isShowVolume } = this.state;
+    const { id, url, isPlay, orderType, duration, currentPlayer, rangeVal, volumeVal, audioVolume, lyricText, rotate, isShowVolume, likeListIds } = this.state;
     return (
       <div className={styles.footer}>
         <Audio
@@ -312,7 +311,9 @@ class Footer extends Component {
           lyricText={lyricText}
           data={currentPlayer}
           rotate={rotate}
+          likeListIds={likeListIds}
           currentTime={currentTime}
+          func={this.queryLikeList}
         />
         <div className={styles.left} onClick={() => { if (currentPlayer.al) this.props.handleModalPower({ type: IS_SHOW_PLAYER, data: !playerStatus }) }}>
           {currentPlayer.al ? <img src={formatImgSize(currentPlayer.al.picUrl, 50, 50) || require('@images/album.png')} alt="" /> : null}

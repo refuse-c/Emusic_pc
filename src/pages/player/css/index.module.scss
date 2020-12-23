@@ -27,6 +27,7 @@
       &.album {
         position: relative;
         display: flex;
+        flex-direction: column;
         justify-content: center;
 
         .arm {
@@ -64,6 +65,20 @@
             width: 200px;
             height: 200px;
             border-radius: 50%;
+          }
+        }
+
+        .tool_ul {
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+          margin-top: 30px;
+          width: 320px;
+
+          li {
+            width: 40px;
+            height: 40px;
+            background-color: #F5F5F5;
           }
         }
       }
