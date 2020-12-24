@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-24 12:39:52
+ * @LastEditTime: 2020-12-24 22:48:41
  * @Description: 头部 
  */
 import React, { Component } from 'react';
@@ -23,7 +23,7 @@ const { ipcRenderer: ipc } = window.require('electron');
 class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = { isDrag: true }
   }
   /**
    * @name: 路由控制上一页 下一页
@@ -39,68 +39,79 @@ class Header extends Component {
   callBack = id => {
     this.props.queryUserPlaylist(id)
   }
+  // 是否可拖动
+  handleDrag = isDrag => {
+    this.setState({ isDrag })
+  }
 
   render() {
     const { history } = this.props;
+    const { isDrag } = this.state;
     const { loginStatus } = this.props.modalPower;
     const userInfo = getLocal('userInfo') || {};
-    return (<div className={styles.header} onClick={() => this.props.handelHideModal()}>
-      <Login
-        history={history}
-        showModal={loginStatus}
-        hideModal={this.hideModal}
-        callBack={this.callBack}
-      />
-      <div className={styles.header_left}>
-        <div
-          className={styles.logo}
-          onClick={() => routerJump(history, `/home/mylove`)}
-        ></div>
-        <div
-          onClick={() => this.go(-1)}
-          className={[styles.arrow, styles.arrow_left].join(' ')}
-        ></div>
-        <div
-          onClick={() => this.go(1)}
-          className={[styles.arrow, styles.arrow_right].join(' ')}
-        ></div>
-        <SearchInput history={history} />
-      </div>
-      <ul className={styles.header_right}>
-        {!isEmpty(userInfo) ?
-          <Tooltip title={`点击此处退出登录`}>
-            <li onClick={() => this.props.logout()}>
-              <p
-                className={styles.avatar}
-                style={{ backgroundImage: `url(${userInfo.avatarUrl})` }}
-              ></p>
-              <p className={styles.nickname} >
-                {userInfo.nickname}
-                <span className={styles.vip}></span>
-                <span className={styles.arrow}></span>
-              </p>
-            </li>
-          </Tooltip>
-          :
-          <li onClick={() => this.props.handleModalPower({ type: IS_SHOW_LOGIN, data: true })}>
-            登录
+    return (
+      <div
+        className={styles.header}
+        style={{ '-webkit-app-region': isDrag ? 'drag' : 'no-drag' }}
+        onClick={() => this.props.handelHideModal()}
+      >
+        <Login
+          history={history}
+          showModal={loginStatus}
+          hideModal={this.hideModal}
+          callBack={this.callBack}
+        />
+        <div className={styles.header_left}>
+          <div
+            className={styles.logo}
+            onClick={() => routerJump(history, `/home/mylove`)}
+          ></div>
+          <div
+            onClick={() => this.go(-1)}
+            className={[styles.arrow, styles.arrow_left].join(' ')}
+          ></div>
+          <div
+            onClick={() => this.go(1)}
+            className={[styles.arrow, styles.arrow_right].join(' ')}
+          ></div>
+          <SearchInput history={history} func={this.handleDrag} />
+        </div>
+        <ul className={styles.header_right}>
+          {!isEmpty(userInfo) ?
+            <Tooltip title={`点击此处退出登录`}>
+              <li onClick={() => this.props.logout()}>
+                <p
+                  className={styles.avatar}
+                  style={{ backgroundImage: `url(${userInfo.avatarUrl})` }}
+                ></p>
+                <p className={styles.nickname} >
+                  {userInfo.nickname}
+                  <span className={styles.vip}></span>
+                  <span className={styles.arrow}></span>
+                </p>
+              </li>
+            </Tooltip>
+            :
+            <li onClick={() => this.props.handleModalPower({ type: IS_SHOW_LOGIN, data: true })}>
+              登录
           </li>
-        }
-        <li onClick={() => this.props.handleModalPower({ type: IS_SHOW_SKIN, data: true })}>换肤</li>
-        <li>私信</li>
-        <li>设置</li>
-        <Tooltip title={`最小化`}>
-          <li className={styles.minu}
-            onClick={() => ipc.send('min')}
-          ></li>
-        </Tooltip>
-        <Tooltip title={`关闭`}>
-          <li className={styles.close}
-            onClick={() => ipc.send('close')}
-          ></li>
-        </Tooltip>
-      </ul >
-    </div >);
+          }
+          <li onClick={() => this.props.handleModalPower({ type: IS_SHOW_SKIN, data: true })}>换肤</li>
+          <li>私信</li>
+          <li>设置</li>
+          <Tooltip title={`最小化`}>
+            <li className={styles.minu}
+              onClick={() => ipc.send('min')}
+            ></li>
+          </Tooltip>
+          <Tooltip title={`关闭`}>
+            <li className={styles.close}
+              onClick={() => ipc.send('close')}
+            ></li>
+          </Tooltip>
+        </ul >
+      </div >
+    );
   }
 }
 

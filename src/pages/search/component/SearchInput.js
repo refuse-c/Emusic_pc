@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-25 15:04:12
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-24 19:59:03
+ * @LastEditTime: 2020-12-24 22:42:43
  * @Description: 搜索-搜索框
  */
 import React, { Component } from 'react';
@@ -42,7 +42,6 @@ class Searchs extends Component {
   querySearchSuggest = async params => {
     const res = await searchSuggest(params);
     if (res.code !== 200) return;
-
     this.setState({ suggestList: res.result, isShowSuggestStatus: true })
   }
 
@@ -107,6 +106,7 @@ class Searchs extends Component {
   }
 
   render() {
+    const { func } = this.props;
     const { defaultKeyword, keywords, searchHotList, isShowHotListStatus } = this.state;
     return (
       <div>
@@ -119,9 +119,14 @@ class Searchs extends Component {
           loading={false}
           placeholder={defaultKeyword}
           value={keywords}
-          onFocus={this.handelFocus}
+          onFocus={() => { this.handelFocus(); func && func(false) }}
           maxLength={30}
-        // onBlur={() => global.debounce(this.setState({ isShowHotListStatus: false }))}
+          onBlur={() => {
+            func && func(true);
+            setTimeout(() => {
+              this.setState({ isShowHotListStatus: false })
+            }, 200)
+          }}
         />
         {isShowHotListStatus ? <SearchHotList data={searchHotList} fun={this.searchHotListCaback} /> : null}
         {/* {isShowSuggestStatus ? <SearchSuggest data={suggestList} fun={this.searchHotListCaback} keywords={keywords} /> : null} */}
