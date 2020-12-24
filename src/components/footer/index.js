@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-23 20:07:53
+ * @LastEditTime: 2020-12-24 17:36:23
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -19,7 +19,8 @@ import { message, Tooltip } from 'antd';
 import { formatImgSize, formatSongTime } from 'common/utils/format';
 import { IS_SHOW_PLAYER, IS_SHOW_PLAYLIST } from 'store/actionTypes';
 import { withRouter } from 'react-router-dom';
-import { likeList, setLike } from 'common/api/like';
+import { likeList } from 'common/api/like';
+import Like from 'components/like';
 // electron 键盘事件 
 const { ipcRenderer: ipc } = window.require('electron');
 let timer1;
@@ -41,8 +42,7 @@ class Footer extends Component {
       currentPlayer: {},
       lyricText: [],
       rotate: 0,
-      isShowVolume: false,
-      likeListIds: []  // 喜欢的列表
+      isShowVolume: false
     }
   }
 
@@ -88,42 +88,12 @@ class Footer extends Component {
 
       timer1 = setInterval(() => {
         const { rotate } = this.state;
-        let num = rotate > 360 ? 0 : rotate + 1
+        let num = rotate > 360 ? 0 : rotate + 0.1
         this.setState({ rotate: num })
-      }, 50);
+      }, 10);
       this.setState({ isPlay: true })
     }
 
-  }
-
-  // 查询当前音乐是否为喜欢音乐
-  isLike = id => {
-    const { likeListIds: list } = this.state;
-    if (list.length === 0) return -1;
-    return list.findIndex(item => item === id)
-  }
-
-  // 查询全部喜欢的音乐
-  queryLikeList = async () => {
-    const uid = getSession('uid');
-    if (!uid) return;
-    const res = await likeList({ uid })
-    const likeListIds = res.ids || [];
-    this.setState({ likeListIds })
-  }
-
-  // 添加/删除喜欢
-  handelLike = async (id, like) => {
-    const res = await setLike({ id, like })
-    message.destroy();
-    const { callBack } = this.props;
-    callBack && callBack()
-    if (res.code === 200) {
-      this.queryLikeList();
-      like ? message.info('已添加到我喜欢的音乐') : message.info('取消喜欢成功')
-    } else {
-      like ? message.info('添加到我喜欢的音乐失败,,请重试') : message.info('取消喜欢失败,请重试')
-    }
   }
 
   // 获取音乐播放地址
@@ -250,7 +220,7 @@ class Footer extends Component {
     ipc.on('Right', (e, message) => that.keyboardEvents(message))
     ipc.on('Space', (e, message) => that.keyboardEvents(message))
     // 获取用户喜欢的列表
-    this.queryLikeList();
+    // this.queryLikeList();
 
   }
 
@@ -287,9 +257,9 @@ class Footer extends Component {
     this.setState({ isPlay: false })
   }
   render() {
-    const { currentTime } = this.props;
+    const { currentTime, queryLikeList, likeListIds } = this.props;
     const { playListStatus, playerStatus } = this.props.modalPower;
-    const { id, url, isPlay, orderType, duration, currentPlayer, rangeVal, volumeVal, audioVolume, lyricText, rotate, isShowVolume, likeListIds } = this.state;
+    const { id, url, isPlay, orderType, duration, currentPlayer, rangeVal, volumeVal, audioVolume, lyricText, rotate, isShowVolume } = this.state;
     return (
       <div className={styles.footer}>
         <Audio
@@ -320,14 +290,13 @@ class Footer extends Component {
           <div className={styles.music_info}>
             <div>
               <p className="overflow">{currentPlayer.name} </p>
-              {currentPlayer.al ? <i
-                className={this.isLike(id) !== -1 ? styles.like : styles.unlike}
-                onClick={(e) => {
-                  this.handelLike(id, this.isLike(id) === -1 ? true : false)
-                  e.stopPropagation();
-                  e.nativeEvent.stopImmediatePropagation();
-                }}
-              ></i> : null}
+              {currentPlayer.al ?
+                <Like
+                  id={id}
+                  list={likeListIds}
+                  callBack={queryLikeList}
+                />
+                : null}
             </div>
             <div>
               <p className="overflow">{currentPlayer.ar && currentPlayer.ar.map(item => item.name).join('/ ')}</p>

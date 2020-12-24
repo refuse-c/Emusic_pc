@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-22 10:08:04
+ * @LastEditTime: 2020-12-24 17:54:42
  * @Description: 歌单列表
  */
 import { formatSerialNo, formatSongTime } from 'common/utils/format';
@@ -16,13 +16,13 @@ import { currentPlayList, currentPlayer, likeRefreshStatus } from 'store/actions
 import { getSession, highlightText, routerJump } from 'common/utils/tools';
 import queryString from 'query-string';
 import { withRouter } from 'react-router-dom';
-import { setLike, likeList } from 'common/api/like';
+import { setLike } from 'common/api/like';
+import Like from 'components/like';
 class MusicList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       newList: [], // 点击排序后的新列表
-      likeListIds: []
     }
   }
   columns = [
@@ -37,10 +37,11 @@ class MusicList extends Component {
       key: 'tool',
       width: 60,
       render: item => <div className="btn_box">
-        <i
-          className={this.isLike(item.id) !== -1 ? "like" : 'unlike'}
-          onClick={() => this.handelLike(item.id, this.isLike(item.id) !== -1 ? false : true)}
-        ></i>
+        <Like
+          id={item.id}
+          list={this.props.likeListIds}
+          callBack={this.props.callBack}
+        />
         <i className="download"></i>
       </div>
     },
@@ -103,44 +104,6 @@ class MusicList extends Component {
     },
   ];
 
-  // 查询当前音乐是否为喜欢音乐
-  isLike = id => {
-    const { likeListIds: list } = this.state;
-    if (list.length === 0) return -1;
-    return list.findIndex(item => item === id)
-  }
-
-  // 查询全部喜欢的音乐
-  queryLikeList = async (uid) => {
-    const res = await likeList({ uid })
-    const likeListIds = res.ids || [];
-    this.setState({ likeListIds })
-  }
-
-  // 添加/删除喜欢
-  handelLike = async (id, like) => {
-    const { callBack, singleId } = this.props;
-    // 我喜欢的音乐的id
-    const myLikeSingleId = getSession('myLikeSingleId') || '';
-    const res = await setLike({ id, like })
-    message.destroy();
-    if (res.code === 200) {
-      // id相等时是默认喜欢的歌单 // 需要刷新歌单//否者只需要刷新喜欢的列表
-      if (String(singleId) === String(myLikeSingleId)) {
-        callBack && callBack();
-      } else {
-        const uid = getSession('uid');
-        if (uid) await this.queryLikeList(uid);
-      }
-      this.props.setLikeRefreshStatus(true);
-      this.props.setLikeRefreshStatus(false);
-      like ? message.info('已添加到我喜欢的音乐') : message.info('取消喜欢成功')
-    } else {
-      like ? message.error('添加到我喜欢的音乐失败,请重试') : message.error('取消喜欢失败,请重试')
-    }
-
-  }
-
   selectRow = record => {
     // console.log(record)
     if (record.st === -200) {
@@ -172,23 +135,6 @@ class MusicList extends Component {
   // 控制样式
   setClassName = record => {
     return record.st === -200 ? styles.disabled : ''
-  }
-
-
-  componentDidMount = async () => {
-    const uid = getSession('uid');
-    if (uid) await this.queryLikeList(uid);
-  }
-
-  componentDidUpdate = prevProps => {
-    const { onLoadData } = this.props;
-    const uid = getSession('uid');
-    if (prevProps.list !== this.props.list && uid) {
-      this.queryLikeList(uid);
-    }
-    if (uid && onLoadData) {
-      this.queryLikeList(uid)
-    }
   }
 
   render() {

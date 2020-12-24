@@ -11,18 +11,6 @@
   padding: 0 14px;
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
 
-  i {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: pink;
-
-    &:not(:first-child) {
-      margin-left: 20px;
-    }
-  }
-
   .left {
     display: flex;
     align-items: center;
@@ -98,7 +86,14 @@
       justify-content: center;
 
       i {
-        cursor: pointer;
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+
+        &:not(:first-child) {
+          margin-left: 20px;
+        }
 
         &:nth-child(3) {
           width: 36px;

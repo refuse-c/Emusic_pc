@@ -1,0 +1,18 @@
+.like_one {
+  i {
+    cursor: pointer;
+    min-width: 30px;
+    min-height: 30px;
+    margin-left: 0;
+    background: red;
+    border-radius: 50%;
+
+    &.unlike {
+      background: url("~common/images/unlike.png") center center / auto 48px no-repeat;
+    }
+
+    &.like {
+      background: url("~common/images/like.png") center center / auto 48px no-repeat;
+    }
+  }
+}

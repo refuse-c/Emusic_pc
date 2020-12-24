@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-22 10:59:48
+ * @LastEditTime: 2020-12-24 17:24:08
 //  * @Description: 
  */
 import React, { Component } from "react";
@@ -64,7 +64,6 @@ class Index extends Component {
 
   // 掩藏弹窗
   handelHideModal = () => {
-    console.log(1111111111111)
     const { playListStatus, playerStatus } = this.props.modalPower;
     if (playerStatus) this.props.handleModalPower({ type: IS_SHOW_PLAYER, data: !playerStatus });
     if (playListStatus) this.props.handleModalPower({ type: IS_SHOW_PLAYLIST, data: !playListStatus });
