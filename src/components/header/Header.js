@@ -2,12 +2,12 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-22 11:05:36
+ * @LastEditTime: 2020-12-24 12:39:52
  * @Description: 头部 
  */
 import React, { Component } from 'react';
 import styles from './css/index.module.scss';
-import Login from '../modal/LoginModal';
+import Login from 'components/modal/LoginModal';
 import { connect } from 'react-redux';
 import SearchInput from 'pages/search/component/SearchInput';
 import { bindActionCreators } from 'redux';
