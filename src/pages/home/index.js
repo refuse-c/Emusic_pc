@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 18:50:54
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-24 17:34:58
+ * @LastEditTime: 2020-12-24 19:53:17
  * @Description 布局
  */
 import React, { Component } from 'react';
@@ -16,15 +16,14 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      onLoadData: false,
-      likeListIds: []
+      likeListIds: [],
+      reloadPlayStatus: false
     }
   }
 
 
   // 查询全部喜欢的音乐
   queryLikeList = async () => {
-    console.log('我刚刚执行了一次')
     const uid = getSession('uid');
     if (!uid) return;
     const res = await likeList({ uid })
@@ -32,15 +31,17 @@ class Home extends Component {
     this.setState({ likeListIds })
   }
 
+  // 是否需要重载歌单
+  isreloadPlayList = () => {
+    this.setState({ reloadPlayStatus: true }, () => this.setState({ reloadPlayStatus: false }))
+  }
+
   componentDidMount = () => {
     this.queryLikeList();
   }
-  // callBack = () => {
-  //   this.setState({ onLoadData: true }, () => this.setState({ onLoadData: false }))
-  // }
 
   render() {
-    const { onLoadData, likeListIds } = this.state;
+    const { likeListIds, reloadPlayStatus } = this.state;
     const { handelHideModal } = this.props;
     return (
       <div className={styles.home} >
@@ -58,7 +59,13 @@ class Home extends Component {
                     // exact
                     path={route.path}
                     render={(props) => (
-                      <route.component {...props} queryLikeList={this.queryLikeList} likeListIds={likeListIds} onLoadData={onLoadData} routes={route.routes} />
+                      <route.component {...props}
+                        routes={route.routes}
+                        likeListIds={likeListIds}
+                        status={reloadPlayStatus}
+                        queryLikeList={this.queryLikeList}
+                        reloadPlayList={this.isreloadPlayList}
+                      />
                     )}
                   />
                 );
@@ -68,7 +75,13 @@ class Home extends Component {
                     key={key}
                     path={route.path}
                     render={(props) => (
-                      <route.component {...props} queryLikeList={this.queryLikeList} likeListIds={likeListIds} onLoadData={onLoadData} routes={route.routes} />
+                      <route.component {...props}
+                        routes={route.routes}
+                        likeListIds={likeListIds}
+                        status={reloadPlayStatus}
+                        queryLikeList={this.queryLikeList}
+                        reloadPlayList={this.isreloadPlayList}
+                      />
                     )}
                   />
                 );
@@ -77,7 +90,12 @@ class Home extends Component {
           </div>
         </div>
         <div className={styles.footer} >
-          <Footer callBack={this.callBack} queryLikeList={this.queryLikeList} likeListIds={likeListIds} />
+          <Footer
+            callBack={this.callBack}
+            likeListIds={likeListIds}
+            queryLikeList={this.queryLikeList}
+            reloadPlayList={this.isreloadPlayList}
+          />
         </div>
       </div>
     );

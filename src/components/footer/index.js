@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-24 17:36:23
+ * @LastEditTime: 2020-12-24 20:06:18
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -14,12 +14,11 @@ import { connect } from 'react-redux';
 import { lyric, songUrl } from 'common/api/api';
 import { bindActionCreators } from 'redux';
 import { currentPlayer, currentPlayList, currentTime, modalPower } from 'store/actions';
-import { cutSong, formatLrc, getSession } from 'common/utils/tools';
+import { cutSong, formatLrc } from 'common/utils/tools';
 import { message, Tooltip } from 'antd';
 import { formatImgSize, formatSongTime } from 'common/utils/format';
 import { IS_SHOW_PLAYER, IS_SHOW_PLAYLIST } from 'store/actionTypes';
 import { withRouter } from 'react-router-dom';
-import { likeList } from 'common/api/like';
 import Like from 'components/like';
 // electron 键盘事件 
 const { ipcRenderer: ipc } = window.require('electron');
@@ -202,8 +201,6 @@ class Footer extends Component {
     volume.style.backgroundSize = audioVolume * 100 + `% 100%`;
   }
 
-
-
   componentDidMount = () => {
     const that = this;
     const { range, volume } = this;
@@ -219,9 +216,6 @@ class Footer extends Component {
     ipc.on('Left', (e, message) => that.keyboardEvents(message))
     ipc.on('Right', (e, message) => that.keyboardEvents(message))
     ipc.on('Space', (e, message) => that.keyboardEvents(message))
-    // 获取用户喜欢的列表
-    // this.queryLikeList();
-
   }
 
   static getDerivedStateFromProps = (nextProps, prevState) => {
@@ -246,10 +240,6 @@ class Footer extends Component {
     if (id !== this.state.id && this.state.id !== undefined) {
       this.getSongUrl();
     }
-    if (this.props.likeRefreshStatus) {
-      // 获取用户喜欢的列表
-      this.queryLikeList();
-    }
   }
 
   componentWillUnmount = () => {
@@ -257,7 +247,7 @@ class Footer extends Component {
     this.setState({ isPlay: false })
   }
   render() {
-    const { currentTime, queryLikeList, likeListIds } = this.props;
+    const { currentTime, queryLikeList, likeListIds, reloadPlayList } = this.props;
     const { playListStatus, playerStatus } = this.props.modalPower;
     const { id, url, isPlay, orderType, duration, currentPlayer, rangeVal, volumeVal, audioVolume, lyricText, rotate, isShowVolume } = this.state;
     return (
@@ -283,18 +273,27 @@ class Footer extends Component {
           rotate={rotate}
           likeListIds={likeListIds}
           currentTime={currentTime}
-          func={this.queryLikeList}
         />
-        <div className={styles.left} onClick={() => { if (currentPlayer.al) this.props.handleModalPower({ type: IS_SHOW_PLAYER, data: !playerStatus }) }}>
-          {currentPlayer.al ? <img src={formatImgSize(currentPlayer.al.picUrl, 50, 50) || require('common/images/album.png')} alt="" /> : null}
+        <div
+          className={styles.left}
+          onClick={() => {
+            if (currentPlayer.al) this.props.handleModalPower({ type: IS_SHOW_PLAYER, data: !playerStatus })
+          }}>
+          {
+            currentPlayer.al ?
+              <img
+                src={formatImgSize(currentPlayer.al.picUrl, 50, 50) || require('common/images/album.png')} alt="" />
+              : null
+          }
           <div className={styles.music_info}>
             <div>
               <p className="overflow">{currentPlayer.name} </p>
               {currentPlayer.al ?
                 <Like
                   id={id}
-                  list={likeListIds}
+                  list={likeListIds || []}
                   callBack={queryLikeList}
+                  reloadPlayList={reloadPlayList}
                 />
                 : null}
             </div>
@@ -373,7 +372,6 @@ class Footer extends Component {
 const mapStateToProps = state => {
   return {
     userInfo: state.userInfo,
-    likeRefreshStatus: state.likeRefreshStatus,
     currentTime: state.currentTime,
     currentPlayer: state.currentPlayer,
     currentPlayList: state.currentPlayList,

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 15:39:35
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-24 17:44:28
+ * @LastEditTime: 2020-12-24 19:49:04
  * @Description: 歌单详情
  */
 import React, { Component } from 'react'
@@ -10,10 +10,9 @@ import styles from './css/index.module.scss';
 import Head from 'components/head';
 import MusicList from 'components/musicList';
 import ScrollView from 'react-custom-scrollbars';
-
 import { playlistDetail, songDetail } from 'common/api/api';
 import { message, Spin } from 'antd';
-import { getSession, setSession, traverseId } from 'common/utils/tools';
+import { setSession, traverseId } from 'common/utils/tools';
 class Single extends Component {
   constructor(props) {
     super(props);
@@ -72,19 +71,17 @@ class Single extends Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    const { onLoadData } = this.props;
-    const currentSingleId = getSession('currentSingleId') || '';
-    const myLikeSingleId = getSession('myLikeSingleId') || '';
+    const { status } = this.props;
     if (this.state.id !== prevState.id) {
       this.queryPlayListDetail();
     }
-    if (onLoadData && String(currentSingleId) === String(myLikeSingleId)) {
-      this.queryPlayListDetail();
-    }
+    // 重载歌单
+    if (status) this.queryPlayListDetail();
+
   }
 
   render() {
-    const { history, onLoadData } = this.props;
+    const { history, queryLikeList, likeListIds, reloadPlayList } = this.props;
     const { id, loading, playlist, list } = this.state;
     return (
       <div className={styles.single}>
@@ -96,7 +93,13 @@ class Single extends Component {
           <Spin tip="Loading..." spinning={loading} >
             <div className={styles.single_box}>
               <Head data={playlist} type={1} list={list} history={history} />
-              <MusicList singleId={id} list={list} history={history} callBack={this.queryPlayListDetail} onLoadData={onLoadData} />
+              <MusicList
+                singleId={id}
+                list={list}
+                callBack={queryLikeList}
+                likeListIds={likeListIds}
+                reloadPlayList={reloadPlayList}
+              />
             </div>
           </Spin>
         </ScrollView>

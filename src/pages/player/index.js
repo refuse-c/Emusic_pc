@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 21:47:50
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-23 11:24:49
+ * @LastEditTime: 2020-12-24 20:14:23
  * @Description:播放页面
  */
 import { formatImgSize } from "common/utils/format";
@@ -28,6 +28,10 @@ class Player extends Component {
     if (playListStatus) { this.props.handleModalPower({ type: IS_SHOW_PLAYLIST, data: !playListStatus }) }
   }
 
+  // 阻止重复渲染
+  // shouldComponentUpdate = prevProps => {
+  //   return prevProps.hasShow;
+  // }
 
   render() {
     const { hasShow, data, lyricText, rotate, isPlay, currentTime } = this.props;

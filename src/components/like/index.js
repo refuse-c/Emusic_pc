@@ -2,11 +2,12 @@
  * @Author: REFUSE_C
  * @Date: 2020-12-24 16:19:38
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-24 17:55:07
+ * @LastEditTime: 2020-12-24 19:59:58
  * @Description: 当前音乐是否为用户喜欢的音乐
  */
 import { message } from 'antd';
 import { setLike } from 'common/api/like';
+import { getSession } from 'common/utils/tools';
 import React, { Component } from 'react';
 import styles from './css/index.module.scss';
 class Like extends Component {
@@ -25,15 +26,21 @@ class Like extends Component {
 
   // 添加/删除喜欢
   handelLike = async (id, like) => {
-    const { callBack } = this.props;
+    const myLikeSingleId = getSession('myLikeSingleId');
+    const currentSingleId = getSession('currentSingleId');
+    const { callBack, reloadPlayList } = this.props;
     const res = await setLike({ id, like })
     message.destroy();
     if (res.code === 200) {
       // 重载我喜欢的音乐
       callBack && callBack();
-      like ? message.info('已添加到我喜欢的音乐') : message.info('取消喜欢成功')
+      // 如果当前操作的歌单为用户喜欢的歌单则需要刷新喜欢的歌单
+      if (myLikeSingleId === Number(currentSingleId)) {
+        reloadPlayList && reloadPlayList();
+      }
+      like ? message.success('已添加到我喜欢的音乐') : message.success('已取消')
     } else {
-      like ? message.error('添加到我喜欢的音乐失败') : message.error('取消喜欢失败')
+      like ? message.error('添加到我喜欢的音乐失败') : message.error('取消失败')
     }
   }
 

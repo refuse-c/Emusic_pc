@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-01 02:13:43
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-24 17:38:33
+ * @LastEditTime: 2020-12-24 18:48:09
  * @Description:搜索
  */
 import React, { Component } from 'react';
@@ -131,10 +131,10 @@ class Search extends Component {
   }
 
   renderDom = () => {
-    const { history } = this.props;
+    const { history, queryLikeList, likeListIds } = this.props;
     const { type, list, keywords } = this.state;
     switch (type) {
-      case 1: return <MusicList list={list} keywords={keywords} history={history} />;
+      case 1: return <MusicList list={list} keywords={keywords} callBack={queryLikeList} likeListIds={likeListIds} />;
       case 10: return <div style={{ paddingRight: 30 }}><AlbumList list={list} history={history} isFullScreen={true} /></div>
       case 100: return <div style={{ paddingRight: 30 }}><SingerList list={list} history={history} isFullScreen={true} /></div>
       case 1014: return <div style={{ paddingRight: 30 }}><MvList list={list} isFullScreen={true} history={history} /></div>

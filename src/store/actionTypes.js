@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:20:09
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-22 10:33:50
+ * @LastEditTime: 2020-12-24 18:55:05
  * @Description: 
  */
 export const QUERY_USER_INFO = 'QUERY_USER_INFO';
@@ -14,4 +14,3 @@ export const USRT_PLAYLIST = 'USRT_PLAYLIST';
 export const CURRENT_PLAYER = 'CURRENT_PLAYER';
 export const CURRENT_PLAY_LIST = 'CURRENT_PLAY_LIST';
 export const CURRENT_TIME = 'CURRENT_TIME';
-export const LIKE_REFRESH_STATUES = 'LIKE_REFRESH_STATUES';

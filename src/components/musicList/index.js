@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-24 17:54:42
+ * @LastEditTime: 2020-12-24 19:30:56
  * @Description: 歌单列表
  */
 import { formatSerialNo, formatSongTime } from 'common/utils/format';
@@ -12,11 +12,10 @@ import styles from './css/index.module.scss';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { currentPlayList, currentPlayer, likeRefreshStatus } from 'store/actions';
-import { getSession, highlightText, routerJump } from 'common/utils/tools';
+import { currentPlayList, currentPlayer } from 'store/actions';
+import { highlightText, routerJump } from 'common/utils/tools';
 import queryString from 'query-string';
 import { withRouter } from 'react-router-dom';
-import { setLike } from 'common/api/like';
 import Like from 'components/like';
 class MusicList extends Component {
   constructor(props) {
@@ -41,6 +40,7 @@ class MusicList extends Component {
           id={item.id}
           list={this.props.likeListIds}
           callBack={this.props.callBack}
+          reloadPlayList={this.props.reloadPlayList}
         />
         <i className="download"></i>
       </div>
@@ -189,7 +189,6 @@ const mapDispatchToProps = dispatch => {
   return {
     setCurrentPlayList: bindActionCreators(currentPlayList, dispatch), // 当前播放歌单列表
     setCurrentPlayer: bindActionCreators(currentPlayer, dispatch), // 获取当前音乐信息
-    setLikeRefreshStatus: bindActionCreators(likeRefreshStatus, dispatch), // 设置喜欢的音乐刷新数据
   }
 }
 const box = connect(mapStateToProps, mapDispatchToProps)(MusicList)

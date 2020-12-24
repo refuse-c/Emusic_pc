@@ -22,8 +22,6 @@ let initState = {
   currentPlayList: [],// 当前的播放列表
   musicList: [],// 当前显示列表
   userPlayList: [],//用户歌单
-  // 设置喜欢的时候刷新数据
-  likeRefreshStatus: false
 }
 
 export default initState;

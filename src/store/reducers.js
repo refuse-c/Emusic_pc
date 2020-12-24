@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:20:09
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-22 10:34:36
+ * @LastEditTime: 2020-12-24 18:54:50
  * @Description:
  */
 
@@ -73,20 +73,11 @@ const currentTime = (state = initState.currentTime, action) => {
   }
 }
 
-// 当前播放时间
-const likeRefreshStatus = (state = initState.likeRefreshStatus, action) => {
-  switch (action.type) {
-    case ACTIONTYPE.LIKE_REFRESH_STATUES: return action.data;
-    default: return state;
-  }
-}
-
 export default combineReducers({
   userInfo,
   modalPower,
   userPlayList,
   currentPlayer,
   currentPlayList,
-  currentTime,
-  likeRefreshStatus
+  currentTime
 })
