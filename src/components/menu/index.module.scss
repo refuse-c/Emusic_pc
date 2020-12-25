@@ -1,15 +1,49 @@
 @import "~common/css/_variables.scss";
+
 .menu {
   width: 200px;
   height: 100%;
   font-size: $fz14;
   border-right: 1px solid #e5e6ea;
+
   .menu_list {
     width: 100%;
-    a {
+
+    .menu_a {
       display: block;
+      position: relative;
+
+      &:not(:first-child) {
+        margin-top: 1px;
+      }
+
+      &:before,
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 0;
+        width: 4px;
+        background-color: rgba(236, 65, 65, 0.8) !important;
+        transition: 400ms ease all;
+      }
+
+      &:after {
+        top: inherit;
+        left: 0;
+        bottom: 0;
+      }
+
       &:hover {
-        color: $c353741;
+        color: rgba(236, 65, 65, 0.8) !important;
+        background-color: #F5F5F6;
+
+        &:before,
+        &:after {
+          height: 20px;
+          transition: 400ms ease all;
+        }
       }
 
       li {
@@ -22,23 +56,34 @@
         text-overflow: ellipsis;
       }
     }
+
     h3 {
       padding-left: 10px;
       line-height: 50px;
       color: $c999;
     }
   }
+
   .menu_list_active {
     position: relative;
-    background-color: rgba(230, 231, 234, 1);
-    &::after {
+    color: #EC4141 !important;
+    background-color: #F5F5F6;
+
+    &:before,
+    &:after {
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
-      content: "";
+      height: 20px !important;
       width: 4px;
-      height: 100%;
-      background-color: #c62f2f;
+      background-color: #EC4141 !important;
+    }
+
+    &:after {
+      top: inherit;
+      left: 0;
+      bottom: 0;
     }
   }
 }

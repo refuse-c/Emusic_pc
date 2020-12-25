@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 17:57:51
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-23 20:06:46
+ * @LastEditTime: 2020-12-25 17:03:42
  * @Description: 
  */
 import React from 'react';
@@ -74,13 +74,12 @@ function App() {
     )
   }
 
-    {
-      /* <Redirect exact from='/' to='/home/mylove/' /> */
-    }
 
-    <Redirect exact from='/' to='/home/find' /> {
-      /* <Redirect exact from='/' to='/home/single2971245150' /> */
-    }
+    <Redirect exact from='/' to='/home/find/' />
+    {/* <Redirect exact from='/' to='/home/mylove/' /> */}
+    {/* <Redirect exact from='/' to='/videoDetail10908736' /> */}
+    {/* <Redirect exact from='/' to='/home/single2971245150' /> */}
+
 
   </Router> </div >);
 }

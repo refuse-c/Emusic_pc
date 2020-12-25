@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-11-13 09:23:42
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-16 14:37:33
+ * @LastEditTime: 2020-12-25 16:50:43
  * @Description
  */
 
@@ -20,7 +20,8 @@ class VideoDetail extends Component {
       url: '',
       data: {},
       simiData: [], // 相似视频
-      type: null // 1 mv 2 video
+      type: null, // 1 mv 2 video
+      scrollTop: false // 滚动条滚动的高度
     }
   }
 
@@ -100,18 +101,33 @@ class VideoDetail extends Component {
     this.setState({ url })
   }
 
+  handleScroll = e => {
+    const scrollTop = e.target.scrollTop;
+    // 避免重复setState
+    // if (scrollTop > 420) return;
+    this.setState({ scrollTop: scrollTop > 400 ? true : false })
+    // console.log(e.target.scrollTop, e.target.clientHeight, e.target.scrollHeight)
+  }
 
   render() {
-    const { url, data, type, id, simiData } = this.state;
+    const { url, data, type, id, simiData, scrollTop } = this.state;
     return (
       <div className={styles.video_detail}>
-        {/* <div className={styles.aa}></div> */}
-        <ScrollView className={styles.video_scroll}>
+        <ScrollView
+          onScroll={this.handleScroll}
+          className={styles.video_scroll}
+        >
           <div className={styles.scroll_box}>
-            {/* 左边部分 */}
             <div className={styles.video_left}>
               <h3>{type === 1 ? 'mv详情' : type === 2 ? '视频详情' : '视频获取失败'}</h3>
-              <video src={url} controls ></video>
+              <div className={styles.video_box}>
+                <video
+                  src={url}
+                  controls
+                  // poster={data.cover}
+                  className={scrollTop ? styles.video_fixed : null}
+                />
+              </div>
               <div className={styles.video_info}>
                 <div className={styles.user_info}>
                   <div>
@@ -125,14 +141,18 @@ class VideoDetail extends Component {
                   <p>发布：{formatDate(data && data.publishTime)}</p>
                   <p>播放：{formatSerialNo(type === 1 ? data.playCount : type === 2 ? data.playTime : '')}</p>
                 </div>
-                <ul className={styles.video_tag}>
-                  {
-                    data && data.videoGroup && data.videoGroup.map((item, index) => {
-                      return (
-                        <li key={index}>{item.name}</li>
-                      )
-                    })}
-                </ul>
+                {data && data.videoGroup ?
+                  <ul className={styles.video_tag}>
+                    {
+                      data.videoGroup.map((item, index) => {
+                        return (
+                          <li key={index}>{item.name}</li>
+                        )
+                      })}
+                  </ul>
+                  :
+                  null
+                }
                 <div className={styles.tool}>
                   <div>
                     <button>赞{data.praisedCount || ''}</button>
@@ -143,14 +163,12 @@ class VideoDetail extends Component {
                 </div>
               </div>
             </div>
-            {/* 右边部分 */}
             <div className={styles.video_right}>
               <h3>相关推荐</h3>
               <Similar type={type} id={id} data={simiData || []} />
-              {/* <div className={styles.simi_music}>
+              <div className={styles.simi_music}>
                 <h3>相似音乐</h3>
-
-              </div> */}
+              </div>
             </div>
           </div>
         </ScrollView>

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-25 10:14:46
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-21 17:03:23
+ * @LastEditTime: 2020-12-25 11:07:40
  * @Description: 左侧菜单栏
  */
 import React, { Component } from 'react';
@@ -38,7 +38,7 @@ class Menu extends Component {
           {this.state.menuList.map((item, index) => {
             return (
               item.path ?
-                <NavLink activeClassName={styles.menu_list_active} key={index} to={item.path}>
+                <NavLink className={styles.menu_a} activeClassName={styles.menu_list_active} key={index} to={item.path}>
                   <li> {item.name}</li>
                 </NavLink>
                 :
@@ -48,7 +48,7 @@ class Menu extends Component {
           {userPlayList.map((item, index) => {
             return (
               item.id ?
-                <NavLink exact activeClassName={styles.menu_list_active} key={index} to={`/home/single${item.id}`}>
+                <NavLink className={styles.menu_a} exact activeClassName={styles.menu_list_active} key={index} to={`/home/single${item.id}`}>
                   <li> {replaceName(item.userId, item.name)}</li>
                 </NavLink>
                 :

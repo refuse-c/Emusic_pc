@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-24 22:48:41
+ * @LastEditTime: 2020-12-25 14:12:03
  * @Description: 头部 
  */
 import React, { Component } from 'react';
@@ -44,6 +44,13 @@ class Header extends Component {
     this.setState({ isDrag })
   }
 
+  // 是否跳转到page love
+  jumpLove = () => {
+    const { history } = this.props;
+    const url = window.location.href.indexOf('mylove');
+    url !== -1 ? history.go(-1) : routerJump(history, `/home/mylove`);
+  }
+
   render() {
     const { history } = this.props;
     const { isDrag } = this.state;
@@ -52,7 +59,7 @@ class Header extends Component {
     return (
       <div
         className={styles.header}
-        style={{ '-webkit-app-region': isDrag ? 'drag' : 'no-drag' }}
+        style={{ WebkitAppRegion: isDrag ? 'drag' : 'no-drag' }}
         onClick={() => this.props.handelHideModal()}
       >
         <Login
@@ -64,7 +71,7 @@ class Header extends Component {
         <div className={styles.header_left}>
           <div
             className={styles.logo}
-            onClick={() => routerJump(history, `/home/mylove`)}
+            onClick={this.jumpLove}
           ></div>
           <div
             onClick={() => this.go(-1)}

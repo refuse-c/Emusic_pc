@@ -11,148 +11,153 @@
   transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
   background-color: #fff;
 
-  .player_content {
-    width: 1020px;
-    margin: 0 auto;
+  .player_scroll {
+    width: 100%;
+    height: 100%;
 
-    .top {
-      display: flex;
-      height: 500px;
-    }
+    .player_content {
+      width: 1020px;
+      margin: 0 auto;
 
-    .top_content {
-      width: 50%;
-      overflow: hidden;
-
-      &.album {
-        position: relative;
+      .top {
         display: flex;
-        flex-direction: column;
-        align-items: center;
+        height: 500px;
+      }
 
-        .arm {
-          position: absolute;
-          top: -4px;
-          z-index: 99;
-          left: 250px;
-          width: 70px;
-          height: 124px;
-          transform: rotate(-45deg);
-          transform-origin: left top;
-          transition: all 0.5s ease;
-          background: url("~common/images/arm.png") center center / cover no-repeat;
+      .top_content {
+        width: 50%;
+        overflow: hidden;
 
-          &.active {
-            top: -19px;
-            left: 260px;
-            transform: rotate(0deg);
-          }
-        }
-
-        .album_img {
+        &.album {
+          position: relative;
           display: flex;
+          flex-direction: column;
           align-items: center;
-          justify-content: center;
-          width: 320px;
-          height: 320px;
-          margin-top: 50px;
-          border-radius: 50%;
-          background: url("~common/images/albums.png") center center / cover no-repeat;
-          box-shadow: inset 0 0 4px 4px #EFEFEF;
 
+          .arm {
+            position: absolute;
+            top: -4px;
+            z-index: 99;
+            left: 250px;
+            width: 70px;
+            height: 124px;
+            transform: rotate(-45deg);
+            transform-origin: left top;
+            transition: all 0.5s ease;
+            background: url("~common/images/arm.png") center center / cover no-repeat;
 
-          img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
+            &.active {
+              top: -19px;
+              left: 260px;
+              transform: rotate(0deg);
+            }
           }
-        }
 
-        .tool_ul {
-          display: flex;
-          align-items: center;
-          justify-content: space-around;
-          margin-top: 30px;
-          width: 320px;
-
-          li {
+          .album_img {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
+            width: 320px;
+            height: 320px;
+            margin-top: 50px;
             border-radius: 50%;
-            background-color: #F5F5F5;
+            background: url("~common/images/albums.png") center center / cover no-repeat;
+            box-shadow: inset 0 0 4px 4px #EFEFEF;
 
-            &:hover {
-              cursor: pointer;
-              background-color: rgba($color: #000000, $alpha: 0.2);
+
+            img {
+              width: 200px;
+              height: 200px;
+              border-radius: 50%;
+            }
+          }
+
+          .tool_ul {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin-top: 30px;
+            width: 320px;
+
+            li {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              background-color: #F5F5F5;
+
+              &:hover {
+                cursor: pointer;
+                background-color: rgba($color: #000000, $alpha: 0.2);
+              }
             }
           }
         }
-      }
 
-      &.lyric {
+        &.lyric {
 
-        .name {
-          color: $c333;
-          padding: 30px 0;
-
-          p {
-            font-size: $fz24;
-          }
-
-          div {
-            margin-top: 20px;
-            display: flex;
+          .name {
+            color: $c333;
+            padding: 30px 0;
 
             p {
-              display: contents;
-              max-width: 50%;
-              padding-right: 20px;
-              font-size: $fz14;
+              font-size: $fz24;
+            }
 
-              span {
-                color: #0071fb;
+            div {
+              margin-top: 20px;
+              display: flex;
+
+              p {
+                display: contents;
                 max-width: 50%;
                 padding-right: 20px;
                 font-size: $fz14;
 
-                &:hover {
-                  cursor: pointer;
-                  text-decoration: underline;
+                span {
+                  color: #0071fb;
+                  max-width: 50%;
+                  padding-right: 20px;
+                  font-size: $fz14;
+
+                  &:hover {
+                    cursor: pointer;
+                    text-decoration: underline;
+                  }
                 }
               }
             }
           }
-        }
 
-        .lrc_content {
-          height: 330px;
-          overflow: hidden;
-
-          .area {
-            position: relative;
+          .lrc_content {
+            height: 330px;
             overflow: hidden;
-            width: 100%;
-            height: 100%;
-          }
+
+            .area {
+              position: relative;
+              overflow: hidden;
+              width: 100%;
+              height: 100%;
+            }
 
 
-          ul {
-            li {
-              font-size: $fz12;
-              line-height: 2;
+            ul {
+              li {
+                font-size: $fz12;
+                line-height: 2;
 
-              &.aa {
-                color: $cec4141;
-                font-size: 15px !important;
-                transition: all 0.5s ease-in-out 0s;
-              }
+                &.aa {
+                  color: $cec4141;
+                  font-size: 15px !important;
+                  transition: all 0.5s ease-in-out 0s;
+                }
 
-              &.bb {
-                color: #333;
-                transition: all 0.5s ease-in-out 0s;
+                &.bb {
+                  color: #333;
+                  transition: all 0.5s ease-in-out 0s;
+                }
               }
             }
           }

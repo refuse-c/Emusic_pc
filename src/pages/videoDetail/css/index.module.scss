@@ -6,32 +6,6 @@
   height: 100%;
   background-color: #fff;
 
-  &:hover {
-    .aa {
-      animation-play-state: paused;
-    }
-  }
-
-  .aa {
-    position: absolute;
-    top: 10px;
-    left: 0;
-    width: 100%;
-    height: 10px;
-    background-color: red;
-    animation: myfirst 5s infinite;
-  }
-
-
-  @keyframes myfirst {
-    0% {
-      width: 100%;
-    }
-
-    100% {
-      width: 0px;
-    }
-  }
 
   .video_scroll {
     width: 100%;
@@ -43,156 +17,172 @@
       width: 1020px;
       margin: 0 auto;
       justify-content: space-between;
-    }
-  }
+      height: 1000vh;
 
-  .video_left {
-    width: 640px;
-    padding-left: 16px;
+      .video_left {
+        float: left;
+        width: 640px;
+        padding-left: 16px;
 
-    video {
-      min-width: 60%;
-      width: 100%;
-      height: 354px;
-      background-color: #000;
-    }
+        .video_box {
+          min-width: 60%;
+          width: 100%;
+          height: 354px;
 
-    .video_info {
-      min-width: 60%;
-      width: 100%;
+          video {
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            padding-bottom: 40px;
 
-      .user_info {
-        margin-top: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        div {
-          display: flex;
-          align-items: center;
-          cursor: pointer;
-
-          img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-          }
-
-          span {
-            padding-left: 10px;
-            color: $c666;
+            &.video_fixed {
+              position: fixed;
+              bottom: 30px;
+              right: 30px;
+              min-width: 300px;
+              width: 300px !important;
+              height: auto !important;
+            }
           }
         }
 
-        p {
-          cursor: pointer;
-          width: 80px;
-          height: 30px;
-          text-align: center;
-          line-height: 30px;
-          color: $cff3a3a;
-          border-radius: 30px;
-          background-color: #FCF4F4;
+        .video_info {
+          min-width: 60%;
+          width: 100%;
 
-          &:hover {
-            color: $cfff;
-            background-color: $cff3a3a;
-          }
-        }
-      }
+          .user_info {
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
-      .title {
-        margin-top: 30px;
-        font-size: $fz22;
-        font-weight: 600;
-      }
+            div {
+              display: flex;
+              align-items: center;
+              cursor: pointer;
 
-      .play_time {
-        margin-top: 20px;
-        display: flex;
-        color: $c999;
+              img {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+              }
 
-        p {
-          &:last-child {
-            margin-left: 20px;
-          }
-        }
-      }
+              span {
+                padding-left: 10px;
+                color: $c666;
+              }
+            }
 
-      .video_tag {
-        margin-top: 20px;
-        display: flex;
+            p {
+              cursor: pointer;
+              width: 80px;
+              height: 30px;
+              text-align: center;
+              line-height: 30px;
+              color: $cff3a3a;
+              border-radius: 30px;
+              background-color: #FCF4F4;
 
-        li {
-          display: table;
-          line-height: 20px;
-          cursor: pointer;
-          padding: 0 6px;
-          font-size: $fz12;
-          margin-right: 6px;
-          border-radius: 20px;
-          white-space: nowrap;
-          background-color: #F7F7F7;
-        }
-      }
-
-      .tool {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: 30px;
-
-        div {
-          display: flex;
-
-          button {
-            width: 120px;
-            height: 32px;
-            border-radius: 32px;
-            margin-right: 40px;
-            background-color: #fff;
-            border: 1px solid #D8D8D8;
-
-            &:hover {
-              background-color: #F2F2F2;
+              &:hover {
+                color: $cfff;
+                background-color: $cff3a3a;
+              }
             }
           }
 
+          .title {
+            margin-top: 30px;
+            font-size: $fz22;
+            font-weight: 600;
+          }
 
-        }
+          .play_time {
+            margin-top: 20px;
+            display: flex;
+            color: $c999;
 
-        p {
-          color: #989898;
-          cursor: pointer;
-          text-decoration: underline;
+            p {
+              &:last-child {
+                margin-left: 20px;
+              }
+            }
+          }
 
-          &:hover {
-            color: #656565;
+          .video_tag {
+            margin-top: 20px;
+            display: flex;
+
+            li {
+              display: table;
+              line-height: 20px;
+              cursor: pointer;
+              padding: 0 6px;
+              font-size: $fz12;
+              margin-right: 6px;
+              border-radius: 20px;
+              white-space: nowrap;
+              background-color: #F7F7F7;
+            }
+          }
+
+          .tool {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 30px;
+
+            div {
+              display: flex;
+
+              button {
+                width: 120px;
+                height: 32px;
+                border-radius: 32px;
+                margin-right: 40px;
+                background-color: #fff;
+                border: 1px solid #D8D8D8;
+
+                &:hover {
+                  background-color: #F2F2F2;
+                }
+              }
+            }
+
+            p {
+              color: #989898;
+              cursor: pointer;
+              text-decoration: underline;
+
+              &:hover {
+                color: #656565;
+              }
+            }
           }
         }
       }
+
+      .video_right {
+        float: right;
+        padding-left: 40px;
+        width: calc(100% - 640px);
+        max-width: 380px;
+
+        .simi_music {
+          margin-top: 50px;
+        }
+      }
+
+      h3 {
+        padding: 16px 0;
+        font-size: $fz18;
+        font-weight: 600;
+      }
     }
-  }
 
-  .video_right {
-    padding-left: 40px;
-    width: calc(100% - 640px);
-    max-width: 380px;
-
-    .simi_music {
-      margin-top: 50px;
-    }
-  }
-
-  h3 {
-    padding: 16px 0;
-    font-size: $fz18;
-    font-weight: 600;
   }
 }
 
 // 相似视频
-
 .similar {
   ul {
     li {

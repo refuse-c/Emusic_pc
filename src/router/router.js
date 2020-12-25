@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-17 13:13:04
+ * @LastEditTime: 2020-12-25 17:27:07
  * @Description: 路由
  */
 
@@ -31,6 +31,8 @@ import PrivatecontentList from 'pages/privatecontentList'; //独家放送列表
 
 import Search from 'pages/search';
 import Friend from 'pages/friend';
+import Local from 'pages/local';
+import Down from 'pages/down';
 import Home from 'pages/home';
 import Index from 'pages/index';
 
@@ -72,40 +74,56 @@ const routes = [
           exact: true,
           path: '/home/find',
           component: Recommend  // 个性推荐
-        }, {
+        },
+        {
           path: '/home/find/songlist',
           component: SongList  // 歌单
-        }, {
+        },
+        {
           path: '/home/find/radioStation',
           component: RadioStation  // 主播电台
-        }, {
+        },
+        {
           path: '/home/find/topList',
           component: TopList  // 排行榜
-        }, {
+        },
+        {
           path: '/home/find/singer',
           component: Singer  // 歌手
-        }, {
+        },
+        {
           path: '/home/find/newest',
           component: Newest  // 最新音乐
         }]
-      }, {
+      },
+      {
         path: '/home/search',
         component: Search
-      }, {
+      },
+      {
         path: '/home/friend',
         component: Friend
       }, {
+        path: '/home/local',
+        component: Local
+      }, {
+        path: '/home/down',
+        component: Down
+      },
+      {
         path: '/home/video',
         component: Videos,
         routes: [{
           path: '/home/video',
           exact: true,
           component: Video  // 视频
-        }, {
+        },
+        {
           path: '/home/video/mv',
           component: Mv  // Mv
         }]
-      }, {
+      },
+      {
         path: '/home/single:id',
         component: Single
       },
@@ -150,14 +168,16 @@ const routes = [
             component: singerSimi,
           }
         ]
-      }, {
+      },
+      {
         path: '/home/album:id',
         component: Album
       },
       {
         path: '/home/userdetail',
         component: UserDetail
-      }, {
+      },
+      {
         path: '/home/mylove',
         component: MyLove,
       },
@@ -167,7 +187,8 @@ const routes = [
         component: Player,
       }
       ]
-    }, {
+    },
+    {
       path: '/videoDetail:id',
       component: VideoDetail
     }]

@@ -10,7 +10,7 @@
     "microsoft yahei", "微软雅黑", "sans-sarif";
   line-height: 1;
   box-sizing: border-box;
-  background-color: #fafafa;
+  background-color: #fff;
 
   // .main {
   //   display: flex;
@@ -74,4 +74,14 @@ img {
 
 .scrollarea-content {
   transition: ease-in-out 0.25s all;
+}
+
+
+a,
+audio,
+video,
+button,
+input {
+  outline: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
