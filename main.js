@@ -2,13 +2,14 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-20 16:41:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-25 17:49:54
+ * @LastEditTime: 2020-12-28 11:13:17
  * @Description: 
  */
 let tray;
 let mainWindow;
 const fs = require('fs');
-const path = require('path')
+const path = require('path');
+const nodeID3 = require('node-id3')
 const { app, Tray, Menu, BrowserWindow, globalShortcut, ipcMain } = require('electron');
 
 // 取消菜单栏
@@ -103,13 +104,53 @@ app.on('ready', () => {
 
 ipcMain.on('asynchronous-message', function (event, arg) {
   // arg是从渲染进程返回来的数据
-  console.log(arg);
-  fs.readdir(arg, function (err, data) {
-    if (err) {
-      event.sender.send('asynchronous-reply', "读取失败");
+  // var res = fs.readdirSync(arg);
+  // event.sender.send('asynchronous-reply', res);
+  // console.log(readDir);
+  const res = getFiles.getFileList(arg)
+
+  event.sender.send('asynchronous-reply', res);
+  // fs.readdirSync(arg, function (err, res) {
+  //   console.log(res)
+  //   if (err) {
+  //     event.sender.send('asynchronous-reply', "读取失败");
+  //   } else {
+  //     const data = {
+  //       path: arg,
+  //       data: res
+  //     }
+  //     event.sender.send('asynchronous-reply', res);
+  //   }
+  // });
+});
+
+
+function readFileList(path, filesList) {
+  var files = fs.readdirSync(path);
+  files.forEach(function (item, index) {
+    var stat = fs.statSync(path + item);
+    if (stat.isDirectory()) {
+      //递归读取文件
+      readFileList(path + item + "/", filesList)
     } else {
-      event.sender.send('asynchronous-reply', data);
+
+      var obj = {};//定义一个对象存放文件的路径和名字
+      obj.path = path;//路径
+      obj.filename = item//名字
+      filesList.push(obj);
     }
 
-  });
-});
+  })
+
+}
+
+
+var getFiles = {
+  //获取文件夹下的所有文件
+  getFileList: function (path) {
+    var filesList = [];
+    readFileList(path, filesList);
+    console.log(filesList)
+    return filesList;
+  }
+}

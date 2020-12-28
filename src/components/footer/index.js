@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-24 20:06:18
+ * @LastEditTime: 2020-12-28 09:39:16
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -99,6 +99,7 @@ class Footer extends Component {
   getSongUrl = async (type = true) => {
     const { id } = this.state
     const res = await songUrl({ id, br: 128000 })
+    if (res.code !== 200) return;
     const { url } = (res.data && res.data[0]) || '';
     this.getLyric(id); // 获取歌词
     if (url && type) {

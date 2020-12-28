@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-12-25 17:22:57
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-25 17:56:57
+ * @LastEditTime: 2020-12-28 12:57:45
  * @Description:
  */
 import React, { Component } from 'react';
@@ -13,6 +13,7 @@ class Local extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      url: '',
       list: []
     }
   }
@@ -30,9 +31,18 @@ class Local extends Component {
 
   }
 
+  handelClick = (path, filename) => {
+    console.log(path, filename)
+    const url = 'file:///' + path + filename;
+    let file = new FileReader()
+    console.log(file.readAsDataURL(url))
+    // this.setState({ url: 'file:///' +  })
+  }
+
+
+
   render() {
-    const { list } = this.state;
-    console.log(list)
+    const { list, url } = this.state;
     return (
       <div
         className={styles.local}
@@ -43,11 +53,17 @@ class Local extends Component {
           {
             list.map((item, index) => {
               return (
-                <li key={index}>{item}</li>
+                <li
+                  key={index}
+                  onClick={() => this.handelClick(item.path, item.filename)}
+                >{item.filename}</li>
               )
             })
           }
         </ul>
+        <audio autoPlay={!!url} controls>
+          <source src={url} type="audio/mpeg" ></source>
+        </audio>
       </div >
     );
   }
