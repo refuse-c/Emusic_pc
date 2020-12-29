@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-12-25 17:22:57
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-28 12:57:45
+ * @LastEditTime: 2020-12-29 16:59:49
  * @Description:
  */
 import React, { Component } from 'react';
@@ -25,48 +25,40 @@ class Local extends Component {
       const list = JSON.parse(JSON.stringify(arg))
       // 这里的arg是从主线程请求的数据
       that.setState({ list })
+      console.log(list)
     });
-    // https://blog.csdn.net/weixin_46187747/article/details/105396764
-    // 这里的会传递回给主进程，这里的第一个参数需要对应着主进程里on注册事件的名字一致
-
   }
 
-  handelClick = (path, filename) => {
-    console.log(path, filename)
-    const url = 'file:///' + path + filename;
-    let file = new FileReader()
-    console.log(file.readAsDataURL(url))
-    // this.setState({ url: 'file:///' +  })
+  onChange = e => {
+    const data = e.target.files;
+    if (!data.length) return;
+    const { path, name } = e.target.files[0]
+    const currentPath = path.split(name)[0];
+    ipc.send("asynchronous-message", currentPath)
   }
-
-
 
   render() {
     const { list, url } = this.state;
     return (
-      <div
-        className={styles.local}
-
-      >
-        <div onClick={() => ipc.send("asynchronous-message", "F:/Emusic/")}>点我读取文件</div>
+      <div className={styles.local} >
+        <input type="file" webkitdirectory={`true`} directory={`true`} onChange={this.onChange} />
         <ul>
           {
             list.map((item, index) => {
               return (
                 <li
                   key={index}
-                  onClick={() => this.handelClick(item.path, item.filename)}
-                >{item.filename}</li>
+                  onClick={() => this.setState({ url: item.url })}
+                >{item.title}</li>
               )
             })
           }
         </ul>
-        <audio autoPlay={!!url} controls>
-          <source src={url} type="audio/mpeg" ></source>
+        <audio autoPlay={!!url} controls src={url} >
+
         </audio>
       </div >
     );
   }
 }
-
 export default Local;

@@ -2,14 +2,13 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-20 16:41:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-28 11:13:17
+ * @LastEditTime: 2020-12-29 16:25:43
  * @Description: 
  */
 let tray;
 let mainWindow;
 const fs = require('fs');
 const path = require('path');
-const nodeID3 = require('node-id3')
 const { app, Tray, Menu, BrowserWindow, globalShortcut, ipcMain } = require('electron');
 
 // 取消菜单栏
@@ -103,13 +102,25 @@ app.on('ready', () => {
 });
 
 ipcMain.on('asynchronous-message', function (event, arg) {
-  // arg是从渲染进程返回来的数据
-  // var res = fs.readdirSync(arg);
-  // event.sender.send('asynchronous-reply', res);
-  // console.log(readDir);
-  const res = getFiles.getFileList(arg)
+  // const res = getFiles.getFileList(arg)
+  // if (!res.length) return;
+  const data = fs.readdirSync(arg);
+  const id3 = require('node-id3');
 
-  event.sender.send('asynchronous-reply', res);
+
+  let localList = [];
+  data.forEach((element) => {
+    let obj = {};
+    let tags = id3.read(arg + element);
+    obj.album = tags.album || '未知专辑';
+    obj.title = tags.title || element;
+    obj.artist = tags.artist || '未知歌手';
+    obj.url = arg + element;
+    obj.tags = tags;
+    localList.push(obj);
+  });
+
+  event.sender.send('asynchronous-reply', localList);
   // fs.readdirSync(arg, function (err, res) {
   //   console.log(res)
   //   if (err) {
@@ -150,7 +161,6 @@ var getFiles = {
   getFileList: function (path) {
     var filesList = [];
     readFileList(path, filesList);
-    console.log(filesList)
     return filesList;
   }
 }
