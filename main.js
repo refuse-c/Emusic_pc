@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-20 16:41:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-29 16:25:43
+ * @LastEditTime: 2020-12-29 17:36:55
  * @Description: 
  */
 let tray;
@@ -102,12 +102,8 @@ app.on('ready', () => {
 });
 
 ipcMain.on('asynchronous-message', function (event, arg) {
-  // const res = getFiles.getFileList(arg)
-  // if (!res.length) return;
   const data = fs.readdirSync(arg);
   const id3 = require('node-id3');
-
-
   let localList = [];
   data.forEach((element) => {
     let obj = {};
@@ -119,48 +115,5 @@ ipcMain.on('asynchronous-message', function (event, arg) {
     obj.tags = tags;
     localList.push(obj);
   });
-
   event.sender.send('asynchronous-reply', localList);
-  // fs.readdirSync(arg, function (err, res) {
-  //   console.log(res)
-  //   if (err) {
-  //     event.sender.send('asynchronous-reply', "读取失败");
-  //   } else {
-  //     const data = {
-  //       path: arg,
-  //       data: res
-  //     }
-  //     event.sender.send('asynchronous-reply', res);
-  //   }
-  // });
 });
-
-
-function readFileList(path, filesList) {
-  var files = fs.readdirSync(path);
-  files.forEach(function (item, index) {
-    var stat = fs.statSync(path + item);
-    if (stat.isDirectory()) {
-      //递归读取文件
-      readFileList(path + item + "/", filesList)
-    } else {
-
-      var obj = {};//定义一个对象存放文件的路径和名字
-      obj.path = path;//路径
-      obj.filename = item//名字
-      filesList.push(obj);
-    }
-
-  })
-
-}
-
-
-var getFiles = {
-  //获取文件夹下的所有文件
-  getFileList: function (path) {
-    var filesList = [];
-    readFileList(path, filesList);
-    return filesList;
-  }
-}
