@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:06
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-30 14:27:05
+ * @LastEditTime: 2020-12-30 22:08:34
  * @Description:工具
  */
 
@@ -174,5 +174,5 @@ export const checkNum = v => {
  */
 export const formatLocalName = v => {
   if (!v) return;
-  return v.replace(/.mp3/g, '');
+  return v.replace(/.wav|.mp3|.ogg|.acc|.flac/g, '');
 }

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 21:47:50
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-25 11:36:26
+ * @LastEditTime: 2020-12-30 21:56:01
  * @Description:播放页面
  */
 import { formatImgSize } from "common/utils/format";
@@ -54,14 +54,15 @@ class Player extends Component {
                   className={styles.album_img}
                   style={{ transform: `rotate(${rotate + 'deg'})` }}
                 >
-                  {data.al ? <img src={formatImgSize(data.al.picUrl, 200, 200)} alt="" /> : ''}
+                  {data.al ? <img src={data.al.picUrl ? formatImgSize(data.al.picUrl, 200, 200) : require('common/images/defaultAlbumImg.jpg').default} alt="" /> : ''}
                 </div>
-                <ul className={styles.tool_ul}>
-                  <li>喜欢</li>
-                  <li>收藏</li>
-                  <li>下载</li>
-                  <li>分享</li>
-                </ul>
+                {data.type === 'local' ? null
+                  : <ul className={styles.tool_ul}>
+                    <li>喜欢</li>
+                    <li>收藏</li>
+                    <li>下载</li>
+                    <li>分享</li>
+                  </ul>}
               </div>
               <div className={[styles.top_content, styles.lyric].join(' ')}>
                 <div className={styles.name}>

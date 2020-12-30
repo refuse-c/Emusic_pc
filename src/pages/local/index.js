@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-12-25 17:22:57
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-30 14:35:21
+ * @LastEditTime: 2020-12-30 21:51:40
  * @Description:
  */
 import React, { Component } from 'react';
@@ -15,6 +15,7 @@ import { getLocal, setLocal } from 'common/utils/tools';
 import MusicList from 'components/musicList';
 import ScrollView from 'react-custom-scrollbars';
 import PlayAll from 'components/playAll/PlayAll';
+import { message } from 'antd';
 const { ipcRenderer: ipc } = window.require('electron');
 
 class Local extends Component {
@@ -22,23 +23,19 @@ class Local extends Component {
     super(props);
     this.state = {
       url: '',
-      list: []
+      list: getLocal('list') || []
     }
   }
 
   componentDidMount = () => {
     const that = this;
     // 这里是接收主进程传递过来的参数，这里的on要对应主进程send过来的名字
-    ipc.on("asynchronous-reply", function (event, arg) {
-      const list = JSON.parse(JSON.stringify(arg))
+    ipc.on("asynchronous-reply", function (event, list) {
       // 这里的arg是从主线程请求的数据
-      that.setState({ list })
-      console.log(list)
+      message.destroy();
+      message.info('检索本地音乐已完成');
+      that.setState({ list }, () => setLocal('list', list))
     });
-    const currentPath = getLocal('currentPath');
-    if (currentPath) {
-      ipc.send("asynchronous-message", currentPath)
-    }
   }
 
   onChange = e => {
@@ -50,6 +47,13 @@ class Local extends Component {
     ipc.send("asynchronous-message", currentPath)
   }
 
+  refreshLocalData = () => {
+    const currentPath = getLocal('currentPath');
+    if (currentPath) {
+      ipc.send("asynchronous-message", currentPath)
+    }
+  }
+
   render() {
     const { list } = this.state;
     const length = list.length;
@@ -57,7 +61,7 @@ class Local extends Component {
       <div className={styles.local} >
         <ScrollView className={styles.local_scroll}>
           <div className={styles.title}>
-            <h3>本地音乐 {length ? <span>共{length}首</span> : null}</h3>
+            <h3>本地音乐 {length ? <span>共{length}首</span> : null} <span onClick={this.refreshLocalData}>refresh</span> </h3>
             <div>
               选择目录
             <input

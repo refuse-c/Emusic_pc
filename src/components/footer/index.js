@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-30 17:24:32
+ * @LastEditTime: 2020-12-30 21:55:17
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -281,7 +281,7 @@ class Footer extends Component {
           {
             currentPlayer.al ?
               <img
-                src={currentPlayer.al.picUrl ? formatImgSize(currentPlayer.al.picUrl, 50, 50) : require('common/images/albums.png').default} alt="" />
+                src={currentPlayer.al.picUrl ? formatImgSize(currentPlayer.al.picUrl, 50, 50) : require('common/images/defaultAlbumImg.jpg').default} alt="" />
               : null
           }
           <div className={styles.music_info}>
