@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-20 16:41:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-29 17:36:55
+ * @LastEditTime: 2020-12-30 15:20:05
  * @Description: 
  */
 let tray;
@@ -107,12 +107,21 @@ ipcMain.on('asynchronous-message', function (event, arg) {
   let localList = [];
   data.forEach((element) => {
     let obj = {};
+    if (
+      element.indexOf('.wav') === -1 &&
+      element.indexOf('.mp3') === -1 &&
+      element.indexOf('.ogg') === -1 &&
+      element.indexOf('.acc') === -1 &&
+      element.indexOf('.flac') === -1
+    ) return false;
     let tags = id3.read(arg + element);
-    obj.album = tags.album || '未知专辑';
-    obj.title = tags.title || element;
-    obj.artist = tags.artist || '未知歌手';
+    obj.al = { id: '', name: tags.album || '未知专辑', picUrl: '' };;
+    obj.name = tags.title || element;
+    obj.ar = [{ id: '', name: tags.artist || '未知歌手' }];
     obj.url = arg + element;
     obj.tags = tags;
+    obj.type = 'local';
+    obj.id = '';
     localList.push(obj);
   });
   event.sender.send('asynchronous-reply', localList);

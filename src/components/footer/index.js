@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-28 09:39:16
+ * @LastEditTime: 2020-12-30 17:24:32
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -29,6 +29,7 @@ class Footer extends Component {
     super(props);
     this.state = {
       id: '',
+      name: '',
       url: '',
       uid: '',
       isPlay: false,
@@ -84,7 +85,6 @@ class Footer extends Component {
       clearInterval(timer1);
       this.setState({ isPlay: false })
     } else {
-
       timer1 = setInterval(() => {
         const { rotate } = this.state;
         let num = rotate > 360 ? 0 : rotate + 0.1
@@ -97,7 +97,7 @@ class Footer extends Component {
 
   // 获取音乐播放地址
   getSongUrl = async (type = true) => {
-    const { id } = this.state
+    const { id } = this.props.currentPlayer;
     const res = await songUrl({ id, br: 128000 })
     if (res.code !== 200) return;
     const { url } = (res.data && res.data[0]) || '';
@@ -106,14 +106,14 @@ class Footer extends Component {
       clearInterval(timer1);
       timer1 = setInterval(() => {
         const { rotate } = this.state;
-        let num = rotate > 360 ? 0 : rotate + 1
+        let num = rotate > 360 ? 0 : rotate + 0.1
         this.setState({ rotate: num })
-      }, 30);
+      }, 10);
     }
     this.setState({ url, isPlay: url && type })
   }
 
-  // 获取音乐播放地址
+  // 获取歌词地址
   getLyric = async id => {
     const res = await lyric({ id })
     const { lrc, klyric, tlyric, nolyric, needDesc } = res;
@@ -127,17 +127,18 @@ class Footer extends Component {
   }
 
   // 切歌
-  handelCutSong = type => {
+  handelCutSong = types => {
     const {
       currentPlayer,
       currentPlayList,
       setCurrentPlayer
     } = this.props;
     const { orderType } = this.state;
-    const { id } = currentPlayer;
-    const data = cutSong(id, currentPlayList, type, orderType);
+    const { id, name, type } = currentPlayer;
+    const data = cutSong(id, name, currentPlayList, types, orderType);
     this.range.style.backgroundSize = `0% 100%`;
-    setCurrentPlayer(data)
+    if (type === 'local') this.setState({ isPlay: true })
+    setCurrentPlayer(data);
   }
 
   // 返回音乐的当前时间 / 总时间
@@ -205,7 +206,8 @@ class Footer extends Component {
   componentDidMount = () => {
     const that = this;
     const { range, volume } = this;
-    const { id, volumeVal } = this.state;
+    const { volumeVal } = this.state;
+    const { id } = this.props.currentPlayer;
     global.range = range;
 
     const audioVolume = volumeVal / volume.max;
@@ -219,27 +221,23 @@ class Footer extends Component {
     ipc.on('Space', (e, message) => that.keyboardEvents(message))
   }
 
-  static getDerivedStateFromProps = (nextProps, prevState) => {
-    const { currentPlayer } = nextProps;
-    const { id } = nextProps.currentPlayer;
-    if (id !== prevState.id) {
-      return {
-        id,
-        currentPlayer,
-        props: {
-          id: id,
-          currentPlayer: currentPlayer
-        },
-      };
-    }
-    return null;
-  }
-
-
   componentDidUpdate = prevProps => {
-    const { id } = prevProps.currentPlayer;
-    if (id !== this.state.id && this.state.id !== undefined) {
-      this.getSongUrl();
+    const { id, name, type, url } = this.props.currentPlayer;
+    if (type === 'local') {
+      if (name !== prevProps.currentPlayer.name) {
+        this.setState({ isPlay: true, url }, () => {
+          clearInterval(timer1);
+          timer1 = setInterval(() => {
+            const { rotate } = this.state;
+            let num = rotate > 360 ? 0 : rotate + 0.1
+            this.setState({ rotate: num })
+          }, 10);
+        })
+      }
+    } else {
+      if (id !== prevProps.currentPlayer.id) {
+        this.getSongUrl();
+      }
     }
   }
 
@@ -248,9 +246,9 @@ class Footer extends Component {
     this.setState({ isPlay: false })
   }
   render() {
-    const { currentTime, queryLikeList, likeListIds, reloadPlayList } = this.props;
+    const { currentTime, queryLikeList, likeListIds, reloadPlayList, currentPlayer } = this.props;
     const { playListStatus, playerStatus } = this.props.modalPower;
-    const { id, url, isPlay, orderType, duration, currentPlayer, rangeVal, volumeVal, audioVolume, lyricText, rotate, isShowVolume } = this.state;
+    const { id, url, isPlay, orderType, duration, rangeVal, volumeVal, audioVolume, lyricText, rotate, isShowVolume } = this.state;
     return (
       <div className={styles.footer}>
         <Audio
@@ -283,13 +281,13 @@ class Footer extends Component {
           {
             currentPlayer.al ?
               <img
-                src={formatImgSize(currentPlayer.al.picUrl, 50, 50) || require('common/images/album.png')} alt="" />
+                src={currentPlayer.al.picUrl ? formatImgSize(currentPlayer.al.picUrl, 50, 50) : require('common/images/albums.png').default} alt="" />
               : null
           }
           <div className={styles.music_info}>
             <div>
               <p className="overflow">{currentPlayer.name} </p>
-              {currentPlayer.al ?
+              {currentPlayer.al && currentPlayer.type !== 'local' ?
                 <Like
                   id={id}
                   list={likeListIds || []}

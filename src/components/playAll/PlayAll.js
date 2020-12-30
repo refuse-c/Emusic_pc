@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-10 20:05:17
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-02 20:21:32
+ * @LastEditTime: 2020-12-30 15:22:52
  * @Description: 播放全部
  */
 import React, { Component } from 'react'
@@ -29,6 +29,7 @@ class PlayAll extends Component {
     const filterData = list.filter(item => item.st !== -200); // 筛选出没有版权的音乐
     message.destroy();
     if (filterData.length) {
+      console.log(filterData[0])
       setCurrentPlayer(filterData[0]);
       setCurrentPlayList(filterData);
       message.info('已添加到播放列表')

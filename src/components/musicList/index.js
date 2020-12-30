@@ -2,10 +2,10 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-25 10:07:18
+ * @LastEditTime: 2020-12-30 16:01:29
  * @Description: 歌单列表
  */
-import { formatSerialNo, formatSongTime } from 'common/utils/format';
+import { formatLocalName, formatSerialNo, formatSongTime } from 'common/utils/format';
 import { message, Table } from 'antd';
 import React, { Component } from 'react'
 import styles from './css/index.module.scss';
@@ -24,7 +24,7 @@ class MusicList extends Component {
       newList: [], // 点击排序后的新列表
     }
   }
-  columns = [
+  onLineColumns = [
     {
       title: '序号',
       key: 'index',
@@ -103,6 +103,46 @@ class MusicList extends Component {
       render: item => formatSongTime(item.dt)
     },
   ];
+  localColumns = [
+    {
+      title: '序号',
+      key: '1',
+      render: (text, record, index) => `${formatSerialNo(index + 1)}`,
+      width: 60,
+    },
+    {
+      title: '音乐标题',
+      key: '2',
+      ellipsis: true,
+      sorter: (a, b) => a.name.localeCompare(b.name),
+      render: item => <div className='item'>
+        <p>{formatLocalName(item.name)}</p>
+      </div >
+    },
+    {
+      title: '歌手',
+      key: '3',
+      ellipsis: true,
+      sorter: (a, b) => a.ar[0].name.localeCompare(b.ar[0].name),
+      render: item => item.ar.map((item, index) =>
+        <span key={`i` + index} className={styles.singerText}>{item.name} </span>
+      ),
+    },
+    {
+      title: '专辑',
+      key: '4',
+      ellipsis: true,
+      sorter: (a, b) => a.al.name.localeCompare(b.al.name),
+      render: item => <span className={styles.singerText} >{item.al.name}</span>
+    },
+    {
+      title: '时长',
+      key: '5',
+      width: 80,
+      sorter: (a, b) => a.dt - b.dt,
+      render: item => formatSongTime(item.dt)
+    },
+  ];
 
   selectRow = record => {
     // console.log(record)
@@ -138,16 +178,16 @@ class MusicList extends Component {
   }
 
   render() {
-    const { list, currentPlayer } = this.props;
+    const { list, currentPlayer, type } = this.props;
     return (
       <Table
         // bordered
         rowKey={"id"}
         size={"small"}
-        columns={this.columns}
+        columns={type === 'local' ? this.localColumns : this.onLineColumns}
         dataSource={list}
         pagination={false}
-        rowClassName={(record, i) => record.st === -200 ? 'disabled' : (currentPlayer.id === record.id) ? 'active' : null
+        rowClassName={(record, i) => record.type === 'local' ? (currentPlayer.name === record.name ? 'active' : '') : (record.st === -200 ? 'disabled' : (currentPlayer.id === record.id) ? 'active' : null)
         }
         onChange={this.onChange}
         className={styles.table}

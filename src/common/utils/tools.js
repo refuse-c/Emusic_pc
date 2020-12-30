@@ -4,7 +4,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:17
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-20 12:41:07
+ * @LastEditTime: 2020-12-30 15:04:10
  * @Description:基础工具
  */
 
@@ -127,14 +127,14 @@ export const highlightText = (key, str) => {
  * @param {orderType} orderType 1 顺序播放 2 单曲循环 3 随机播放
  */
 
-export const cutSong = (id, list, type, orderType) => {
+export const cutSong = (id, name, list, type, orderType) => {
   const length = list.length - 1;
   if (length === -1) {
     message.destroy();
     message.info('当前无可以播放音乐,快去添加吧^v^');
     return false;
   }
-  let index = list.findIndex(item => id === item.id);
+  let index = list.findIndex(item => item.type === 'local' ? name === item.name : id === item.id);
   if (type === 1) {
     index--;
     index = index === -1 ? length : index;

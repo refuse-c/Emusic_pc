@@ -2,12 +2,14 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-20 16:41:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-29 14:11:14
+ * @LastEditTime: 2020-12-30 15:37:09
  * @Description: 
  */
+
 let mainWindow;
 const fs = require('fs');
 const path = require('path');
+const id3 = require('node-id3');
 const { app, Menu, BrowserWindow, globalShortcut, ipcMain } = require('electron');
 
 // 取消菜单栏
@@ -100,54 +102,27 @@ app.on('ready', () => {
 });
 
 ipcMain.on('asynchronous-message', function (event, arg) {
-  // arg是从渲染进程返回来的数据
-  // var res = fs.readdirSync(arg);
-  // event.sender.send('asynchronous-reply', res);
-  // console.log(readDir);
-  const res = getFiles.getFileList(arg)
+  const data = fs.readdirSync(arg);
 
-  event.sender.send('asynchronous-reply', res);
-  // fs.readdirSync(arg, function (err, res) {
-  //   console.log(res)
-  //   if (err) {
-  //     event.sender.send('asynchronous-reply', "读取失败");
-  //   } else {
-  //     const data = {
-  //       path: arg,
-  //       data: res
-  //     }
-  //     event.sender.send('asynchronous-reply', res);
-  //   }
-  // });
+  let localList = [];
+  data.forEach((element) => {
+    let obj = {};
+    if (
+      element.indexOf('.wav') === -1 &&
+      element.indexOf('.mp3') === -1 &&
+      element.indexOf('.ogg') === -1 &&
+      element.indexOf('.acc') === -1 &&
+      element.indexOf('.flac') === -1
+    ) return false;
+    let tags = id3.read(arg + element);
+    obj.al = { id: '', name: tags.album || '未知专辑', picUrl: '' };;
+    obj.name = tags.title || element;
+    obj.ar = [{ id: '', name: tags.artist || '未知歌手' }];
+    obj.url = arg + element;
+    obj.tags = tags;
+    obj.type = 'local';
+    obj.id = '';
+    localList.push(obj);
+  });
+  event.sender.send('asynchronous-reply', localList);
 });
-
-
-function readFileList(path, filesList) {
-  var files = fs.readdirSync(path);
-  files.forEach(function (item, index) {
-    var stat = fs.statSync(path + item);
-    if (stat.isDirectory()) {
-      //递归读取文件
-      readFileList(path + item + "/", filesList)
-    } else {
-
-      var obj = {};//定义一个对象存放文件的路径和名字
-      obj.path = path;//路径
-      obj.filename = item//名字
-      filesList.push(obj);
-    }
-
-  })
-
-}
-
-
-var getFiles = {
-  //获取文件夹下的所有文件
-  getFileList: function (path) {
-    var filesList = [];
-    readFileList(path, filesList);
-    console.log(filesList)
-    return filesList;
-  }
-}

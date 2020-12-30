@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-10 15:55:14
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-20 14:37:11
+ * @LastEditTime: 2020-12-30 17:17:11
  * @Description 播放组件
  */
 import { cutSong } from 'common/utils/tools';
@@ -28,9 +28,9 @@ class Audio extends Component {
         currentPlayList,
         setCurrentPlayer
       } = this.props;
-      const { id } = currentPlayer;
+      const { id, name } = currentPlayer;
       global.range.style.backgroundSize = `0% 100%`;
-      const data = cutSong(id, currentPlayList, 2, 1);
+      const data = cutSong(id, name, currentPlayList, 2, 1);
       setCurrentPlayer(data)
     });
     audio.volume = 1;

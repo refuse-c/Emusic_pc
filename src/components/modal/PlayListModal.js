@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-15 14:17:33
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-18 18:39:10
+ * @LastEditTime: 2020-12-30 14:47:03
  * @Description: 播放列表
  */
 import { currentPlayer, currentPlayList, modalPower } from 'store/actions';
@@ -24,7 +24,7 @@ class PlayListModal extends Component {
   // 根据index的变化滚动
   scrollTop = () => {
     const { currentPlayer, currentPlayList } = this.props;
-    const index = currentPlayList.findIndex(item => currentPlayer.id === item.id);
+    const index = currentPlayList.findIndex(item => item.type === 'local' ? currentPlayer.name === item.name : currentPlayer.id === item.id);
     this.sc.scrollTop((index - 7) * 30);
   }
 
@@ -69,7 +69,7 @@ class PlayListModal extends Component {
   render() {
     const { active } = this.state;
     const { currentPlayList, currentPlayer, isPlay, playListStatus } = this.props;
-    const { id } = currentPlayer;
+    const { id, name } = currentPlayer;
     return (
       <div
         className={styles.play_list}
@@ -100,8 +100,8 @@ class PlayListModal extends Component {
             <ul>
               {
                 currentPlayList.map((item, index) => {
-                  const cls1 = id === item.id ? styles.active : null;
-                  const cls2 = id === item.id ? (isPlay ? styles.icon_play : styles.icon_pause) : null;
+                  const cls1 = (item.type === 'local' ? name === item.name : id === item.id) ? styles.active : null;
+                  const cls2 = (item.type === 'local' ? name === item.name : id === item.id) ? (isPlay ? styles.icon_play : styles.icon_pause) : null;
                   return (
                     <li
                       key={`item` + index}

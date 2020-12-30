@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:06
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-07 16:37:28
+ * @LastEditTime: 2020-12-30 14:27:05
  * @Description:工具
  */
 
@@ -168,3 +168,11 @@ export const checkNum = v => {
   return !isNaN(v);
 }
 
+/**
+ * @name: 格式化本地音乐名字
+ * @param {string} 
+ */
+export const formatLocalName = v => {
+  if (!v) return;
+  return v.replace(/.mp3/g, '');
+}
