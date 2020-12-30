@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-20 16:41:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-30 22:08:48
+ * @LastEditTime: 2020-12-30 22:25:37
  * @Description: 
  */
 let tray;
@@ -105,8 +105,7 @@ ipcMain.on('asynchronous-message', function (event, arg) {
   const data = fs.readdirSync(arg);
   const id3 = require('node-id3');
   let localList = [];
-  data.forEach((element) => {
-    let obj = {};
+  data.forEach(element => {
     if (
       element.indexOf('.wav') === -1 &&
       element.indexOf('.mp3') === -1 &&
@@ -114,13 +113,15 @@ ipcMain.on('asynchronous-message', function (event, arg) {
       element.indexOf('.acc') === -1 &&
       element.indexOf('.flac') === -1
     ) return false;
-    let tags = id3.read(arg + element);
+    let obj = {};
+    const url = arg + element;
+    let tags = id3.read(url);
+    obj.id = '';
+    obj.url = url;
+    obj.type = 'local';
+    obj.ar = [{ id: '', name: tags.artist || '未知歌手' }];
     obj.al = { id: '', name: tags.album || '未知专辑', picUrl: '' };;
     obj.name = tags.title || element.replace(/.wav|.mp3|.ogg|.acc|.flac/g, '');
-    obj.ar = [{ id: '', name: tags.artist || '未知歌手' }];
-    obj.url = arg + element;
-    obj.type = 'local';
-    obj.id = '';
     localList.push(obj);
   });
   event.sender.send('asynchronous-reply', localList);
