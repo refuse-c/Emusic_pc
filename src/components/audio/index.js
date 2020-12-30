@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-10 15:55:14
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-30 17:17:11
+ * @LastEditTime: 2020-12-30 17:53:22
  * @Description 播放组件
  */
 import { cutSong } from 'common/utils/tools';
@@ -24,13 +24,14 @@ class Audio extends Component {
     // 当前音乐播放完毕自动播放下一曲
     audio.addEventListener('ended', () => {
       const {
+        orderType,
         currentPlayer,
         currentPlayList,
         setCurrentPlayer
       } = this.props;
       const { id, name } = currentPlayer;
       global.range.style.backgroundSize = `0% 100%`;
-      const data = cutSong(id, name, currentPlayList, 2, 1);
+      const data = cutSong(id, name, currentPlayList, 2, orderType);
       setCurrentPlayer(data)
     });
     audio.volume = 1;
