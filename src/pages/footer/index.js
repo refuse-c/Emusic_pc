@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-31 09:51:59
+ * @LastEditTime: 2020-12-31 20:10:59
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -246,9 +246,9 @@ class Footer extends Component {
     this.setState({ isPlay: false })
   }
   render() {
-    const { currentTime, queryLikeList, likeListIds, reloadPlayList, currentPlayer } = this.props;
     const { playListStatus, playerStatus } = this.props.modalPower;
-    const { id, url, isPlay, orderType, duration, rangeVal, volumeVal, audioVolume, lyricText, rotate, isShowVolume } = this.state;
+    const { currentTime, queryLikeList, likeListIds, reloadPlayList, currentPlayer } = this.props;
+    const { url, isPlay, orderType, duration, rangeVal, volumeVal, audioVolume, lyricText, rotate, isShowVolume } = this.state;
     return (
       <div className={styles.footer}>
         <Audio
@@ -289,7 +289,7 @@ class Footer extends Component {
               <p className="overflow">{currentPlayer.name} </p>
               {currentPlayer.al && currentPlayer.type !== 'local' ?
                 <Like
-                  id={id}
+                  id={currentPlayer.id}
                   list={likeListIds || []}
                   callBack={queryLikeList}
                   reloadPlayList={reloadPlayList}
