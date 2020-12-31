@@ -2,12 +2,12 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:45:31
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-21 16:52:36
+ * @LastEditTime: 2020-12-31 17:44:24
  * @Description: 歌单
  */
 import React, { Component } from 'react';
 import styles from './css/index.module.scss';
-import { taglist, hotTag, playList, qualityTag } from 'common/api/api';
+import { taglist, hotTag, playList, qualityTag, highquality } from 'common/api/api';
 import SongListClassify from './component/SongListClassify';
 import SongList from 'components/songList';
 import { formatTag } from 'common/utils/format';
@@ -28,13 +28,7 @@ class Index extends Component {
       total: 0,
       loading: true,
       qualityTagList: [],
-      qualityList: [{
-        name: "精品歌单倾心推荐,给最懂音乐的你",
-        type: 'quality',
-        id: 'refuse5201314',
-        description: "精品歌单",
-        coverImgUrl: require('common/images/quality.png')
-      }],
+      qualityList: {},
     }
   }
 
@@ -63,24 +57,30 @@ class Index extends Component {
     this.setState({ hotTagList: res.tags })
   }
 
+  // 获取精品歌单
+  queryHighquality = async (cat) => {
+    const res = await highquality({ cat, limit: 1, before: '' })
+    this.setState({ loading: false })
+    if (res.code !== 200) return;
+    this.setState({ qualityList: res.playlists[0] || {} });
+  }
+
   // 获取歌单列表
   queryPlayList = async () => {
-    const { tag, limit, offset, qualityList } = this.state;
-    let songList = [];
-    let hasQuality = this.hasQuality(tag); // 是否有精品歌单
+    const { tag, limit, offset } = this.state;
+    let hasQuality = await this.hasQuality(tag); // 是否有精品歌单
     const params = {
       order: 'hot',
       cat: tag === '全部歌单' ? '全部' : tag,
       limit: offset === 1 && hasQuality ? limit - 1 : limit,
       offset: (offset - 1) * limit
     }
-    const defaultList = hasQuality ? qualityList : [];
+    hasQuality ? this.queryHighquality(tag) : this.setState({ qualityList: [] });
     const res = await playList(params);
     this.setState({ loading: false });
     if (res.code !== 200) return;
     const { total, playlists } = res;
-    offset === 1 ? songList = defaultList.concat(playlists) : songList = playlists;
-    this.setState({ total, songList }, () => this.props.fun()) // 滚动到顶部
+    this.setState({ total, songList: playlists }, () => this.props.fun()) // 滚动到顶部
   }
 
   //点击tag
@@ -112,9 +112,24 @@ class Index extends Component {
 
   render() {
     const { history } = this.props;
-    const { tag, loading, showModal, tagList, hotTagList, songList, limit, offset, total } = this.state;
+    const { tag, loading, showModal, tagList, hotTagList, songList, limit, offset, total, qualityList } = this.state;
+    console.log(qualityList)
     return (
       <div className={styles.song_list}>
+        {qualityList.name ?
+          <div className={styles.boutique} >
+            <img className={styles.boutiquebg} src={qualityList.coverImgUrl} alt="" />
+            <div className={styles.boutiquebg_content}>
+              <img className={styles.coverImgUrl} src={qualityList.coverImgUrl} alt="" />
+              <div className={styles.boutiquebg_info}>
+                <p>精品歌单</p>
+                <p>{qualityList.name}</p>
+                <p>{qualityList.copywriter}</p>
+              </div>
+            </div>
+
+          </div>
+          : null}
         <div
           className={styles.all_list_text}
           onClick={() => this.setState({ showModal: true })}

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-30 21:55:17
+ * @LastEditTime: 2020-12-31 09:51:59
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -261,7 +261,7 @@ class Footer extends Component {
 
         <PlayList
           isPlay={isPlay}
-          playListStatus={playListStatus}
+          hasShow={playListStatus}
           callback={this.playListCallback}
         />
         <Player

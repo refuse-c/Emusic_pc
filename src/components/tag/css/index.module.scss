@@ -11,21 +11,33 @@
     padding: 4px 0;
     margin: 4px 0;
   }
+
   ul {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+
     li {
       position: relative;
-      padding: 4px 4px;
+      padding: 4px 10px;
       margin: 4px 10px;
-      border-radius: 2px;
+      border-radius: 14px;
       color: $c666;
       font-size: $fz12;
       cursor: pointer;
+
+      &:hover {
+        color: #ec4141;
+        background-color: #FDEDED;
+      }
+
       &.active {
-        color: $cfff;
-        background-color: #8f9096;
+        color: #ec4141;
+        background-color: #FDF5F5;
+
+        &:hover {
+          background-color: #FDEDED;
+        }
       }
     }
   }

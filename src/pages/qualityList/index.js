@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-18 11:26:20
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-15 16:36:15
+ * @LastEditTime: 2020-12-31 17:03:52
  * @Description: 独家放送-列表
  */
 import React, { Component } from 'react';
@@ -26,11 +26,11 @@ class Highquality extends Component {
   }
 
   // 获取精品歌单
-  queryHighquality = async () => {
+  queryHighquality = async (cat) => {
     const oldList = this.state.list;
     const before = !isEmpty(oldList) ? oldList.pop().updateTime : '';
     const { limit } = this.state;
-    const res = await highquality({ limit, before })
+    const res = await highquality({ cat, limit, before })
     this.setState({ loading: false })
     if (res.code === 200) {
       const nowList = res.playlists;
@@ -47,7 +47,10 @@ class Highquality extends Component {
   }
 
   componentDidMount = () => {
-    this.queryHighquality();
+    let tag = this.props.match.params.id;
+    tag = tag === '全部歌单' ? '全部' : tag;
+    this.queryHighquality(tag);
+
   }
 
   componentDidUpdate = () => {

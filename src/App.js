@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 17:57:51
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-29 14:38:24
+ * @LastEditTime: 2020-12-31 15:57:34
  * @Description: 
  */
 import React from 'react';
@@ -75,7 +75,7 @@ function App() {
   }
 
 
-    <Redirect exact from='/' to='/home/local/' />
+    <Redirect exact from='/' to='/home/find/' />
     {/* <Redirect exact from='/' to='/home/mylove/' /> */}
     {/* <Redirect exact from='/' to='/videoDetail10908736' /> */}
     {/* <Redirect exact from='/' to='/home/single2971245150' /> */}

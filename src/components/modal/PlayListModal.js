@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-15 14:17:33
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-30 14:47:03
+ * @LastEditTime: 2020-12-31 09:54:36
  * @Description: 播放列表
  */
 import { currentPlayer, currentPlayList, modalPower } from 'store/actions';
@@ -18,7 +18,7 @@ class PlayListModal extends Component {
     super(props);
     this.state = {
       active: 0,
-      id: '',
+      // id: '',
     }
   }
   // 根据index的变化滚动
@@ -40,41 +40,30 @@ class PlayListModal extends Component {
     setCurrentPlayList([]);
   }
 
-  componentDidMount = () => {
-    this.scrollTop();
-  }
-
-
-  static getDerivedStateFromProps = (nextProps, prevState) => {
-    const { id } = nextProps.currentPlayer;
-    if (id !== prevState.id) {
-      return {
-        id,
-        props: {
-          id: id,
-        },
-      };
-    }
-    return null;
-  }
-
   componentDidUpdate = prevState => {
-    const { id } = prevState.currentPlayer;
-    if (id !== this.state.id && this.state.id !== undefined) {
-      this.scrollTop();
+    const { hasShow, currentPlayer } = this.props;
+    const { id, name, type } = currentPlayer;
+    if (type === 'local') {
+      if (name !== prevState.currentPlayer.name || hasShow) {
+        this.scrollTop();
+      }
+    } else {
+      if (id !== prevState.currentPlayer.id || hasShow) {
+        this.scrollTop();
+      }
     }
   }
 
 
   render() {
     const { active } = this.state;
-    const { currentPlayList, currentPlayer, isPlay, playListStatus } = this.props;
+    const { currentPlayList, currentPlayer, isPlay, hasShow } = this.props;
     const { id, name } = currentPlayer;
     return (
       <div
         className={styles.play_list}
-        // style={{ height: playListStatus ? 'calc(100vh - 130px)' : '0px' }}
-        style={{ transform: playListStatus ? `scale(1)` : `scale(0)` }}>
+        // style={{ height: hasShow ? 'calc(100vh - 130px)' : '0px' }}
+        style={{ transform: hasShow ? `scale(1)` : `scale(0)` }}>
         <ul className={styles.title}>
           <li
             className={active === 0 ? styles.active : null}

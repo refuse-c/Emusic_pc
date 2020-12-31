@@ -2,7 +2,77 @@
 
 .song_list {
   position: relative;
+
+  .boutique {
+    position: relative;
+    width: 100%;
+    padding: 16px;
+    border-radius: 8px;
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 172px;
+    overflow: hidden;
+
+    .boutiquebg_content {
+      width: 100%;
+      height: 100%;
+      display: flex;
+
+      .coverImgUrl {
+        position: relative;
+        z-index: 2;
+        width: 140px;
+        height: 140px;
+        border-radius: 4px;
+      }
+
+      .boutiquebg_info {
+        position: relative;
+        z-index: 2;
+
+        p {
+          margin-left: 10px;
+
+          &:nth-child(1) {
+            display: table;
+            color: #E7AA5A;
+            font-size: 16px;
+            padding: 8px 20px;
+            border: 1px solid #E7AA5A;
+            border-radius: 40px;
+            margin-top: 20px;
+          }
+
+          &:nth-child(2) {
+            color: #fff;
+            font-size: 16px;
+            margin-top: 30px;
+          }
+
+          &:nth-child(3) {
+            margin-top: 10px;
+            color: #9C8E8C;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+
+    .boutiquebg {
+      width: 100%;
+      height: 172px;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      filter: blur(20px);
+      transform: scale(1.5);
+    }
+  }
+
   // show modal btn
+
   .all_list_text {
     display: table;
     min-width: 60px;
@@ -28,16 +98,20 @@
     display: flex;
     white-space: nowrap;
     margin: 10px 0 20px;
+
     ul {
       display: flex;
+
       li {
         position: relative;
         cursor: pointer;
         color: $c666;
         padding: 0 20px;
+
         &:not(:first-child) {
           border-left: 1px solid #e5e6ea;
         }
+
         &.active {
           color: $cc62f2f;
         }
@@ -53,6 +127,7 @@
     background-color: #fff;
     // user-select: none;
     box-shadow: 0 0 8px 0 rgba($color: #000000, $alpha: 0.1);
+
     .title {
       width: 100%;
       height: 50px;
@@ -60,56 +135,65 @@
       padding: 0 20px;
       border-bottom: 1px solid #e5e6ea;
     }
+
     .scroll_box {
       width: 100%;
       height: calc(100% - 50px);
+
       .content {
         width: 100%;
         padding: 10px 20px;
+
         .tag_box {
           display: flex;
           margin-top: 10px;
+
           &:nth-child(2) h3 {
-            background: url("~common/images/icon_0.png") top 7px left / 24px 24px
-              no-repeat;
+            background: url("~common/images/icon_0.png") top 7px left / 24px 24px no-repeat;
           }
+
           &:nth-child(3) h3 {
-            background: url("~common/images/icon_1.png") top 7px left / 24px 24px
-              no-repeat;
+            background: url("~common/images/icon_1.png") top 7px left / 24px 24px no-repeat;
           }
+
           &:nth-child(4) h3 {
-            background: url("~common/images/icon_2.png") top 7px left / 24px 24px
-              no-repeat;
+            background: url("~common/images/icon_2.png") top 7px left / 24px 24px no-repeat;
           }
+
           &:nth-child(5) h3 {
-            background: url("~common/images/icon_3.png") top 7px left / 24px 24px
-              no-repeat;
+            background: url("~common/images/icon_3.png") top 7px left / 24px 24px no-repeat;
           }
+
           &:nth-child(6) h3 {
-            background: url("~common/images/icon_4.png") top 7px left / 24px 24px
-              no-repeat;
+            background: url("~common/images/icon_4.png") top 7px left / 24px 24px no-repeat;
           }
+
           h3 {
             width: 80px;
             line-height: 36px;
             padding-left: 30px;
           }
+
           ul {
             display: flex;
             flex-wrap: wrap;
             width: 420px;
+
             li {
               position: relative;
               width: 80px;
+
               &:not(:nth-child(-n + 5)) {
                 margin-top: -1px;
               }
+
               &:not(:nth-child(5n - 4)) {
                 margin-left: -1px;
               }
             }
           }
         }
+
         .tag {
           text-align: center;
           line-height: 34px;
@@ -118,18 +202,20 @@
           border-radius: 2px;
           font-size: $fz12;
           background-color: #fff;
+
           &:hover {
             z-index: 2;
             // border: 1px solid #c62f2f;
             background-color: #f5f5f7;
           }
         }
+
         .tagActive {
           z-index: 3;
           border: 1px solid #c62f2f;
-          background: url("~common/images/choose_right.png") bottom right / 17px
-            no-repeat;
+          background: url("~common/images/choose_right.png") bottom right / 17px no-repeat;
         }
+
         .hotActive {
           &::before {
             position: absolute;
@@ -138,8 +224,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url("~common/images/hot.png") top 4px right 4px / 16px
-              no-repeat;
+            background: url("~common/images/hot.png") top 4px right 4px / 16px no-repeat;
           }
         }
       }
@@ -148,6 +233,7 @@
 
   .arrow {
     position: relative;
+
     &::before {
       position: absolute;
       content: "";
@@ -159,6 +245,7 @@
       border-left: 10px solid transparent;
       border-bottom: 10px solid rgba($color: #000000, $alpha: 0.1);
     }
+
     &::after {
       position: absolute;
       content: "";
@@ -179,31 +266,37 @@
       .ant-pagination {
         display: table;
         margin: 0 auto;
+
         .ant-pagination-item {
           &:hover {
             border-color: $cc62f2f;
           }
+
           a:hover {
             color: $cc62f2f;
           }
         }
+
         .ant-pagination-item-link {
           &:hover .ant-pagination-item-link-icon {
             color: $cc62f2f;
             border-color: $cc62f2f;
           }
         }
+
         .ant-pagination-prev,
         .ant-pagination-next {
           &:hover {
             .anticon {
               color: $cc62f2f;
             }
+
             .ant-pagination-item-link {
               border-color: $cc62f2f;
             }
           }
         }
+
         .ant-pagination-disabled {
           .ant-pagination-item-link {
             &:hover {
@@ -212,12 +305,15 @@
             }
           }
         }
+
         .ant-pagination-item-active {
           border-color: $cc62f2f;
         }
+
         .ant-pagination-item-active a {
           color: $cc62f2f;
         }
+
         .anticon {
           vertical-align: 0;
         }

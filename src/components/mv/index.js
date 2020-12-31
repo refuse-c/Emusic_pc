@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-03 11:54:25
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-08 23:09:24
+ * @LastEditTime: 2020-12-31 16:33:44
  * @Description: 个性推荐-推荐mv
  */
 
@@ -24,7 +24,6 @@ class MvList extends Component {
         <ul>
           {
             list.map((item, index) => {
-              console.log(item)
               return (
                 <li
                   key={'item' + index}
@@ -41,7 +40,7 @@ class MvList extends Component {
                   </div>
                   <div className={styles.creator}>
                     <p className='overflow'>{item.name || item.title}</p>
-                    <p className='overflow'>{!isFullScreen ? item.artistName || item.creator[0].userName || '' : null}</p>
+                    <p className='overflow'>{!isFullScreen ? item.artistName || (item.creator && item.creator[0].userName) || '' : null}</p>
                   </div>
                 </li>
               )

@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 import styles from './index.module.scss';
 import Menu from 'components/menu/Menu';
 import { Route } from 'react-router-dom';
-import Footer from 'components/footer';
+import Footer from 'pages/footer';
 import { likeList } from 'common/api/like';
 import { getSession } from 'common/utils/tools';
 class Home extends Component {

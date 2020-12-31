@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 20:23:12
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-17 12:51:53
+ * @LastEditTime: 2020-12-31 16:31:05
  * @Description: FindTitle
  */
 import { message } from 'antd';
@@ -70,7 +70,7 @@ class FindTitle extends Component {
     return (
       <div className={styles.find_title}>
         <div>
-          <h2>{title}</h2>
+          <h2 onClick={this.jump}>{title}</h2>
           <ul>
             {
               list ?
@@ -85,9 +85,9 @@ class FindTitle extends Component {
             }
           </ul>
         </div>
-        {
-          type ? <span onClick={this.jump.bind(this)}>更多</span> : null
-        }
+        {/* {
+          type ? <span >更多</span> : null
+        } */}
         {
           date ? <p>最近更新：{formatDate(date)}</p> : null
         }
