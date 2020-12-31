@@ -13,6 +13,8 @@
     background-repeat: no-repeat;
     height: 172px;
     overflow: hidden;
+    margin-bottom: 16px;
+    cursor: pointer;
 
     .boutiquebg_content {
       width: 100%;
@@ -52,7 +54,7 @@
 
           &:nth-child(3) {
             margin-top: 10px;
-            color: #9C8E8C;
+            color: #e5e6ea;
             font-size: 12px;
           }
         }

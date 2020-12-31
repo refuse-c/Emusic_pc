@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:45:31
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-31 17:44:24
+ * @LastEditTime: 2020-12-31 17:58:10
  * @Description: 歌单
  */
 import React, { Component } from 'react';
@@ -10,8 +10,9 @@ import styles from './css/index.module.scss';
 import { taglist, hotTag, playList, qualityTag, highquality } from 'common/api/api';
 import SongListClassify from './component/SongListClassify';
 import SongList from 'components/songList';
-import { formatTag } from 'common/utils/format';
+import { formatImgSize, formatTag } from 'common/utils/format';
 import { Spin, Pagination } from 'antd';
+import { routerJump } from 'common/utils/tools';
 
 
 class Index extends Component {
@@ -117,10 +118,10 @@ class Index extends Component {
     return (
       <div className={styles.song_list}>
         {qualityList.name ?
-          <div className={styles.boutique} >
-            <img className={styles.boutiquebg} src={qualityList.coverImgUrl} alt="" />
+          <div className={styles.boutique} onClick={() => routerJump(history, `/home/qualityList${tag}`)}>
+            <img className={styles.boutiquebg} src={formatImgSize(qualityList.coverImgUrl, 140, 140)} alt="" />
             <div className={styles.boutiquebg_content}>
-              <img className={styles.coverImgUrl} src={qualityList.coverImgUrl} alt="" />
+              <img className={styles.coverImgUrl} src={formatImgSize(qualityList.coverImgUrl, 140, 140)} alt="" />
               <div className={styles.boutiquebg_info}>
                 <p>精品歌单</p>
                 <p>{qualityList.name}</p>
@@ -129,7 +130,8 @@ class Index extends Component {
             </div>
 
           </div>
-          : null}
+          : null
+        }
         <div
           className={styles.all_list_text}
           onClick={() => this.setState({ showModal: true })}
@@ -151,7 +153,7 @@ class Index extends Component {
             })}
           </ul>
         </div>
-        {<SongList tag={tag} list={songList} history={history} />}
+        { <SongList tag={tag} list={songList} history={history} />}
         <div className={styles.pages}>
           <Pagination
             total={total}
