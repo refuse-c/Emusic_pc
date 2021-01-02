@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-31 20:10:59
+ * @LastEditTime: 2021-01-02 11:54:30
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -133,10 +133,12 @@ class Footer extends Component {
       currentPlayList,
       setCurrentPlayer
     } = this.props;
+    const { range } = this;
+    if (!range) return;
     const { orderType } = this.state;
     const { id, name, type } = currentPlayer;
     const data = cutSong(id, name, currentPlayList, types, orderType);
-    this.range.style.backgroundSize = `0% 100%`;
+    range.style.backgroundSize = `0% 100%`;
     if (type === 'local') this.setState({ isPlay: true })
     setCurrentPlayer(data);
   }
