@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 18:50:54
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-24 19:53:17
+ * @LastEditTime: 2021-01-02 18:17:07
  * @Description 布局
  */
 import React, { Component } from 'react';
@@ -23,12 +23,13 @@ class Home extends Component {
 
 
   // 查询全部喜欢的音乐
-  queryLikeList = async () => {
+  queryLikeList = () => {
     const uid = getSession('uid');
     if (!uid) return;
-    const res = await likeList({ uid })
-    const likeListIds = res.ids || [];
-    this.setState({ likeListIds })
+    likeList({ uid }).then(res => {
+      const likeListIds = res.ids || [];
+      this.setState({ likeListIds })
+    })
   }
 
   // 是否需要重载歌单
@@ -37,7 +38,9 @@ class Home extends Component {
   }
 
   componentDidMount = () => {
-    this.queryLikeList();
+    setTimeout(() => {
+      this.queryLikeList();
+    }, 1000);
   }
 
   render() {
