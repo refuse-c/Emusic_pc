@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-10 12:22:21
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-28 23:51:32
+ * @LastEditTime: 2021-01-02 17:56:59
  * @Description: 发现-排行榜-官方榜
  */
 import React, { Component } from 'react'
@@ -10,6 +10,7 @@ import styles from '../css/index.module.scss';
 import propTypes from 'prop-types';
 import PlayAll from 'components/playAll/PlayAll';
 import { formatDate } from 'common/utils/format';
+import { withRouter } from 'react-router-dom';
 
 class OfficialList extends Component {
   constructor(props) {
@@ -81,4 +82,4 @@ class OfficialList extends Component {
 OfficialList.propTypes = {
   list: propTypes.array
 }
-export default OfficialList;
+export default withRouter(OfficialList);

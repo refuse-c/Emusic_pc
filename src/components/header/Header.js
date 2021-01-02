@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-25 14:12:03
+ * @LastEditTime: 2021-01-02 17:43:54
  * @Description: 头部 
  */
 import React, { Component } from 'react';
@@ -52,7 +52,6 @@ class Header extends Component {
   }
 
   render() {
-    const { history } = this.props;
     const { isDrag } = this.state;
     const { loginStatus } = this.props.modalPower;
     const userInfo = getLocal('userInfo') || {};
@@ -63,7 +62,6 @@ class Header extends Component {
         onClick={() => this.props.handelHideModal()}
       >
         <Login
-          history={history}
           showModal={loginStatus}
           hideModal={this.hideModal}
           callBack={this.callBack}
@@ -81,7 +79,7 @@ class Header extends Component {
             onClick={() => this.go(1)}
             className={[styles.arrow, styles.arrow_right].join(' ')}
           ></div>
-          <SearchInput history={history} func={this.handleDrag} />
+          <SearchInput func={this.handleDrag} />
         </div>
         <ul className={styles.header_right}>
           {!isEmpty(userInfo) ?

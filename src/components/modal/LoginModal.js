@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 21:48:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-02 10:37:55
+ * @LastEditTime: 2021-01-02 17:41:33
  * @Description 登录弹窗
  */
 import React, { Component } from 'react'
@@ -13,6 +13,7 @@ import { modalPower, queryUserInfo, userPlayList } from 'store/actions';
 import { IS_SHOW_LOGIN } from 'store/actionTypes';
 import { login } from 'common/api/api';
 import { routerJump, setLocal } from 'common/utils/tools';
+import { withRouter } from 'react-router-dom';
 
 // import MD5 from 'crypto-js/md5'
 const FormItem = Form.Item;
@@ -139,4 +140,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginModal)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginModal));

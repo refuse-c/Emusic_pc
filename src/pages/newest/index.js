@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-11 09:51:05
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-11-12 16:30:47
+ * @LastEditTime: 2021-01-02 17:43:39
  * @Description: 发现-最新音乐
  */
 import React, { Component } from 'react';
@@ -117,7 +117,6 @@ class Newest extends Component {
     this.queryAllTopAlbum();
   }
   render() {
-    const { history } = this.props;
     const { area, loading, menu, menuIndex, topAlbumData, topSongData, weekData, monthData, albumType } = this.state;
     return (
       <div className={styles.newest}>
@@ -140,13 +139,13 @@ class Newest extends Component {
         {
           menuIndex ?
             albumType ?
-              <Album history={history} title={`本周新碟`} list={topAlbumData} fun={this.chooseItem} />
+              <Album title={`本周新碟`} list={topAlbumData} fun={this.chooseItem} />
               :
               <div>
                 {area === 'ALL' ?
-                  <Album history={history} title={`本周新碟`} list={weekData} fun={this.chooseItem} />
+                  <Album title={`本周新碟`} list={weekData} fun={this.chooseItem} />
                   : null}
-                <Album history={history} title={`本月新碟`} list={monthData} fun={this.chooseItem} />
+                <Album title={`本月新碟`} list={monthData} fun={this.chooseItem} />
               </div>
             :
             <TopSong list={topSongData} fun={this.chooseItem} />

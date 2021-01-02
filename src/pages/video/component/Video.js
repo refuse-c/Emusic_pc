@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-13 02:34:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-08 22:45:07
+ * @LastEditTime: 2021-01-02 17:58:31
  * @Description: 视频-视频
  */
 import React, { Component } from 'react';
@@ -121,18 +121,16 @@ class Video extends Component {
 
 
   render() {
-    const { history } = this.props;
     const { tag, hotVideoTagList, allVideoTagList, showModal, videoDataList, loading } = this.state;
     return (
       <div className={styles.video}>
-        <div
-          className={styles.all_list_text}
-          onClick={() => this.setState({ showModal: true })}
-        >
-          {tag}
-        </div >
         <div className={styles.hot_tag}>
-          <span> 热门标签：</span>
+          <div
+            className={styles.all_list_text}
+            onClick={() => this.setState({ showModal: true })}
+          >
+            {tag}
+          </div >
           <ul>
             {hotVideoTagList.map(item => {
               const cls = tag === item.name ? styles.active : '';
@@ -146,7 +144,7 @@ class Video extends Component {
             })}
           </ul>
         </div>
-        <VideoList history={history} list={videoDataList} />
+        <VideoList list={videoDataList} />
         {
           loading ?
             <div className='loading'>

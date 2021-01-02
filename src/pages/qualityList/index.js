@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-18 11:26:20
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-31 17:03:52
+ * @LastEditTime: 2021-01-02 17:53:55
  * @Description: 独家放送-列表
  */
 import React, { Component } from 'react';
@@ -59,7 +59,6 @@ class Highquality extends Component {
   }
 
   render() {
-    const { history } = this.props;
     const { list, loading } = this.state;
     return (
       <div className={styles.highquality}>
@@ -70,7 +69,7 @@ class Highquality extends Component {
         >
           <div className={styles.highquality_box}>
             <FindTitle title={`精品歌单`} />
-            <List list={list} history={history} />
+            <List list={list} />
             {
               loading ? <div className='loading'><Spin style={{ color: '#666' }} tip="Loading..."></Spin></div> : ''
             }

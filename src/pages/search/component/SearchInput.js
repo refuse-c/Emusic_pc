@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-25 15:04:12
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-24 22:42:43
+ * @LastEditTime: 2021-01-02 17:45:16
  * @Description: 搜索-搜索框
  */
 import React, { Component } from 'react';
@@ -14,6 +14,7 @@ import SearchHotList from './SearchHotList';
 import { routerJump } from 'common/utils/tools';
 // import SearchSuggest from './SearchSuggest';
 import queryString from 'query-string';
+import { withRouter } from 'react-router-dom';
 const { Search } = Input;
 class Searchs extends Component {
   constructor(props) {
@@ -47,10 +48,9 @@ class Searchs extends Component {
 
   // 传递搜索的关键字
   querySearch = () => {
-    const { history } = this.props;
     const { keywords } = this.state;
     this.querySearchDefault();//查询搜索框默认显示的文字
-    routerJump(history, `/home/search`, queryString.stringify({ keywords }))
+    routerJump(this.props.history, `/home/search`, queryString.stringify({ keywords }))
   }
 
   // 热搜列表(详情)
@@ -135,4 +135,4 @@ class Searchs extends Component {
   }
 }
 
-export default Searchs;
+export default withRouter(Searchs);

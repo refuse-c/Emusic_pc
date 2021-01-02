@@ -53,7 +53,7 @@ class Mv extends Component {
     const { history } = this.props;
     return (
       <div className={styles.mv}>
-        <MvList history={history} list={mvs} isFullScreen={true} />
+        <MvList list={mvs} isFullScreen={true} />
         {
           hasMore ? <div className='loading'><Spin style={{ color: '#666' }} tip="Loading..."></Spin></div> : ''
         }

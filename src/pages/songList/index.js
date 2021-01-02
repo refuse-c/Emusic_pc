@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:45:31
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-31 17:58:10
+ * @LastEditTime: 2021-01-02 17:56:40
  * @Description: 歌单
  */
 import React, { Component } from 'react';
@@ -112,13 +112,11 @@ class Index extends Component {
   }
 
   render() {
-    const { history } = this.props;
     const { tag, loading, showModal, tagList, hotTagList, songList, limit, offset, total, qualityList } = this.state;
-    console.log(qualityList)
     return (
       <div className={styles.song_list}>
         {qualityList.name ?
-          <div className={styles.boutique} onClick={() => routerJump(history, `/home/qualityList${tag}`)}>
+          <div className={styles.boutique} onClick={() => routerJump(this.props.history, `/home/qualityList${tag}`)}>
             <img className={styles.boutiquebg} src={formatImgSize(qualityList.coverImgUrl, 140, 140)} alt="" />
             <div className={styles.boutiquebg_content}>
               <img className={styles.coverImgUrl} src={formatImgSize(qualityList.coverImgUrl, 140, 140)} alt="" />
@@ -132,14 +130,14 @@ class Index extends Component {
           </div>
           : null
         }
-        <div
-          className={styles.all_list_text}
-          onClick={() => this.setState({ showModal: true })}
-        >
-          {tag}
-        </div >
+
         <div className={styles.hot_tag}>
-          <span> 热门标签：</span>
+          <div
+            className={styles.all_list_text}
+            onClick={() => this.setState({ showModal: true })}
+          >
+            {tag}
+          </div>
           <ul>
             {hotTagList.map(item => {
               const cls = tag === item.name ? styles.active : '';
@@ -153,7 +151,7 @@ class Index extends Component {
             })}
           </ul>
         </div>
-        { <SongList tag={tag} list={songList} history={history} />}
+        { <SongList tag={tag} list={songList} />}
         <div className={styles.pages}>
           <Pagination
             total={total}

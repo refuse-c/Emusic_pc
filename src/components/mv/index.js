@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-03 11:54:25
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-31 16:33:44
+ * @LastEditTime: 2021-01-02 17:50:46
  * @Description: 个性推荐-推荐mv
  */
 
@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import styles from './css/index.module.scss';
 import propTypes from 'prop-types';
 import { formatImgSize, formatSerialNo } from 'common/utils/format';
+import { withRouter } from 'react-router-dom';
 
 class MvList extends Component {
   constructor(props) {
@@ -55,4 +56,4 @@ class MvList extends Component {
 MvList.propTypes = {
   list: propTypes.array
 }
-export default MvList;
+export default withRouter(MvList);

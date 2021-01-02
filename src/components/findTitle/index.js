@@ -2,15 +2,15 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 20:23:12
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-31 16:31:05
+ * @LastEditTime: 2021-01-02 17:37:45
  * @Description: FindTitle
  */
-import { message } from 'antd';
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import queryString from 'query-string';
 import styles from './index.module.scss';
 import { formatDate } from 'common/utils/format';
+import { withRouter } from 'react-router-dom';
 class FindTitle extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +18,7 @@ class FindTitle extends Component {
   }
 
   jump = () => {
-    const { type, tag, history } = this.props;
+    const { type, tag } = this.props;
     let params = {};
     switch (type) {
       case 0:
@@ -61,9 +61,9 @@ class FindTitle extends Component {
           pathname: `/home/topmv`, search: queryString.stringify({ area: tag })
         };
         break;
-      default: message.warning(`客官请稍等,<看看>页面程序汪还在开发ing`)
+      default: break;
     }
-    history.push({ ...params })
+    this.props.history.push({ ...params })
   }
   render() {
     const { tag, type, list, fun, title, date } = this.props;
@@ -106,4 +106,4 @@ FindTitle.propTypes = {
   date: propTypes.number,
 }
 
-export default FindTitle;
+export default withRouter(FindTitle);

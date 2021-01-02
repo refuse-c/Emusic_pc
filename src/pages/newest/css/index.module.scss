@@ -9,11 +9,11 @@
 
     ul {
       display: flex;
-      border-radius: 4px;
       overflow: hidden;
       font-size: $fz12;
-      border: 1px solid #e5e6ea;
+      border: 1px solid #BBBBBB;
       background-color: #fff;
+      border-radius: 15px;
 
       li {
         width: 110px;
@@ -22,10 +22,19 @@
         text-align: center;
         cursor: pointer;
         color: $c666;
+        border-radius: 15px;
+
+        &:hover {
+          background-color: #F4F4F4;
+        }
 
         &.active {
           color: $cfff;
-          background-color: #7c7d85;
+          background-color: #BBBBBB;
+
+          &:hover {
+            background-color: #BBBBBB;
+          }
         }
       }
     }
@@ -39,6 +48,7 @@
   justify-content: space-between;
   width: 100%;
   border-bottom: 1px solid #e5e6ea;
+
   ul {
     display: flex;
     align-items: center;
@@ -47,9 +57,11 @@
       position: relative;
       line-height: 40px;
       cursor: pointer;
+
       &:not(:first-child) {
         margin-left: 30px;
       }
+
       &.active {
         &::before {
           position: absolute;
@@ -63,13 +75,16 @@
       }
     }
   }
+
   div {
     span {
       padding: 0 10px;
       cursor: pointer;
+
       &:last-child {
         padding-right: 0;
       }
+
       &:not(:last-child) {
         border-right: 1px solid #e5e6ea;
       }
@@ -80,6 +95,7 @@
 // 新歌速递
 .top_song {
   margin: 10px 0;
+
   ul {
     li {
       display: flex;
@@ -89,42 +105,54 @@
       line-height: 40px;
       border-left: 1px solid #e5e6ea;
       border-right: 1px solid #e5e6ea;
+
       &:first-child {
         border-top: 1px solid #e5e6ea;
       }
+
       &:last-child {
         border-bottom: 1px solid #e5e6ea;
       }
+
       &:nth-child(odd) {
         background-color: #f5f5f7;
       }
+
       &:nth-child(even) {
         background-color: #fff;
       }
+
       &:hover {
         background-color: #e3e3e5;
       }
+
       p {
         cursor: default;
+
         &:nth-child(1) {
           width: 40px;
         }
+
         &:nth-child(2) {
           width: 40px;
           height: 40px;
         }
+
         &:nth-child(3) {
           width: calc(40% - 60px);
           padding-left: 10px;
         }
+
         &:nth-child(4) {
           width: calc(30% - 40px);
           padding-left: 10px;
         }
+
         &:nth-child(5) {
           width: calc(30% - 40px);
           padding-left: 10px;
         }
+
         &:nth-child(6) {
           width: 60px;
           text-align: right;
@@ -133,5 +161,3 @@
     }
   }
 }
-
-

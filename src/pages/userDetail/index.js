@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-18 12:03:33
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-20 15:40:08
+ * @LastEditTime: 2021-01-02 17:57:59
  * @Description: 用户详情
  */
 import styles from './css/index.module.scss';
@@ -72,7 +72,6 @@ class UserDetail extends Component {
   }
 
   render() {
-    const { history } = this.props;
     const { userData, createList, collectList } = this.state;
     return (
       <div className={styles.user_detail}>
@@ -81,11 +80,11 @@ class UserDetail extends Component {
           <div className={styles.user_info}>
             {createList.length > 0 ? <div className={styles.title}>歌单（{createList.length}）</div> : null}
             <div className={styles.list_box}>
-              <SongList history={history} list={createList} isFullScreen={true} />
+              <SongList list={createList} isFullScreen={true} />
             </div>
             {collectList.length > 0 ? <div className={styles.title}>创建（{collectList.length}）</div> : null}
             <div className={styles.list_box}>
-              <SongList history={history} list={collectList} isFullScreen={true} />
+              <SongList list={collectList} isFullScreen={true} />
             </div>
           </div>
         </ScrollView>

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:41:50
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-23 20:14:01
+ * @LastEditTime: 2021-01-02 17:47:11
  * @Description: 发现-个性推荐
  */
 import React, { Component } from 'react';
@@ -92,21 +92,21 @@ class Recommend extends Component {
     return (<div>
       <Banner list={bannerList} />
 
-      <FindTitle history={history} title={`推荐歌单`} type={0} />
-      <SongList type={`recommend`} history={history} list={personalizedList} />
+      <FindTitle title={`推荐歌单`} type={0} />
+      <SongList type={`recommend`} list={personalizedList} />
 
-      <FindTitle history={history} title={`独家放送`} type={1} />
-      <Privatecontent history={history} list={privatecontentList} />
+      <FindTitle title={`独家放送`} type={1} />
+      <Privatecontent list={privatecontentList} />
 
-      <FindTitle history={history} title={`最新音乐`} type={2} />
-      <NewMusic history={history} list={newMusicList} />
+      <FindTitle title={`最新音乐`} type={2} />
+      <NewMusic list={newMusicList} />
 
-      <FindTitle history={history} title={`推荐MV`} type={3} />
-      <PersonalizedMv history={history} list={personalizedMvList} />
+      <FindTitle title={`推荐MV`} type={3} />
+      <PersonalizedMv list={personalizedMvList} />
 
-      {/* <FindTitle history={history} title={`主播电台`} type={4} /> */}
+      {/* <FindTitle  title={`主播电台`} type={4} /> */}
 
-      {/* <FindTitle history={history} title={`看看`} type={5} /> */}
+      {/* <FindTitle  title={`看看`} type={5} /> */}
 
     </div >);
   }

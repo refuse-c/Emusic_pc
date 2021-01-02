@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-17 12:59:57
+ * @LastEditTime: 2021-01-02 17:55:19
  * @Description: 歌单详情-头部
  * @param {type} 1 歌单 2 歌手 3 用户 4 专辑
  */
@@ -17,6 +17,7 @@ import { connect } from 'react-redux';
 import { currentPlayer, currentPlayList } from 'store/actions';
 import queryString from 'query-string';
 import PlayAll from 'components/playAll/PlayAll';
+import { withRouter } from 'react-router-dom';
 class Head extends Component {
   constructor(props) {
     super(props);
@@ -252,4 +253,5 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Head)
+const box = connect(mapStateToProps, mapDispatchToProps)(Head);
+export default withRouter(box);

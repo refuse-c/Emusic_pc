@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-02 17:37:19
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-17 12:56:46
+ * @LastEditTime: 2021-01-02 17:51:10
  * @Description: 歌单组件
  */
 import React, { Component } from 'react';
@@ -10,6 +10,7 @@ import styles from './css/index.module.scss';
 import propTypes from 'prop-types';
 import { formatImgSize, formatSerialNo } from 'common/utils/format';
 import { routerJump } from 'common/utils/tools';
+import { withRouter } from 'react-router-dom';
 class SongList extends Component {
   constructor(props) {
     super(props);
@@ -93,4 +94,4 @@ SongList.propTypes = {
   type: propTypes.string,
   list: propTypes.array
 }
-export default SongList;
+export default withRouter(SongList);

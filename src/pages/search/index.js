@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-01 02:13:43
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-24 18:48:09
+ * @LastEditTime: 2021-01-02 17:49:00
  * @Description:搜索
  */
 import React, { Component } from 'react';
@@ -131,15 +131,15 @@ class Search extends Component {
   }
 
   renderDom = () => {
-    const { history, queryLikeList, likeListIds } = this.props;
+    const { queryLikeList, likeListIds } = this.props;
     const { type, list, keywords } = this.state;
     switch (type) {
       case 1: return <MusicList list={list} keywords={keywords} callBack={queryLikeList} likeListIds={likeListIds} />;
-      case 10: return <div style={{ paddingRight: 30 }}><AlbumList list={list} history={history} isFullScreen={true} /></div>
-      case 100: return <div style={{ paddingRight: 30 }}><SingerList list={list} history={history} isFullScreen={true} /></div>
-      case 1014: return <div style={{ paddingRight: 30 }}><MvList list={list} isFullScreen={true} history={history} /></div>
-      case 1000: return <div><Vertical list={list} history={history} /></div>
-      case 1002: return <div><UserList list={list} history={history} /></div>
+      case 10: return <div style={{ paddingRight: 30 }}><AlbumList list={list} isFullScreen={true} /></div>
+      case 100: return <div style={{ paddingRight: 30 }}><SingerList list={list} isFullScreen={true} /></div>
+      case 1014: return <div style={{ paddingRight: 30 }}><MvList list={list} isFullScreen={true} /></div>
+      case 1000: return <div><Vertical list={list} /></div>
+      case 1002: return <div><UserList list={list} /></div>
 
       default: break;
     }

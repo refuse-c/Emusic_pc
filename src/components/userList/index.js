@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-11-02 09:43:05
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-17 13:00:04
+ * @LastEditTime: 2021-01-02 17:50:11
  * @Description:  歌单列表组件-竖排    
  */
 import { highlightText, routerJump } from 'common/utils/tools';
@@ -10,6 +10,7 @@ import { Table } from 'antd';
 import React, { Component } from 'react';
 import styles from './css/index.module.scss';
 import queryString from 'query-string';
+import { withRouter } from 'react-router-dom';
 class UserList extends Component {
   constructor(props) {
     super(props);
@@ -69,4 +70,4 @@ class UserList extends Component {
   }
 }
 
-export default UserList;
+export default withRouter(UserList);

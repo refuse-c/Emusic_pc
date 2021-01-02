@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 15:39:35
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-24 19:49:04
+ * @LastEditTime: 2021-01-02 17:56:04
  * @Description: 歌单详情
  */
 import React, { Component } from 'react'
@@ -81,7 +81,7 @@ class Single extends Component {
   }
 
   render() {
-    const { history, queryLikeList, likeListIds, reloadPlayList } = this.props;
+    const { queryLikeList, likeListIds, reloadPlayList } = this.props;
     const { id, loading, playlist, list } = this.state;
     return (
       <div className={styles.single}>
@@ -92,7 +92,7 @@ class Single extends Component {
         >
           <Spin tip="Loading..." spinning={loading} >
             <div className={styles.single_box}>
-              <Head data={playlist} type={1} list={list} history={history} />
+              <Head data={playlist} type={1} list={list} />
               <MusicList
                 singleId={id}
                 list={list}

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-21 10:36:37
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-28 15:48:52
+ * @LastEditTime: 2021-01-02 18:01:01
  * @Description: 
  */
 import { artistSimi } from 'common/api/singer';
@@ -36,8 +36,7 @@ class Simi extends Component {
     const { simiData } = this.state;
     return (
       <div className={styles.simi}>
-
-        <SingerList list={simiData} history={this.props.history} isFullScreen={true} />
+        <SingerList list={simiData} isFullScreen={true} />
       </div>
     );
   }

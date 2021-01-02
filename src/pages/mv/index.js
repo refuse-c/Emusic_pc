@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:49:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-08 22:41:12
+ * @LastEditTime: 2021-01-02 17:51:44
  * @Description:  全部mv
  */
 import React, { Component } from 'react'
@@ -12,7 +12,6 @@ import FindTitle from 'components/findTitle';
 import ScrollView from 'react-custom-scrollbars';
 import MvList from 'components/mv';
 import queryString from 'query-string';
-
 import { allMv } from 'common/api/api';
 import { Spin } from 'antd';
 class Mv extends Component {
@@ -126,7 +125,6 @@ class Mv extends Component {
   }
 
   render() {
-    const { history } = this.props;
     const { type, area, order, typeList, areaList, orderList, mvList, loading } = this.state;
     return (
       <div className={styles.all_mv} >
@@ -136,12 +134,12 @@ class Mv extends Component {
           onScroll={this.handleScroll}
         >
           <div className={styles.mv_box}>
-            <FindTitle history={history} title={`全部MV`} />
+            <FindTitle title={`全部MV`} />
             <Tag title={`地区`} tag={area} list={areaList} type={`1`} fun={this.chooseItem} />
             <Tag title={`类型`} tag={type} list={typeList} type={`2`} fun={this.chooseItem} />
             <Tag title={`排序`} tag={order} list={orderList} type={`3`} fun={this.chooseItem} />
             <div className={styles.mv_list_box}>
-              <MvList history={history} list={mvList} />
+              <MvList list={mvList} />
             </div>
             {
               loading ? <div className='loading'><Spin style={{ color: '#666' }} tip="Loading..."></Spin></div> : ''

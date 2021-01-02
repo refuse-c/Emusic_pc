@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:49:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-21 16:05:35
+ * @LastEditTime: 2021-01-02 17:54:32
  * @Description:  发现-歌手
  */
 import React, { Component } from 'react'
@@ -115,7 +115,6 @@ class Singer extends Component {
 
 
   render() {
-    const { history } = this.props;
     const { type, area, initial, typeList, areaList, initialList, list, more } = this.state;
     return (
       <div className={styles.singer} >
@@ -124,7 +123,7 @@ class Singer extends Component {
           <Tag title={`分类`} tag={type} list={typeList} type={`2`} fun={this.chooseItem} />
           <Tag title={`热门`} tag={initial} list={initialList} type={`3`} fun={this.chooseItem} />
         </div>
-        <SingerList list={list} history={history} />
+        <SingerList list={list} />
         {
           more ? <div className='loading'><Spin style={{ color: '#666' }} tip="Loading..."></Spin></div> : ''
         }

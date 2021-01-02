@@ -37,10 +37,12 @@
           margin-left: 10px;
 
           &:nth-child(1) {
-            display: table;
+            width: 100px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
             color: #E7AA5A;
             font-size: 16px;
-            padding: 8px 20px;
             border: 1px solid #E7AA5A;
             border-radius: 40px;
             margin-top: 20px;
@@ -73,20 +75,6 @@
     }
   }
 
-  // show modal btn
-
-  .all_list_text {
-    display: table;
-    min-width: 60px;
-    padding: 6px 10px;
-    text-align: center;
-    border-radius: 4px;
-    font-size: $fz12;
-    cursor: pointer;
-    border: 1px solid #e5e6ea;
-    background-color: #fff;
-  }
-
   // modal box
   .modal {
     position: absolute;
@@ -98,8 +86,23 @@
   // 热门歌单
   .hot_tag {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
     white-space: nowrap;
     margin: 10px 0 20px;
+
+    // show modal btn
+    .all_list_text {
+      width: 100px;
+      height: 30px;
+      line-height: 30px;
+      border-radius: 40px;
+      text-align: center;
+      font-size: $fz12;
+      cursor: pointer;
+      border: 1px solid #e5e6ea;
+      background-color: #fff;
+    }
 
     ul {
       display: flex;
@@ -108,14 +111,14 @@
         position: relative;
         cursor: pointer;
         color: $c666;
-        padding: 0 20px;
+        font-size: $fz12;
+        padding: 4px 12px;
+        border-radius: 10px;
 
-        &:not(:first-child) {
-          border-left: 1px solid #e5e6ea;
-        }
 
         &.active {
-          color: $cc62f2f;
+          color: $cec4141;
+          background-color: #fdf5f5;
         }
       }
     }

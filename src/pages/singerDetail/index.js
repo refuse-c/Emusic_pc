@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-18 12:03:33
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-17 12:58:23
+ * @LastEditTime: 2021-01-02 17:55:31
  * @Description: 
  */
 import styles from './css/index.module.scss';
@@ -81,11 +81,11 @@ class SingerDetail extends Component {
 
   render() {
     const { id, artist, menuList, onLoad } = this.state;
-    const { history, routes } = this.props;
+    const { routes } = this.props;
     return (
       <div className={styles.singer_detail}>
         <ScrollView onScroll={this.handleScroll}>
-          <Head data={artist} type={2} history={history} fun={this.getArtistSub} />
+          <Head data={artist} type={2} fun={this.getArtistSub} />
           <div className={styles.singer_nav}>
             <ul>
               {

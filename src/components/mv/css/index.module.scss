@@ -3,31 +3,39 @@
 // 视频列表
 .video_list {
   margin-bottom: 20px;
+
   ul {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+
     &:after {
       content: "";
       margin-right: auto;
     }
+
     li {
       &.item1 {
         width: 160px;
         margin: 20px 0 0 30px;
       }
+
       &.item2 {
         width: calc(25% - 23px);
         overflow: hidden;
         margin-bottom: 30px;
+
         &:not(:nth-child(4n)) {
           margin-right: 30px;
         }
       }
+
       .img_box {
         position: relative;
         width: 100%;
         padding: 56% 0 0 0;
+        border-radius: 6px;
+
         .count {
           position: absolute;
           top: 0;
@@ -36,8 +44,8 @@
           color: #fff;
           border-radius: 2px 0 0 2px;
           padding: 2px 5px 2px 60px;
-          background: url("~common/images/local_layer.png") center center / 100%
-            no-repeat;
+          background: url("~common/images/local_layer.png") center center / 100% no-repeat;
+
           &::before {
             position: absolute;
             top: 0;
@@ -49,12 +57,15 @@
           }
         }
       }
+
       .creator {
         p {
           margin-top: 10px;
+
           &:nth-child(1) {
             font-size: $fz14;
           }
+
           &:nth-child(2) {
             color: $c999;
             font-size: $fz12;

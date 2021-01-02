@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-13 02:34:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-23 20:13:41
+ * @LastEditTime: 2021-01-02 17:58:06
  * @Description: 视频-视频
  */
 import React, { Component } from 'react';
@@ -76,21 +76,20 @@ class Mv extends Component {
     })
   }
   render() {
-    const { history } = this.props;
     const { tag1, tag2, menuList, firstMvList, hotMvList, wycpMvList, topMvList } = this.state;
     return (
       <div className="mv">
-        <FindTitle history={history} type={5} tag={tag1} fun={this.obtainChildItem} title={`最新MV`} list={menuList} />
-        <MvList history={history} list={firstMvList} />
+        <FindTitle type={5} tag={tag1} fun={this.obtainChildItem} title={`最新MV`} list={menuList} />
+        <MvList list={firstMvList} />
 
-        <FindTitle history={history} type={6} title={`热播MV`} />
-        <MvList history={history} list={hotMvList} />
+        <FindTitle type={6} title={`热播MV`} />
+        <MvList list={hotMvList} />
 
-        <FindTitle history={history} type={7} title={`网易出品`} />
-        <MvList history={history} list={wycpMvList} />
+        <FindTitle type={7} title={`网易出品`} />
+        <MvList list={wycpMvList} />
 
-        <FindTitle history={history} type={8} tag={tag2} fun={this.obtainChildItem} title={`MV排行榜`} list={menuList} />
-        <TopMvList history={history} list={topMvList} />
+        <FindTitle type={8} tag={tag2} fun={this.obtainChildItem} title={`MV排行榜`} list={menuList} />
+        <TopMvList list={topMvList} />
       </div>
     );
   }

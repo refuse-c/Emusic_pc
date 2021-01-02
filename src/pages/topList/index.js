@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:48:25
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-09-28 23:52:06
+ * @LastEditTime: 2021-01-02 17:57:15
  * @Description: 发现-排行榜
  */
 import React, { Component } from 'react'
@@ -68,13 +68,12 @@ class TopList extends Component {
   }
 
   render() {
-    const { history } = this.props;
     const { officialList, globalList } = this.state;
     return (<div className={styles.find_box}>
       <FindTitle title={`官方榜`} />
-      <OfficialList history={history} list={officialList} fun={this.jump} />
+      <OfficialList list={officialList} fun={this.jump} />
       <FindTitle title={`全球榜`} />
-      <SongList history={history} list={globalList} />
+      <SongList list={globalList} />
     </div >);
   }
 }

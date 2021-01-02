@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-03 10:16:17
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-08 22:50:36
+ * @LastEditTime: 2021-01-02 17:48:22
  * @Description:个性推荐-独家放送
  */
 
@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import styles from '../css/index.module.scss';
 import propTypes from 'prop-types';
 import { formatImgSize } from 'common/utils/format';
+import { withRouter } from 'react-router-dom';
 
 class Privatecontent extends Component {
   constructor(props) {
@@ -49,4 +50,4 @@ Privatecontent.propTypes = {
   list: propTypes.array
 }
 
-export default Privatecontent;
+export default withRouter(Privatecontent);

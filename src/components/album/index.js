@@ -3,7 +3,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-11 17:01:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-17 12:59:27
+ * @LastEditTime: 2021-01-02 17:43:19
  * @Description: 专辑列表
  */
 
@@ -12,6 +12,7 @@ import propTypes from 'prop-types';
 import styles from './css/index.module.scss';
 import { formatDate, formatImgSize } from 'common/utils/format';
 import { routerJump } from 'common/utils/tools';
+import { withRouter } from 'react-router-dom';
 class Album extends Component {
   constructor(props) {
     super(props);
@@ -52,4 +53,4 @@ Album.propTypes = {
   list: propTypes.array,
   fun: propTypes.func
 }
-export default Album;
+export default withRouter(Album);

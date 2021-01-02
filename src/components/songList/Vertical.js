@@ -2,13 +2,14 @@
  * @Author: REFUSE_C
  * @Date: 2020-11-02 09:43:05
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-11-12 17:33:31
+ * @LastEditTime: 2021-01-02 17:51:17
  * @Description:  歌单列表组件-竖排    
  */
 import { routerJump } from 'common/utils/tools';
 import { Table } from 'antd';
 import React, { Component } from 'react';
 import styles from './css/index.module.scss';
+import { withRouter } from 'react-router-dom';
 class Vertical extends Component {
   constructor(props) {
     super(props);
@@ -73,4 +74,4 @@ class Vertical extends Component {
   }
 }
 
-export default Vertical;
+export default withRouter(Vertical);
