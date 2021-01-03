@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-25 17:27:07
+ * @LastEditTime: 2021-01-03 15:09:11
  * @Description: 路由
  */
 
@@ -25,16 +25,19 @@ import Mv from 'pages/video/component/Mv';
 
 
 import AllMv from 'pages/mv';// 全部MV
-
 import TopMv from 'pages/topMv';// MV排行榜
 import PrivatecontentList from 'pages/privatecontentList'; //独家放送列表
+
+
+import Home from 'pages/home';
+import Index from 'pages/index';
 
 import Search from 'pages/search';
 import Friend from 'pages/friend';
 import Local from 'pages/local';
 import Down from 'pages/down';
-import Home from 'pages/home';
-import Index from 'pages/index';
+// 设置页
+import Setting from 'pages/setting';
 
 // 歌单列表(详情)
 import Single from 'pages/single';
@@ -109,6 +112,10 @@ const routes = [
       }, {
         path: '/home/down',
         component: Down
+      },
+      {
+        path: '/home/setting',
+        component: Setting
       },
       {
         path: '/home/video',

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-02 17:43:54
+ * @LastEditTime: 2021-01-03 15:10:11
  * @Description: 头部 
  */
 import React, { Component } from 'react';
@@ -103,7 +103,7 @@ class Header extends Component {
           }
           <li onClick={() => this.props.handleModalPower({ type: IS_SHOW_SKIN, data: true })}>换肤</li>
           <li>私信</li>
-          <li>设置</li>
+          <li onClick={() => this.props.history.push({ pathname: "/home/setting" })}>设置</li>
           <Tooltip title={`最小化`}>
             <li className={styles.minu}
               onClick={() => ipc.send('min')}

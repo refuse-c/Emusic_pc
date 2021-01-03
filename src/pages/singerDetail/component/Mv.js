@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-21 10:36:37
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-08 22:43:55
+ * @LastEditTime: 2021-01-03 14:54:09
  * @Description: 
  */
 import React, { Component } from 'react';
@@ -50,7 +50,6 @@ class Mv extends Component {
   }
   render() {
     const { mvs, hasMore } = this.state;
-    const { history } = this.props;
     return (
       <div className={styles.mv}>
         <MvList list={mvs} isFullScreen={true} />

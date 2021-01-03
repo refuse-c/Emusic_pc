@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-02 11:54:30
+ * @LastEditTime: 2021-01-03 14:55:25
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -209,13 +209,18 @@ class Footer extends Component {
     const that = this;
     const { range, volume } = this;
     const { volumeVal } = this.state;
-    const { id } = this.props.currentPlayer;
+    const { id, type, url } = this.props.currentPlayer;
     global.range = range;
 
     const audioVolume = volumeVal / volume.max;
     this.setState({ audioVolume })
     volume.style.backgroundSize = audioVolume * 100 + `% 100%`;
-    if (id) this.getSongUrl(false);
+    if (type === 'local') {
+      this.setState({ url })
+    } else {
+      if (id) this.getSongUrl(false);
+    }
+
     ipc.on('Up', (e, message) => that.keyboardEvents(message))
     ipc.on('Down', (e, message) => that.keyboardEvents(message))
     ipc.on('Left', (e, message) => that.keyboardEvents(message))

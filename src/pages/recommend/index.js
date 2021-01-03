@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:41:50
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-02 17:47:11
+ * @LastEditTime: 2021-01-03 14:54:20
  * @Description: 发现-个性推荐
  */
 import React, { Component } from 'react';
@@ -87,7 +87,6 @@ class Recommend extends Component {
   }
 
   render() {
-    const { history } = this.props;
     const { bannerList, personalizedList, privatecontentList, newMusicList, personalizedMvList } = this.state;
     return (<div>
       <Banner list={bannerList} />
