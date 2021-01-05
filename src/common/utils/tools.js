@@ -4,7 +4,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:17
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-30 15:04:10
+ * @LastEditTime: 2021-01-05 15:45:14
  * @Description:基础工具
  */
 
@@ -250,3 +250,36 @@ export const getTimeIndex = (timeArr, time) => {
   }
   return Number(timeIndex);
 };
+
+/**
+ * @name:非空判断
+ * @param {String、Object、Array、Map、Set }
+ */
+export const ISEmpty = x => {
+  if (Array.isArray(x)
+    || typeof x === 'string'
+    || x instanceof String
+  ) {
+    return x.length === 0;
+  }
+  if (x instanceof Map || x instanceof Set) {
+    return x.size === 0;
+  }
+  if (({}).toString.call(x) === '[object Object]') {
+    return Object.keys(x).length === 0;
+  }
+  return false;
+}
+
+/**
+ * @name:指定区间随机数生成
+ * @param {max min}
+ */
+
+
+export const randomNumber = (max = 1, min = 0) => {
+  if (min >= max) {
+    return max;
+  }
+  return Math.floor(Math.random() * (max - min) + min);
+}
