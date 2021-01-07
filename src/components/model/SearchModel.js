@@ -8,14 +8,14 @@
 import React, { Component } from 'react';
 import styles from './css/index.module.scss';
 import ScrollView from 'react-custom-scrollbars';
-class SearchModal extends Component {
+class SearchModel extends Component {
   constructor(props) {
     super(props);
     this.state = {}
   }
   render() {
     return (
-      <div className={styles.search_Modal}>
+      <div className={styles.search_Model}>
         <ScrollView
           ref={sc => this.sc = sc}
         >
@@ -26,4 +26,4 @@ class SearchModal extends Component {
   }
 }
 
-export default SearchModal;
+export default SearchModel;

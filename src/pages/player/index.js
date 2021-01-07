@@ -13,7 +13,7 @@ import ScrollView from 'react-custom-scrollbars';
 import styles from "./css/index.module.scss";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { modalPower } from 'store/actions';
+import { modelPower } from 'store/actions';
 import { withRouter } from 'react-router-dom';
 import { IS_SHOW_PLAYLIST } from "store/actionTypes";
 
@@ -25,8 +25,8 @@ class Player extends Component {
   }
 
   hidePlayList = () => {
-    const { playListStatus } = this.props.modalPower;
-    if (playListStatus) { this.props.handleModalPower({ type: IS_SHOW_PLAYLIST, data: !playListStatus }) }
+    const { playListStatus } = this.props.modelPower;
+    if (playListStatus) { this.props.handleModelPower({ type: IS_SHOW_PLAYLIST, data: !playListStatus }) }
   }
 
   // 阻止重复渲染
@@ -115,12 +115,12 @@ class Player extends Component {
 const mapStateToprops = state => {
   return {
     userInfo: state.userInfo,
-    modalPower: state.modalPower,
+    modelPower: state.modelPower,
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    handleModalPower: bindActionCreators(modalPower, dispatch)
+    handleModelPower: bindActionCreators(modelPower, dispatch)
   }
 }
 

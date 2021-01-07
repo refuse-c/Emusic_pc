@@ -9,11 +9,11 @@ import React, { Component } from 'react';
 import styles from './index.module.scss';
 import Audio from 'components/audio';
 import Player from 'pages/player';
-import PlayList from 'components/modal/PlayListModal';
+import PlayList from 'components/model/PlayListModel';
 import { connect } from 'react-redux';
 import { lyric, songUrl } from 'common/api/api';
 import { bindActionCreators } from 'redux';
-import { currentPlayer, currentPlayList, currentTime, modalPower } from 'store/actions';
+import { currentPlayer, currentPlayList, currentTime, modelPower } from 'store/actions';
 import { cutSong, formatLrc } from 'common/utils/tools';
 import { message, Tooltip } from 'antd';
 import { formatImgSize, formatSongTime } from 'common/utils/format';
@@ -248,7 +248,7 @@ class Footer extends Component {
     this.setState({ isPlay: false })
   }
   render() {
-    const { playListStatus, playerStatus } = this.props.modalPower;
+    const { playListStatus, playerStatus } = this.props.modelPower;
     const { currentTime, queryLikeList, likeListIds, reloadPlayList, currentPlayer } = this.props;
     const { url, isPlay, orderType, duration, rangeVal, volumeVal, audioVolume, lyricText, rotate, isShowVolume } = this.state;
     return (
@@ -278,7 +278,7 @@ class Footer extends Component {
         <div
           className={styles.left}
           onClick={() => {
-            if (currentPlayer.al) this.props.handleModalPower({ type: IS_SHOW_PLAYER, data: !playerStatus })
+            if (currentPlayer.al) this.props.handleModelPower({ type: IS_SHOW_PLAYER, data: !playerStatus })
           }}>
           {
             currentPlayer.al ?
@@ -361,7 +361,7 @@ class Footer extends Component {
             </Tooltip>
             <i
               className={styles.list}
-              onClick={() => this.props.handleModalPower({ type: IS_SHOW_PLAYLIST, data: !playListStatus })}
+              onClick={() => this.props.handleModelPower({ type: IS_SHOW_PLAYLIST, data: !playListStatus })}
             ></i>
           </div>
         </div>
@@ -376,13 +376,13 @@ const mapStateToProps = state => {
     currentTime: state.currentTime,
     currentPlayer: state.currentPlayer,
     currentPlayList: state.currentPlayList,
-    modalPower: state.modalPower,
+    modelPower: state.modelPower,
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
     setCurrentTime: bindActionCreators(currentTime, dispatch), // 当前播放歌单列表
-    handleModalPower: bindActionCreators(modalPower, dispatch),
+    handleModelPower: bindActionCreators(modelPower, dispatch),
     setCurrentPlayList: bindActionCreators(currentPlayList, dispatch), // 当前播放歌单列表
     setCurrentPlayer: bindActionCreators(currentPlayer, dispatch), // 获取当前音乐信息
   }

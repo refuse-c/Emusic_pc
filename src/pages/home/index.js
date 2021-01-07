@@ -45,10 +45,10 @@ class Home extends Component {
 
   render() {
     const { likeListIds, reloadPlayStatus } = this.state;
-    const { handelHideModal } = this.props;
+    const { handelHideModel } = this.props;
     return (
       <div className={styles.home} >
-        <div className={styles.top} onClick={() => handelHideModal && handelHideModal()}>
+        <div className={styles.top} onClick={() => handelHideModel && handelHideModel()}>
           <div className={styles.left}>
             <Menu />
           </div>

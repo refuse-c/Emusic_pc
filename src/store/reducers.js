@@ -20,7 +20,7 @@ const userInfo = (state = initState.userInfo, action) => {
 }
 
 // 弹窗状态
-const modalPower = (state = initState.modalPower, action) => {
+const modelPower = (state = initState.modelPower, action) => {
   switch (action.type) {
     case ACTIONTYPE.IS_SHOW_SKIN:
       return Object.assign({}, state, {
@@ -75,7 +75,7 @@ const currentTime = (state = initState.currentTime, action) => {
 
 export default combineReducers({
   userInfo,
-  modalPower,
+  modelPower,
   userPlayList,
   currentPlayer,
   currentPlayList,

@@ -15,7 +15,7 @@ import { message } from 'antd';
 import { userPlaylist } from 'common/api/user';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { modalPower, queryUserInfo, userPlayList } from 'store/actions';
+import { modelPower, queryUserInfo, userPlayList } from 'store/actions';
 import { IS_SHOW_PLAYER, IS_SHOW_PLAYLIST } from "store/actionTypes";
 
 class Index extends Component {
@@ -63,10 +63,10 @@ class Index extends Component {
   }
 
   // 掩藏弹窗
-  handelHideModal = () => {
-    const { playListStatus, playerStatus } = this.props.modalPower;
-    if (playerStatus) this.props.handleModalPower({ type: IS_SHOW_PLAYER, data: !playerStatus });
-    if (playListStatus) this.props.handleModalPower({ type: IS_SHOW_PLAYLIST, data: !playListStatus });
+  handelHideModel = () => {
+    const { playListStatus, playerStatus } = this.props.modelPower;
+    if (playerStatus) this.props.handleModelPower({ type: IS_SHOW_PLAYER, data: !playerStatus });
+    if (playListStatus) this.props.handleModelPower({ type: IS_SHOW_PLAYLIST, data: !playListStatus });
 
   }
 
@@ -80,7 +80,7 @@ class Index extends Component {
         <Header
           logout={this.logout}
           queryUserPlaylist={this.queryUserPlaylist}
-          handelHideModal={this.handelHideModal} />
+          handelHideModel={this.handelHideModel} />
         {this.props.routes.map((route, key) => {
 
           if (route.exact) {
@@ -90,7 +90,7 @@ class Index extends Component {
                 exact
                 path={route.path}
                 render={(props) => (
-                  <route.component {...props} routes={route.routes} handelHideModal={this.handelHideModal} />
+                  <route.component {...props} routes={route.routes} handelHideModel={this.handelHideModel} />
                 )}
               />
             );
@@ -100,7 +100,7 @@ class Index extends Component {
                 key={key}
                 path={route.path}
                 render={(props) => (
-                  <route.component {...props} routes={route.routes} handelHideModal={this.handelHideModal} />
+                  <route.component {...props} routes={route.routes} handelHideModel={this.handelHideModel} />
                 )}
               />
             );
@@ -114,12 +114,12 @@ class Index extends Component {
 const mapStateToprops = state => {
   return {
     userInfo: state.userInfo,
-    modalPower: state.modalPower,
+    modelPower: state.modelPower,
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    handleModalPower: bindActionCreators(modalPower, dispatch),
+    handleModelPower: bindActionCreators(modelPower, dispatch),
     handleQueryUserInfo: bindActionCreators(queryUserInfo, dispatch),
     handeUserPlayList: bindActionCreators(userPlayList, dispatch),
   }

@@ -23,7 +23,7 @@ class Index extends Component {
       hotTagList: [], // 热门标签
       songList: [], // 歌单列表
       tag: '全部歌单',
-      showModal: false,
+      showModel: false,
       limit: 40,
       offset: 1,
       total: 0,
@@ -86,7 +86,7 @@ class Index extends Component {
 
   //点击tag
   chooseTag = tag => {
-    this.setState({ tag, showModal: false, offset: 1, songList: [], total: 0, loading: true }, () => this.queryPlayList());
+    this.setState({ tag, showModel: false, offset: 1, songList: [], total: 0, loading: true }, () => this.queryPlayList());
   }
 
   // 是否有精品歌单
@@ -112,7 +112,7 @@ class Index extends Component {
   }
 
   render() {
-    const { tag, loading, showModal, tagList, hotTagList, songList, limit, offset, total, qualityList } = this.state;
+    const { tag, loading, showModel, tagList, hotTagList, songList, limit, offset, total, qualityList } = this.state;
     return (
       <div className={styles.song_list}>
         {qualityList.name ?
@@ -134,7 +134,7 @@ class Index extends Component {
         <div className={styles.hot_tag}>
           <div
             className={styles.all_list_text}
-            onClick={() => this.setState({ showModal: true })}
+            onClick={() => this.setState({ showModel: true })}
           >
             {tag}
           </div>
@@ -166,8 +166,8 @@ class Index extends Component {
           loading ? <div className='loading'><Spin style={{ color: '#666' }} tip="Loading..."></Spin></div> : ''
         }
         {
-          showModal ?
-            <div className={styles.modal}>
+          showModel ?
+            <div className={styles.model}>
               <SongListClassify list={tagList} tag={tag} fun={this.chooseTag} />
             </div>
             :

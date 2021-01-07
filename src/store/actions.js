@@ -18,7 +18,7 @@ export const userPlayList = (data) => {
 }
 
 // 弹窗显示掩藏
-export const modalPower = (data) => {
+export const modelPower = (data) => {
   return data
 }
 

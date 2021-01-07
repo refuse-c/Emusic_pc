@@ -5,7 +5,7 @@
  * @LastEditTime: 2020-12-31 09:54:36
  * @Description: 播放列表
  */
-import { currentPlayer, currentPlayList, modalPower } from 'store/actions';
+import { currentPlayer, currentPlayList, modelPower } from 'store/actions';
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -13,7 +13,7 @@ import styles from './css/index.module.scss';
 import ScrollView from 'react-custom-scrollbars';
 import { formatSerialNo, formatSongTime } from 'common/utils/format';
 import { IS_SHOW_PLAYLIST } from 'store/actionTypes';
-class PlayListModal extends Component {
+class PlayListModel extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -76,7 +76,7 @@ class PlayListModal extends Component {
         </ul>
         <p
           className={styles.close}
-          onClick={() => this.props.handleModalPower({ type: IS_SHOW_PLAYLIST, data: false })}
+          onClick={() => this.props.handleModelPower({ type: IS_SHOW_PLAYLIST, data: false })}
         ></p>
         <div className={styles.tool}>
           <p>{`总${currentPlayList.length}首`}</p>
@@ -118,15 +118,15 @@ const mapStateToProps = state => {
   return {
     currentPlayer: state.currentPlayer,
     currentPlayList: state.currentPlayList,
-    modalPower: state.modalPower,
+    modelPower: state.modelPower,
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    handleModalPower: bindActionCreators(modalPower, dispatch),
+    handleModelPower: bindActionCreators(modelPower, dispatch),
     setCurrentPlayList: bindActionCreators(currentPlayList, dispatch), // 当前播放歌单列表
     setCurrentPlayer: bindActionCreators(currentPlayer, dispatch), // 获取当前音乐信息
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlayListModal)
+export default connect(mapStateToProps, mapDispatchToProps)(PlayListModel)
