@@ -19,7 +19,7 @@ class Video extends Component {
       tagId: '',
       offset: 0,
       hasmore: false,
-      showModal: false,
+      showModel: false,
       loading: true,
       hotVideoTagList: [],
       allVideoTagList: [],
@@ -95,7 +95,7 @@ class Video extends Component {
       tag = item.name;
       tagId = item.id;
     }
-    this.setState({ tag: tag, tagId: tagId, loading: true, showModal: false, offset: 0, hasmore: false, videoDataList: [] }, () => {
+    this.setState({ tag: tag, tagId: tagId, loading: true, showModel: false, offset: 0, hasmore: false, videoDataList: [] }, () => {
       allVideo ? this.queryAllVideo() : this.queryVideoGroup();
     });
   }
@@ -121,13 +121,13 @@ class Video extends Component {
 
 
   render() {
-    const { tag, hotVideoTagList, allVideoTagList, showModal, videoDataList, loading } = this.state;
+    const { tag, hotVideoTagList, allVideoTagList, showModel, videoDataList, loading } = this.state;
     return (
       <div className={styles.video}>
         <div className={styles.hot_tag}>
           <div
             className={styles.all_list_text}
-            onClick={() => this.setState({ showModal: true })}
+            onClick={() => this.setState({ showModel: true })}
           >
             {tag}
           </div >
@@ -153,8 +153,8 @@ class Video extends Component {
             : ''
         }
         {
-          showModal ?
-            <div className={styles.modal}>
+          showModel ?
+            <div className={styles.model}>
               <VideoTag list={allVideoTagList} tag={tag} fun={this.chooseTag} />
             </div>
             :

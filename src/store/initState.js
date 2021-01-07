@@ -11,7 +11,7 @@ let initState = {
     // tel: '13272946536',
     // pwd: '123456'
   },// 登录后的信息
-  modalPower: {
+  modelPower: {
     loginStatus: false,
     skinStatus: false,
     playListStatus: false,

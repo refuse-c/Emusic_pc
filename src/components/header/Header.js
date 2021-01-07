@@ -2,16 +2,16 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-03 15:10:11
+ * @LastEditTime: 2021-01-07 18:50:58
  * @Description: 头部 
  */
 import React, { Component } from 'react';
 import styles from './css/index.module.scss';
-import Login from 'components/modal/LoginModal';
+import LoginModel from 'components/model/LoginModel';
 import { connect } from 'react-redux';
 import SearchInput from 'pages/search/component/SearchInput';
 import { bindActionCreators } from 'redux';
-import { modalPower } from 'store/actions';
+import { modelPower } from 'store/actions';
 import { IS_SHOW_LOGIN, IS_SHOW_PLAYER, IS_SHOW_PLAYLIST, IS_SHOW_SKIN } from 'store/actionTypes';
 import { getLocal, routerJump } from 'common/utils/tools';
 import { withRouter } from 'react-router-dom';
@@ -30,9 +30,9 @@ class Header extends Component {
    * @param {number}  
    */
   go = setp => {
-    const { playListStatus, playerStatus } = this.props.modalPower;
-    if (playListStatus) { this.props.handleModalPower({ type: IS_SHOW_PLAYLIST, data: !playListStatus }) }
-    if (playerStatus) { this.props.handleModalPower({ type: IS_SHOW_PLAYER, data: !playerStatus }); return };
+    const { playListStatus, playerStatus } = this.props.modelPower;
+    if (playListStatus) { this.props.handleModelPower({ type: IS_SHOW_PLAYLIST, data: !playListStatus }) }
+    if (playerStatus) { this.props.handleModelPower({ type: IS_SHOW_PLAYER, data: !playerStatus }); return };
     this.props.history.go(setp)
   }
 
@@ -53,17 +53,17 @@ class Header extends Component {
 
   render() {
     const { isDrag } = this.state;
-    const { loginStatus } = this.props.modalPower;
+    const { loginStatus } = this.props.modelPower;
     const userInfo = getLocal('userInfo') || {};
     return (
       <div
         className={styles.header}
         style={{ WebkitAppRegion: isDrag ? 'drag' : 'no-drag' }}
-        onClick={() => this.props.handelHideModal()}
+        onClick={() => this.props.handelHideModel()}
       >
-        <Login
-          showModal={loginStatus}
-          hideModal={this.hideModal}
+        <LoginModel
+          hasShow={loginStatus}
+          hideModel={this.hideModel}
           callBack={this.callBack}
         />
         <div className={styles.header_left}>
@@ -97,11 +97,11 @@ class Header extends Component {
               </li>
             </Tooltip>
             :
-            <li onClick={() => this.props.handleModalPower({ type: IS_SHOW_LOGIN, data: true })}>
+            <li onClick={() => this.props.handleModelPower({ type: IS_SHOW_LOGIN, data: true })}>
               登录
           </li>
           }
-          <li onClick={() => this.props.handleModalPower({ type: IS_SHOW_SKIN, data: true })}>换肤</li>
+          <li onClick={() => this.props.handleModelPower({ type: IS_SHOW_SKIN, data: true })}>换肤</li>
           <li>私信</li>
           <li onClick={() => this.props.history.push({ pathname: "/home/setting" })}>设置</li>
           <Tooltip title={`最小化`}>
@@ -125,12 +125,12 @@ class Header extends Component {
 const mapStateToprops = state => {
   return {
     userInfo: state.userInfo,
-    modalPower: state.modalPower,
+    modelPower: state.modelPower,
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    handleModalPower: bindActionCreators(modalPower, dispatch)
+    handleModelPower: bindActionCreators(modelPower, dispatch)
   }
 }
 
