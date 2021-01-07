@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:06
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-30 22:08:34
+ * @LastEditTime: 2021-01-07 21:10:10
  * @Description:工具
  */
 
@@ -175,4 +175,14 @@ export const checkNum = v => {
 export const formatLocalName = v => {
   if (!v) return;
   return v.replace(/.wav|.mp3|.ogg|.acc|.flac/g, '');
+}
+
+/**
+ * @name: 校验邮箱格式是否正确
+ * @param {*} str
+ */
+export const isEmail = str => {
+  if (!str) return false;
+  var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+  return reg.test(str);
 }

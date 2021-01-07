@@ -6,7 +6,7 @@
 //  * @Description: 
  */
 import React, { Component } from "react";
-import Header from 'components/header/Header';
+import Header from 'pages/header/Header';
 import { Route } from 'react-router-dom';
 import styles from './css/index.module.scss';
 import { setLocal, reLocal, routerJump, setSession } from 'common/utils/tools';

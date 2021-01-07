@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 21:48:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-07 17:59:45
+ * @LastEditTime: 2021-01-07 21:44:00
  * @Description 登录弹窗
  */
 import React, { Component } from 'react'
@@ -74,6 +74,7 @@ class LoginModel extends Component {
 
   formRef = React.createRef();
   render() {
+    const head = (<div>是大神大所大所多</div>)
     const contentView =
       (< Form ref={this.formRef} name="loginForm" preserve={false} autoComplete="off">
         <FormItem
@@ -126,7 +127,7 @@ class LoginModel extends Component {
         maskClosable={false}
         onFinish={this.onFinish}
         onClose={this.onClose}
-        contentView={contentView}
+        contentView={head + contentView}
       />
     );
   }
