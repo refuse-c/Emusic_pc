@@ -2,23 +2,47 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-18 17:51:03
+ * @LastEditTime: 2021-01-08 15:41:33
  * @Description: 
  */
 import { getRequest } from './request';
 /**
- * @name:登录 
+ * @name:手机登录 
  * @param {phone,password} 
  */
-export const login = (params) => {
+export const login = params => {
   return getRequest('/login/cellphone', params)
 }
 
 /**
- * @name:登录 
+ * @name:1.二维码key生成接口
+ * @param {} 
+ */
+export const qrKey = params => {
+  return getRequest('/login/qr/key', params)
+}
+
+/**
+ * @name:2.二维码生成接口
+ * @param {key,qrimg}
+ */
+export const qrCreate = params => {
+  return getRequest('/login/qr/create', params)
+}
+
+/**
+ * @name:3.二维码检测扫码状态接口
+ * @param {key}
+ */
+export const qrCheck = params => {
+  return getRequest('/login/qr/check', params)
+}
+
+/**
+ * @name:退出登录 
  * @param {phone,password} 
  */
-export const logout = (params) => {
+export const logout = params => {
   return getRequest('/logout', params)
 }
 
@@ -27,7 +51,7 @@ export const logout = (params) => {
  * @name: 检测登录状态
  * @param {} 
  */
-export const loginStatus = (params) => {
+export const loginStatus = params => {
   return getRequest('/login/status', params)
 }
 
@@ -177,7 +201,7 @@ export const artistList = params => {
  * @name: 新歌速递
  * @param {}
  */
-export const topSong = (params) => {
+export const topSong = params => {
   return getRequest('/top/song', params)
 }
 
@@ -185,7 +209,7 @@ export const topSong = (params) => {
  * @name: 新碟上架
  * @param {}
  */
-export const topAlbum = (params) => {
+export const topAlbum = params => {
   return getRequest('/top/album', params)
 }
 
@@ -193,7 +217,7 @@ export const topAlbum = (params) => {
  * @name: 全部新碟
  * @param {}
  */
-export const allTopAlbum = (params) => {
+export const allTopAlbum = params => {
   return getRequest('/album/new', params)
 }
 
@@ -202,7 +226,7 @@ export const allTopAlbum = (params) => {
  * @name: 热门视频标签
  * @param {} 
  */
-export const hotVideoTag = (params) => {
+export const hotVideoTag = params => {
   return getRequest('/video/category/list', params)
 }
 
@@ -210,7 +234,7 @@ export const hotVideoTag = (params) => {
  * @name: 视频标签
  * @param {} 
  */
-export const allVideoTag = (params) => {
+export const allVideoTag = params => {
   return getRequest('/video/group/list', params)
 }
 
@@ -218,7 +242,7 @@ export const allVideoTag = (params) => {
  * @name: 获取全部视频
  * @param {} 
  */
-export const allVideo = (params) => {
+export const allVideo = params => {
   return getRequest('/video/timeline/all', params)
 }
 
@@ -226,7 +250,7 @@ export const allVideo = (params) => {
  * @name:获取tag下的vidoe
  * @param {}
  */
-export const videoGroup = (params) => {
+export const videoGroup = params => {
   return getRequest('/video/group', params)
 }
 
@@ -236,7 +260,7 @@ export const videoGroup = (params) => {
  * @name:最新MV
  * @param {}
  */
-export const firstMv = (params) => {
+export const firstMv = params => {
   return getRequest('/mv/first', params)
 }
 
@@ -244,7 +268,7 @@ export const firstMv = (params) => {
  * @name:热播MV
  * @param {}
  */
-export const hotMv = (params) => {
+export const hotMv = params => {
   return getRequest('/personalized/mv', params)
 }
 
@@ -252,7 +276,7 @@ export const hotMv = (params) => {
  * @name:网易出品
  * @param {}
  */
-export const wycpMv = (params) => {
+export const wycpMv = params => {
   return getRequest('/mv/exclusive/rcmd', params)
 }
 
@@ -260,14 +284,14 @@ export const wycpMv = (params) => {
  * @name:mv排行榜
  * @param {}
  */
-export const topMv = (params) => {
+export const topMv = params => {
   return getRequest('/top/mv', params)
 }
 /**
  * @name:全部mv
  * @param {}
  */
-export const allMv = (params) => {
+export const allMv = params => {
   return getRequest('/mv/all', params)
 }
 
@@ -275,7 +299,7 @@ export const allMv = (params) => {
  * @name:获取音乐地址
  * @param {}
  */
-export const songUrl = (params) => {
+export const songUrl = params => {
   return getRequest('/song/url', params)
 }
 
@@ -283,7 +307,7 @@ export const songUrl = (params) => {
  * @name:获取国家编码列表
  * @param {}
  */
-export const countriesCode = (params) => {
+export const countriesCode = params => {
   return getRequest('/countries/code/list', params)
 }
 
@@ -291,7 +315,7 @@ export const countriesCode = (params) => {
  * @name:获取歌词
  * @param {id}
  */
-export const lyric = (params) => {
+export const lyric = params => {
   return getRequest('/lyric', params)
 }
 

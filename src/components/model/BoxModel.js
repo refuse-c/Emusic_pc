@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2021-01-07 16:34:15
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-07 17:57:50
+ * @LastEditTime: 2021-01-08 14:23:48
  * @Description:
  * props值:
  * 1.title, 标题；
@@ -18,14 +18,15 @@ import styles from './css/index.module.scss';
 
 export default class BaseBoxModel extends Component {
   render() {
-    const { title, width, height, hasShow, onFinish, onClose, contentView } = this.props;
+    const { title, width, height, hasShow, okText, cancelText, onFinish, onClose, headView, contentView } = this.props;
     return (
       <Modal
         width={width}
         title={title}
-        // footer={null}
         visible={hasShow}
         maskClosable={true}
+        okText={okText}
+        cancelText={cancelText}
         onOk={onFinish && onFinish}
         onCancel={onClose && onClose}
         wrapClassName={`webModel`}
@@ -34,6 +35,7 @@ export default class BaseBoxModel extends Component {
           className={styles.contentbox}
           style={{ width: '100%', height: height || "auto" }}
         >
+          {headView}
           {contentView}
         </div>
       </Modal>

@@ -2,12 +2,12 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-07 18:50:58
+ * @LastEditTime: 2021-01-08 16:52:05
  * @Description: 头部 
  */
 import React, { Component } from 'react';
 import styles from './css/index.module.scss';
-import LoginModel from 'components/model/LoginModel';
+import LoginModel from 'components/login';
 import { connect } from 'react-redux';
 import SearchInput from 'pages/search/component/SearchInput';
 import { bindActionCreators } from 'redux';
@@ -53,6 +53,7 @@ class Header extends Component {
 
   render() {
     const { isDrag } = this.state;
+    const { queryLoginStatus } = this.props;
     const { loginStatus } = this.props.modelPower;
     const userInfo = getLocal('userInfo') || {};
     return (
@@ -65,6 +66,7 @@ class Header extends Component {
           hasShow={loginStatus}
           hideModel={this.hideModel}
           callBack={this.callBack}
+          queryLoginStatus={queryLoginStatus}
         />
         <div className={styles.header_left}>
           <div

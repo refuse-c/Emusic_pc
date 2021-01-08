@@ -1,6 +1,15 @@
 @import "~common/css/_variables.scss";
 
+// 弹窗盒子
+:global {
+  .ant-modal-header {
+    height: 56px;
+  }
 
+  // .ant-modal-body {
+  // padding-top: 0px !important;
+  // }
+}
 
 .search_Model {
   position: absolute;

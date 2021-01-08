@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-24 17:24:08
+ * @LastEditTime: 2021-01-08 17:20:16
 //  * @Description: 
  */
 import React, { Component } from "react";
@@ -41,13 +41,21 @@ class Index extends Component {
   }
 
   // 查询登录状态
-  queryLoginStatus = async params => {
-    const res = await loginStatus(params);
-    if (res.code !== 200) { reLocal('userInfo'); return };
-    setLocal('userInfo', res.profile);
-    const uid = res.profile.userId;
-    this.queryUserPlaylist(uid);
-    this.props.handleQueryUserInfo(res.profile);
+  queryLoginStatus = () => {
+    loginStatus()
+      .then(res => {
+        // const res = err.data.data;
+        if (res.code !== 200) { reLocal('userInfo'); return };
+        setLocal('userInfo', res.profile);
+        const uid = res.profile.userId;
+        if (uid) {
+          this.queryUserPlaylist(uid);
+          this.props.handleQueryUserInfo(res.profile);
+        }
+
+      }).catch(err => {
+
+      })
   }
 
   // 退出登录
@@ -79,8 +87,11 @@ class Index extends Component {
       <div className={styles.index}>
         <Header
           logout={this.logout}
+          queryLoginStatus={this.queryLoginStatus}
           queryUserPlaylist={this.queryUserPlaylist}
-          handelHideModel={this.handelHideModel} />
+          handelHideModel={this.handelHideModel}
+        />
+
         {this.props.routes.map((route, key) => {
 
           if (route.exact) {
