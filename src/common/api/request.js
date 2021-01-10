@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-19 09:28:56
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-16 20:29:00
+ * @LastEditTime: 2021-01-08 20:49:12
  * @Description: 基础网络请求
  */
 import { message } from 'antd';
@@ -31,6 +31,10 @@ Axios.interceptors.response.use(
       switch (res.data.code) {
         case 200:
           return Promise.resolve(res.data);
+        // case 800:
+        // case 801:
+        // case 803:
+        //   return Promise.reject(res);
         default:
           message.destroy();
           message.warning(res.data.message);

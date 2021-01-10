@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 21:48:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-08 17:52:24
+ * @LastEditTime: 2021-01-10 13:48:07
  * @Description 登录弹窗
  */
 import React, { Component } from 'react'
@@ -16,6 +16,7 @@ import { routerJump, setLocal } from 'common/utils/tools';
 import { withRouter } from 'react-router-dom';
 import BoxModel from 'components/model/BoxModel';
 import styles from './css/index.module.scss';
+import { replaceLabel } from 'common/utils/format';
 // import MD5 from 'crypto-js/md5'
 
 let timer;
@@ -100,7 +101,6 @@ class LoginModel extends Component {
     qrKey({}).then(res => {
       if (res.code === 200) {
         const { unikey } = res.data;
-        console.log(unikey)
         this.setState({ unikey })
         this.queryQrCreate(unikey);
       }
@@ -114,31 +114,33 @@ class LoginModel extends Component {
     qrCreate({ key, qrimg: true }).then(res => {
       if (res.code !== 200) return;
       // 保存二维码
-      this.setState({ qrimg: res.data.qrimg })
+      console.log(res.data.qrimg)
+      this.setState({ qrimg: res.data.qrimg, nickname: '请使用[/网易云音乐APP/]扫描二维码' })
       // 二维码检测扫码状态
       timer = setInterval(() => {
         const { unikey: key } = this.state;
+        const { queryLoginStatus } = this.props;
         qrCheck({ key }).then(res => {
           const { code, message: msg, nickname } = res.data;
-          console.log(code, msg, nickname)
+          console.log('res==>>' + code, msg, nickname)
           if (code === 801) {
             this.setState({ code, nickname: msg })
           }
+          if (code === 803) {
+            clearInterval(timer);
+            message.info('登录成功');
+            queryLoginStatus && queryLoginStatus(); //刷新登录
+            this.props.handelModelPower({ type: IS_SHOW_LOGIN, data: false });
+          }
         }).catch(err => {
-          const { queryLoginStatus } = this.props;
           const { code, message: msg, nickname } = err.data;
-          console.log(code, msg, nickname)
-          if (code === 802 || 803) {
-            if (code === 803) {
-              clearInterval(timer);
-              message.info('登录成功');
-              queryLoginStatus && queryLoginStatus(); //刷新登录
-              this.props.handelModelPower({ type: IS_SHOW_LOGIN, data: false });
-            }
-            this.setState({ code, msg, nickname })
+          console.log('err==>>' + code, msg, nickname)
+          if (code === 800) {
+            clearInterval(timer);
+            this.setState({ code, msg: '二维码已过期, 请重新获取[/点击刷新/]', nickname })
           }
         })
-      }, 1500)
+      }, 3000)
     }).catch(err => {
       console.log(err)
     })
@@ -218,10 +220,19 @@ class LoginModel extends Component {
     const qrCodeView = (
       <div className={styles.qrcode_view}>
         {qrimg ? <img src={qrimg} alt="" /> : null}
-        {code === 802 ? <div className={styles.layer}>
-          <p>{msg}</p>
+        {code === 801 || code === 802 ? <div className={styles.layer}>
+          {/* 显示在二维码中间的文件 */}
+          <p
+            onClick={() => this.queryQrKey()}
+            dangerouslySetInnerHTML={{
+              __html: replaceLabel(msg, 'button')
+            }}></p>
         </div> : null}
-        <div className={styles.info}>{nickname}</div>
+        {/* 显示在二维码下面的文字 */}
+        <div className={styles.info}
+          dangerouslySetInnerHTML={{
+            __html: replaceLabel(nickname, 'span')
+          }}></div>
       </div>
     )
     return (

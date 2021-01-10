@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:06
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-07 21:10:10
+ * @LastEditTime: 2021-01-10 13:37:29
  * @Description:工具
  */
 
@@ -183,6 +183,16 @@ export const formatLocalName = v => {
  */
 export const isEmail = str => {
   if (!str) return false;
-  var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+  var reg = /^([a-zA-Z]|[0-9])(\w|-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
   return reg.test(str);
+}
+
+/**
+ * @name: 替换特殊符号[\\]为指定标签
+ * @param {*} str
+ */
+export const replaceLabel = (str, label) => {
+  if (!str) return false;
+
+  return str.replace(/\[\//g, `<${label}>`).replace(/\/]/g, `</${label}>`)
 }
