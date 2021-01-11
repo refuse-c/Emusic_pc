@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 19:41:50
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-03 14:54:20
+ * @LastEditTime: 2021-01-11 14:41:07
  * @Description: 发现-个性推荐
  */
 import React, { Component } from 'react';
@@ -26,7 +26,6 @@ class Recommend extends Component {
       personalizedMvList: [], //推荐mv
     }
   }
-
 
   // 轮播图
   queryBanner = async () => {

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-12-23 20:51:19
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-10 23:05:17
+ * @LastEditTime: 2021-01-11 16:13:25
  * @Description:
 -->
 
@@ -27,6 +27,9 @@ Chrome 中文界面下默认会将小于 12px 的文本强制按照 12px 显示,
 
 超链接访问过后 hover 样式就不出现了 被点击访问过的超链接样式不在具有 hover 和 active 了解决方法是改变 CSS 属性的排列顺序:
 L-V-H-A : a:link {} a:visited {} a:hover {} a:active {}
+Fonts
+常用简写：<'font-weight'> || <'font-size'> [ / <'line-height'>] || <'font-family'>
+
 
 801 "等待扫码" undefined
 802 "授权中" "遥遥老婆"
