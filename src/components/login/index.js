@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 21:48:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-16 00:43:08
+ * @LastEditTime: 2021-01-16 00:56:50
  * @Description 登录弹窗
  */
 import React, { Component } from 'react'
@@ -25,7 +25,7 @@ class LoginModel extends Component {
     super(props);
     this.state = {
       navList: ['密码登录', '邮箱登录', '扫码登录'],
-      navStatus: 1,
+      navStatus: 0,
       unikey: '', //qr key
       qrimg: '', // qr images
       msg: '', // qr check message
