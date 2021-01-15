@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-08 17:20:16
+ * @LastEditTime: 2021-01-15 20:56:40
 //  * @Description: 
  */
 import React, { Component } from "react";
@@ -17,7 +17,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modelPower, queryUserInfo, userPlayList } from 'store/actions';
 import { IS_SHOW_PLAYER, IS_SHOW_PLAYLIST } from "store/actionTypes";
-
+import cookie from 'react-cookies';
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -41,21 +41,21 @@ class Index extends Component {
   }
 
   // 查询登录状态
-  queryLoginStatus = () => {
-    loginStatus()
-      .then(res => {
-        // const res = err.data.data;
-        if (res.code !== 200) { reLocal('userInfo'); return };
-        setLocal('userInfo', res.profile);
-        const uid = res.profile.userId;
-        if (uid) {
-          this.queryUserPlaylist(uid);
-          this.props.handleQueryUserInfo(res.profile);
-        }
-
-      }).catch(err => {
-
-      })
+  queryLoginStatus = async () => {
+    const res = await loginStatus();
+    const data = res.data;
+    console.log(res)
+    if (data.code !== 200 || data.profile == null) {
+      cookie.remove('cookie');
+      reLocal('userInfo');
+      return false;
+    };
+    setLocal('userInfo', data.profile)
+    const uid = data.profile.userId;
+    if (uid) {
+      this.queryUserPlaylist(uid);
+      this.props.handleQueryUserInfo(data.profile);
+    }
   }
 
   // 退出登录
@@ -64,6 +64,7 @@ class Index extends Component {
     const res = await logout(params);
     if (res.code !== 200) return;
     reLocal('userInfo');
+    cookie.remove('cookie');
     message.info('已退出登录');
     this.props.handeUserPlayList([]);
     this.props.handleQueryUserInfo({});

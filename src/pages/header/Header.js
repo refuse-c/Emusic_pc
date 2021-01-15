@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-08 16:52:05
+ * @LastEditTime: 2021-01-15 20:42:23
  * @Description: 头部 
  */
 import React, { Component } from 'react';
@@ -13,7 +13,7 @@ import SearchInput from 'pages/search/component/SearchInput';
 import { bindActionCreators } from 'redux';
 import { modelPower } from 'store/actions';
 import { IS_SHOW_LOGIN, IS_SHOW_PLAYER, IS_SHOW_PLAYLIST, IS_SHOW_SKIN } from 'store/actionTypes';
-import { getLocal, routerJump } from 'common/utils/tools';
+import { routerJump } from 'common/utils/tools';
 import { withRouter } from 'react-router-dom';
 import { isEmpty } from 'common/utils/format';
 import { Tooltip } from 'antd';
@@ -53,9 +53,8 @@ class Header extends Component {
 
   render() {
     const { isDrag } = this.state;
-    const { queryLoginStatus } = this.props;
+    const { queryLoginStatus, userInfo } = this.props;
     const { loginStatus } = this.props.modelPower;
-    const userInfo = getLocal('userInfo') || {};
     return (
       <div
         className={styles.header}

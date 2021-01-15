@@ -2,16 +2,25 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-08 15:41:33
+ * @LastEditTime: 2021-01-15 22:22:35
  * @Description: 
  */
+
 import { getRequest } from './request';
 /**
  * @name:手机登录 
  * @param {phone,password} 
  */
-export const login = params => {
+export const phoneLogin = params => {
   return getRequest('/login/cellphone', params)
+}
+
+/**
+ * @name:邮箱登录 
+ * @param {email,password} 
+ */
+export const emailLogin = params => {
+  return getRequest('/login/', params)
 }
 
 /**

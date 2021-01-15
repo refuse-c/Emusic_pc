@@ -11,14 +11,20 @@
   line-height: 1;
   box-sizing: border-box;
   background-color: #fff;
-
-  // .main {
-  //   display: flex;
-  //   width: 100%;
-  //   min-width: 1150px;
-  //   height: calc(100vh - 100px);
-  // }
 }
+
+
+.ant-input {
+
+  &:active,
+  &:hover,
+  &:focus {
+    box-shadow: 0 0 0 2px rgba(236, 65, 65, 0.2) !important;
+    border-color: #EC4141 !important;
+  }
+}
+
+
 
 canvas {
   display: none;

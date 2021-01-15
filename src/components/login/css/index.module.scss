@@ -1,5 +1,44 @@
 // .login {}
 
+.form {
+  user-select: none;
+
+  .btn {
+    :global {
+      .ant-btn {
+        width: 100%;
+        height: 36px;
+        border: none;
+        color: initial;
+
+        &:active,
+        &:hover,
+        &:focus {
+          border: none;
+          box-shadow: none !important;
+        }
+      }
+    }
+
+    .submit {
+      margin-bottom: 24px;
+      color: #fff !important;
+      background-color: #EC4141;
+
+      &:active,
+      &:hover,
+      &:focus {
+        color: #fff !important;
+      }
+    }
+
+    .cancel {
+      color: #EC4141;
+      border: 1px solid #EC4141 !important;
+    }
+  }
+}
+
 .login_nav {
   position: absolute;
   top: 0;
@@ -22,13 +61,14 @@
 
 .qrcode_view {
   position: relative;
-  height: 200px;
+  min-height: 200px;
 
   img {
     display: table;
     margin: auto;
     width: 200px;
     height: 200px;
+    user-select: none;
   }
 
   .layer {
@@ -64,6 +104,7 @@
   }
 
   .info {
+    user-select: none;
     text-align: center;
 
     span {
