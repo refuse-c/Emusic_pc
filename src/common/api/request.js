@@ -2,12 +2,12 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-19 09:28:56
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-15 22:57:46
+ * @LastEditTime: 2021-01-16 00:42:23
  * @Description: 基础网络请求
  */
 import { message } from 'antd';
 import axios from 'axios';
-import cookie from 'react-cookies'
+import { getLocal } from 'common/utils/tools';
 const Axios = axios.create({
   baseURL: 'http://139.9.230.159:3000', // http://tshy.xyz:3000  // http://139.9.230.159:3000
   timeout: '15000',
@@ -54,7 +54,7 @@ Axios.interceptors.response.use(
 
 export const postRequest = (path, params = {}) => {
   params.timestamp = (new Date()).getTime();
-  params.cookie = cookie.load('cookie') ? cookie.load('cookie') : ''
+  params.cookie = getLocal('cookie') ? getLocal('cookie') : ''
   return new Promise((resolve, reject) => {
     Axios.post(path, params).then(res => {
       resolve(res);
@@ -66,7 +66,7 @@ export const postRequest = (path, params = {}) => {
 
 export const getRequest = (path, params = {}) => {
   params.timestamp = (new Date()).getTime();
-  params.cookie = cookie.load('cookie') ? cookie.load('cookie') : ''
+  params.cookie = getLocal('cookie') ? getLocal('cookie') : ''
   return new Promise((resolve, reject) => {
     Axios.get(path, { params }).then(res => {
       resolve(res);

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 21:48:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-16 00:32:07
+ * @LastEditTime: 2021-01-16 00:43:08
  * @Description 登录弹窗
  */
 import React, { Component } from 'react'
@@ -18,7 +18,6 @@ import BoxModel from 'components/model/BoxModel';
 import styles from './css/index.module.scss';
 import { formatTel, isEmail, replaceLabel } from 'common/utils/format';
 // import MD5 from 'crypto-js/md5';
-import cookie from 'react-cookies';
 let timer;
 const FormItem = Form.Item;
 class LoginModel extends Component {
@@ -41,7 +40,7 @@ class LoginModel extends Component {
     this.props.handelModelPower({ type: IS_SHOW_LOGIN, data: false });
     message.info('登录成功');
     setLocal('userInfo', res.profile);
-    cookie.save('cookie', res.cookie)
+    setLocal('cookie', res.cookie);
     const uid = res.profile.userId;
     callBack && callBack(uid);
     this.props.handleQueryUserInfo(res.profile);
@@ -157,7 +156,7 @@ class LoginModel extends Component {
             clearInterval(timer);
             message.destroy();
             message.info('登录成功');
-            cookie.save('cookie', res.cookie)
+            setLocal('cookie', res.cookie);
             queryLoginStatus && queryLoginStatus(); //刷新登录
             this.props.handelModelPower({ type: IS_SHOW_LOGIN, data: false });
           }
