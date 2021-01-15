@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 18:50:54
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-16 01:00:50
+ * @LastEditTime: 2021-01-16 01:03:33
  * @Description 布局
  */
 import React, { Component } from 'react';
@@ -28,7 +28,6 @@ class Home extends Component {
     if (!uid) return;
     likeList({ uid }).then(res => {
       const likeListIds = res.ids || [];
-      console.log(likeListIds)
       this.setState({ likeListIds })
     })
   }
