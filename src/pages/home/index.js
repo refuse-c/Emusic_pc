@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-26 18:50:54
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-02 18:17:07
+ * @LastEditTime: 2021-01-16 01:03:33
  * @Description 布局
  */
 import React, { Component } from 'react';
@@ -40,7 +40,7 @@ class Home extends Component {
   componentDidMount = () => {
     setTimeout(() => {
       this.queryLikeList();
-    }, 1000);
+    }, 2000);
   }
 
   render() {

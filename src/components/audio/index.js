@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-10 15:55:14
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-30 17:53:22
+ * @LastEditTime: 2021-01-16 00:56:21
  * @Description 播放组件
  */
 import { cutSong } from 'common/utils/tools';
@@ -49,12 +49,11 @@ class Audio extends Component {
     this.audio.addEventListener('pause', () => {
 
     });
-
   }
 
   componentDidUpdate = (prevProps) => {
     if (prevProps.volume !== this.props.volume) {
-      this.audio.volume = prevProps.volume
+      this.audio.volume = this.props.volume
     }
     const { isPlay, url } = this.props;
     if (!url) {

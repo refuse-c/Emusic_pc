@@ -2,23 +2,22 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 21:48:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-10 13:48:07
+ * @LastEditTime: 2021-01-16 00:56:50
  * @Description 登录弹窗
  */
 import React, { Component } from 'react'
-import { Form, Input, message } from 'antd'
+import { Button, Form, Input, message } from 'antd'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modelPower, queryUserInfo, userPlayList } from 'store/actions';
 import { IS_SHOW_LOGIN } from 'store/actionTypes';
-import { login, qrKey, qrCreate, qrCheck } from 'common/api/api';
+import { phoneLogin, emailLogin, qrKey, qrCreate, qrCheck } from 'common/api/api';
 import { routerJump, setLocal } from 'common/utils/tools';
 import { withRouter } from 'react-router-dom';
 import BoxModel from 'components/model/BoxModel';
 import styles from './css/index.module.scss';
-import { replaceLabel } from 'common/utils/format';
-// import MD5 from 'crypto-js/md5'
-
+import { formatTel, isEmail, replaceLabel } from 'common/utils/format';
+// import MD5 from 'crypto-js/md5';
 let timer;
 const FormItem = Form.Item;
 class LoginModel extends Component {
@@ -32,10 +31,8 @@ class LoginModel extends Component {
       msg: '', // qr check message
       code: null, // qr check code
       nickname: '' // 用户名
-
     }
   }
-
 
   // 登陆成功后的方法 
   success = res => {
@@ -43,15 +40,26 @@ class LoginModel extends Component {
     this.props.handelModelPower({ type: IS_SHOW_LOGIN, data: false });
     message.info('登录成功');
     setLocal('userInfo', res.profile);
+    setLocal('cookie', res.cookie);
     const uid = res.profile.userId;
     callBack && callBack(uid);
     this.props.handleQueryUserInfo(res.profile);
     routerJump(history, `/home/find/`);
   }
 
-  // 登录
-  handelLogin = params => {
-    login(params).then(res => {
+  // 手机登录
+  handelPhoneLogin = params => {
+    phoneLogin(params).then(res => {
+      if (res.code !== 200) return;
+      this.success(res);
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
+  // 邮箱登录
+  handelEmailLogin = params => {
+    emailLogin(params).then(res => {
       if (res.code !== 200) return;
       this.success(res);
     }).catch(err => {
@@ -61,31 +69,41 @@ class LoginModel extends Component {
 
   // 表单验证
   onFinish = e => {
+    const { navStatus } = this.state;
     this.formRef.current.validateFields()
       .then(values => {
-        this.formRef.current.resetFields();
-        const params = {
-          phone: values.phone,
-          password: values.password
+        // this.formRef.current.resetFields();
+        // 手机
+        const { phone, email, password } = values;
+        if (navStatus === 0) {
+          const params = {
+            phone: phone.replace(/\s+/g, ''),
+            password: password
+          }
+          this.handelPhoneLogin(params)
         }
-        this.handelLogin(params)
+        // 邮箱
+        if (navStatus === 1) {
+          if (!isEmail(email)) {
+            message.destroy();
+            message.error('您输入的邮箱有误,请检查');
+            return false;
+          }
+          const params = {
+            email: email,
+            password: password
+          }
+          this.handelEmailLogin(params)
+        }
 
       }).catch(err => {
-        if (!err.phone) {
-          message.error('请输入手机号码');
-          return;
-        }
-        if (!err.password) {
-          message.error('请输入登录密码');
-          return;
-        }
+        console.log(err)
       });
-
   }
 
   // 关闭登录弹窗
   onClose = e => {
-    // this.formRef.current.resetFields();
+    this.formRef.current.resetFields();
     this.props.handelModelPower({ type: IS_SHOW_LOGIN, data: false });
   }
 
@@ -93,7 +111,9 @@ class LoginModel extends Component {
   handelNav = navStatus => {
     clearInterval(timer);
     if (navStatus === 2) this.queryQrKey();
-    this.setState({ navStatus })
+    this.setState({ navStatus }, () => {
+      if (navStatus !== 2) this.formRef.current.resetFields();
+    })
   }
 
   // 二维码key生成接口
@@ -114,33 +134,36 @@ class LoginModel extends Component {
     qrCreate({ key, qrimg: true }).then(res => {
       if (res.code !== 200) return;
       // 保存二维码
-      console.log(res.data.qrimg)
       this.setState({ qrimg: res.data.qrimg, nickname: '请使用[/网易云音乐APP/]扫描二维码' })
       // 二维码检测扫码状态
       timer = setInterval(() => {
         const { unikey: key } = this.state;
         const { queryLoginStatus } = this.props;
         qrCheck({ key }).then(res => {
-          const { code, message: msg, nickname } = res.data;
-          console.log('res==>>' + code, msg, nickname)
-          if (code === 801) {
-            this.setState({ code, nickname: msg })
-          }
-          if (code === 803) {
-            clearInterval(timer);
-            message.info('登录成功');
-            queryLoginStatus && queryLoginStatus(); //刷新登录
-            this.props.handelModelPower({ type: IS_SHOW_LOGIN, data: false });
-          }
-        }).catch(err => {
-          const { code, message: msg, nickname } = err.data;
-          console.log('err==>>' + code, msg, nickname)
+          const { code, nickname } = res;
+          // console.log('res==>>' + code, msg, nickname, a)
           if (code === 800) {
             clearInterval(timer);
             this.setState({ code, msg: '二维码已过期, 请重新获取[/点击刷新/]', nickname })
           }
+          // if (code === 801) {
+          //   this.setState({ code, nickname: msg })
+          // }
+          if (code === 802) {
+            this.setState({ code, nickname: `[/${nickname}/]` })
+          }
+          if (code === 803) {
+            clearInterval(timer);
+            message.destroy();
+            message.info('登录成功');
+            setLocal('cookie', res.cookie);
+            queryLoginStatus && queryLoginStatus(); //刷新登录
+            this.props.handelModelPower({ type: IS_SHOW_LOGIN, data: false });
+          }
+        }).catch(err => {
+          console.log(err)
         })
-      }, 3000)
+      }, 1000)
     }).catch(err => {
       console.log(err)
     })
@@ -163,7 +186,6 @@ class LoginModel extends Component {
                 key={index}
                 onClick={() => this.handelNav(index)}
                 className={navStatus === index ? styles.active : ''}
-
               >{item}</li>
             )
           })
@@ -171,27 +193,55 @@ class LoginModel extends Component {
       </ul>
     )
     const pwdView =
-      (< Form ref={this.formRef} name="loginForm" preserve={false} autoComplete="off">
-        <FormItem
-          label="账号"
-          name="phone"
-          initialValue=""
-          // extra="*目前仅支持使用手机号码登录"
-          getValueFromEvent={(e) => (e.target.value)}
-          rules={
-            [
-              {
-                required: true,
-                message: "账号不能为空"
-              },
-              {
-                pattern: /^(?:(?:\+|00)86)?1(?:(?:3[\d])|(?:4[5-7|9])|(?:5[0-3|5-9])|(?:6[5-7])|(?:7[0-8])|(?:8[\d])|(?:9[1|8|9]))\d{8}$/,
-                message: "您输入的手机号码有误"
-              },
-            ]}
-        >
-          <Input type="tel" autoComplete={`off`} maxLength={11} placeholder="请输入手机号码" />
-        </FormItem >
+      (< Form
+        name="loginForm"
+        preserve={false}
+        autoComplete="off"
+        ref={this.formRef}
+        className={styles.form}>
+        {
+          navStatus === 0 ?
+            <FormItem
+              label='账号'
+              name="phone"
+              initialValue="132 7294 6536"
+              getValueFromEvent={(e) => formatTel(e.target.value)}
+              rules={
+                [{
+                  required: true,
+                  message: "账号不能为空"
+                },
+                  // {
+                  //   pattern: /^(?:(?:\+|00)86)?1(?:(?:3[\d])|(?:4[5-7|9])|(?:5[0-3|5-9])|(?:6[5-7])|(?:7[0-8])|(?:8[\d])|(?:9[1|8|9]))\d{8}$/,
+                  //   message: "您输入的手机号码有误"
+                  // },
+                ]}
+            >
+              <Input type="tel" autoComplete={`off`} maxLength={11} placeholder="请输入手机号码" />
+            </FormItem >
+            : navStatus === 1 ?
+              <FormItem
+                label="邮箱"
+                name="email"
+                initialValue="refusec@163.com"
+                getValueFromEvent={(e) => (e.target.value)}
+                rules={
+                  [
+                    {
+                      required: true,
+                      message: "邮箱不能为空"
+                    },
+                    // {
+                    //   pattern: /^(?:(?:\+|00)86)?1(?:(?:3[\d])|(?:4[5-7|9])|(?:5[0-3|5-9])|(?:6[5-7])|(?:7[0-8])|(?:8[\d])|(?:9[1|8|9]))\d{8}$/,
+                    //   message: "您输入的手机号码有误"
+                    // },
+                  ]}
+              >
+                <Input type="tel" autoComplete={`off`} maxLength={20} placeholder="请输入手机号码" />
+              </FormItem > : null
+        }
+
+
         <FormItem label="密码"
           name="password"
           initialValue=""
@@ -204,23 +254,20 @@ class LoginModel extends Component {
               pattern: /^\S*(?=\S{6,})\S*$/,
               message: "密码最小6位"
             },
-          ]
-          }
+          ]}
         >
-          <Input type="password" autoComplete={`off`} maxLength={20} placeholder="请输入登录密码" />
+          <Input type="password" autoComplete={`off`} maxLength={20} placeholder="请输入登录密码" onPressEnter={this.onFinish} />
         </FormItem>
-      </Form>)
-
-    const mailView = (
-      <div className={styles.mail_view}>
-        mailViewmailViewmailView
-      </div>
-    )
+        <div className={styles.btn}>
+          <Button onClick={this.onFinish} className={styles.submit}>登录</Button>
+          <Button onClick={this.onClose} className={styles.cancel}>取消</Button>
+        </div>
+      </Form >)
 
     const qrCodeView = (
       <div className={styles.qrcode_view}>
         {qrimg ? <img src={qrimg} alt="" /> : null}
-        {code === 801 || code === 802 ? <div className={styles.layer}>
+        {code === 800 ? <div className={styles.layer}>
           {/* 显示在二维码中间的文件 */}
           <p
             onClick={() => this.queryQrKey()}
@@ -244,9 +291,8 @@ class LoginModel extends Component {
         width={520}
         // maskClosable={false}
         onClose={this.onClose}
-        onFinish={this.onFinish}
         headView={headView}
-        contentView={navStatus === 1 ? mailView : navStatus === 2 ? qrCodeView : pwdView}
+        contentView={navStatus === 2 ? qrCodeView : pwdView}
       />
     );
   }

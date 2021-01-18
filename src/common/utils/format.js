@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:06
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-10 13:37:29
+ * @LastEditTime: 2021-01-15 23:39:13
  * @Description:工具
  */
 
@@ -193,6 +193,5 @@ export const isEmail = str => {
  */
 export const replaceLabel = (str, label) => {
   if (!str) return false;
-
   return str.replace(/\[\//g, `<${label}>`).replace(/\/]/g, `</${label}>`)
 }

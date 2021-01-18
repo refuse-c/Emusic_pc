@@ -2,12 +2,12 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-19 09:28:56
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-08 20:49:12
+ * @LastEditTime: 2021-01-16 00:42:23
  * @Description: 基础网络请求
  */
 import { message } from 'antd';
 import axios from 'axios';
-
+import { getLocal } from 'common/utils/tools';
 const Axios = axios.create({
   baseURL: 'http://139.9.230.159:3000', // http://tshy.xyz:3000  // http://139.9.230.159:3000
   timeout: '15000',
@@ -18,34 +18,30 @@ const Axios = axios.create({
   }
 })
 
-Axios.interceptors.request.use(
-  config => {
-    return config;
-  }, error => Promise.error(error))
+// Axios.interceptors.request.use(
+//   config => {
+//     return config;
+//   }, error => Promise.error(error))
 
 // 响应拦截器
 Axios.interceptors.response.use(
   // 请求成功
   res => {
     if (res && res.data) {
-      switch (res.data.code) {
-        case 200:
-          return Promise.resolve(res.data);
-        // case 800:
-        // case 801:
-        // case 803:
-        //   return Promise.reject(res);
-        default:
-          message.destroy();
-          message.warning(res.data.message);
-          return Promise.reject(res);
+      if (res.data.code !== 200) {
+        const { msg } = res.data;
+        if (msg) message.error(msg);
       }
+      return Promise.resolve(res.data);
+
     }
   }
   // 请求失败
   , err => {
+    console.log(err)
     message.destroy();
     const errMsg = JSON.parse(JSON.stringify(err));
+    console.log(errMsg)
     if (err && err.response) {
       message.destroy();
       message.warning(err.response && err.response.data.msg);
@@ -58,6 +54,7 @@ Axios.interceptors.response.use(
 
 export const postRequest = (path, params = {}) => {
   params.timestamp = (new Date()).getTime();
+  params.cookie = getLocal('cookie') ? getLocal('cookie') : ''
   return new Promise((resolve, reject) => {
     Axios.post(path, params).then(res => {
       resolve(res);
@@ -69,6 +66,7 @@ export const postRequest = (path, params = {}) => {
 
 export const getRequest = (path, params = {}) => {
   params.timestamp = (new Date()).getTime();
+  params.cookie = getLocal('cookie') ? getLocal('cookie') : ''
   return new Promise((resolve, reject) => {
     Axios.get(path, { params }).then(res => {
       resolve(res);
