@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:06
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-15 23:39:13
+ * @LastEditTime: 2021-01-18 17:49:43
  * @Description:工具
  */
 
@@ -183,7 +183,13 @@ export const formatLocalName = v => {
  */
 export const isEmail = str => {
   if (!str) return false;
-  var reg = /^([a-zA-Z]|[0-9])(\w|-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+  const reg = /^([a-zA-Z]|[0-9])(\w|-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+  return reg.test(str);
+}
+
+export const formatTels = str => {
+  if (!str) return false;
+  const reg = /^(?:(?:\+|00)86)?1(?:(?:3[\d])|(?:4[5-7|9])|(?:5[0-3|5-9])|(?:6[5-7])|(?:7[0-8])|(?:8[\d])|(?:9[1|8|9]))\d{8}$/;
   return reg.test(str);
 }
 

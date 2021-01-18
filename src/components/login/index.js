@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 21:48:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-18 09:09:17
+ * @LastEditTime: 2021-01-18 17:51:48
  * @Description 登录弹窗
  */
 import React, { Component } from 'react'
@@ -16,7 +16,7 @@ import { routerJump, setLocal } from 'common/utils/tools';
 import { withRouter } from 'react-router-dom';
 import BoxModel from 'components/model/BoxModel';
 import styles from './css/index.module.scss';
-import { formatTel, isEmail, replaceLabel } from 'common/utils/format';
+import { formatTel, formatTels, replaceLabel } from 'common/utils/format';
 // import MD5 from 'crypto-js/md5';
 let timer;
 const FormItem = Form.Item;
@@ -72,10 +72,17 @@ class LoginModel extends Component {
     const { navStatus } = this.state;
     this.formRef.current.validateFields()
       .then(values => {
-        // this.formRef.current.resetFields();
         // 手机
         const { phone, email, password } = values;
         if (navStatus === 0) {
+          if (!formatTels(phone.replace(/\s+/g, ''))) {
+            this.formRef.current.setFields([{
+              errors: ['您输入的手机号有误,请检查'],
+              name: 'phone',
+              value: phone
+            }])
+            return false;
+          }
           const params = {
             phone: phone.replace(/\s+/g, ''),
             password: password
@@ -84,11 +91,7 @@ class LoginModel extends Component {
         }
         // 邮箱
         if (navStatus === 1) {
-          if (!isEmail(email)) {
-            message.destroy();
-            message.error('您输入的邮箱有误,请检查');
-            return false;
-          }
+
           const params = {
             email: email,
             password: password
@@ -96,9 +99,7 @@ class LoginModel extends Component {
           this.handelEmailLogin(params)
         }
 
-      }).catch(err => {
-        console.log(err)
-      });
+      })
   }
 
   // 关闭登录弹窗
@@ -231,10 +232,10 @@ class LoginModel extends Component {
                       required: true,
                       message: "邮箱不能为空"
                     },
-                    // {
-                    //   pattern: /^(?:(?:\+|00)86)?1(?:(?:3[\d])|(?:4[5-7|9])|(?:5[0-3|5-9])|(?:6[5-7])|(?:7[0-8])|(?:8[\d])|(?:9[1|8|9]))\d{8}$/,
-                    //   message: "您输入的手机号码有误"
-                    // },
+                    {
+                      pattern: /^([a-zA-Z]|[0-9])(\w|-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/,
+                      message: "您输入的邮箱有误, 请检查"
+                    },
                   ]}
               >
                 <Input type="tel" autoComplete={`off`} maxLength={20} placeholder="请输入手机号码" />
