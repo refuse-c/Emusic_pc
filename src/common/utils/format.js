@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:06
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-18 17:49:43
+ * @LastEditTime: 2021-01-18 19:22:31
  * @Description:工具
  */
 
@@ -198,6 +198,5 @@ export const formatTels = str => {
  * @param {*} str
  */
 export const replaceLabel = (str, label) => {
-  if (!str) return false;
   return str.replace(/\[\//g, `<${label}>`).replace(/\/]/g, `</${label}>`)
 }

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 21:48:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-18 17:51:48
+ * @LastEditTime: 2021-01-18 20:13:45
  * @Description 登录弹窗
  */
 import React, { Component } from 'react'
@@ -104,7 +104,8 @@ class LoginModel extends Component {
 
   // 关闭登录弹窗
   onClose = e => {
-    this.formRef.current.resetFields();
+    const { navStatus } = this.state;
+    if (navStatus !== 2) this.formRef.current.resetFields();
     this.props.handelModelPower({ type: IS_SHOW_LOGIN, data: false });
   }
 
@@ -119,6 +120,7 @@ class LoginModel extends Component {
 
   // 二维码key生成接口
   queryQrKey = () => {
+    clearInterval(timer);
     qrKey({}).then(res => {
       if (res.code === 200) {
         const { unikey } = res.data;
@@ -133,6 +135,8 @@ class LoginModel extends Component {
   queryQrCreate = key => {
     clearInterval(timer);
     qrCreate({ key, qrimg: true }).then(res => {
+      // 重新获取验证码刷新数据
+      this.setState({ msg: '', code: null })
       if (res.code !== 200) return;
       // 保存二维码
       this.setState({ qrimg: res.data.qrimg, nickname: '请使用[/网易云音乐APP/]扫描二维码' })
@@ -142,10 +146,9 @@ class LoginModel extends Component {
         const { queryLoginStatus } = this.props;
         qrCheck({ key }).then(res => {
           const { code, nickname } = res;
-          // console.log('res==>>' + code, msg, nickname, a)
           if (code === 800) {
             clearInterval(timer);
-            this.setState({ code, msg: '二维码已过期, 请重新获取[/点击刷新/]', nickname })
+            this.setState({ code, msg: '二维码已过期, 请重新获取[/点击刷新/]', nickname: '' })
           }
           // if (code === 801) {
           //   this.setState({ code, nickname: msg })
