@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 21:48:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-16 00:56:50
+ * @LastEditTime: 2021-01-18 09:09:17
  * @Description 登录弹窗
  */
 import React, { Component } from 'react'
@@ -204,7 +204,7 @@ class LoginModel extends Component {
             <FormItem
               label='账号'
               name="phone"
-              initialValue="132 7294 6536"
+              initialValue=""
               getValueFromEvent={(e) => formatTel(e.target.value)}
               rules={
                 [{
@@ -217,7 +217,7 @@ class LoginModel extends Component {
                   // },
                 ]}
             >
-              <Input type="tel" autoComplete={`off`} maxLength={11} placeholder="请输入手机号码" />
+              <Input type="tel" autoComplete={`off`} maxLength={14} placeholder="请输入手机号码" />
             </FormItem >
             : navStatus === 1 ?
               <FormItem
