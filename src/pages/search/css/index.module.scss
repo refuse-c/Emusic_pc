@@ -24,7 +24,8 @@
         border-bottom: 4px solid transparent;
 
         &.active {
-          border-bottom: 4px solid red;
+          border-bottom: 4px solid $color;
+          ;
         }
       }
     }

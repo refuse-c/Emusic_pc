@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-19 18:17:12
+ * @LastEditTime: 2021-01-19 22:31:02
  * @Description: 头部 
  */
 import React, { Component } from 'react';
@@ -13,7 +13,7 @@ import SearchInput from 'pages/search/component/SearchInput';
 import { bindActionCreators } from 'redux';
 import { modelPower } from 'store/actions';
 import { IS_SHOW_LOGIN, IS_SHOW_PLAYER, IS_SHOW_PLAYLIST } from 'store/actionTypes';
-import { routerJump } from 'common/utils/tools';
+import { getLocal, routerJump, setLocal } from 'common/utils/tools';
 import { withRouter } from 'react-router-dom';
 import { isEmpty } from 'common/utils/format';
 import { Tooltip } from 'antd';
@@ -27,7 +27,7 @@ class Header extends Component {
     this.state = {
       isDrag: true,
       showColor: false,
-      globalColor: '#EC4141',
+      globalColor: '$color',
     }
   }
   /**
@@ -56,36 +56,27 @@ class Header extends Component {
     url !== -1 ? history.go(-1) : routerJump(history, `/home/mylove`);
   }
 
-  //修改颜色
+  // 设置颜色
   handleChange = c => {
-    const { r, g, b } = c.rgb;
-    const color = `rgba(${r},${g},${b},1)`;
-    const color1 = `rgba(${r},${g},${b},0.1)`;
-    const color2 = `rgba(${r},${g},${b},0.2)`;
-    const color3 = `rgba(${r},${g},${b},0.3)`;
-    const color4 = `rgba(${r},${g},${b},0.4)`;
-    const color5 = `rgba(${r},${g},${b},0.5)`;
-    const color6 = `rgba(${r},${g},${b},0.6)`;
-    const color7 = `rgba(${r},${g},${b},0.7)`;
-    const color8 = `rgba(${r},${g},${b},0.8)`;
-    const color9 = `rgba(${r},${g},${b},0.9)`;
-    // this.setState({ globalColor: color.hex });
-
-    document.getElementsByTagName('body')[0].style.setProperty('--color', color)
-    document.getElementsByTagName('body')[0].style.setProperty('--color1', color1)
-    document.getElementsByTagName('body')[0].style.setProperty('--color2', color2)
-    document.getElementsByTagName('body')[0].style.setProperty('--color3', color3)
-    document.getElementsByTagName('body')[0].style.setProperty('--color4', color4)
-    document.getElementsByTagName('body')[0].style.setProperty('--color5', color5)
-    document.getElementsByTagName('body')[0].style.setProperty('--color6', color6)
-    document.getElementsByTagName('body')[0].style.setProperty('--color7', color7)
-    document.getElementsByTagName('body')[0].style.setProperty('--color8', color8)
-    document.getElementsByTagName('body')[0].style.setProperty('--color9', color9)
-
+    let { r, g, b } = c.rgb;
+    for (let index = 0; index < 10; index++) {
+      const num = index === 0 ? '' : `,0.${index}`;
+      setLocal(`color${index === 0 ? '' : index}`, `rgba(${r},${g},${b}${num})`)
+      document.getElementsByTagName('body')[0].style.setProperty(`--color${index === 0 ? '' : index}`, `rgba(${r},${g},${b}${num})`)
+    }
+    // 设置取色器的颜色
+    setLocal('globalColor', c.hex);
+    this.setState({ globalColor: c.hex });
   }
 
   componentDidMount = () => {
-
+    // 获取缓存的色值
+    for (let index = 0; index < 10; index++) {
+      const num = index === 0 ? '' : index;
+      console.log(`color${num}`, getLocal(`color1`))
+      document.getElementsByTagName('body')[0].style.setProperty(`--color${num}`, getLocal(`color${num}`))
+    }
+    this.setState({ globalColor: getLocal(`globalColor`) })
   }
 
   render() {

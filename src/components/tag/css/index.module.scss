@@ -27,16 +27,16 @@
       cursor: pointer;
 
       &:hover {
-        color: #ec4141;
-        background-color: #FDEDED;
+        color: $color;
+        background-color: $color1;
       }
 
       &.active {
-        color: #ec4141;
-        background-color: #FDF5F5;
+        color: $color;
+        background-color: $color1;
 
         &:hover {
-          background-color: #FDEDED;
+          background-color: $color1;
         }
       }
     }

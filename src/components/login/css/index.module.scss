@@ -1,3 +1,4 @@
+@import "~common/css/_variables.scss";
 // .login {}
 
 .form {
@@ -23,7 +24,11 @@
     .submit {
       margin-bottom: 24px;
       color: #fff !important;
-      background-color: #EC4141;
+      background-color: $color;
+
+      &.disabled {
+        background-color: $color5;
+      }
 
       &:active,
       &:hover,
@@ -33,8 +38,8 @@
     }
 
     .cancel {
-      color: #EC4141;
-      border: 1px solid #EC4141 !important;
+      color: $color;
+      border: 1px solid $color !important;
     }
   }
 }
@@ -54,8 +59,8 @@
     font-size: 16px;
 
     &.active {
-      color: #EC4141;
-      border-bottom: 4px solid #EC4141;
+      color: $color;
+      border-bottom: 4px solid $color;
     }
   }
 }
@@ -82,7 +87,7 @@
     justify-content: center;
     width: 200px;
     height: 200px;
-    background-color: rgba($color: #000000, $alpha: 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     border-radius: 4px;
     z-index: 22;
 
@@ -91,7 +96,7 @@
       padding: 16px;
       text-align: center;
       color: #fff;
-      background-color: rgba($color: #000000, $alpha: 0.2);
+      background-color: rgba(0, 0, 0, 0.2);
 
       button {
         cursor: pointer;
@@ -109,7 +114,7 @@
     text-align: center;
 
     span {
-      color: #EC4141;
+      color: $color;
     }
   }
 }

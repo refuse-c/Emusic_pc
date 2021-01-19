@@ -46,9 +46,9 @@
 
           span {
             font-size: $fz12;
-            color: $cc62f2f;
+            color:$color;
             padding: 2px 4px;
-            border: 1px solid #c62f2f;
+            border: 1px solid $color;
             margin-right: 5px;
           }
           &:nth-child(1) {

@@ -118,18 +118,18 @@
         }
 
         &.play {
-          background: rgba(0, 0, 0, 0.06) url("~common/images/play.png") center right 6px / 20px no-repeat;
+          background: $color5 url("~common/images/play.png") center right 6px / 20px no-repeat;
 
           &:hover {
-            background-color: rgba(0, 0, 0, 0.09);
+            background-color: $color;
           }
         }
 
         &.pause {
-          background: rgba(0, 0, 0, 0.06) url("~common/images/pause.png") center center / 20px no-repeat;
+          background: $color5 url("~common/images/pause.png") center center / 20px no-repeat;
 
           &:hover {
-            background-color: rgba(0, 0, 0, 0.09);
+            background-color: $color;
           }
         }
 

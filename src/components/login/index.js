@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 21:48:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-19 16:23:00
+ * @LastEditTime: 2021-01-19 22:46:14
  * @Description 登录弹窗
  */
 import React, { Component } from 'react'
@@ -306,8 +306,7 @@ class LoginModel extends Component {
           <Button
             disabled={!isRegistered}
             onClick={this.onFinish}
-            className={styles.submit}
-            style={{ backgroundColor: isRegistered ? 'rgba(236, 65, 65)' : 'rgba(236, 65, 65, 0.5)' }}
+            className={[styles.submit, isRegistered ? '' : styles.disabled].join(' ')}
           >登录</Button>
           <Button onClick={this.onClose} className={styles.cancel}>取消</Button>
         </div>

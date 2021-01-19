@@ -69,7 +69,7 @@
   .menu_list_active {
     position: relative;
     color: $color !important;
-    // color: #EC4141 !important;
+    // color: $color !important;
     background-color: #F5F5F6;
 
     &:before,
@@ -81,7 +81,7 @@
       height: 20px !important;
       width: 4px;
       background-color: $color !important;
-      // background-color: #EC4141 !important;
+      // background-color: $color !important;
     }
 
     &:after {

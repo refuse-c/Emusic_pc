@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-02 17:28:10
+ * @LastEditTime: 2021-01-19 21:19:33
  * @Description: 歌单列表
  */
 import { formatLocalName, formatSerialNo, formatSongTime } from 'common/utils/format';
@@ -27,13 +27,13 @@ class MusicList extends Component {
   onLineColumns = [
     {
       title: '序号',
-      key: 'index',
+      key: '1',
       render: (text, record, index) => `${formatSerialNo(index + 1)}`,
       width: 60,
     },
     {
       title: '操作',
-      key: 'tool',
+      key: '2',
       width: 60,
       render: item => <div className="btn_box">
         <Like
@@ -47,7 +47,7 @@ class MusicList extends Component {
     },
     {
       title: '音乐标题',
-      key: 'name',
+      key: '3',
       ellipsis: true,
       sorter: (a, b) => a.name.localeCompare(b.name),
       render: item => <div className='item'>
@@ -66,7 +66,7 @@ class MusicList extends Component {
     },
     {
       title: '歌手',
-      key: 'singer',
+      key: '4',
       ellipsis: true,
       sorter: (a, b) => a.ar[0].name.localeCompare(b.ar[0].name),
       render: item => item.ar.map((item, index) =>
@@ -83,7 +83,7 @@ class MusicList extends Component {
     },
     {
       title: '专辑',
-      key: 'album',
+      key: '5',
       ellipsis: true,
       sorter: (a, b) => a.al.name.localeCompare(b.al.name),
       render: item =>
@@ -97,7 +97,7 @@ class MusicList extends Component {
     },
     {
       title: '时长',
-      key: 'time',
+      key: '6',
       width: 80,
       sorter: (a, b) => a.dt - b.dt,
       render: item => formatSongTime(item.dt)
@@ -106,13 +106,13 @@ class MusicList extends Component {
   localColumns = [
     {
       title: '序号',
-      key: '1',
+      key: '7',
       render: (text, record, index) => `${formatSerialNo(index + 1)}`,
       width: 60,
     },
     {
       title: '音乐标题',
-      key: '2',
+      key: '8',
       ellipsis: true,
       sorter: (a, b) => a.name.localeCompare(b.name),
       render: item => <div className='item'>
@@ -121,7 +121,7 @@ class MusicList extends Component {
     },
     {
       title: '歌手',
-      key: '3',
+      key: '9',
       ellipsis: true,
       sorter: (a, b) => a.ar[0].name.localeCompare(b.ar[0].name),
       render: item => item.ar.map((item, index) =>
@@ -130,14 +130,14 @@ class MusicList extends Component {
     },
     {
       title: '专辑',
-      key: '4',
+      key: '10',
       ellipsis: true,
       sorter: (a, b) => a.al.name.localeCompare(b.al.name),
       render: item => <span className={styles.singerText} >{item.al.name}</span>
     },
     {
       title: '时长',
-      key: '5',
+      key: '11',
       width: 80,
       sorter: (a, b) => a.dt - b.dt,
       render: item => formatSongTime(item.dt)

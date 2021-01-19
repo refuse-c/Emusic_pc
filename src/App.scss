@@ -19,12 +19,35 @@
   &:active,
   &:hover,
   &:focus {
-    box-shadow: 0 0 0 2px rgba(236, 65, 65, 0.2) !important;
-    border-color: #EC4141 !important;
+    // box-shadow: 0 0 0 2px rgba(236, 65, 65, 0.2) !important;
+    box-shadow: none;
+    border-color: $color !important;
   }
 }
 
+.ant-form-item-has-error .ant-input {
 
+  &:active,
+  &:hover,
+  &:focus {
+    // box-shadow: 0 0 0 2px rgba(236, 65, 65, 0.2) !important;
+    box-shadow: none;
+  }
+}
+
+.ant-tooltip-arrow-content,
+.ant-tooltip-inner {
+  background-color: $color8;
+}
+
+
+.ant-pagination-item-active {
+  border-color: $color;
+}
+
+.ant-pagination-item-active a {
+  color: $color;
+}
 
 canvas {
   display: none;
@@ -69,7 +92,7 @@ img {
 }
 
 .highlight {
-  color: #0071fb;
+  color: $color;
 }
 
 :global {
