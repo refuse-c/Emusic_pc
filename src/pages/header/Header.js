@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-15 20:42:23
+ * @LastEditTime: 2021-01-19 18:17:12
  * @Description: 头部 
  */
 import React, { Component } from 'react';
@@ -12,18 +12,23 @@ import { connect } from 'react-redux';
 import SearchInput from 'pages/search/component/SearchInput';
 import { bindActionCreators } from 'redux';
 import { modelPower } from 'store/actions';
-import { IS_SHOW_LOGIN, IS_SHOW_PLAYER, IS_SHOW_PLAYLIST, IS_SHOW_SKIN } from 'store/actionTypes';
+import { IS_SHOW_LOGIN, IS_SHOW_PLAYER, IS_SHOW_PLAYLIST } from 'store/actionTypes';
 import { routerJump } from 'common/utils/tools';
 import { withRouter } from 'react-router-dom';
 import { isEmpty } from 'common/utils/format';
 import { Tooltip } from 'antd';
+import { BlockPicker } from 'react-color';
 // 使用electron 最小化 关闭 
 const { ipcRenderer: ipc } = window.require('electron');
 
 class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = { isDrag: true }
+    this.state = {
+      isDrag: true,
+      showColor: false,
+      globalColor: '#EC4141',
+    }
   }
   /**
    * @name: 路由控制上一页 下一页
@@ -51,8 +56,40 @@ class Header extends Component {
     url !== -1 ? history.go(-1) : routerJump(history, `/home/mylove`);
   }
 
+  //修改颜色
+  handleChange = c => {
+    const { r, g, b } = c.rgb;
+    const color = `rgba(${r},${g},${b},1)`;
+    const color1 = `rgba(${r},${g},${b},0.1)`;
+    const color2 = `rgba(${r},${g},${b},0.2)`;
+    const color3 = `rgba(${r},${g},${b},0.3)`;
+    const color4 = `rgba(${r},${g},${b},0.4)`;
+    const color5 = `rgba(${r},${g},${b},0.5)`;
+    const color6 = `rgba(${r},${g},${b},0.6)`;
+    const color7 = `rgba(${r},${g},${b},0.7)`;
+    const color8 = `rgba(${r},${g},${b},0.8)`;
+    const color9 = `rgba(${r},${g},${b},0.9)`;
+    // this.setState({ globalColor: color.hex });
+
+    document.getElementsByTagName('body')[0].style.setProperty('--color', color)
+    document.getElementsByTagName('body')[0].style.setProperty('--color1', color1)
+    document.getElementsByTagName('body')[0].style.setProperty('--color2', color2)
+    document.getElementsByTagName('body')[0].style.setProperty('--color3', color3)
+    document.getElementsByTagName('body')[0].style.setProperty('--color4', color4)
+    document.getElementsByTagName('body')[0].style.setProperty('--color5', color5)
+    document.getElementsByTagName('body')[0].style.setProperty('--color6', color6)
+    document.getElementsByTagName('body')[0].style.setProperty('--color7', color7)
+    document.getElementsByTagName('body')[0].style.setProperty('--color8', color8)
+    document.getElementsByTagName('body')[0].style.setProperty('--color9', color9)
+
+  }
+
+  componentDidMount = () => {
+
+  }
+
   render() {
-    const { isDrag } = this.state;
+    const { isDrag, showColor, globalColor } = this.state;
     const { queryLoginStatus, userInfo } = this.props;
     const { loginStatus } = this.props.modelPower;
     return (
@@ -61,6 +98,10 @@ class Header extends Component {
         style={{ WebkitAppRegion: isDrag ? 'drag' : 'no-drag' }}
         onClick={() => this.props.handelHideModel()}
       >
+        { showColor ? <div className={styles.colorBox} >
+          <BlockPicker color={globalColor} onChange={this.handleChange} />
+        </div > : null}
+
         <LoginModel
           hasShow={loginStatus}
           hideModel={this.hideModel}
@@ -102,7 +143,7 @@ class Header extends Component {
               登录
           </li>
           }
-          <li onClick={() => this.props.handleModelPower({ type: IS_SHOW_SKIN, data: true })}>换肤</li>
+          <li onClick={() => this.setState({ showColor: !showColor })} >换肤</li>
           <li>私信</li>
           <li onClick={() => this.props.history.push({ pathname: "/home/setting" })}>设置</li>
           <Tooltip title={`最小化`}>

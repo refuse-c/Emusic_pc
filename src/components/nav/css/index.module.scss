@@ -24,7 +24,7 @@
   }
 
   .menu_list_active {
-    color: $cec4141;
+    color: $color;
     font-size: 18px;
     font-weight: 600;
     color: #333333;
@@ -37,7 +37,7 @@
       width: 80%;
       height: 3px;
       transform: translateX(-50%);
-      background-color: $cec4141;
+      background-color: $color;
     }
   }
 }

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-15 22:22:35
+ * @LastEditTime: 2021-01-19 13:53:34
  * @Description: 
  */
 
@@ -14,6 +14,15 @@ import { getRequest } from './request';
 export const phoneLogin = params => {
   return getRequest('/login/cellphone', params)
 }
+
+/**
+ * @name:检测手机号是否已经注册 
+ * @param { phone : 手机号码 countrycode: 国家码，}
+ */
+export const phoneIsRegistered = params => {
+  return getRequest('/cellphone/existence/check', params)
+}
+
 
 /**
  * @name:邮箱登录 

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:06
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-18 19:22:31
+ * @LastEditTime: 2021-01-19 14:38:35
  * @Description:工具
  */
 
@@ -21,15 +21,6 @@ export const formatTel = val => {
   return value;
 }
 
-/**
- * @name: 去空格
- * @param {string} 
- */
-export const Trim = val => {
-  if (!val) return;
-  val = val.replace(/\s*/g, '');
-  return val;
-}
 
 /**
  * @name: 图片压缩
@@ -199,4 +190,14 @@ export const formatTels = str => {
  */
 export const replaceLabel = (str, label) => {
   return str.replace(/\[\//g, `<${label}>`).replace(/\/]/g, `</${label}>`)
+}
+
+/**
+ * @name: 去空格
+ * @param {str = string, type = number (1 || 2)}
+ * 默认去掉全部空格  type: 1去掉字符串左边空格 2去掉字符串左边空格
+ */
+
+export const Trim = (str, type) => {
+  return type === 1 ? str.replace(/(^\s*)/g, '') : type === 2 ? str.replace(/(\s*$)/g, '') : str.replace(/\s+/g, '')
 }

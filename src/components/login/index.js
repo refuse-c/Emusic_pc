@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 21:48:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-18 20:13:45
+ * @LastEditTime: 2021-01-19 16:23:00
  * @Description 登录弹窗
  */
 import React, { Component } from 'react'
@@ -11,12 +11,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modelPower, queryUserInfo, userPlayList } from 'store/actions';
 import { IS_SHOW_LOGIN } from 'store/actionTypes';
-import { phoneLogin, emailLogin, qrKey, qrCreate, qrCheck } from 'common/api/api';
+import { phoneLogin, emailLogin, qrKey, qrCreate, qrCheck, phoneIsRegistered } from 'common/api/api';
 import { routerJump, setLocal } from 'common/utils/tools';
 import { withRouter } from 'react-router-dom';
 import BoxModel from 'components/model/BoxModel';
 import styles from './css/index.module.scss';
-import { formatTel, formatTels, replaceLabel } from 'common/utils/format';
+import { formatTel, formatTels, replaceLabel, Trim } from 'common/utils/format';
 // import MD5 from 'crypto-js/md5';
 let timer;
 const FormItem = Form.Item;
@@ -30,21 +30,30 @@ class LoginModel extends Component {
       qrimg: '', // qr images
       msg: '', // qr check message
       code: null, // qr check code
-      nickname: '' // 用户名
+      nickname: '', // 用户名
+      isRegistered: true, //手机号是否注册    true 注册    false 未注册
     }
   }
 
-  // 登陆成功后的方法 
-  success = res => {
-    const { history, callBack } = this.props;
-    this.props.handelModelPower({ type: IS_SHOW_LOGIN, data: false });
-    message.info('登录成功');
-    setLocal('userInfo', res.profile);
-    setLocal('cookie', res.cookie);
-    const uid = res.profile.userId;
-    callBack && callBack(uid);
-    this.props.handleQueryUserInfo(res.profile);
-    routerJump(history, `/home/find/`);
+  // 校验手机号是否注册
+  queryRegistered = phone => {
+    phoneIsRegistered({
+      phone, countrycode: 86
+    }).then(res => {
+      if (res.code !== 200) return;
+      if (res.exist === -1) {
+        this.formRef.current.setFields([{
+          errors: ['当前手机号还未注册'],
+          name: 'phone',
+          value: formatTel(phone)
+        }])
+        this.setState({ isRegistered: false })
+      } else {
+        this.setState({ isRegistered: true })
+      }
+    }).catch(err => {
+      console.log(err)
+    })
   }
 
   // 手机登录
@@ -67,57 +76,6 @@ class LoginModel extends Component {
     })
   }
 
-  // 表单验证
-  onFinish = e => {
-    const { navStatus } = this.state;
-    this.formRef.current.validateFields()
-      .then(values => {
-        // 手机
-        const { phone, email, password } = values;
-        if (navStatus === 0) {
-          if (!formatTels(phone.replace(/\s+/g, ''))) {
-            this.formRef.current.setFields([{
-              errors: ['您输入的手机号有误,请检查'],
-              name: 'phone',
-              value: phone
-            }])
-            return false;
-          }
-          const params = {
-            phone: phone.replace(/\s+/g, ''),
-            password: password
-          }
-          this.handelPhoneLogin(params)
-        }
-        // 邮箱
-        if (navStatus === 1) {
-
-          const params = {
-            email: email,
-            password: password
-          }
-          this.handelEmailLogin(params)
-        }
-
-      })
-  }
-
-  // 关闭登录弹窗
-  onClose = e => {
-    const { navStatus } = this.state;
-    if (navStatus !== 2) this.formRef.current.resetFields();
-    this.props.handelModelPower({ type: IS_SHOW_LOGIN, data: false });
-  }
-
-  //切换登录
-  handelNav = navStatus => {
-    clearInterval(timer);
-    if (navStatus === 2) this.queryQrKey();
-    this.setState({ navStatus }, () => {
-      if (navStatus !== 2) this.formRef.current.resetFields();
-    })
-  }
-
   // 二维码key生成接口
   queryQrKey = () => {
     clearInterval(timer);
@@ -131,6 +89,7 @@ class LoginModel extends Component {
       console.log(err)
     })
   }
+
   // 二维码生成接口
   queryQrCreate = key => {
     clearInterval(timer);
@@ -173,6 +132,86 @@ class LoginModel extends Component {
     })
   }
 
+  // 登陆成功后的方法 
+  success = res => {
+    const { history, callBack } = this.props;
+    this.props.handelModelPower({ type: IS_SHOW_LOGIN, data: false });
+    message.info('登录成功');
+    setLocal('userInfo', res.profile);
+    setLocal('cookie', res.cookie);
+    const uid = res.profile.userId;
+    callBack && callBack(uid);
+    this.props.handleQueryUserInfo(res.profile);
+    routerJump(history, `/home/find/`);
+  }
+
+  //切换登录
+  handelNav = navStatus => {
+    clearInterval(timer);
+    if (navStatus === 2) this.queryQrKey();
+    this.setState({ isRegistered: true })
+    this.setState({ navStatus }, () => {
+      if (navStatus !== 2) this.formRef.current.resetFields();
+    })
+  }
+
+  // 表单验证
+  onFinish = e => {
+    const { navStatus } = this.state;
+    this.formRef.current.validateFields()
+      .then(values => {
+        // 手机
+        const { phone, email, password } = values;
+        if (navStatus === 0) {
+          if (!formatTels(Trim(phone))) {
+            this.formRef.current.setFields([{
+              errors: ['您输入的手机号有误,请检查'],
+              name: 'phone',
+              value: formatTel(phone)
+            }])
+            return false;
+          }
+          const params = {
+            phone: Trim(phone),
+            password: password
+          }
+          this.handelPhoneLogin(params)
+        }
+        // 邮箱
+        if (navStatus === 1) {
+
+          const params = {
+            email: email,
+            password: password
+          }
+          this.handelEmailLogin(params)
+        }
+
+      })
+  }
+
+  // 输入手机号时 验证手机号是否正确 / 是否已经注册
+  changeInput = e => {
+    const { value } = e.target;
+    const phone = Trim(value);
+    if (formatTels(phone)) {
+      this.queryRegistered(phone);
+    } else {
+      this.formRef.current.setFields([{
+        errors: ['您输入的手机号有误,请检查'],
+        name: 'phone',
+        value: formatTel(phone)
+      }])
+    }
+  }
+
+  // 关闭登录弹窗
+  onClose = e => {
+    const { navStatus } = this.state;
+    if (navStatus !== 2) this.formRef.current.resetFields();
+    this.props.handelModelPower({ type: IS_SHOW_LOGIN, data: false });
+  }
+
   componentWillUnmount = () => {
     clearInterval(timer);
   }
@@ -180,7 +219,7 @@ class LoginModel extends Component {
   formRef = React.createRef();
   render() {
     const { hasShow } = this.props;
-    const { navList, navStatus, qrimg, code, msg, nickname } = this.state;
+    const { navList, isRegistered, navStatus, qrimg, code, msg, nickname } = this.state;
     const headView = (
       <ul className={styles.login_nav}>
         {
@@ -209,6 +248,7 @@ class LoginModel extends Component {
               label='账号'
               name="phone"
               initialValue=""
+              extra={`目前仅支持中国大陆+86手机号登录/注册`}
               getValueFromEvent={(e) => formatTel(e.target.value)}
               rules={
                 [{
@@ -221,7 +261,7 @@ class LoginModel extends Component {
                   // },
                 ]}
             >
-              <Input type="tel" autoComplete={`off`} maxLength={14} placeholder="请输入手机号码" />
+              <Input type="tel" autoComplete={`off`} maxLength={13} onChange={this.changeInput} placeholder="请输入手机号码" />
             </FormItem >
             : navStatus === 1 ?
               <FormItem
@@ -263,7 +303,12 @@ class LoginModel extends Component {
           <Input type="password" autoComplete={`off`} maxLength={20} placeholder="请输入登录密码" onPressEnter={this.onFinish} />
         </FormItem>
         <div className={styles.btn}>
-          <Button onClick={this.onFinish} className={styles.submit}>登录</Button>
+          <Button
+            disabled={!isRegistered}
+            onClick={this.onFinish}
+            className={styles.submit}
+            style={{ backgroundColor: isRegistered ? 'rgba(236, 65, 65)' : 'rgba(236, 65, 65, 0.5)' }}
+          >登录</Button>
           <Button onClick={this.onClose} className={styles.cancel}>取消</Button>
         </div>
       </Form >)

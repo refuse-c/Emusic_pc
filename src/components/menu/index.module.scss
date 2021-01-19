@@ -25,7 +25,8 @@
         left: 0;
         height: 0;
         width: 4px;
-        background-color: rgba(236, 65, 65, 0.8) !important;
+        background-color: $color !important;
+        // background-color: rgba(236, 65, 65, 0.8) !important;
         transition: 400ms ease all;
       }
 
@@ -36,7 +37,8 @@
       }
 
       &:hover {
-        color: rgba(236, 65, 65, 0.8) !important;
+        color: $color !important;
+        // background-color: rgba(236, 65, 65, 0.8) !important;
         background-color: #F5F5F6;
 
         &:before,
@@ -66,7 +68,8 @@
 
   .menu_list_active {
     position: relative;
-    color: #EC4141 !important;
+    color: $color !important;
+    // color: #EC4141 !important;
     background-color: #F5F5F6;
 
     &:before,
@@ -77,7 +80,8 @@
       left: 0;
       height: 20px !important;
       width: 4px;
-      background-color: #EC4141 !important;
+      background-color: $color !important;
+      // background-color: #EC4141 !important;
     }
 
     &:after {

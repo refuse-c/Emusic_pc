@@ -204,7 +204,7 @@
     -webkit-appearance: none;
     /*清除系统默认样式*/
     width: 100%;
-    background: -webkit-linear-gradient(#fc5244, #fc5244) no-repeat,
+    background: -webkit-linear-gradient($color, $color) no-repeat,
       rgba(0, 0, 0, 0.2);
     /*设置左边颜色为#61bd12，右边颜色为#ddd*/
     background-size: 0% 100%;
@@ -215,7 +215,7 @@
       height: 3px;
       width: 3px;
       margin-top: 0px;
-      background-color: #fc5244;
+      background-color: $color;
       border-radius: 50%;
       cursor: pointer;
     }
