@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-19 23:20:36
+ * @LastEditTime: 2021-01-19 23:41:38
  * @Description: 头部 
  */
 import React, { Component } from 'react';
@@ -72,11 +72,13 @@ class Header extends Component {
 
   componentDidMount = () => {
     // 获取缓存的色值
-    for (let index = 0; index < 10; index++) {
-      const num = index === 0 ? '' : index;
-      document.getElementsByTagName('body')[0].style.setProperty(`--color${num}`, getLocal(`color${num}`))
+    if (getLocal(`globalColor`)) {
+      for (let index = 0; index < 10; index++) {
+        const num = index === 0 ? '' : index;
+        document.getElementsByTagName('body')[0].style.setProperty(`--color${num}`, getLocal(`color${num}`))
+      }
+      this.setState({ globalColor: getLocal(`globalColor`) })
     }
-    this.setState({ globalColor: getLocal(`globalColor`) })
   }
 
   render() {
