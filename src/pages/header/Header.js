@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-19 22:31:02
+ * @LastEditTime: 2021-01-19 23:20:36
  * @Description: 头部 
  */
 import React, { Component } from 'react';
@@ -27,7 +27,7 @@ class Header extends Component {
     this.state = {
       isDrag: true,
       showColor: false,
-      globalColor: '$color',
+      globalColor: '',
     }
   }
   /**
@@ -57,23 +57,23 @@ class Header extends Component {
   }
 
   // 设置颜色
-  handleChange = c => {
-    let { r, g, b } = c.rgb;
+  handleChange = color => {
+    console.log(color)
+    let { r, g, b } = color.rgb;
     for (let index = 0; index < 10; index++) {
       const num = index === 0 ? '' : `,0.${index}`;
       setLocal(`color${index === 0 ? '' : index}`, `rgba(${r},${g},${b}${num})`)
       document.getElementsByTagName('body')[0].style.setProperty(`--color${index === 0 ? '' : index}`, `rgba(${r},${g},${b}${num})`)
     }
     // 设置取色器的颜色
-    setLocal('globalColor', c.hex);
-    this.setState({ globalColor: c.hex });
+    setLocal('globalColor', color.hex);
+    this.setState({ globalColor: color.hex });
   }
 
   componentDidMount = () => {
     // 获取缓存的色值
     for (let index = 0; index < 10; index++) {
       const num = index === 0 ? '' : index;
-      console.log(`color${num}`, getLocal(`color1`))
       document.getElementsByTagName('body')[0].style.setProperty(`--color${num}`, getLocal(`color${num}`))
     }
     this.setState({ globalColor: getLocal(`globalColor`) })
