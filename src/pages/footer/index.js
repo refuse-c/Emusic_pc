@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-20 15:26:48
+ * @LastEditTime: 2021-01-20 21:36:11
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -14,16 +14,15 @@ import { connect } from 'react-redux';
 import { lyric, songUrl } from 'common/api/api';
 import { bindActionCreators } from 'redux';
 import { currentPlayer, currentPlayList, currentTime, modelPower } from 'store/actions';
-import { cutSong, formatLrc } from 'common/utils/tools';
+import { cutSong, formatLrc, getLocal, setLocal } from 'common/utils/tools';
 import { message, Tooltip } from 'antd';
 import { formatImgSize, formatSongTime } from 'common/utils/format';
 import { IS_SHOW_PLAYER, IS_SHOW_PLAYLIST } from 'store/actionTypes';
 import { withRouter } from 'react-router-dom';
 import Like from 'components/like';
 import { createFromIconfontCN } from '@ant-design/icons';
-const MyIcon = createFromIconfontCN({
-  scriptUrl: '//at.alicdn.com/t/font_2338340_ssge2yp1ian.js', // 在 iconfont.cn 上生成
-});
+// 在 iconfont.cn 上生成
+const MyIcon = createFromIconfontCN({ scriptUrl: 'http://at.alicdn.com/t/font_2338340_uxl5hou588b.js' });
 // electron 键盘事件 
 const { ipcRenderer: ipc } = window.require('electron');
 let timer1;
@@ -41,7 +40,7 @@ class Footer extends Component {
       rangeVal: 0, // 进度条数值
       duration: 0, // 当前音乐总时间
       currentIndex: 0,
-      volumeVal: 50,
+      volumeVal: getLocal('volume') || 50,
       currentPlayer: {},
       lyricText: [],
       rotate: 0,
@@ -57,6 +56,7 @@ class Footer extends Component {
     val = val >= 100 ? 100 : val;
     val = val <= 0 ? 0 : val;
     clearTimeout(timer2);
+    setLocal('volume', volumeVal);
     this.setState({ volumeVal: val, isShowVolume: true }, () =>
       timer2 = setTimeout(() => {
         this.setState({ isShowVolume: false })
@@ -199,7 +199,7 @@ class Footer extends Component {
     clearTimeout(timer2);
     const { volume } = this;
     const volumeVal = volume.value;
-
+    setLocal('volume', volumeVal);
     this.setState({ volumeVal, isShowVolume: true }, () =>
       timer2 = setTimeout(() => {
         this.setState({ isShowVolume: false })
@@ -341,7 +341,6 @@ class Footer extends Component {
                 onClick={() => console.log('show/hide lrc')}
               />
             </li>
-
           </ul>
           <div className={styles.progress}>
             <span>{formatSongTime(currentTime, true)}</span>
@@ -364,7 +363,6 @@ class Footer extends Component {
           <div className={styles.tool}>
             <MyIcon
               className={styles.volumeBox}
-              style={{ fontSize: 30 }}
               type={Number(volumeVal) === 0 ? `icon-jingyin` : `icon-shengyin`}
             />
             <Tooltip
@@ -383,7 +381,7 @@ class Footer extends Component {
             </Tooltip>
             <div className={styles.list}>
               <MyIcon
-                type={`icon-caidan`}
+                type={`icon-list`}
                 onClick={() => this.props.handleModelPower({ type: IS_SHOW_PLAYLIST, data: !playListStatus })}
               />
             </div>

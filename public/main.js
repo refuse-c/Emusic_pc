@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-20 16:41:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-20 17:52:41
+ * @LastEditTime: 2021-01-20 21:29:06
  * @Description: 
  */
 let appTray;
@@ -32,14 +32,37 @@ createWindow = () => {
   app.on('window-all-closed', () => {
     app.quit();
   });
-  mainWindow.loadURL('http://localhost:3000/');
-  // mainWindow.loadFile('./build/index.html')
+  // mainWindow.loadURL('http://localhost:3000/');
+  mainWindow.loadFile('./index.html');
   mainWindow.setMinimumSize(1020, 670);
   // 关闭window时触发下列事件.
   mainWindow.on('closed', () => mainWindow = null);
 
+  //设置托盘图标的上下文菜单（系统托盘右键菜单）
+  var trayMenuTemplate = [
+    {
+      label: '显示/隐藏',//设置单个菜单项名称
+      // icon: __dirname + "",//设置单个菜单项图标
+      click() {//设置单个菜单项点击事件
+        return mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
+      } //打开相应页面
+    },
+    {
+      label: '退出',
+      click() {
+        app.quit();
+      }
+    }
+  ];
   appTray = new Tray(path.join(__dirname, "./icon.ico"));
   appTray.setToolTip('Emusic');
+  const contextMenu = Menu.buildFromTemplate(trayMenuTemplate);
+  //设置此图标的上下文菜单
+  appTray.setContextMenu(contextMenu);
+
+  //托盘的点击事件
+  appTray.on('click', e => { mainWindow.show() });
+
 }
 
 

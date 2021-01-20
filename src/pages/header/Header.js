@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-19 23:41:38
+ * @LastEditTime: 2021-01-20 21:08:42
  * @Description: 头部 
  */
 import React, { Component } from 'react';
@@ -27,7 +27,7 @@ class Header extends Component {
     this.state = {
       isDrag: true,
       showColor: false,
-      globalColor: '',
+      globalColor: getLocal('globalColor') || '#ec4141',
     }
   }
   /**
@@ -58,7 +58,6 @@ class Header extends Component {
 
   // 设置颜色
   handleChange = color => {
-    console.log(color)
     let { r, g, b } = color.rgb;
     for (let index = 0; index < 10; index++) {
       const num = index === 0 ? '' : `,0.${index}`;
@@ -77,7 +76,6 @@ class Header extends Component {
         const num = index === 0 ? '' : index;
         document.getElementsByTagName('body')[0].style.setProperty(`--color${num}`, getLocal(`color${num}`))
       }
-      this.setState({ globalColor: getLocal(`globalColor`) })
     }
   }
 

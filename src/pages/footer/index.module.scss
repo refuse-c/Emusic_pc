@@ -110,10 +110,6 @@
           height: 36px;
           font-size: 30px;
         }
-
-        &.lrc {
-          background: url("~common/images/icon_lrc.png") center center / 16px no-repeat;
-        }
       }
     }
 
@@ -156,16 +152,13 @@
       align-items: center;
 
       .volumeBox {
-        width: 30px;
-        height: 30px;
         margin-right: 4px;
+        font-size: 24px;
       }
 
       .list {
-        width: 30px;
-        height: 30px;
         margin-left: 20px;
-        font-size: 30px;
+        font-size: 24px;
       }
 
       svg {

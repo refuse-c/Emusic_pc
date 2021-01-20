@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-20 16:41:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-20 18:06:16
+ * @LastEditTime: 2021-01-20 21:04:12
  * @Description: 
  */
 let appTray;
@@ -61,10 +61,7 @@ createWindow = () => {
   appTray.setContextMenu(contextMenu);
 
   //托盘的点击事件
-  appTray.on('click', e => {
-    mainWindow.show();
-    // mainWindow.webContents.send('trayIconClick');//我们也可以设置点击图标时我们向渲染进程发送异步消息等等
-  });
+  appTray.on('click', e => { mainWindow.show() });
 
 }
 

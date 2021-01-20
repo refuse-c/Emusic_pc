@@ -2,20 +2,13 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 17:57:51
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-19 21:21:41
+ * @LastEditTime: 2021-01-20 19:53:30
  * @Description: 
  */
 import React from 'react';
 import './App.scss';
 import routes from 'router/router';
-
-import {
-  HashRouter as Router,
-  Redirect,
-  Route
-}
-
-  from 'react-router-dom';
+import { HashRouter as Router, Redirect, Route } from 'react-router-dom';
 import debounce from './common/utils/debounce'; // 防抖
 global.debounce = debounce;
 

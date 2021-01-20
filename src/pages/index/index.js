@@ -43,7 +43,6 @@ class Index extends Component {
   queryLoginStatus = async () => {
     const res = await loginStatus();
     const data = res.data;
-    console.log(res)
     if (data.code !== 200 || data.profile == null) {
       reLocal('userInfo');
       reLocal('cookie');

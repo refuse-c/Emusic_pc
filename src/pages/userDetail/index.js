@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-18 12:03:33
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-02 17:57:59
+ * @LastEditTime: 2021-01-20 20:43:57
  * @Description: 用户详情
  */
 import styles from './css/index.module.scss';
@@ -68,7 +68,6 @@ class UserDetail extends Component {
     const res = await userRecord({ uid, type: 1 })
     if (res.code !== 200) return;
     console.log(res)
-    // this.setState({ createList, collectList })
   }
 
   render() {
