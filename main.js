@@ -2,14 +2,15 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-20 16:41:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-30 22:25:37
+ * @LastEditTime: 2021-01-20 18:06:16
  * @Description: 
  */
-let tray;
+let appTray;
 let mainWindow;
 const fs = require('fs');
 const path = require('path');
 const { app, Tray, Menu, BrowserWindow, globalShortcut, ipcMain } = require('electron');
+let iconPath = path.join(__dirname, "./src/common/images/icon_task.png");
 
 // 取消菜单栏
 Menu.setApplicationMenu(null);
@@ -17,7 +18,8 @@ Menu.setApplicationMenu(null);
 // 创建浏览器窗口
 createWindow = () => {
   mainWindow = new BrowserWindow({
-    icon: './src/common/images/icon_task.png',
+    // icon: './src/common/images/icon_task.png',
+    icon: iconPath,
     width: 1020,
     height: 670,
     useContentSize: true,
@@ -36,6 +38,34 @@ createWindow = () => {
   mainWindow.setMinimumSize(1020, 670);
   // 关闭window时触发下列事件.
   mainWindow.on('closed', () => mainWindow = null);
+  //设置托盘图标的上下文菜单（系统托盘右键菜单）
+  var trayMenuTemplate = [
+    {
+      label: '显示/隐藏',//设置单个菜单项名称
+      // icon: __dirname + "",//设置单个菜单项图标
+      click() {//设置单个菜单项点击事件
+        return mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
+      } //打开相应页面
+    },
+    {
+      label: '退出',
+      click() {
+        app.quit();
+      }
+    }
+  ];
+  appTray = new Tray(path.join(__dirname, "./src/common/images/icon_task.png"));
+  appTray.setToolTip('Emusic');
+  const contextMenu = Menu.buildFromTemplate(trayMenuTemplate);
+  //设置此图标的上下文菜单
+  appTray.setContextMenu(contextMenu);
+
+  //托盘的点击事件
+  appTray.on('click', e => {
+    mainWindow.show();
+    // mainWindow.webContents.send('trayIconClick');//我们也可以设置点击图标时我们向渲染进程发送异步消息等等
+  });
+
 }
 
 

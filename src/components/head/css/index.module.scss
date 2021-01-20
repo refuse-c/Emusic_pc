@@ -9,6 +9,7 @@
     width: 200px !important;
     height: 200px !important;
     min-width: 200px;
+    box-shadow: 0 0 5px 1px $color;
 
     img {
       position: absolute;
@@ -28,13 +29,13 @@
       white-space: nowrap;
       color: $cfff;
       border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      background-color: rgba(0, 0, 0, 0.6);
+      border: 1px solid $color7;
+      background-color: $color7;
 
       &:hover {
         cursor: pointer;
-        border: 1px solid rgba(255, 255, 255, 0.8);
-        background-color: rgba(0, 0, 0, 0.8);
+        border: 1px solid $color;
+        background-color: $color;
       }
     }
   }
@@ -142,15 +143,19 @@
           text-align: center;
           border-radius: 4px;
           font-size: 12px;
+          color: #fff;
           cursor: pointer;
-          border: 1px solid #e5e6ea;
+          border: 1px solid $color7;
+          background-color: $color7;
+
 
           &:not(:first-child) {
             margin-left: 16px;
           }
 
           &:hover {
-            background-color: #f5f5f7;
+            border: 1px solid $color;
+            background-color: $color;
           }
         }
       }
@@ -164,19 +169,20 @@
         border-radius: 4px;
         font-size: 12px;
         cursor: pointer;
-        border: 1px solid #e5e6ea;
-        background-color: #fff;
+        color: #fff;
+        border: 1px solid $color7;
 
         &.is_followed {
-          background: url("~common/images/is_followed.png") top 4px left 5px / 22px no-repeat;
+          background: $color7 url("~common/images/is_followed.png") top 4px left 5px / 22px no-repeat;
         }
 
         &.not_followed {
-          background: url("~common/images/not_followed.png") top 4px left 5px / 22px no-repeat;
+          background: $color7 url("~common/images/not_followed.png") top 4px left 5px / 22px no-repeat;
         }
 
         &:hover {
-          background-color: #f5f5f7;
+          border: 1px solid $color;
+          background-color: $color;
         }
       }
 
@@ -279,21 +285,21 @@
         height: 30px;
         line-height: 30px;
         padding: 0 16px;
-        border: 1px solid #e5e6ea;
-        background-color: #fff;
         border-radius: 20px;
         margin-left: 10px;
         outline: none;
+        color: $cfff;
+        border: 1px solid $color7;
+        background-color: $color7;
 
         &:first-child {
           margin-left: 0;
-          color: $cfff;
-          border: 1px solid $color;
-          background-color: $color;
+          // border: 1px solid $color;
+          // background-color: $color;
         }
 
         &:hover {
-          color: $cfff;
+
           border: 1px solid $color;
           background-color: $color;
         }

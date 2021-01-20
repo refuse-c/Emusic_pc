@@ -1,3 +1,5 @@
+@import "~common/css/_variables.scss";
+
 .local {
   width: 100%;
   height: calc(100vh - 130px);
@@ -32,7 +34,7 @@
       height: 30px;
       font-size: 16px;
       line-height: 30px;
-      color: #507DAF;
+      color: $color;
       cursor: pointer;
 
       input {

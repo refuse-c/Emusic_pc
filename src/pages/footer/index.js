@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 12:50:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-03 14:55:25
+ * @LastEditTime: 2021-01-20 15:26:48
  * @Description:底部control
  */
 import React, { Component } from 'react';
@@ -20,6 +20,10 @@ import { formatImgSize, formatSongTime } from 'common/utils/format';
 import { IS_SHOW_PLAYER, IS_SHOW_PLAYLIST } from 'store/actionTypes';
 import { withRouter } from 'react-router-dom';
 import Like from 'components/like';
+import { createFromIconfontCN } from '@ant-design/icons';
+const MyIcon = createFromIconfontCN({
+  scriptUrl: '//at.alicdn.com/t/font_2338340_ssge2yp1ian.js', // 在 iconfont.cn 上生成
+});
 // electron 键盘事件 
 const { ipcRenderer: ipc } = window.require('electron');
 let timer1;
@@ -38,7 +42,6 @@ class Footer extends Component {
       duration: 0, // 当前音乐总时间
       currentIndex: 0,
       volumeVal: 50,
-      audioVolume: 0.5,
       currentPlayer: {},
       lyricText: [],
       rotate: 0,
@@ -53,13 +56,12 @@ class Footer extends Component {
     let val = type === 'Up' ? Number(volumeVal) + 10 : Number(volumeVal) - 10;
     val = val >= 100 ? 100 : val;
     val = val <= 0 ? 0 : val;
-    const audioVolume = val / 100;
     clearTimeout(timer2);
-    this.setState({ audioVolume, volumeVal: val, isShowVolume: true }, () =>
+    this.setState({ volumeVal: val, isShowVolume: true }, () =>
       timer2 = setTimeout(() => {
         this.setState({ isShowVolume: false })
       }, 1000))
-    volume.style.backgroundSize = audioVolume * 100 + `% 100%`;
+    if (volume) volume.style.backgroundSize = val + `% 100%`;
   }
 
   // 全局键盘事件
@@ -197,12 +199,12 @@ class Footer extends Component {
     clearTimeout(timer2);
     const { volume } = this;
     const volumeVal = volume.value;
-    const audioVolume = volume.value / volume.max;
-    this.setState({ audioVolume, volumeVal, isShowVolume: true }, () =>
+
+    this.setState({ volumeVal, isShowVolume: true }, () =>
       timer2 = setTimeout(() => {
         this.setState({ isShowVolume: false })
       }, 1000))
-    volume.style.backgroundSize = audioVolume * 100 + `% 100%`;
+    volume.style.backgroundSize = volumeVal + `% 100%`;
   }
 
   componentDidMount = () => {
@@ -211,10 +213,7 @@ class Footer extends Component {
     const { volumeVal } = this.state;
     const { id, type, url } = this.props.currentPlayer;
     global.range = range;
-
-    const audioVolume = volumeVal / volume.max;
-    this.setState({ audioVolume })
-    volume.style.backgroundSize = audioVolume * 100 + `% 100%`;
+    volume.style.backgroundSize = volumeVal + `% 100%`;
     if (type === 'local') {
       this.setState({ url })
     } else {
@@ -255,12 +254,12 @@ class Footer extends Component {
   render() {
     const { playListStatus, playerStatus } = this.props.modelPower;
     const { currentTime, queryLikeList, likeListIds, reloadPlayList, currentPlayer } = this.props;
-    const { url, isPlay, orderType, duration, rangeVal, volumeVal, audioVolume, lyricText, rotate, isShowVolume } = this.state;
+    const { url, isPlay, orderType, duration, rangeVal, volumeVal, lyricText, rotate, isShowVolume } = this.state;
     return (
       <div className={styles.footer}>
         <Audio
           url={url}
-          volume={audioVolume}
+          volume={volumeVal / 100 || 0}
           isPlay={isPlay}
           orderType={orderType}
           callback={this.cabackCurrentTime}
@@ -309,28 +308,41 @@ class Footer extends Component {
           </div>
         </div>
         <div className={styles.control}>
-          <div className={styles.control_btn}>
-            <i
-              className={orderType === 1 ? styles.order : orderType === 2 ? styles.random : styles.cycle}
-              onClick={() => this.setOrderType()}>
-            </i>
-            <i className={styles.prev}
-              onClick={() => this.handelCutSong(1)}
-            ></i>
-            <i
-              className={isPlay ? styles.pause : styles.play}
-              onClick={() => url ? this.handelIsPlay() : null}
-            ></i>
-            <i
-              className={styles.next}
-              onClick={() => this.handelCutSong(2)}
-            ></i>
-            <i
-              className={styles.lrc}
-              onClick={() => console.log('show/hide lrc')}
-            ></i>
+          <ul className={styles.control_btn}>
+            <li>
+              <MyIcon
+                type={orderType === 1 ? `icon-liebiaoxunhuan` : orderType === 2 ? `icon-suijibofang` : `icon-danquxunhuan`}
+                onClick={() => this.setOrderType()} />
+            </li>
 
-          </div>
+            <li>
+              <MyIcon
+                rotate={180}
+                type={`icon-next`}
+                onClick={() => this.handelCutSong(1)}
+              />
+            </li>
+            <li>
+              <MyIcon
+
+                type={isPlay ? `icon-bofangzanting` : `icon-bofang`}
+                onClick={() => url ? this.handelIsPlay() : null}
+              />
+            </li>
+            <li>
+              <MyIcon
+                type={`icon-next`}
+                onClick={() => this.handelCutSong(2)}
+              />
+            </li>
+            <li>
+              <MyIcon
+                type={`icon-ci`}
+                onClick={() => console.log('show/hide lrc')}
+              />
+            </li>
+
+          </ul>
           <div className={styles.progress}>
             <span>{formatSongTime(currentTime, true)}</span>
             <div className={styles.progress_box}>
@@ -350,6 +362,11 @@ class Footer extends Component {
 
         <div className={styles.right}>
           <div className={styles.tool}>
+            <MyIcon
+              className={styles.volumeBox}
+              style={{ fontSize: 30 }}
+              type={Number(volumeVal) === 0 ? `icon-jingyin` : `icon-shengyin`}
+            />
             <Tooltip
               visible={isShowVolume}
               title={`current volume:${volumeVal + '/' + 100}`}
@@ -364,10 +381,12 @@ class Footer extends Component {
                 value={volumeVal || 0}
               />
             </Tooltip>
-            <i
-              className={styles.list}
-              onClick={() => this.props.handleModelPower({ type: IS_SHOW_PLAYLIST, data: !playListStatus })}
-            ></i>
+            <div className={styles.list}>
+              <MyIcon
+                type={`icon-caidan`}
+                onClick={() => this.props.handleModelPower({ type: IS_SHOW_PLAYLIST, data: !playListStatus })}
+              />
+            </div>
           </div>
         </div>
       </ div >
