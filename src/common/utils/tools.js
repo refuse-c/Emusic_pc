@@ -4,7 +4,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:17
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-19 14:34:38
+ * @LastEditTime: 2021-01-21 17:44:53
  * @Description:基础工具
  */
 
@@ -88,7 +88,9 @@ export const reSession = (name) => {
  */
 export const traverseId = (arr) => {
   if (isEmpty(arr)) return;
-  let ids = arr.map(item => item.id).join(',')
+  let ids = arr.map(item => item.id);
+  ids = ids = ids.length > 600 ? ids.slice(0, 600) : ids;
+  ids = ids.join(',');
   return ids;
 }
 

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:06
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-19 14:38:35
+ * @LastEditTime: 2021-01-21 16:41:22
  * @Description:工具
  */
 
@@ -200,4 +200,27 @@ export const replaceLabel = (str, label) => {
 
 export const Trim = (str, type) => {
   return type === 1 ? str.replace(/(^\s*)/g, '') : type === 2 ? str.replace(/(\s*$)/g, '') : str.replace(/\s+/g, '')
+}
+
+
+/**
+ * @name: 一维数组分割成多维数组 
+ * @param {*} arr
+ * @param {*} length
+ */
+export const changeArrGroup = (arr, slicelength = 500) => {
+
+  if (isEmpty(arr)) return;
+
+  // 遍历筛选全部ids
+  let ids = arr.map(item => item.id);
+
+  // 分割ids
+  let sliceIds = [];
+  let changeIndex = 0;
+  while (changeIndex < ids.length) {
+    sliceIds.push(ids.slice(changeIndex, changeIndex += slicelength).join(','))
+  }
+
+  return sliceIds;
 }
