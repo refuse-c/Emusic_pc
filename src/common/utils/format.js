@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:06
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-21 16:41:22
+ * @LastEditTime: 2021-01-21 19:30:49
  * @Description:工具
  */
 
@@ -197,7 +197,6 @@ export const replaceLabel = (str, label) => {
  * @param {str = string, type = number (1 || 2)}
  * 默认去掉全部空格  type: 1去掉字符串左边空格 2去掉字符串左边空格
  */
-
 export const Trim = (str, type) => {
   return type === 1 ? str.replace(/(^\s*)/g, '') : type === 2 ? str.replace(/(\s*$)/g, '') : str.replace(/\s+/g, '')
 }
@@ -205,9 +204,11 @@ export const Trim = (str, type) => {
 
 /**
  * @name: 一维数组分割成多维数组 
- * @param {*} arr
- * @param {*} length
+ * @param {array} arr 
+ * @param {num} slicelength 
  */
+
+
 export const changeArrGroup = (arr, slicelength = 500) => {
 
   if (isEmpty(arr)) return;
