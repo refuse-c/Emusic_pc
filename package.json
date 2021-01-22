@@ -8,6 +8,7 @@
     "@ant-design/icons": "^4.4.0",
     "antd": "^4.5.2",
     "antd-theme-generator": "^1.0.7",
+    "audio-loader": "^1.0.3",
     "axios": "^0.21.1",
     "css-loader": "^5.0.1",
     "node-id3": "^0.2.1",

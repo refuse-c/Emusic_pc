@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-11-02 09:43:05
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-02 17:51:17
+ * @LastEditTime: 2021-01-22 13:40:13
  * @Description:  歌单列表组件-竖排    
  */
 import { routerJump } from 'common/utils/tools';
@@ -10,6 +10,7 @@ import { Table } from 'antd';
 import React, { Component } from 'react';
 import styles from './css/index.module.scss';
 import { withRouter } from 'react-router-dom';
+import { formatImgSize, formatSerialNo } from 'common/utils/format';
 class Vertical extends Component {
   constructor(props) {
     super(props);
@@ -18,26 +19,42 @@ class Vertical extends Component {
 
   columns = [
     {
+      title: 'coverImgUrl',
+      key: 'coverImgUrl',
+      ellipsis: true,
+      render: (text, record, index) => <img style={{ position: 'relative', top: 7, borderRadius: 4 }} src={formatImgSize(record.coverImgUrl, 60, 60)} alt="" />,
+      width: 80,
+    },
+
+    {
       title: 'name',
       key: 'name',
       ellipsis: true,
       render: (text, record, index) => record.name,
-      width: '40%',
+      width: '25%',
     },
-    {
-      title: 'playCount',
-      key: 'playCount',
-      ellipsis: true,
-      render: (text, record, index) => record.playCount,
-      width: '20%',
-    },
+
     {
       title: 'nickname',
       key: 'nickname',
       ellipsis: true,
       render: (text, record, index) => record.creator.nickname,
-      width: '40%',
-    }
+      width: '25%',
+    },
+    {
+      title: 'trackCount',
+      key: 'trackCount',
+      ellipsis: true,
+      render: (text, record, index) => `${record.trackCount}首`,
+      width: '15%',
+    },
+    {
+      title: 'playCount',
+      key: 'playCount',
+      ellipsis: true,
+      render: (text, record, index) => `${formatSerialNo(record.playCount)}`,
+      width: '15%',
+    },
 
 
   ]
@@ -53,10 +70,9 @@ class Vertical extends Component {
           columns={this.columns}
           dataSource={list}
           pagination={false}
-          // rowClassName={(record, i) => record.st === -200 ? styles.disabled : (currentPlayer.id === record.id) ? styles.active : null}
           onChange={this.onChange}
           className={styles.table}
-          onRow={(record, index) => {
+          onRow={record => {
             return {
               onClick: event => {
                 routerJump(history, `/home/single${record.id}`);

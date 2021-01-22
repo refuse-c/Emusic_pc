@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-19 21:19:33
+ * @LastEditTime: 2021-01-22 12:46:43
  * @Description: 歌单列表
  */
 import { formatLocalName, formatSerialNo, formatSongTime } from 'common/utils/format';
@@ -29,12 +29,12 @@ class MusicList extends Component {
       title: '序号',
       key: '1',
       render: (text, record, index) => `${formatSerialNo(index + 1)}`,
-      width: 60,
+      width: 50,
     },
     {
       title: '操作',
       key: '2',
-      width: 60,
+      width: 80,
       render: item => <div className="btn_box">
         <Like
           id={item.id}

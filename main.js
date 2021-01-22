@@ -2,13 +2,14 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-20 16:41:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-20 21:04:12
+ * @LastEditTime: 2021-01-22 16:17:58
  * @Description: 
  */
 let appTray;
 let mainWindow;
 const fs = require('fs');
 const path = require('path');
+const load = require('audio-loader');
 const { app, Tray, Menu, BrowserWindow, globalShortcut, ipcMain } = require('electron');
 let iconPath = path.join(__dirname, "./src/common/images/icon_task.png");
 
@@ -132,6 +133,7 @@ ipcMain.on('asynchronous-message', function (event, arg) {
   const data = fs.readdirSync(arg);
   const id3 = require('node-id3');
   let localList = [];
+  let source = [];
   data.forEach(element => {
     if (
       element.indexOf('.wav') === -1 &&
@@ -142,6 +144,9 @@ ipcMain.on('asynchronous-message', function (event, arg) {
     ) return false;
     let obj = {};
     const url = arg + element;
+    load(url).then(res => {
+      console.log(res)
+    }).catch(err => console.log(err))
     let tags = id3.read(url);
     obj.id = '';
     obj.url = url;
@@ -149,7 +154,15 @@ ipcMain.on('asynchronous-message', function (event, arg) {
     obj.ar = [{ id: '', name: tags.artist || '未知歌手' }];
     obj.al = { id: '', name: tags.album || '未知专辑', picUrl: '' };;
     obj.name = tags.title || element.replace(/.wav|.mp3|.ogg|.acc|.flac/g, '');
+    source.push(url);
     localList.push(obj);
   });
+  console.log(source)
+  load(source).then(res => {
+    console.log(source)
+    console.log(res)
+  }).catch(err => console.log(source, err))
+
+
   event.sender.send('asynchronous-reply', localList);
 });

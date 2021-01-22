@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 15:39:35
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-02 17:56:04
+ * @LastEditTime: 2021-01-22 10:55:43
  * @Description: 歌单详情
  */
 import React, { Component } from 'react'
@@ -12,7 +12,8 @@ import MusicList from 'components/musicList';
 import ScrollView from 'react-custom-scrollbars';
 import { playlistDetail, songDetail } from 'common/api/api';
 import { message, Spin } from 'antd';
-import { setSession, traverseId } from 'common/utils/tools';
+import { setSession } from 'common/utils/tools';
+import { changeArrGroup } from 'common/utils/format';
 class Single extends Component {
   constructor(props) {
     super(props);
@@ -31,16 +32,22 @@ class Single extends Component {
     setSession('currentSingleId', id || '');
     const res = await playlistDetail({ id });
     if (res.code === 200) {
+      this.setState({ playlist: res.playlist })
       if (res.playlist.trackIds.length === 0) {
         message.info('当前歌单无播放歌曲,试试其他的吧')
       }
-      this.querySongDetail(res);
+      const idsArr = changeArrGroup(res.playlist.trackIds, 500)
+      const promises = idsArr.map(item => this.querySongDetail(item));
+      Promise.all(promises).then(item => {
+        const list = item.reduce(function (a, b) { return a.concat(b) });
+        this.setState({ list: list.slice(0, 10) }, () => this.setState({ list: list }))
+      })
     }
   }
 
   // 歌曲详情
-  querySongDetail = async data => {
-    const ids = traverseId(data.playlist.trackIds);
+  querySongDetail = async ids => {
+    // const ids = traverseId(data.playlist.trackIds);
     const res = await songDetail({ ids });
     this.setState({ loading: false });
     if (res.code !== 200) return;
@@ -51,7 +58,7 @@ class Single extends Component {
       if (item) Object.assign(item, cur);
       return pre;
     }, songs);
-    this.setState({ list, playlist: data.playlist });
+    return list;
   }
 
   componentDidMount = () => {

@@ -10,6 +10,7 @@
   .ant-table.ant-table-small tfoot>tr>td {
     line-height: 36px;
     padding: 0px 8px !important;
+    vertical-align: middle;
   }
 
   .ant-table-cell {
@@ -42,9 +43,11 @@
 
     .btn_box {
       position: relative;
+      left: -5px;
       display: flex;
       align-items: center;
       justify-content: space-around;
+      height: 36px;
 
       i {
         position: absolute;
@@ -54,18 +57,8 @@
         height: 36px;
         cursor: pointer;
 
-        &.unlike {
-          left: -10px;
-          background: url("~common/images/unlike.png") center center / auto 40px no-repeat;
-        }
-
-        &.like {
-          left: -10px;
-          background: url("~common/images/like.png") center center / auto 40px no-repeat;
-        }
-
         &.download {
-          left: 20px;
+          left: 30px;
           background: url("~common/images/download.png") center center / auto 20px no-repeat;
         }
       }

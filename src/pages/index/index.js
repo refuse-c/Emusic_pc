@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-16 00:43:47
+ * @LastEditTime: 2021-01-22 09:12:22
 //  * @Description: 
  */
 import React, { Component } from "react";
@@ -40,20 +40,22 @@ class Index extends Component {
   }
 
   // 查询登录状态
-  queryLoginStatus = async () => {
-    const res = await loginStatus();
-    const data = res.data;
-    if (data.code !== 200 || data.profile == null) {
-      reLocal('userInfo');
-      reLocal('cookie');
-      return false;
-    };
-    setLocal('userInfo', data.profile)
-    const uid = data.profile.userId;
-    if (uid) {
-      this.queryUserPlaylist(uid);
-      this.props.handleQueryUserInfo(data.profile);
-    }
+  queryLoginStatus = () => {
+    loginStatus().then(res => {
+      const data = res.data;
+      if (data.code !== 200 || data.profile == null) {
+        reLocal('userInfo');
+        reLocal('cookie');
+        return false;
+      };
+      setLocal('userInfo', data.profile)
+      const uid = data.profile.userId;
+      if (uid) {
+        this.queryUserPlaylist(uid);
+        this.props.handleQueryUserInfo(data.profile);
+      }
+    }).catch(err => console.log(err))
+
   }
 
   // 退出登录

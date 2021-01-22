@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-19 09:28:56
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-16 00:42:23
+ * @LastEditTime: 2021-01-22 10:08:52
  * @Description: 基础网络请求
  */
 import { message } from 'antd';
@@ -10,7 +10,7 @@ import axios from 'axios';
 import { getLocal } from 'common/utils/tools';
 const Axios = axios.create({
   baseURL: 'http://139.9.230.159:3000', // http://tshy.xyz:3000  // http://139.9.230.159:3000
-  timeout: '15000',
+  timeout: '60000',
   withCredentials: true,
   headers: {
     // 'Content-Type': 'application/json'
