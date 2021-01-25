@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:06
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-21 19:30:49
+ * @LastEditTime: 2021-01-22 18:58:50
  * @Description:工具
  */
 
@@ -55,7 +55,7 @@ export const formatWeek = val => {
 export const formatTag = (tagList, tagObj) => {
   let newList = [];
   for (const key in tagObj) {
-    const arr = tagList.filter((item) => item.category === Number(key));
+    const arr = tagList.filter(item => item.category === Number(key));
     if (arr.length > 0) {
       newList.push({
         title: tagObj[key],
