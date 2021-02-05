@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-12-25 17:22:57
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-22 14:23:56
+ * @LastEditTime: 2021-02-05 17:39:33
  * @Description:
  */
 import React, { Component } from 'react';
@@ -40,8 +40,10 @@ class Local extends Component {
   }
 
   onChange = e => {
+    console.log(1111)
     const data = e.target.files;
-    if (!data.length) return;
+    console.log(data)
+    // if (!data.length) return;
     const { path, name } = e.target.files[0]
     const currentPath = path.split(name)[0];
     setLocal('currentPath', currentPath);
@@ -67,6 +69,7 @@ class Local extends Component {
               选择目录
             <input
                 type="file"
+                multiple
                 directory={`true`}
                 webkitdirectory={`true`}
                 onChange={this.onChange} alt="" />

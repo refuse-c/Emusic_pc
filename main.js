@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-20 16:41:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-24 12:05:40
+ * @LastEditTime: 2021-02-05 17:42:00
  * @Description: 
  */
 let appTray;
@@ -155,43 +155,48 @@ app.on('ready', () => {
 //   event.sender.send('asynchronous-reply', localList);
 // });
 
-ipcMain.on('asynchronous-message', function (event, arg) {
-  console.log('arg' + arg)
-  fileDisplay(event, arg)
+ipcMain.on('asynchronous-message', function (event, jsonPath) {
+  console.log(jsonPath);
+  getJsonFiles(event, jsonPath)
 })
 
+function getJsonFiles(event, jsonPath) {
+  let jsonFiles = [];
+  const id3 = require('node-id3');
+  const join = require('path').join;
+  function findJsonFile(path) {
+    let files = fs.readdirSync(path);
+    files.forEach(function (item, index) {
+      let fPath = join(path, item);
+      let stat = fs.statSync(fPath);
 
-function fileDisplay(event, filePath) {
-  let localList = [];
-  //根据文件路径读取文件，返回文件列表
-  fs.readdir(filePath, function (err, files) {
-    if (err) {
-      console.warn(err)
-    } else {
-      //遍历读取到的文件列表
-      files.forEach(function (filename) {
-        console.log(filename)
-        //获取当前文件的绝对路径
-        var filedir = path.join(filePath, filename);
-        //根据文件路径获取文件信息，返回一个fs.Stats对象
-        fs.stat(filedir, function (eror, stats) {
-          if (eror) {
-            console.warn('获取文件stats失败');
-          } else {
-            var isFile = stats.isFile();//是文件
-            var isDir = stats.isDirectory();//是文件夹
-            if (isFile) {
-              localList.push(filedir);
-              console.log('filedir' + filedir);
-            }
-            if (isDir) {
-              fileDisplay(event, filedir);//递归，如果是文件夹，就继续遍历该文件夹下面的文件
-            }
-          }
-        })
-      });
-
-      event.sender.send('asynchronous-reply', localList);
-    }
-  });
+      if (stat.isFile() === true) {
+        if (
+          fPath.indexOf('.wav') === -1 &&
+          fPath.indexOf('.mp3') === -1 &&
+          fPath.indexOf('.ogg') === -1 &&
+          fPath.indexOf('.acc') === -1 &&
+          fPath.indexOf('.flac') === -1
+        ) return false;
+        let obj = {};
+        let tags = id3.read(fPath);
+        obj.id = '';
+        obj.url = fPath;
+        obj.type = 'local';
+        obj.ar = [{ id: '', name: tags.artist || '未知歌手' }];
+        obj.al = { id: '', name: tags.album || '未知专辑', picUrl: '' };
+        obj.name = tags.title || fPath.replace(/.wav|.mp3|.ogg|.acc|.flac/g, '').replace(path, '');
+        obj.name = obj.name.replace(/\\/g, '');
+        jsonFiles.push(obj);
+      } else if (stat.isDirectory() === true) {
+        findJsonFile(fPath);
+      }
+    });
+  }
+  findJsonFile(jsonPath);
+  event.sender.send('asynchronous-reply', jsonFiles);
 }
+
+
+
+

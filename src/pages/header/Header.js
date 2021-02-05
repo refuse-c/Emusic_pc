@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-20 21:08:42
+ * @LastEditTime: 2021-02-05 14:12:20
  * @Description: 头部 
  */
 import React, { Component } from 'react';
@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import SearchInput from 'pages/search/component/SearchInput';
 import { bindActionCreators } from 'redux';
 import { modelPower } from 'store/actions';
-import { IS_SHOW_LOGIN, IS_SHOW_PLAYER, IS_SHOW_PLAYLIST } from 'store/actionTypes';
+import { IS_SHOW_LOGIN, IS_SHOW_PLAYER, IS_SHOW_PLAYLIST, IS_SHOW_SKIN } from 'store/actionTypes';
 import { getLocal, routerJump, setLocal } from 'common/utils/tools';
 import { withRouter } from 'react-router-dom';
 import { isEmpty } from 'common/utils/format';
@@ -26,7 +26,6 @@ class Header extends Component {
     super(props);
     this.state = {
       isDrag: true,
-      showColor: false,
       globalColor: getLocal('globalColor') || '#ec4141',
     }
   }
@@ -80,16 +79,16 @@ class Header extends Component {
   }
 
   render() {
-    const { isDrag, showColor, globalColor } = this.state;
+    const { isDrag, globalColor } = this.state;
     const { queryLoginStatus, userInfo } = this.props;
-    const { loginStatus } = this.props.modelPower;
+    const { loginStatus, skinStatus } = this.props.modelPower;
     return (
       <div
         className={styles.header}
         style={{ WebkitAppRegion: isDrag ? 'drag' : 'no-drag' }}
         onClick={() => this.props.handelHideModel()}
       >
-        { showColor ? <div className={styles.colorBox} >
+        { skinStatus ? <div className={styles.colorBox} onClick={e => e.stopPropagation()}>
           <BlockPicker color={globalColor} onChange={this.handleChange} />
         </div > : null}
 
@@ -134,7 +133,7 @@ class Header extends Component {
               登录
           </li>
           }
-          <li onClick={() => this.setState({ showColor: !showColor })} >换肤</li>
+          <li onClick={() => this.props.handleModelPower({ type: IS_SHOW_SKIN, data: true })} >换肤</li>
           <li>私信</li>
           <li onClick={() => this.props.history.push({ pathname: "/home/setting" })}>设置</li>
           <Tooltip title={`最小化`}>
