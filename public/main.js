@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-20 16:41:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-20 21:29:06
+ * @LastEditTime: 2021-02-05 21:20:09
  * @Description: 
  */
 let appTray;
@@ -128,28 +128,45 @@ app.on('ready', () => {
   });
 });
 
-ipcMain.on('asynchronous-message', function (event, arg) {
-  const data = fs.readdirSync(arg);
+
+ipcMain.on('asynchronous-message', function (event, jsonPath) {
+  console.log(jsonPath);
+  getJsonFiles(event, jsonPath)
+})
+
+function getJsonFiles(event, jsonPath) {
+  let jsonFiles = [];
   const id3 = require('node-id3');
-  let localList = [];
-  data.forEach(element => {
-    if (
-      element.indexOf('.wav') === -1 &&
-      element.indexOf('.mp3') === -1 &&
-      element.indexOf('.ogg') === -1 &&
-      element.indexOf('.acc') === -1 &&
-      element.indexOf('.flac') === -1
-    ) return false;
-    let obj = {};
-    const url = arg + element;
-    let tags = id3.read(url);
-    obj.id = '';
-    obj.url = url;
-    obj.type = 'local';
-    obj.ar = [{ id: '', name: tags.artist || '未知歌手' }];
-    obj.al = { id: '', name: tags.album || '未知专辑', picUrl: '' };;
-    obj.name = tags.title || element.replace(/.wav|.mp3|.ogg|.acc|.flac/g, '');
-    localList.push(obj);
-  });
-  event.sender.send('asynchronous-reply', localList);
-});
+  const join = require('path').join;
+  function findJsonFile(path) {
+    let files = fs.readdirSync(path);
+    files.forEach(function (item, index) {
+      let fPath = join(path, item);
+      let stat = fs.statSync(fPath);
+
+      if (stat.isFile() === true) {
+        if (
+          fPath.indexOf('.wav') === -1 &&
+          fPath.indexOf('.mp3') === -1 &&
+          fPath.indexOf('.ogg') === -1 &&
+          fPath.indexOf('.acc') === -1 &&
+          fPath.indexOf('.flac') === -1
+        ) return false;
+        let obj = {};
+        let tags = id3.read(fPath);
+        obj.id = '';
+        obj.url = fPath;
+        obj.type = 'local';
+        obj.ar = [{ id: '', name: tags.artist || '未知歌手' }];
+        obj.al = { id: '', name: tags.album || '未知专辑', picUrl: '' };
+        obj.name = tags.title || fPath.replace(/.wav|.mp3|.ogg|.acc|.flac/g, '').replace(path, '');
+        obj.name = obj.name.replace(/\\/g, '');
+        jsonFiles.push(obj);
+      } else if (stat.isDirectory() === true) {
+        findJsonFile(fPath);
+      }
+    });
+  }
+  findJsonFile(jsonPath);
+  event.sender.send('asynchronous-reply', jsonFiles);
+}

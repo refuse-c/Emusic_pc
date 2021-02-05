@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-25 15:04:12
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-02 17:45:16
+ * @LastEditTime: 2021-02-05 22:24:03
  * @Description: 搜索-搜索框
  */
 import React, { Component } from 'react';
@@ -10,6 +10,10 @@ import { searchDefault, searchHotDetail, searchSuggest } from 'common/api/search
 import { isEmpty, Trim } from 'common/utils/format';
 import { Input } from 'antd';
 // import styles from '../css/index.module.scss';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { modelPower } from 'store/actions';
+import { IS_SHOW_SEARCH_LIST } from 'store/actionTypes';
 import SearchHotList from './SearchHotList';
 import { routerJump } from 'common/utils/tools';
 // import SearchSuggest from './SearchSuggest';
@@ -25,7 +29,6 @@ class Searchs extends Component {
       keywords: '',
       limit: 50,
       offset: 1,
-      isShowHotListStatus: false, // 热搜状态
       isShowSuggestStatus: false,
       searchHotList: [],
       suggestList: {}
@@ -67,21 +70,22 @@ class Searchs extends Component {
       this.querySearch();
       this.setState({ keywords })
     } else {
-      this.setState({ keywords: defaultKeyword, isShowHotListStatus: false }, () => {
+      this.setState({ keywords: defaultKeyword }, () => {
         this.querySearch();
       })
     }
+    this.props.handelModelPower({ type: IS_SHOW_SEARCH_LIST, data: false });
   }
 
   onChange = e => {
     const { value: keywords } = e.target;
     this.setState({ keywords }, () => {
       if (Trim(keywords)) {
-        this.setState({ isShowHotListStatus: false })
+        this.props.handelModelPower({ type: IS_SHOW_SEARCH_LIST, data: false });
         // this.querySearchSuggest({ keywords })
         // global.debounce(() => this.querySearchSuggest({ keywords }), 50)
       } else {
-        this.setState({ isShowHotListStatus: true })
+        this.props.handelModelPower({ type: IS_SHOW_SEARCH_LIST, data: true });
       }
     });
   }
@@ -89,13 +93,15 @@ class Searchs extends Component {
   // 聚焦显示热搜榜
   handelFocus = () => {
     const { keywords } = this.state;
-    if (isEmpty(Trim(keywords))) this.setState({ isShowHotListStatus: true })
+    if (isEmpty(Trim(keywords)))
+      this.props.handelModelPower({ type: IS_SHOW_SEARCH_LIST, data: true });
     // this.querySearchSuggest({ keywords });
   }
 
   // 点击热搜回调
   searchHotListCaback = keywords => {
-    this.setState({ keywords, isShowHotListStatus: false }, () => {
+    this.setState({ keywords }, () => {
+      this.props.handelModelPower({ type: IS_SHOW_SEARCH_LIST, data: false });
       this.querySearch();
     })
   }
@@ -106,33 +112,40 @@ class Searchs extends Component {
   }
 
   render() {
-    const { func } = this.props;
-    const { defaultKeyword, keywords, searchHotList, isShowHotListStatus } = this.state;
+    const { modelPower } = this.props;
+    const { searchListStatus } = modelPower;
+    const { defaultKeyword, keywords, searchHotList, } = this.state;
     return (
       <div>
         <Search
           size={`small`}
-          borderd={`false`}
           // allowClear
-          onChange={this.onChange}
-          onSearch={(e) => this.onSearch(e)}
-          loading={false}
-          placeholder={defaultKeyword}
-          value={keywords}
-          onFocus={() => { this.handelFocus(); func && func(false) }}
           maxLength={30}
-          onBlur={() => {
-            func && func(true);
-            setTimeout(() => {
-              this.setState({ isShowHotListStatus: false })
-            }, 200)
-          }}
+          loading={false}
+          value={keywords}
+          onChange={this.onChange}
+          placeholder={defaultKeyword}
+          onSearch={e => this.onSearch(e)}
+          onFocus={() => this.handelFocus()}
+          onClick={e => e.stopPropagation()}
+
         />
-        {isShowHotListStatus ? <SearchHotList data={searchHotList} fun={this.searchHotListCaback} /> : null}
+        {searchListStatus ? <SearchHotList data={searchHotList} fun={this.searchHotListCaback} /> : null}
         {/* {isShowSuggestStatus ? <SearchSuggest data={suggestList} fun={this.searchHotListCaback} keywords={keywords} /> : null} */}
       </div>
     );
   }
 }
 
-export default withRouter(Searchs);
+const mapStateToProps = state => {
+  return {
+    modelPower: state.modelPower,
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    handelModelPower: bindActionCreators(modelPower, dispatch),
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Searchs));

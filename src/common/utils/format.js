@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:06
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-22 18:58:50
+ * @LastEditTime: 2021-02-06 00:43:42
  * @Description:工具
  */
 
@@ -210,8 +210,8 @@ export const Trim = (str, type) => {
 
 
 export const changeArrGroup = (arr, slicelength = 500) => {
-
-  if (isEmpty(arr)) return;
+  console.log(arr)
+  if (isEmpty(arr)) return [];
 
   // 遍历筛选全部ids
   let ids = arr.map(item => item.id);

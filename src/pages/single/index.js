@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 15:39:35
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-22 10:55:43
+ * @LastEditTime: 2021-02-06 00:45:52
  * @Description: 歌单详情
  */
 import React, { Component } from 'react'
@@ -11,7 +11,7 @@ import Head from 'components/head';
 import MusicList from 'components/musicList';
 import ScrollView from 'react-custom-scrollbars';
 import { playlistDetail, songDetail } from 'common/api/api';
-import { message, Spin } from 'antd';
+import { Spin } from 'antd';
 import { setSession } from 'common/utils/tools';
 import { changeArrGroup } from 'common/utils/format';
 class Single extends Component {
@@ -33,10 +33,16 @@ class Single extends Component {
     const res = await playlistDetail({ id });
     if (res.code === 200) {
       this.setState({ playlist: res.playlist })
-      if (res.playlist.trackIds.length === 0) {
-        message.info('当前歌单无播放歌曲,试试其他的吧')
+      console.log(res.playlist.trackIds)
+      if (!res.playlist.trackIds.length) {
+        // message.info('当前歌单无播放歌曲,试试其他的吧');
+        this.setState({ loading: false });
+        return;
       }
+      console.log(res.playlist.trackIds)
       const idsArr = changeArrGroup(res.playlist.trackIds, 500)
+      console.log(idsArr)
+
       const promises = idsArr.map(item => this.querySongDetail(item));
       Promise.all(promises).then(item => {
         const list = item.reduce(function (a, b) { return a.concat(b) });

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-22 12:46:43
+ * @LastEditTime: 2021-02-05 21:55:20
  * @Description: 歌单列表
  */
 import { formatLocalName, formatSerialNo, formatSongTime } from 'common/utils/format';
@@ -71,7 +71,7 @@ class MusicList extends Component {
       sorter: (a, b) => a.ar[0].name.localeCompare(b.ar[0].name),
       render: item => item.ar.map((item, index) =>
         <span
-          key={`item` + index}
+          key={index}
           className={styles.singerText}
           onClick={() => routerJump(this.props.history, `/home/singerdetail`, queryString.stringify({ id: item.id }))}
           dangerouslySetInnerHTML={{
@@ -103,16 +103,17 @@ class MusicList extends Component {
       render: item => formatSongTime(item.dt)
     },
   ];
+
   localColumns = [
     {
       title: '序号',
-      key: '7',
+      key: '1',
       render: (text, record, index) => `${formatSerialNo(index + 1)}`,
       width: 60,
     },
     {
       title: '音乐标题',
-      key: '8',
+      key: '2',
       ellipsis: true,
       sorter: (a, b) => a.name.localeCompare(b.name),
       render: item => <div className='item'>
@@ -121,23 +122,23 @@ class MusicList extends Component {
     },
     {
       title: '歌手',
-      key: '9',
+      key: '3',
       ellipsis: true,
       sorter: (a, b) => a.ar[0].name.localeCompare(b.ar[0].name),
       render: item => item.ar.map((item, index) =>
-        <span key={`i` + index} className={styles.singerText}>{item.name} </span>
+        <span key={index} className={styles.singerText}>{item.name} </span>
       ),
     },
     {
       title: '专辑',
-      key: '10',
+      key: '4',
       ellipsis: true,
       sorter: (a, b) => a.al.name.localeCompare(b.al.name),
       render: item => <span className={styles.singerText} >{item.al.name}</span>
     },
     {
       title: '时长',
-      key: '11',
+      key: '5',
       width: 80,
       sorter: (a, b) => a.dt - b.dt,
       render: item => formatSongTime(item.dt)
@@ -182,22 +183,20 @@ class MusicList extends Component {
     return (
       <Table
         // bordered
-        rowKey={"id"}
+        rowKey={'music_list_id'}
         size={"small"}
         columns={type === 'local' ? this.localColumns : this.onLineColumns}
         dataSource={list}
         pagination={false}
-        rowClassName={(record, i) => record.type === 'local' ? (currentPlayer.name === record.name ? 'active' : '') : (record.st === -200 ? 'disabled' : (currentPlayer.id === record.id) ? 'active' : null)
-        }
+        rowClassName={(record, i) => record.type === 'local'
+          ? (currentPlayer.name === record.name ? 'active' : '')
+          : (record.st === -200 ? 'disabled' : (currentPlayer.id === record.id) ? 'active' : null)}
         onChange={this.onChange}
         className={styles.table}
-        onRow={(record, index) => {
+        onRow={record => {
           return {
-            onClick: event => { }, // 点击行
-            onDoubleClick: event => this.selectRow(record),
-            // onContextMenu: event => { },
-            // onMouseEnter: event => { }, // 鼠标移入行
-            // onMouseLeave: event => { },
+            onClick: () => { }, // 点击行
+            onDoubleClick: () => this.selectRow(record),
           };
         }
         }

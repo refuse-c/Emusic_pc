@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-02-05 14:12:20
+ * @LastEditTime: 2021-02-05 22:22:10
  * @Description: 头部 
  */
 import React, { Component } from 'react';
@@ -25,7 +25,6 @@ class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isDrag: true,
       globalColor: getLocal('globalColor') || '#ec4141',
     }
   }
@@ -42,10 +41,6 @@ class Header extends Component {
 
   callBack = id => {
     this.props.queryUserPlaylist(id)
-  }
-  // 是否可拖动
-  handleDrag = isDrag => {
-    this.setState({ isDrag })
   }
 
   // 是否跳转到page love
@@ -79,18 +74,21 @@ class Header extends Component {
   }
 
   render() {
-    const { isDrag, globalColor } = this.state;
-    const { queryLoginStatus, userInfo } = this.props;
-    const { loginStatus, skinStatus } = this.props.modelPower;
+    const { globalColor } = this.state;
+    const { queryLoginStatus, userInfo, modelPower } = this.props;
+    const { loginStatus, skinStatus } = modelPower;
     return (
       <div
         className={styles.header}
-        style={{ WebkitAppRegion: isDrag ? 'drag' : 'no-drag' }}
         onClick={() => this.props.handelHideModel()}
       >
-        { skinStatus ? <div className={styles.colorBox} onClick={e => e.stopPropagation()}>
-          <BlockPicker color={globalColor} onChange={this.handleChange} />
-        </div > : null}
+        { skinStatus ?
+          <div
+            className={styles.colorBox}
+            onClick={e => e.stopPropagation()}
+          >
+            <BlockPicker color={globalColor} onChange={this.handleChange} />
+          </div > : null}
 
         <LoginModel
           hasShow={loginStatus}
@@ -111,7 +109,7 @@ class Header extends Component {
             onClick={() => this.go(1)}
             className={[styles.arrow, styles.arrow_right].join(' ')}
           ></div>
-          <SearchInput func={this.handleDrag} />
+          <SearchInput />
         </div>
         <ul className={styles.header_right}>
           {!isEmpty(userInfo) ?

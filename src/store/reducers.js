@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:20:09
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-12-24 18:54:50
+ * @LastEditTime: 2021-02-05 21:59:14
  * @Description:
  */
 
@@ -37,6 +37,10 @@ const modelPower = (state = initState.modelPower, action) => {
     case ACTIONTYPE.IS_SHOW_PLAYER:
       return Object.assign({}, state, {
         playerStatus: action.data
+      });
+    case ACTIONTYPE.IS_SHOW_SEARCH_LIST:
+      return Object.assign({}, state, {
+        searchListStatus: action.data
       });
     default: return state;
   }

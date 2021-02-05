@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-12-25 17:22:57
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-02-05 17:39:33
+ * @LastEditTime: 2021-02-05 22:55:49
  * @Description:
  */
 import React, { Component } from 'react';
@@ -31,23 +31,26 @@ class Local extends Component {
     const that = this;
     // 这里是接收主进程传递过来的参数，这里的on要对应主进程send过来的名字
     ipc.on("asynchronous-reply", function (event, list) {
-      console.log(list)
+      // console.log(list);
       // 这里的arg是从主线程请求的数据
       message.destroy();
-      message.info('检索本地音乐已完成');
+      list.length ? message.info(`一共为你找到${list.length}首音乐,快来听听...`) : message.info('糟糕,什么都没找到,换个目录再试试吧...');
       that.setState({ list }, () => setLocal('list', list))
     });
   }
 
   onChange = e => {
-    console.log(1111)
     const data = e.target.files;
-    console.log(data)
-    // if (!data.length) return;
-    const { path, name } = e.target.files[0]
-    const currentPath = path.split(name)[0];
-    setLocal('currentPath', currentPath);
-    ipc.send("asynchronous-message", currentPath)
+    if (data.length) {
+      const { path, name } = e.target.files[0]
+      const currentPath = path.split(name)[0];
+      setLocal('currentPath', currentPath);
+      ipc.send("asynchronous-message", currentPath)
+    } else {
+      message.destroy();
+      message.info('当前目录好像什么都没有,换一个再试试吧...');
+    }
+
   }
 
   refreshLocalData = () => {

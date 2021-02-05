@@ -37,12 +37,13 @@
   position: fixed;
   top: 60px;
   left: 260px;
-  width: 425px;
+  width: 350px;
   height: 500px;
   z-index: 5;
   background-color: #fff;
   padding: 16px 0;
-  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 0 4px 0 $color;
 
   .title {
     color: $c666;

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-29 00:04:06
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2020-10-05 18:05:41
+ * @LastEditTime: 2021-02-05 22:13:58
  * @Description: 搜索-热搜榜
  */
 import styles from '../css/index.module.scss';
@@ -13,9 +13,12 @@ class SearchHotList extends Component {
   render() {
     const { data, fun } = this.props;
     return (
-      <div className={[styles.hotList, styles.arrow].join(' ')}>
+      <div
+        onClick={e => e.stopPropagation()}
+        className={[styles.hotList, styles.arrow].join(' ')}
+      >
         <ScrollView>
-          <div className={styles.title}>热搜榜</div>
+          <div className={styles.title} >热搜榜</div>
           <ul>
             {
               data.map((item, index) => {

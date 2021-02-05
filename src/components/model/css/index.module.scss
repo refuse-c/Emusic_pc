@@ -18,7 +18,6 @@
   width: 425px;
   height: 500px;
   background-color: #F6F6F8;
-  // box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
   border-top: 1px solid #E0E0E0;
 }
 
@@ -29,12 +28,12 @@
   bottom: 70px;
   right: 0;
   width: 420px;
-  height: calc(100vh - 130px);
+  height: calc(100vh - 132px);
   background-color: #fff;
   overflow: hidden;
   transform-origin: right bottom;
   transition: ease 0.3s all;
-  box-shadow: -1px 0px 2px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: -4px 0 4px -4px $color;
 
   .close {
     position: absolute;

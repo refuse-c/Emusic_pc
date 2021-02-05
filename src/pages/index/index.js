@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-02-05 14:09:44
+ * @LastEditTime: 2021-02-05 22:17:08
 //  * @Description: 
  */
 import React, { Component } from "react";
@@ -16,7 +16,7 @@ import { userPlaylist } from 'common/api/user';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modelPower, queryUserInfo, userPlayList } from 'store/actions';
-import { IS_SHOW_PLAYER, IS_SHOW_PLAYLIST, IS_SHOW_SKIN } from "store/actionTypes";
+import { IS_SHOW_PLAYER, IS_SHOW_PLAYLIST, IS_SHOW_SKIN, IS_SHOW_SEARCH_LIST } from "store/actionTypes";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -73,10 +73,11 @@ class Index extends Component {
 
   // 掩藏弹窗
   handelHideModel = () => {
-    const { playListStatus, playerStatus, skinStatus } = this.props.modelPower;
+    const { playListStatus, playerStatus, skinStatus, searchListStatus } = this.props.modelPower;
     if (playerStatus) this.props.handleModelPower({ type: IS_SHOW_PLAYER, data: !playerStatus });
     if (playListStatus) this.props.handleModelPower({ type: IS_SHOW_PLAYLIST, data: !playListStatus });
     if (skinStatus) this.props.handleModelPower({ type: IS_SHOW_SKIN, data: !skinStatus });
+    if (searchListStatus) this.props.handleModelPower({ type: IS_SHOW_SEARCH_LIST, data: !searchListStatus });
   }
 
   componentDidMount = async () => {
