@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-21 11:43:26
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-02-05 22:22:10
+ * @LastEditTime: 2021-02-06 01:17:55
  * @Description: 头部 
  */
 import React, { Component } from 'react';
@@ -25,6 +25,7 @@ class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      colors: ['#ec4141', '#F47373', '#37D67A', '#2CCCE4', '#ff8a65', '#ba68c8', '#F44E3B', '#FE9200', '#A4DD00', '#68CCCA', '#AEA1FF', '#E27300', '#B0BC00', '#68BC00', '#16A5A5', '#009CE0', '#7B64FF', '#9F0500', '#C45100', '#FB9E00', '#0C797D', '#0062B1', '#653294', '#697689', '#555555'],
       globalColor: getLocal('globalColor') || '#ec4141',
     }
   }
@@ -74,7 +75,7 @@ class Header extends Component {
   }
 
   render() {
-    const { globalColor } = this.state;
+    const { colors, globalColor } = this.state;
     const { queryLoginStatus, userInfo, modelPower } = this.props;
     const { loginStatus, skinStatus } = modelPower;
     return (
@@ -87,7 +88,7 @@ class Header extends Component {
             className={styles.colorBox}
             onClick={e => e.stopPropagation()}
           >
-            <BlockPicker color={globalColor} onChange={this.handleChange} />
+            <BlockPicker colors={colors} color={globalColor} onChange={this.handleChange} />
           </div > : null}
 
         <LoginModel
