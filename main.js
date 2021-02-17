@@ -2,14 +2,14 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-20 16:41:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-02-05 23:00:20
+ * @LastEditTime: 2021-02-17 15:26:45
  * @Description: 
  */
 let appTray;
 let mainWindow;
 const fs = require('fs');
 const path = require('path');
-const { app, Tray, Menu, BrowserWindow, globalShortcut, ipcMain } = require('electron');
+const { app, Tray, Menu, BrowserWindow, globalShortcut, ipcMain, dialog } = require('electron');
 let iconPath = path.join(__dirname, "./src/common/images/icon_task.png");
 
 // 取消菜单栏
@@ -27,6 +27,7 @@ createWindow = () => {
     webPreferences: {
       frame: false,
       resizable: false,
+      contextIsolation: false,
       nodeIntegration: true,
     },
   });
@@ -62,8 +63,11 @@ createWindow = () => {
 
   //托盘的点击事件
   appTray.on('click', e => { mainWindow.show() });
-
 }
+
+
+
+
 
 
 // 自定义窗口最小化 关闭按钮
@@ -129,9 +133,25 @@ app.on('ready', () => {
 });
 
 
-ipcMain.on('asynchronous-message', function (event, jsonPath) {
-  console.log(jsonPath);
-  getJsonFiles(event, jsonPath)
+ipcMain.on('asynchronous-message', function (event, currentPath) {
+  // 刷新当前目录
+  if (currentPath) {
+    getJsonFiles(event, currentPath);
+  } else {
+    // 选择新目录
+    dialog.showOpenDialog(mainWindow, {
+      title: '请选择文件夹',
+      properties: ['openFile', 'openDirectory', 'createDirectory'],
+      filters: [
+        { name: 'music', extensions: ['wav', 'mp3', 'ogg', 'acc', 'flac'] }
+      ]
+    }).then(res => {
+      const jsonPath = res.filePaths.join('');
+      if (jsonPath) getJsonFiles(event, jsonPath)
+    }).catch(err => {
+      console.log(err)
+    })
+  }
 })
 
 function getJsonFiles(event, jsonPath) {
@@ -157,6 +177,7 @@ function getJsonFiles(event, jsonPath) {
         obj.id = '';
         obj.url = fPath;
         obj.type = 'local';
+        obj.directory = path;
         obj.ar = [{ id: '', name: tags.artist || '未知歌手' }];
         obj.al = { id: '', name: tags.album || '未知专辑', picUrl: '' };
         obj.name = tags.title || fPath.replace(/.wav|.mp3|.ogg|.acc|.flac/g, '').replace(path, '');
@@ -168,7 +189,7 @@ function getJsonFiles(event, jsonPath) {
     });
   }
   findJsonFile(jsonPath);
-  event.sender.send('asynchronous-reply', jsonFiles);
+  event.sender.send('asynchronous-reply', jsonFiles, jsonPath);
 }
 
 
