@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-12-25 17:22:57
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-02-17 14:59:57
+ * @LastEditTime: 2021-02-24 23:09:44
  * @Description:
  */
 import React, { Component } from 'react';
@@ -31,6 +31,7 @@ class Local extends Component {
     const that = this;
     // 这里是接收主进程传递过来的参数，这里的on要对应主进程send过来的名字
     ipc.on("asynchronous-reply", function (event, list, currentPath) {
+      console.log(list)
       // 这里的arg是从主线程请求的数据
       message.destroy();
       list.length ? message.info(`一共为你找到${list.length}首音乐,快来听听...`) : message.info('糟糕,什么都没找到,换个目录再试试吧...');

@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-09-15 16:33:03
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-02-05 21:55:20
+ * @LastEditTime: 2021-02-24 23:20:39
  * @Description: 歌单列表
  */
 import { formatLocalName, formatSerialNo, formatSongTime } from 'common/utils/format';
@@ -137,11 +137,11 @@ class MusicList extends Component {
       render: item => <span className={styles.singerText} >{item.al.name}</span>
     },
     {
-      title: '时长',
+      title: '大小',
       key: '5',
       width: 80,
-      sorter: (a, b) => a.dt - b.dt,
-      render: item => formatSongTime(item.dt)
+      sorter: (a, b) => a.size - b.size,
+      render: item => (item.size / 1024000).toFixed(1) + 'MB'
     },
   ];
 

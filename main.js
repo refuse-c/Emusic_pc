@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-20 16:41:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-02-17 15:26:45
+ * @LastEditTime: 2021-02-24 23:28:05
  * @Description: 
  */
 let appTray;
@@ -163,7 +163,6 @@ function getJsonFiles(event, jsonPath) {
     files.forEach(function (item, index) {
       let fPath = join(path, item);
       let stat = fs.statSync(fPath);
-
       if (stat.isFile() === true) {
         if (
           fPath.indexOf('.wav') === -1 &&
@@ -182,6 +181,8 @@ function getJsonFiles(event, jsonPath) {
         obj.al = { id: '', name: tags.album || '未知专辑', picUrl: '' };
         obj.name = tags.title || fPath.replace(/.wav|.mp3|.ogg|.acc|.flac/g, '').replace(path, '');
         obj.name = obj.name.replace(/\\/g, '');
+        obj.size = stat.size;
+        obj.atime = stat.atime;
         jsonFiles.push(obj);
       } else if (stat.isDirectory() === true) {
         findJsonFile(fPath);
