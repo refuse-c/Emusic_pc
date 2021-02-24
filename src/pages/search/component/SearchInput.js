@@ -2,14 +2,13 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-25 15:04:12
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-02-05 22:24:03
+ * @LastEditTime: 2021-02-24 20:15:29
  * @Description: 搜索-搜索框
  */
 import React, { Component } from 'react';
 import { searchDefault, searchHotDetail, searchSuggest } from 'common/api/search';
 import { isEmpty, Trim } from 'common/utils/format';
 import { Input } from 'antd';
-// import styles from '../css/index.module.scss';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modelPower } from 'store/actions';

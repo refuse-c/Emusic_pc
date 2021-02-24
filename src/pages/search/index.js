@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-01 02:13:43
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-02 17:49:00
+ * @LastEditTime: 2021-02-24 20:47:14
  * @Description:搜索
  */
 import React, { Component } from 'react';
@@ -17,7 +17,6 @@ import UserList from 'components/userList';
 import MusicList from 'components/musicList';
 import MvList from 'components/mv';
 import Vertical from 'components/songList/Vertical';
-
 import { keyToStr } from 'common/utils/format';
 import { Pagination, Spin } from 'antd';
 import { highlightText, traverseId } from 'common/utils/tools';
@@ -47,38 +46,69 @@ class Search extends Component {
     }
   }
 
-  getSearch = async (isFirst = false) => {
+  componentDidMount = () => {
+    const { keywords } = queryString.parse(this.props.location.search);
+    this.setState({ keywords }, () => this.getSearch());
+  }
+
+  static getDerivedStateFromProps = (nextProps, prevState) => {
+    const { keywords } = queryString.parse(nextProps.location.search);
+    if (keywords !== prevState.keywords) {
+      return {
+        keywords: keywords
+      };
+    }
+    return null;
+  }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (this.state.keywords !== prevState.keywords) {
+      this.getSearch();
+    }
+  }
+
+
+  // 滚动到顶部
+  scrollToTop = e => {
+    this.sc.scrollToTop();
+  }
+
+  getSearch = async () => {
+
     this.setState({ loading: true })
     const { type, keywords, limit, offset } = this.state;
-    const params = { type, keywords, limit, offset: (offset - 1) }
+    const params = { type, keywords, limit, offset: (offset - 1) * limit }
     const res = await search(params);
     if (type !== 1) {
       this.setState({ loading: false })
     }
     if (res.code !== 200) return;
-    const { songs, songCount, albums, albumCount, artists, artistCount, videos, videoCount, playlists, playlistCount, userprofiles, userprofileCount } = res.result;
+    this.scrollToTop();
+    const { songs, songCount, albums, albumCount, artists, artistCount, videos, videoCount, playlists, playlistCount, userprofiles, userprofileCount
+    } = res.result;
     switch (type) {
       case 1: // 单曲
-        if (isFirst) this.setState({ total: songCount })
-        this.querySongDetail(songs);
+        this.setState({ total: songCount || (songs ? songs.length : 0) })
+        songs ? this.querySongDetail(songs) : this.setState({ loading: false });
+
         break;
 
       case 10: // 专辑
-        isFirst ? this.setState({ list: albums, total: albumCount }) : this.setState({ list: albums });
+        this.setState({ list: albums, total: albumCount || (albums ? albums.length : 0) })
         break;
 
       case 100: // 歌手
-        isFirst ? this.setState({ list: artists, total: artistCount }) : this.setState({ list: artists });
+        this.setState({ list: artists, total: artistCount || (artists ? artists.length : 0) })
         break;
 
       case 1014: // 视频
-        isFirst ? this.setState({ list: videos, total: videoCount }) : this.setState({ list: videos });
+        this.setState({ list: videos, total: videoCount || (videos ? videos.length : 0) })
         break;
       case 1000: // 歌单
-        isFirst ? this.setState({ list: playlists, total: playlistCount }) : this.setState({ list: playlists });
+        this.setState({ list: playlists, total: playlistCount || (playlists ? playlists.length : 0) })
         break;
       case 1002: // 用户
-        isFirst ? this.setState({ list: userprofiles, total: userprofileCount }) : this.setState({ list: userprofiles });
+        this.setState({ list: userprofiles, total: userprofileCount || (userprofiles ? userprofiles.length : 0) })
         break;
       default: break;
     }
@@ -106,28 +136,7 @@ class Search extends Component {
 
   // 点击类型
   chooseItem = type => {
-    this.setState({ type, offset: 1, total: 0, list: [], loading: true }, () => this.getSearch(true))
-  }
-
-  componentDidMount = () => {
-    const { keywords } = queryString.parse(this.props.location.search);
-    this.setState({ keywords }, () => this.getSearch(true));
-  }
-
-  static getDerivedStateFromProps = (nextProps, prevState) => {
-    const { keywords } = queryString.parse(nextProps.location.search);
-    if (keywords !== prevState.keywords) {
-      return {
-        keywords: keywords
-      };
-    }
-    return null;
-  }
-
-  componentDidUpdate = (prevProps, prevState) => {
-    if (this.state.keywords !== prevState.keywords) {
-      this.getSearch(true)
-    }
+    this.setState({ type, offset: 1, total: 0, list: [], loading: true }, () => this.getSearch())
   }
 
   renderDom = () => {
@@ -150,12 +159,12 @@ class Search extends Component {
     const { type, menuList, keywords, limit, offset, total, loading } = this.state;
     return (
       <div className={styles.search}>
-        <ScrollView>
+        <ScrollView ref={sc => this.sc = sc}>
           <Spin tip="Loading..." spinning={loading}>
             <div
               className={styles.searchInfo}
               dangerouslySetInnerHTML={{
-                __html: `搜索${highlightText(keywords, keywords)},找到${total}${keyToStr(type)}`
+                __html: total ? `搜索${highlightText(keywords, keywords)},找到${total}${keyToStr(type)}` : `没有找到与${highlightText(keywords, keywords)}相关的内容哦`
               }}
             >
             </div>

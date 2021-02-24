@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-19 09:28:56
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-01-22 10:08:52
+ * @LastEditTime: 2021-02-24 20:45:28
  * @Description: 基础网络请求
  */
 import { message } from 'antd';
@@ -42,9 +42,9 @@ Axios.interceptors.response.use(
     message.destroy();
     const errMsg = JSON.parse(JSON.stringify(err));
     console.log(errMsg)
-    if (err && err.response) {
+    if (err && err.response && err.response.data && err.response.data.msg) {
       message.destroy();
-      message.warning(err.response && err.response.data.msg);
+      message.warning(err.response.data.msg);
     } else {
       message.warning(errMsg.message);
     }
