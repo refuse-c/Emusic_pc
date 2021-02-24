@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-10-20 16:41:04
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-02-17 15:34:57
+ * @LastEditTime: 2021-02-24 23:32:40
  * @Description: 
  */
 let appTray;
@@ -177,6 +177,8 @@ function getJsonFiles(event, jsonPath) {
         obj.url = fPath;
         obj.type = 'local';
         obj.directory = path;
+        obj.size = stat.size;
+        obj.atime = stat.atime;
         obj.ar = [{ id: '', name: tags.artist || '未知歌手' }];
         obj.al = { id: '', name: tags.album || '未知专辑', picUrl: '' };
         obj.name = tags.title || fPath.replace(/.wav|.mp3|.ogg|.acc|.flac/g, '').replace(path, '');
