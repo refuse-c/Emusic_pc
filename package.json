@@ -11,12 +11,15 @@
     "audio-loader": "^1.0.3",
     "axios": "^0.21.1",
     "css-loader": "^5.0.1",
+    "customize-cra": "^1.0.0",
+    "i": "^0.3.6",
     "node-id3": "^0.2.1",
     "node-sass": "^4.14.1",
     "postcss-loader": "^4.1.0",
     "prop-types": "^15.7.2",
     "query-string": "^6.13.7",
     "react": "^17.0.1",
+    "react-app-rewired": "^2.1.8",
     "react-color": "^2.19.3",
     "react-cookies": "^0.1.1",
     "react-custom-scrollbars": "^4.2.1",
@@ -33,10 +36,10 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "starts": "concurrently \"set BROWSER=none &&  react-scripts start\" \"electron .\" ",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "starts": "concurrently \"set BROWSER=none &&  react-app-rewired start\" \"electron .\" ",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "electron-start": "electron .",
     "start2": "electron . --enable-logging",
     "packager": "electron-packager ./build Emusic –out out_dir –arch=x64 –electron-version=11.1.0 —asar"
@@ -62,6 +65,7 @@
   "devDependencies": {
     "concurrently": "^5.3.0",
     "electron": "^11.1.1",
-    "electron-packager": "^15.2.0"
+    "electron-packager": "^15.2.0",
+    "uglifyjs-webpack-plugin": "^2.2.0"
   }
 }
