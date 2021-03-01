@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-24 09:03:36
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-02-05 22:17:08
+ * @LastEditTime: 2021-02-26 19:42:44
 //  * @Description: 
  */
 import React, { Component } from "react";
@@ -15,6 +15,7 @@ import { message } from 'antd';
 import { userPlaylist } from 'common/api/user';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import cookie from 'react-cookies';
 import { modelPower, queryUserInfo, userPlayList } from 'store/actions';
 import { IS_SHOW_PLAYER, IS_SHOW_PLAYLIST, IS_SHOW_SKIN, IS_SHOW_SEARCH_LIST } from "store/actionTypes";
 class Index extends Component {
@@ -45,7 +46,8 @@ class Index extends Component {
       const data = res.data;
       if (data.code !== 200 || data.profile == null) {
         reLocal('userInfo');
-        reLocal('cookie');
+        // reLocal('cookie');
+        cookie.remove('cookie');
         return false;
       };
       setLocal('userInfo', data.profile)
@@ -64,7 +66,8 @@ class Index extends Component {
     const res = await logout(params);
     if (res.code !== 200) return;
     reLocal('userInfo');
-    reLocal('cookie');
+    // reLocal('cookie');
+    cookie.remove('cookie');
     message.info('已退出登录');
     this.props.handeUserPlayList([]);
     this.props.handleQueryUserInfo({});

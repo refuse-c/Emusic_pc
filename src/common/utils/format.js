@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:06
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-02-06 00:43:42
+ * @LastEditTime: 2021-02-26 19:50:12
  * @Description:工具
  */
 
@@ -108,7 +108,7 @@ export const formatSongTime = (v, isSeconds = false) => {
  * @param {}
  */
 export const formatSerialNo = v => {
-  if (!v) return;
+  if (!v) return 0;
   return v < 10 ? '0' + v : v > 100000000
     ? (v / 100000000).toFixed(1) + '亿' : v > 100000 ? (v / 10000).toFixed(1) + '万' : v;
 }

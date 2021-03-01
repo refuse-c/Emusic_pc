@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-28 21:48:58
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-02-05 22:01:34
+ * @LastEditTime: 2021-02-26 19:43:38
  * @Description 登录弹窗
  */
 import React, { Component } from 'react'
@@ -15,8 +15,10 @@ import { phoneLogin, emailLogin, qrKey, qrCreate, qrCheck, phoneIsRegistered } f
 import { routerJump, setLocal } from 'common/utils/tools';
 import { withRouter } from 'react-router-dom';
 import BoxModel from 'components/model/BoxModel';
-import styles from './css/index.module.scss';
+import cookie from 'react-cookies';
 import { formatTel, formatTels, replaceLabel, Trim } from 'common/utils/format';
+import styles from './css/index.module.scss';
+
 // import MD5 from 'crypto-js/md5';
 let timer;
 const FormItem = Form.Item;
@@ -119,7 +121,7 @@ class LoginModel extends Component {
             clearInterval(timer);
             message.destroy();
             message.info('登录成功');
-            setLocal('cookie', res.cookie);
+            cookie.save('cookie', res.cookie);
             queryLoginStatus && queryLoginStatus(); //刷新登录
             this.props.handelModelPower({ type: IS_SHOW_LOGIN, data: false });
           }
@@ -138,7 +140,7 @@ class LoginModel extends Component {
     this.props.handelModelPower({ type: IS_SHOW_LOGIN, data: false });
     message.info('登录成功');
     setLocal('userInfo', res.profile);
-    setLocal('cookie', res.cookie);
+    cookie.save('cookie', res.cookie);
     const uid = res.profile.userId;
     callBack && callBack(uid);
     this.props.handleQueryUserInfo(res.profile);
