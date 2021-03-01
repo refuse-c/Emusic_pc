@@ -2,7 +2,7 @@
  * @Author: REFUSE_C
  * @Date: 2020-08-18 19:57:06
  * @LastEditors: REFUSE_C
- * @LastEditTime: 2021-02-26 19:50:12
+ * @LastEditTime: 2021-03-02 00:02:03
  * @Description:工具
  */
 
@@ -210,7 +210,6 @@ export const Trim = (str, type) => {
 
 
 export const changeArrGroup = (arr, slicelength = 500) => {
-  console.log(arr)
   if (isEmpty(arr)) return [];
 
   // 遍历筛选全部ids
